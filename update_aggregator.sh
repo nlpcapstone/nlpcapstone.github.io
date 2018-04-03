@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+set -e
 
 current_date_time="`date +%Y%m%d%H%M%S`";
 
@@ -7,6 +8,9 @@ cd ~
 
 # go to venus directory
 cd venus
+
+# activate venus environment
+source activate venus
 
 # Pull changes from planet
 python planet.py ~/Documents/Github/nlpcapstone.github.io/capstone_2018.ini

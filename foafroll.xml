@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#" xmlns:foaf="http://xmlns.com/foaf/0.1/" xmlns:rss="http://purl.org/rss/1.0/" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <foaf:Group>
+    <foaf:name>Nelson Liu</foaf:name>
+    <foaf:homepage/>
+    <foaf:member>
+      <foaf:Agent>
+        <foaf:name>Rajas Agashe &lt;br/&gt; Team Han Flying Solo</foaf:name>
+        <foaf:weblog>
+          <foaf:Document rdf:about="https://nlpcapstonesemparse.blogspot.com/">
+            <dc:title>NlpCapstone</dc:title>
+            <rdfs:seeAlso>
+              <rss:channel rdf:about="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss"/>
+            </rdfs:seeAlso>
+          </foaf:Document>
+        </foaf:weblog>
+      </foaf:Agent>
+    </foaf:member>
+    <foaf:member>
+      <foaf:Agent>
+        <foaf:name>Ryan Pham &lt;br/&gt; Team NeuralEmpty</foaf:name>
+        <foaf:weblog>
+          <foaf:Document rdf:about="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2">
+            <dc:title>Stories by Ryan Pham on Medium</dc:title>
+            <rdfs:seeAlso>
+              <rss:channel rdf:about="https://medium.com/feed/@ryanp97"/>
+            </rdfs:seeAlso>
+          </foaf:Document>
+        </foaf:weblog>
+      </foaf:Agent>
+    </foaf:member>
+  </foaf:Group>
+</rdf:RDF>

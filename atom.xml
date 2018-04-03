@@ -1,0 +1,59 @@
+<?xml version="1.0"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:planet="http://planet.intertwingly.net/" xmlns:indexing="urn:atom-extension:indexing" indexing:index="no"><access:restriction xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" relationship="deny"/>
+  <title>NLP Capstone Spring 2018</title>
+  <updated>2018-04-03T00:23:15Z</updated>
+  <generator uri="http://intertwingly.net/code/venus/">Venus</generator>
+  <author>
+    <name>Nelson Liu</name>
+    <email>nfliu[at]cs.washington.edu</email>
+  </author>
+  <id>https://nlpcapstone.github.io/atom.xml</id>
+  <link href="https://nlpcapstone.github.io/atom.xml" rel="self" type="application/atom+xml"/>
+  <link href="https://nlpcapstone.github.io/" rel="alternate"/>
+
+  <entry>
+    <id>https://medium.com/p/7385e7d5903f</id>
+    <link href="https://medium.com/@ryanp97/test-7385e7d5903f?source=rss-6378d85d3a9b------2" rel="alternate" type="text/html"/>
+    <title>Test</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>Test post for NELSON</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=7385e7d5903f" width="1"/></div>
+    </content>
+    <updated>2018-04-02T23:17:41Z</updated>
+    <author>
+      <name>Ryan Pham</name>
+    </author>
+    <source>
+      <id>https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2</id>
+      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*83KfTWByl5pPq7A8_E8ApA.gif</logo>
+      <link href="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2" rel="alternate" type="text/html"/>
+      <link href="https://medium.com/feed/@ryanp97" rel="self" type="application/rss+xml"/>
+      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
+      <subtitle>Stories by Ryan Pham on Medium</subtitle>
+      <title>Stories by Ryan Pham on Medium</title>
+      <updated>2018-04-02T23:47:29Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>tag:blogger.com,1999:blog-5600014144802012716.post-6768023392170538237</id>
+    <link href="https://nlpcapstonesemparse.blogspot.com/2018/03/blog-post-1.html" rel="alternate" type="text/html"/>
+    <title>Blog Post 1</title>
+    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="font-family: arial;"><span style="font-size: 14.6667px; white-space: pre;">I am interested in working in the code generation/semantic parsing space on the research track. My code </span></span><br/><span style="font-family: arial;"><span style="font-size: 14.6667px; white-space: pre;">will be in various branches of my fork of allennlp (https://github.com/rajasagashe/allennlp). I will keep you</span></span><br/><span style="font-family: arial;"><span style="font-size: 14.6667px; white-space: pre;"> updated on which branch/commits I worked on during each blog post. Also note that project idea 1 has </span></span><br/><span style="font-family: arial;"><span style="font-size: 14.6667px; white-space: pre;">the most detail since I have picked it as my project!</span></span></div><h2 dir="ltr" style="line-height: 1.38; margin-bottom: 6pt; margin-top: 18pt;"><span>Project Idea 1</span></h2><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Minimum Viable Plan:</span><span> Implement the model in the recent UW paper which introduces the task of </span><br/><span>generating the code for a java function from a natural language description. To further aid code </span><br/><span>generation, the class in which the generated function is to reside is provided, i.e. the class variables </span><br/><span>and methods. Thus the encoder encodes the class as well as the utterance and the decoder uses a </span><br/><span>two step attention mechanism and decodes through the java grammar production rules. </span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Stretch Goals:</span><span> Reproduce the state of the art results in the paper. I’m putting this in the stretch goals </span><br/><span>since successfully implementing a neural semantic parser with type constraints is pretty challenging. </span><br/><span>In addition, I hope to experiment with other improvements like encoding the entire class method body</span><br/><span> which wasn’t done.</span></div><h2 dir="ltr" style="line-height: 1.38; margin-bottom: 6pt; margin-top: 18pt;"><span>Project Idea 2</span></h2><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Minimum Viable Plan: </span><span>Implement this paper: </span><a href="https://arxiv.org/pdf/1704.01696.pdf" style="text-decoration: none;"><span>https://arxiv.org/pdf/1704.01696.pdf</span></a><span>. The model is </span><br/><span>similar to that of the previous idea, but the datasets are for python and ifttt instead.</span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Stretch Goals: </span><span>Improve the paper’s result.</span></div><h2 dir="ltr" style="line-height: 1.38; margin-bottom: 6pt; margin-top: 18pt;"><span>Project Idea 3</span></h2><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Minimum Viable Plan: </span><span>Perform transfer learning across several code generation tasks by using the </span><br/><span>same encoder for them all. This technique would be similar to what was used in the Cove paper </span><br/><a href="https://arxiv.org/pdf/1708.00107.pdf" style="text-decoration: none;"><span>https://arxiv.org/pdf/1708.00107.pdf</span></a><span>. </span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Stretch Goals: </span><span>Improve the individual paper results with this technique.</span></div><div><span><br/></span></div></div>
+    </summary>
+    <updated>2018-03-30T22:41:00Z</updated>
+    <author>
+      <name>nlpcapstone</name>
+      <email>noreply@blogger.com</email>
+    </author>
+    <source>
+      <id>tag:blogger.com,1999:blog-5600014144802012716</id>
+      <author>
+        <name>nlpcapstone</name>
+        <email>noreply@blogger.com</email>
+      </author>
+      <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
+      <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
+      <title>NlpCapstone</title>
+      <updated>2018-04-02T23:46:13Z</updated>
+    </source>
+  </entry>
+</feed>

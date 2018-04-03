@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<opml version="1.1">
+  <head>
+    <title>NLP Capstone Spring 2018</title>
+    <dateModified>Tue, 03 Apr 2018 00:23:15 GMT</dateModified>
+    <ownerName>Nelson Liu</ownerName>
+    <ownerEmail>nfliu[at]cs.washington.edu</ownerEmail>
+  </head>
+  <body>
+    <outline type="rss" text="Rajas Agashe &lt;br/&gt; Team Han Flying Solo" title="NlpCapstone" xmlUrl="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss"/>
+    <outline type="rss" text="Ryan Pham &lt;br/&gt; Team NeuralEmpty" title="Stories by Ryan Pham on Medium" xmlUrl="https://medium.com/feed/@ryanp97"/>
+  </body>
+</opml>
