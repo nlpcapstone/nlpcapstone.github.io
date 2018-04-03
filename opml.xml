@@ -2,12 +2,14 @@
 <opml version="1.1">
   <head>
     <title>NLP Capstone Spring 2018</title>
-    <dateModified>Tue, 03 Apr 2018 17:00:04 GMT</dateModified>
+    <dateModified>Tue, 03 Apr 2018 17:12:08 GMT</dateModified>
     <ownerName>Nelson Liu</ownerName>
     <ownerEmail>nfliu[at]cs.washington.edu</ownerEmail>
   </head>
   <body>
     <outline type="rss" text="Rajas Agashe &lt;br/&gt; Team Han Flying Solo" title="NlpCapstone" xmlUrl="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss"/>
     <outline type="rss" text="Ryan Pham &lt;br/&gt; Team NeuralEmpty" title="Stories by Ryan Pham on Medium" xmlUrl="https://medium.com/feed/@ryanp97"/>
+    <outline type="rss" text="Zichun Liu, Ning Hong, Sujie Zhou &lt;br/&gt; Team The Bugless" title="Stories by Ning Hong on Medium" xmlUrl="https://medium.com/feed/@hongnin1"/>
+    <outline type="rss" text="Boyan Li, Dennis Orzikh, Lanhao Wu &lt;br/&gt; Team Watch Your Language!" title="Team Watch Your Language!" xmlUrl="http://cse481n-capstone.azurewebsites.net/feed/"/>
   </body>
 </opml>

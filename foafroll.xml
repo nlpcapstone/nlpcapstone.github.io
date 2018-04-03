@@ -29,5 +29,31 @@
         </foaf:weblog>
       </foaf:Agent>
     </foaf:member>
+    <foaf:member>
+      <foaf:Agent>
+        <foaf:name>Zichun Liu, Ning Hong, Sujie Zhou &lt;br/&gt; Team The Bugless</foaf:name>
+        <foaf:weblog>
+          <foaf:Document rdf:about="https://medium.com/@hongnin1?source=rss-c450eb982161------2">
+            <dc:title>Stories by Ning Hong on Medium</dc:title>
+            <rdfs:seeAlso>
+              <rss:channel rdf:about="https://medium.com/feed/@hongnin1"/>
+            </rdfs:seeAlso>
+          </foaf:Document>
+        </foaf:weblog>
+      </foaf:Agent>
+    </foaf:member>
+    <foaf:member>
+      <foaf:Agent>
+        <foaf:name>Boyan Li, Dennis Orzikh, Lanhao Wu &lt;br/&gt; Team Watch Your Language!</foaf:name>
+        <foaf:weblog>
+          <foaf:Document rdf:about="http://cse481n-capstone.azurewebsites.net">
+            <dc:title>Team Watch Your Language!</dc:title>
+            <rdfs:seeAlso>
+              <rss:channel rdf:about="http://cse481n-capstone.azurewebsites.net/feed/"/>
+            </rdfs:seeAlso>
+          </foaf:Document>
+        </foaf:weblog>
+      </foaf:Agent>
+    </foaf:member>
   </foaf:Group>
 </rdf:RDF>
