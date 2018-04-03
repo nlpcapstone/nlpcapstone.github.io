@@ -17,6 +17,7 @@ python planet.py ~/Documents/Github/nlpcapstone.github.io/capstone_2018.ini --ex
 
 # push changes to github
 cd ~/Documents/Github/nlpcapstone.github.io/
+eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_rsa_nlpcapstonebot
 git add -A
 git commit --no-gpg-sign -m "Update aggregator ${current_date_time}"
