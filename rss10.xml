@@ -15,19 +15,11 @@
 
 	<items>
 		<rdf:Seq>
-			<rdf:li rdf:resource="https://medium.com/p/7385e7d5903f" />
 			<rdf:li rdf:resource="tag:blogger.com,1999:blog-5600014144802012716.post-6768023392170538237" />
 		</rdf:Seq>
 	</items>
 </channel>
 
-<item rdf:about="https://medium.com/p/7385e7d5903f">
-	<title>Ryan Pham &lt;br/&gt; Team NeuralEmpty: Test</title>
-	<link>https://medium.com/@ryanp97/test-7385e7d5903f?source=rss-6378d85d3a9b------2</link>
-	<content:encoded>&lt;p&gt;Test post for NELSON&lt;/p&gt;&lt;img height=&quot;1&quot; src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=7385e7d5903f&quot; width=&quot;1&quot; /&gt;</content:encoded>
-	<dc:date>2018-04-02T23:17:41+00:00</dc:date>
-	<dc:creator>Ryan Pham</dc:creator>
-</item>
 <item rdf:about="tag:blogger.com,1999:blog-5600014144802012716.post-6768023392170538237">
 	<title>Rajas Agashe &lt;br/&gt; Team Han Flying Solo: Blog Post 1</title>
 	<link>https://nlpcapstonesemparse.blogspot.com/2018/03/blog-post-1.html</link>
