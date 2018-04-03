@@ -13,7 +13,7 @@ cd venus
 source activate venus
 
 # Pull changes from planet
-python planet.py ~/Documents/Github/nlpcapstone.github.io/capstone_2018.ini
+python planet.py ~/Documents/Github/nlpcapstone.github.io/capstone_2018.ini --expunge
 
 # push changes to github
 cd ~/Documents/Github/nlpcapstone.github.io/
