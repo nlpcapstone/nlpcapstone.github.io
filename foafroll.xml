@@ -164,9 +164,9 @@
         <foaf:name>Kuikui Liu &lt;br/&gt; Team INLP</foaf:name>
         <foaf:weblog>
           <foaf:Document rdf:about="https://mathstoc.wordpress.com">
-            <dc:title>Mathematical Distractions</dc:title>
+            <dc:title>NLP Capstone – Mathematical Distractions</dc:title>
             <rdfs:seeAlso>
-              <rss:channel rdf:about="https://mathstoc.wordpress.com/feed/"/>
+              <rss:channel rdf:about="https://mathstoc.wordpress.com/category/nlp-capstone/feed/"/>
             </rdfs:seeAlso>
           </foaf:Document>
         </foaf:weblog>
