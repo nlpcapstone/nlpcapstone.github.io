@@ -9,6 +9,9 @@ cd ~
 # go to venus directory
 cd venus
 
+# Remove cache
+rm -rf cache
+
 # activate venus environment
 source activate venus
 
