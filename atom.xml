@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:planet="http://planet.intertwingly.net/" xmlns:indexing="urn:atom-extension:indexing" indexing:index="no"><access:restriction xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" relationship="deny"/>
   <title>NLP Capstone Spring 2018</title>
-  <updated>2018-04-04T19:51:47Z</updated>
+  <updated>2018-04-04T19:52:57Z</updated>
   <generator uri="http://intertwingly.net/code/venus/">Venus</generator>
   <author>
     <name>Nelson Liu</name>
@@ -10,41 +10,6 @@
   <id>https://nlpcapstone.github.io/atom.xml</id>
   <link href="https://nlpcapstone.github.io/atom.xml" rel="self" type="application/atom+xml"/>
   <link href="https://nlpcapstone.github.io/" rel="alternate"/>
-
-  <entry xml:lang="en">
-    <id>http://mathstoc.wordpress.com/?p=272</id>
-    <link href="https://mathstoc.wordpress.com/2018/04/04/3-coloring-the-plane/" rel="alternate" type="text/html"/>
-    <title>3-Coloring the Plane</title>
-    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">Today, I would like to present a very neat problem my friend, Alex Tsun, told me recently while he was playing Pokemon Go. I’ll give the problem a name for convenience below. 3-Coloring the Plane: Suppose you assign a color to every point in the plane . Your only choices are red, green, and blue. … <a class="more-link" href="https://mathstoc.wordpress.com/2018/04/04/3-coloring-the-plane/">Continue reading <span class="screen-reader-text">3-Coloring the Plane</span></a></div>
-    </summary>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>Today, I would like to present a very neat problem my friend, Alex Tsun, told me recently while he was playing Pokemon Go. I’ll give the problem a name for convenience below.</p>
-<blockquote><p><b>3-Coloring the Plane:</b><em> Suppose you assign a color to every point in the plane <img alt="\mathbb{R}^{2}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbb%7BR%7D%5E%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mathbb{R}^{2}"/>. Your only choices are red, green, and blue. Prove that there must exist a rectangle (in any orientation, located anywhere), such that all four corners of the rectangle have the same color.</em></p></blockquote>
-<p>For convenience, let’s call such a desired rectangle a monochromatic rectangle.</p>
-<p>Seems daunting, and the key difficulty I had with this problem was its lack of “structure”. The rectangle could be anywhere! Yet, the infinitude of <img alt="\mathbb{R}^{2}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbb%7BR%7D%5E%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mathbb{R}^{2}"/>, and hence, the sheer abundance (uncountably many) of rectangles, leads one to believe that there should be at least one (and perhaps, also infinitely many). Such an observation hinted at a Pigeonhole Principle type argument.</p>
-<p>Here is how one way of setting it up. The key to think about it (at least for me) was to introduce additional structure into the rectangles. Here, we will consider a specific way of generating rectangles. Fix a pair of distinct parallel lines <img alt="L_{1},L_{2}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%2CL_%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1},L_{2}"/> and then fix another pair of distinct parallel lines <img alt="L_{1}^{\perp},L_{2}^{\perp}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%5E%7B%5Cperp%7D%2CL_%7B2%7D%5E%7B%5Cperp%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1}^{\perp},L_{2}^{\perp}"/>, which are perpendicular to <img alt="L_{1},L_{2}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%2CL_%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1},L_{2}"/>. The intersections of the lines <img alt="L_{1},L_{2}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%2CL_%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1},L_{2}"/> with <img alt="L_{1}^{\perp},L_{2}^{\perp}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%5E%7B%5Cperp%7D%2CL_%7B2%7D%5E%7B%5Cperp%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1}^{\perp},L_{2}^{\perp}"/> will form the corners of a rectangle. Now, imagine sliding <img alt="L_{1}^{\perp},L_{2}^{\perp}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%5E%7B%5Cperp%7D%2CL_%7B2%7D%5E%7B%5Cperp%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1}^{\perp},L_{2}^{\perp}"/> along <img alt="L_{1},L_{2}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%2CL_%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1},L_{2}"/>. This, again, produces infinitely many rectangles. And the set of all possible rectangles in <img alt="\mathbb{R}^{2}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbb%7BR%7D%5E%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mathbb{R}^{2}"/> certainly contains the set of all possible rectangles that can be produced via this method. Thus, it suffices to find a monochromatic rectangle produced in this manner.</p>
-<p>Unfortunately, this doesn’t work, and there is an easy way to see it. Suppose <img alt="L_{1}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1}"/> is completely colored, say, blue, while <img alt="L_{2}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{2}"/> is completely colored, say, red. Then, no matter how one positions <img alt="L_{1}^{\perp},L_{2}^{\perp}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%5E%7B%5Cperp%7D%2CL_%7B2%7D%5E%7B%5Cperp%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1}^{\perp},L_{2}^{\perp}"/>, there will always be two corners blue and two corners red.</p>
-<p>However, this leads one to the following idea: instead of having two distinct parallel lines <img alt="L_{1},L_{2}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%2CL_%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1},L_{2}"/>, let’s have four distinct parallel lines <img alt="L_{1},L_{2},L_{3},L_{4}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%2CL_%7B2%7D%2CL_%7B3%7D%2CL_%7B4%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1},L_{2},L_{3},L_{4}"/> (with <img alt="L_{1}^{\perp},L_{2}^{\perp}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%5E%7B%5Cperp%7D%2CL_%7B2%7D%5E%7B%5Cperp%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1}^{\perp},L_{2}^{\perp}"/> still lying perpendicular to these and sliding along them to produce rectangles). Now, this completely avoids the previous problem, as the intersection points of <img alt="L_{1}^{\perp}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%5E%7B%5Cperp%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1}^{\perp}"/> with the lines <img alt="L_{1},L_{2},L_{3},L_{4}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%2CL_%7B2%7D%2CL_%7B3%7D%2CL_%7B4%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1},L_{2},L_{3},L_{4}"/> give a configuration of four colors which necessarily contain two points with the same color (by the Pigeonhole Principle, with 4 intersection points for the pigeons and 3 colors for the holes).</p>
-<p>This is good because now, we just have to find another position for <img alt="L_{2}^{\perp}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B2%7D%5E%7B%5Cperp%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{2}^{\perp}"/> along <img alt="L_{1},L_{2},L_{3},L_{4}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%2CL_%7B2%7D%2CL_%7B3%7D%2CL_%7B4%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1},L_{2},L_{3},L_{4}"/> that yields the same configuration when intersected with <img alt="L_{1},L_{2},L_{3},L_{4}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%2CL_%7B2%7D%2CL_%7B3%7D%2CL_%7B4%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1},L_{2},L_{3},L_{4}"/>. This is obviously true because there are only finitely many (exactly <img alt="3^{4} = 81" class="latex" src="https://s0.wp.com/latex.php?latex=3%5E%7B4%7D+%3D+81&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="3^{4} = 81"/>) possible configurations (holes) but infinitely many possible places to place <img alt="L_{2}^{\perp}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B2%7D%5E%7B%5Cperp%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{2}^{\perp}"/> (pigeons)!</p>
-<p>Thus we have the claim.</p>
-<p>Upon examining this pigeonhole argument, we see that one doesn’t actually need infinite lines. All we need is a <img alt="4 \times 82" class="latex" src="https://s0.wp.com/latex.php?latex=4+%5Ctimes+82&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="4 \times 82"/> rectangular grid, and the conclusion that there is a monochromatic rectangle (with corners on the grid) still holds. This observation immediately shows us that in fact, there are uncountably infinitely many monochromatic rectangles in <img alt="\mathbb{R}^{2}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbb%7BR%7D%5E%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mathbb{R}^{2}"/>. Furthermore, there is one for any desired orientation.</p></div>
-    </content>
-    <updated>2018-04-04T07:34:40Z</updated>
-    <category term="Uncategorized"/>
-    <author>
-      <name>mathstoc</name>
-    </author>
-    <source>
-      <id>https://mathstoc.wordpress.com</id>
-      <logo>https://s0.wp.com/i/buttonw-com.png</logo>
-      <link href="https://mathstoc.wordpress.com/feed/" rel="self" type="application/rss+xml"/>
-      <link href="https://mathstoc.wordpress.com" rel="alternate" type="text/html"/>
-      <link href="https://mathstoc.wordpress.com/osd.xml" rel="search" title="Mathematical Distractions" type="application/opensearchdescription+xml"/>
-      <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
-      <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
-      <title>Mathematical Distractions</title>
-      <updated>2018-04-04T19:45:15Z</updated>
-    </source>
-  </entry>
 
   <entry>
     <id>tag:blogger.com,1999:blog-354195895616735293.post-6386758378464642504</id>
@@ -97,7 +62,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-04T19:51:45Z</updated>
+      <updated>2018-04-04T19:52:55Z</updated>
     </source>
   </entry>
 
@@ -154,7 +119,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-04T19:51:46Z</updated>
+      <updated>2018-04-04T19:52:56Z</updated>
     </source>
   </entry>
 
@@ -181,7 +146,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-04T19:51:46Z</updated>
+      <updated>2018-04-04T19:52:56Z</updated>
     </source>
   </entry>
 
@@ -213,7 +178,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-04T19:51:45Z</updated>
+      <updated>2018-04-04T19:52:55Z</updated>
     </source>
   </entry>
 
@@ -240,7 +205,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-04T19:51:45Z</updated>
+      <updated>2018-04-04T19:52:54Z</updated>
     </source>
   </entry>
 
@@ -265,7 +230,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-04T19:51:45Z</updated>
+      <updated>2018-04-04T19:52:54Z</updated>
     </source>
   </entry>
 
@@ -288,7 +253,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-03T22:00:03Z</updated>
+      <updated>2018-04-04T19:52:52Z</updated>
     </source>
   </entry>
 
@@ -333,7 +298,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-04T19:51:44Z</updated>
+      <updated>2018-04-04T19:52:53Z</updated>
     </source>
   </entry>
 
@@ -356,7 +321,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-04T19:51:44Z</updated>
+      <updated>2018-04-04T19:52:52Z</updated>
     </source>
   </entry>
 
@@ -394,7 +359,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-03T17:12:08Z</updated>
+      <updated>2018-04-04T19:52:54Z</updated>
     </source>
   </entry>
 
@@ -418,7 +383,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-04T19:37:48Z</updated>
+      <updated>2018-04-04T19:52:55Z</updated>
     </source>
   </entry>
 
@@ -442,182 +407,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-03T22:00:03Z</updated>
-    </source>
-  </entry>
-
-  <entry xml:lang="en">
-    <id>http://mathstoc.wordpress.com/?p=265</id>
-    <link href="https://mathstoc.wordpress.com/2018/01/12/brunn-minkowski-implies-uniform-measures-on-convex-sets-are-logconcave/" rel="alternate" type="text/html"/>
-    <title>Brunn-Minkowski Implies Uniform Measures on Convex Sets are Logconcave</title>
-    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">Recently, I’ve been reading about logconcave measures, which is a set of measures contain the uniform measures over convex sets. We like analyzing them as a “generalization of convex sets” because their densities are additionally closed under convolution, unlike the indicators of convex sets. Thus, they are quite useful in convex geometry. TCS researchers study … <a class="more-link" href="https://mathstoc.wordpress.com/2018/01/12/brunn-minkowski-implies-uniform-measures-on-convex-sets-are-logconcave/">Continue reading <span class="screen-reader-text">Brunn-Minkowski Implies Uniform Measures on Convex Sets are Logconcave</span></a></div>
-    </summary>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>Recently, I’ve been reading about logconcave measures, which is a set of measures contain the uniform measures over convex sets. We like analyzing them as a “generalization of convex sets” because their densities are additionally closed under convolution, unlike the indicators of convex sets. Thus, they are quite useful in convex geometry. TCS researchers study them in pursuit of fast algorithms for sampling points from convex bodies, estimating integrals, and optimization.</p>
-<p>Let’s start with a definition.</p>
-<blockquote><p><b>Definition (Logconcave Measure):</b><em> A measure <img alt="\mu" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmu&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="\mu"/> on <img alt="\mathbb{R}^{n}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbb%7BR%7D%5E%7Bn%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mathbb{R}^{n}"/> is <strong>logconcave</strong> if for every measurable <img alt="A,B \subset \mathbb{R}^{n}" class="latex" src="https://s0.wp.com/latex.php?latex=A%2CB+%5Csubset+%5Cmathbb%7BR%7D%5E%7Bn%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="A,B \subset \mathbb{R}^{n}"/> and <img alt="0 &lt; \lambda &lt; 1" class="latex" src="https://s0.wp.com/latex.php?latex=0+%3C+%5Clambda+%3C+1&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="0 &lt; \lambda &lt; 1"/> with <img alt="\lambda A + (1 - \lambda)B" class="latex" src="https://s0.wp.com/latex.php?latex=%5Clambda+A+%2B+%281+-+%5Clambda%29B&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\lambda A + (1 - \lambda)B"/> measurable, we have <img alt="\mu(\lambda A + (1 - \lambda)B) \geq \mu(A)^{\lambda}\mu(B)^{1-\lambda}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmu%28%5Clambda+A+%2B+%281+-+%5Clambda%29B%29+%5Cgeq+%5Cmu%28A%29%5E%7B%5Clambda%7D%5Cmu%28B%29%5E%7B1-%5Clambda%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mu(\lambda A + (1 - \lambda)B) \geq \mu(A)^{\lambda}\mu(B)^{1-\lambda}"/>, where <img alt="\lambda A + (1 - \lambda)B = \{\lambda a + (1 - \lambda)b : a \in A, b \in B\}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Clambda+A+%2B+%281+-+%5Clambda%29B+%3D+%5C%7B%5Clambda+a+%2B+%281+-+%5Clambda%29b+%3A+a+%5Cin+A%2C+b+%5Cin+B%5C%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\lambda A + (1 - \lambda)B = \{\lambda a + (1 - \lambda)b : a \in A, b \in B\}"/> is the <strong>Minkowski sum</strong> of <img alt="\lambda A = \{\lambda a : a \in A\}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Clambda+A+%3D+%5C%7B%5Clambda+a+%3A+a+%5Cin+A%5C%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\lambda A = \{\lambda a : a \in A\}"/> and <img alt="(1 - \lambda)B = \{(1 - \lambda)b : b \in B\}" class="latex" src="https://s0.wp.com/latex.php?latex=%281+-+%5Clambda%29B+%3D+%5C%7B%281+-+%5Clambda%29b+%3A+b+%5Cin+B%5C%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="(1 - \lambda)B = \{(1 - \lambda)b : b \in B\}"/>.</em></p></blockquote>
-<p>For the purposes of this post, we’ll ignore issues of compactness, etc. just to make the presentation clean.</p>
-<p>A typical introduction into the theory here begins with the <strong>Brunn-Minkowski Inequality</strong>, which simply states that <img alt="m(A + B)^{1/n} \geq m(A)^{1/n} + m(B)^{1/n}" class="latex" src="https://s0.wp.com/latex.php?latex=m%28A+%2B+B%29%5E%7B1%2Fn%7D+%5Cgeq+m%28A%29%5E%7B1%2Fn%7D+%2B+m%28B%29%5E%7B1%2Fn%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="m(A + B)^{1/n} \geq m(A)^{1/n} + m(B)^{1/n}"/> where the volume is with respect to Lebesgue measure <img alt="m" class="latex" src="https://s0.wp.com/latex.php?latex=m&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="m"/> on <img alt="\mathbb{R}^{n}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbb%7BR%7D%5E%7Bn%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mathbb{R}^{n}"/>. This initially confused me, as it wasn’t clear how this implies that the Lebesgue measure (and more generally, the uniform measure on a convex set) is logconcave, until I discovered a quick proof of the implication using the (generalized) AMGM inequality. Let’s recall what it states.</p>
-<blockquote><p><b>Generalized Arithmetic-Mean Geometric-Mean Inequality (AMGM):</b><em> Let <img alt="\alpha_{1},\dots,\alpha_{n} \geq 0" class="latex" src="https://s0.wp.com/latex.php?latex=%5Calpha_%7B1%7D%2C%5Cdots%2C%5Calpha_%7Bn%7D+%5Cgeq+0&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\alpha_{1},\dots,\alpha_{n} \geq 0"/> be nonnegative numbers and <img alt="\lambda_{1},\dots,\lambda_{n} \geq 0" class="latex" src="https://s0.wp.com/latex.php?latex=%5Clambda_%7B1%7D%2C%5Cdots%2C%5Clambda_%7Bn%7D+%5Cgeq+0&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\lambda_{1},\dots,\lambda_{n} \geq 0"/> be weights such that <img alt="\sum_{i=1}^{n} \lambda_{i} = 1" class="latex" src="https://s0.wp.com/latex.php?latex=%5Csum_%7Bi%3D1%7D%5E%7Bn%7D+%5Clambda_%7Bi%7D+%3D+1&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\sum_{i=1}^{n} \lambda_{i} = 1"/>. Then <img alt="\sum_{i=1}^{n} \lambda_{i}\alpha_{i} \geq \prod_{i=1}^{n} \alpha_{i}^{\lambda_{i}}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Csum_%7Bi%3D1%7D%5E%7Bn%7D+%5Clambda_%7Bi%7D%5Calpha_%7Bi%7D+%5Cgeq+%5Cprod_%7Bi%3D1%7D%5E%7Bn%7D+%5Calpha_%7Bi%7D%5E%7B%5Clambda_%7Bi%7D%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\sum_{i=1}^{n} \lambda_{i}\alpha_{i} \geq \prod_{i=1}^{n} \alpha_{i}^{\lambda_{i}}"/>, with the convention that <img alt="\alpha_{i}^{\lambda_{i}} = 1" class="latex" src="https://s0.wp.com/latex.php?latex=%5Calpha_%7Bi%7D%5E%7B%5Clambda_%7Bi%7D%7D+%3D+1&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\alpha_{i}^{\lambda_{i}} = 1"/> for any <img alt="i" class="latex" src="https://s0.wp.com/latex.php?latex=i&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="i"/> with <img alt="\alpha_{i} = \lambda_{i} = 0" class="latex" src="https://s0.wp.com/latex.php?latex=%5Calpha_%7Bi%7D+%3D+%5Clambda_%7Bi%7D+%3D+0&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\alpha_{i} = \lambda_{i} = 0"/>.</em></p></blockquote>
-<p>Proof of this inequality is a simple application of Jensen’s Inequality and convexity of <img alt="-\log(x)" class="latex" src="https://s0.wp.com/latex.php?latex=-%5Clog%28x%29&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="-\log(x)"/>.</p>
-<p>We will also need to know about how the Minkowski sum interacts with intersection with a convex set.</p>
-<blockquote><p><b>Lemma:</b><em> Let <img alt="A,B \subset \mathbb{R}^{n}" class="latex" src="https://s0.wp.com/latex.php?latex=A%2CB+%5Csubset+%5Cmathbb%7BR%7D%5E%7Bn%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="A,B \subset \mathbb{R}^{n}"/> be measurable and <img alt="0 &lt; \lambda &lt; 1" class="latex" src="https://s0.wp.com/latex.php?latex=0+%3C+%5Clambda+%3C+1&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="0 &lt; \lambda &lt; 1"/> such that <img alt="\lambda A + (1 - \lambda)B" class="latex" src="https://s0.wp.com/latex.php?latex=%5Clambda+A+%2B+%281+-+%5Clambda%29B&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\lambda A + (1 - \lambda)B"/> is measurable. Let <img alt="K" class="latex" src="https://s0.wp.com/latex.php?latex=K&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="K"/> be a convex set (which is automatically convex). Then <img alt="(\lambda A + (1 - \lambda)B) \cap K \supset \lambda (A \cap K) + (1 - \lambda)(B \cap K)" class="latex" src="https://s0.wp.com/latex.php?latex=%28%5Clambda+A+%2B+%281+-+%5Clambda%29B%29+%5Ccap+K+%5Csupset+%5Clambda+%28A+%5Ccap+K%29+%2B+%281+-+%5Clambda%29%28B+%5Ccap+K%29&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="(\lambda A + (1 - \lambda)B) \cap K \supset \lambda (A \cap K) + (1 - \lambda)(B \cap K)"/>.</em></p></blockquote>
-<p><em>Proof:</em> Let <img alt="z \in \lambda(A \cap K) + (1 - \lambda)(B \cap K)" class="latex" src="https://s0.wp.com/latex.php?latex=z+%5Cin+%5Clambda%28A+%5Ccap+K%29+%2B+%281+-+%5Clambda%29%28B+%5Ccap+K%29&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="z \in \lambda(A \cap K) + (1 - \lambda)(B \cap K)"/>. By definition, we may write <img alt="z = \lambda x + (1 - \lambda)y" class="latex" src="https://s0.wp.com/latex.php?latex=z+%3D+%5Clambda+x+%2B+%281+-+%5Clambda%29y&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="z = \lambda x + (1 - \lambda)y"/> for some <img alt="x \in A \cap K, y \in B \cap K" class="latex" src="https://s0.wp.com/latex.php?latex=x+%5Cin+A+%5Ccap+K%2C+y+%5Cin+B+%5Ccap+K&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="x \in A \cap K, y \in B \cap K"/>. Since <img alt="x \in A, y \in B" class="latex" src="https://s0.wp.com/latex.php?latex=x+%5Cin+A%2C+y+%5Cin+B&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="x \in A, y \in B"/>, <img alt="z \in \lambda A + (1 -\lambda)B" class="latex" src="https://s0.wp.com/latex.php?latex=z+%5Cin+%5Clambda+A+%2B+%281+-%5Clambda%29B&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="z \in \lambda A + (1 -\lambda)B"/>. Finally, since <img alt="x \in K, y \in K" class="latex" src="https://s0.wp.com/latex.php?latex=x+%5Cin+K%2C+y+%5Cin+K&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="x \in K, y \in K"/> and <img alt="K" class="latex" src="https://s0.wp.com/latex.php?latex=K&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="K"/> is convex, <img alt="z \in K" class="latex" src="https://s0.wp.com/latex.php?latex=z+%5Cin+K&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="z \in K"/>. Thus, <img alt="z \in (\lambda A + (1 - \lambda)B) \cap K" class="latex" src="https://s0.wp.com/latex.php?latex=z+%5Cin+%28%5Clambda+A+%2B+%281+-+%5Clambda%29B%29+%5Ccap+K&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="z \in (\lambda A + (1 - \lambda)B) \cap K"/> as desired. <img alt="\Box" class="latex" src="https://s0.wp.com/latex.php?latex=%5CBox&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\Box"/></p>
-<p>Note that this containment is strict in general, even in one dimension. For example, one can take <img alt="A = \{0\}, B = \{2\}, \lambda = 1/2" class="latex" src="https://s0.wp.com/latex.php?latex=A+%3D+%5C%7B0%5C%7D%2C+B+%3D+%5C%7B2%5C%7D%2C+%5Clambda+%3D+1%2F2&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="A = \{0\}, B = \{2\}, \lambda = 1/2"/> so that <img alt="\lambda A = \{0\}, (1 - \lambda)B = \{1\}, \lambda A + (1 - \lambda)B = \{1\}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Clambda+A+%3D+%5C%7B0%5C%7D%2C+%281+-+%5Clambda%29B+%3D+%5C%7B1%5C%7D%2C+%5Clambda+A+%2B+%281+-+%5Clambda%29B+%3D+%5C%7B1%5C%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\lambda A = \{0\}, (1 - \lambda)B = \{1\}, \lambda A + (1 - \lambda)B = \{1\}"/>. If <img alt="K = [1/2,3/2]" class="latex" src="https://s0.wp.com/latex.php?latex=K+%3D+%5B1%2F2%2C3%2F2%5D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="K = [1/2,3/2]"/>, then <img alt="(\lambda A + (1 - \lambda)B) \cap K = \{1\}" class="latex" src="https://s0.wp.com/latex.php?latex=%28%5Clambda+A+%2B+%281+-+%5Clambda%29B%29+%5Ccap+K+%3D+%5C%7B1%5C%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="(\lambda A + (1 - \lambda)B) \cap K = \{1\}"/> but <img alt="A \cap K = B \cap K = \emptyset" class="latex" src="https://s0.wp.com/latex.php?latex=A+%5Ccap+K+%3D+B+%5Ccap+K+%3D+%5Cemptyset&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="A \cap K = B \cap K = \emptyset"/> so that <img alt="\lambda (A \cap K) + (1 - \lambda)(B \cap K) = \emptyset" class="latex" src="https://s0.wp.com/latex.php?latex=%5Clambda+%28A+%5Ccap+K%29+%2B+%281+-+%5Clambda%29%28B+%5Ccap+K%29+%3D+%5Cemptyset&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\lambda (A \cap K) + (1 - \lambda)(B \cap K) = \emptyset"/>.</p>
-<p>Now, on to the implication.</p>
-<blockquote><p><b>Corollary (of the Brunn-Minkowski Inequality):</b><em> The uniform measure w.r.t. a convex set <img alt="K" class="latex" src="https://s0.wp.com/latex.php?latex=K&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="K"/>, defined as <img alt="\mu_{K}(S) = m(K \cap S) = \int_{S} \chi_{K} \,dm" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmu_%7BK%7D%28S%29+%3D+m%28K+%5Ccap+S%29+%3D+%5Cint_%7BS%7D+%5Cchi_%7BK%7D+%5C%2Cdm&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mu_{K}(S) = m(K \cap S) = \int_{S} \chi_{K} \,dm"/>, is logconcave.</em></p></blockquote>
-<p><em>Proof:</em> Let <img alt="A,B \subset \mathbb{R}^{n}" class="latex" src="https://s0.wp.com/latex.php?latex=A%2CB+%5Csubset+%5Cmathbb%7BR%7D%5E%7Bn%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="A,B \subset \mathbb{R}^{n}"/> be measurable and <img alt="0 &lt; \lambda &lt; 1" class="latex" src="https://s0.wp.com/latex.php?latex=0+%3C+%5Clambda+%3C+1&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="0 &lt; \lambda &lt; 1"/> with <img alt="\lambda A + (1 - \lambda)B" class="latex" src="https://s0.wp.com/latex.php?latex=%5Clambda+A+%2B+%281+-+%5Clambda%29B&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\lambda A + (1 - \lambda)B"/> measurable. The preceding lemma shows that</p>
-<p align="center"><img alt="\begin{aligned}\mu_{K}(\lambda A + (1 -  \lambda)B)^{1/n} = m(K \cap (\lambda A + (1 - \lambda) B))^{1/n} \geq m(\lambda(A \cap K) + (1 - \lambda)(B \cap K))^{1/n}\end{aligned}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cbegin%7Baligned%7D%5Cmu_%7BK%7D%28%5Clambda+A+%2B+%281+-++%5Clambda%29B%29%5E%7B1%2Fn%7D+%3D+m%28K+%5Ccap+%28%5Clambda+A+%2B+%281+-+%5Clambda%29+B%29%29%5E%7B1%2Fn%7D+%5Cgeq+m%28%5Clambda%28A+%5Ccap+K%29+%2B+%281+-+%5Clambda%29%28B+%5Ccap+K%29%29%5E%7B1%2Fn%7D%5Cend%7Baligned%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\begin{aligned}\mu_{K}(\lambda A + (1 -  \lambda)B)^{1/n} = m(K \cap (\lambda A + (1 - \lambda) B))^{1/n} \geq m(\lambda(A \cap K) + (1 - \lambda)(B \cap K))^{1/n}\end{aligned}"/>.</p>
-<p> Now, applying the Brunn-Minkowski Inequality, we have a lower bound of</p>
-<p align="center"><img alt="\begin{aligned}m(\lambda(A \cap K))^{1/n} + m((1 -  \lambda)(B \cap K))^{1/n} = \lambda m(A \cap K)^{1/n} + (1 -  \lambda)m(B \cap K)^{1/n} = \lambda \mu_{K}(A)^{1/n} + (1 -  \lambda)\mu_{K}(B)^{1/n}\end{aligned}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cbegin%7Baligned%7Dm%28%5Clambda%28A+%5Ccap+K%29%29%5E%7B1%2Fn%7D+%2B+m%28%281+-++%5Clambda%29%28B+%5Ccap+K%29%29%5E%7B1%2Fn%7D+%3D+%5Clambda+m%28A+%5Ccap+K%29%5E%7B1%2Fn%7D+%2B+%281+-++%5Clambda%29m%28B+%5Ccap+K%29%5E%7B1%2Fn%7D+%3D+%5Clambda+%5Cmu_%7BK%7D%28A%29%5E%7B1%2Fn%7D+%2B+%281+-++%5Clambda%29%5Cmu_%7BK%7D%28B%29%5E%7B1%2Fn%7D%5Cend%7Baligned%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\begin{aligned}m(\lambda(A \cap K))^{1/n} + m((1 -  \lambda)(B \cap K))^{1/n} = \lambda m(A \cap K)^{1/n} + (1 -  \lambda)m(B \cap K)^{1/n} = \lambda \mu_{K}(A)^{1/n} + (1 -  \lambda)\mu_{K}(B)^{1/n}\end{aligned}"/>.</p>
-<p> Applying AMGM with <img alt="\alpha_{1} = \mu_{K}(A)^{1/n}, \alpha_{2} = \mu_{K}(B)^{1/n}, \lambda_{1}=\lambda, \lambda_{2}=1 - \lambda" class="latex" src="https://s0.wp.com/latex.php?latex=%5Calpha_%7B1%7D+%3D+%5Cmu_%7BK%7D%28A%29%5E%7B1%2Fn%7D%2C+%5Calpha_%7B2%7D+%3D+%5Cmu_%7BK%7D%28B%29%5E%7B1%2Fn%7D%2C+%5Clambda_%7B1%7D%3D%5Clambda%2C+%5Clambda_%7B2%7D%3D1+-+%5Clambda&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\alpha_{1} = \mu_{K}(A)^{1/n}, \alpha_{2} = \mu_{K}(B)^{1/n}, \lambda_{1}=\lambda, \lambda_{2}=1 - \lambda"/>, we obtain a final lower bound of <img alt="\mu_{K}(A)^{\lambda/n}\mu_{K}(B)^{(1-\lambda)/n}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmu_%7BK%7D%28A%29%5E%7B%5Clambda%2Fn%7D%5Cmu_%7BK%7D%28B%29%5E%7B%281-%5Clambda%29%2Fn%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mu_{K}(A)^{\lambda/n}\mu_{K}(B)^{(1-\lambda)/n}"/>. Raising both sides of the inequality to the <img alt="n" class="latex" src="https://s0.wp.com/latex.php?latex=n&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="n"/>th power gives the result. <img alt="\Box" class="latex" src="https://s0.wp.com/latex.php?latex=%5CBox&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\Box"/></p>
-<p>Note that in this, all we really needed about the Lebesgue measure is that it is <strong>positive homogeneous of degree <img alt="n" class="latex" src="https://s0.wp.com/latex.php?latex=n&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="n"/></strong>, i.e. that <img alt="m(\lambda A) = \lambda^{n}m(A)" class="latex" src="https://s0.wp.com/latex.php?latex=m%28%5Clambda+A%29+%3D+%5Clambda%5E%7Bn%7Dm%28A%29&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="m(\lambda A) = \lambda^{n}m(A)"/>. Perhaps I am missing some other technical aspects of the Lebesgue measure that are necessary for the proof to go through.</p>
-<p>UPDATE (01/17/2018): It turns out the converse is true as well, i.e. logconcavity of the Lebesgue measure implies the Brunn-Minkowski Inequality. We refer the reader to Corollary 5.3 from <a href="http://faculty.wwu.edu/gardner/gorizia12.pdf">Gardner’s survey titled “The Brunn-Minkowski Inequality”</a> for the proof, which just rescales <img alt="A,B" class="latex" src="https://s0.wp.com/latex.php?latex=A%2CB&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="A,B"/> to have unit volume and then makes a clever choice for the parameter <img alt="\lambda" class="latex" src="https://s0.wp.com/latex.php?latex=%5Clambda&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\lambda"/>.</p>
-<blockquote><p><b>Lemma:</b><em> Suppose for all measurable <img alt="A,B" class="latex" src="https://s0.wp.com/latex.php?latex=A%2CB&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="A,B"/>, and <img alt="0 &lt; \lambda &lt; 1" class="latex" src="https://s0.wp.com/latex.php?latex=0+%3C+%5Clambda+%3C+1&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="0 &lt; \lambda &lt; 1"/> such that <img alt="\lambda A + (1 - \lambda)B" class="latex" src="https://s0.wp.com/latex.php?latex=%5Clambda+A+%2B+%281+-+%5Clambda%29B&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\lambda A + (1 - \lambda)B"/> is measurable,<br/>
- that <img alt="m(\lambda A + (1 - \lambda)B) \geq m(A)^{\lambda}m(B)^{1-\lambda}" class="latex" src="https://s0.wp.com/latex.php?latex=m%28%5Clambda+A+%2B+%281+-+%5Clambda%29B%29+%5Cgeq+m%28A%29%5E%7B%5Clambda%7Dm%28B%29%5E%7B1-%5Clambda%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="m(\lambda A + (1 - \lambda)B) \geq m(A)^{\lambda}m(B)^{1-\lambda}"/>.<br/>
- Then the Brunn-Minkowski Inequality holds.</em></p></blockquote></div>
-    </content>
-    <updated>2018-01-12T06:25:34Z</updated>
-    <category term="Uncategorized"/>
-    <author>
-      <name>mathstoc</name>
-    </author>
-    <source>
-      <id>https://mathstoc.wordpress.com</id>
-      <logo>https://s0.wp.com/i/buttonw-com.png</logo>
-      <link href="https://mathstoc.wordpress.com/feed/" rel="self" type="application/rss+xml"/>
-      <link href="https://mathstoc.wordpress.com" rel="alternate" type="text/html"/>
-      <link href="https://mathstoc.wordpress.com/osd.xml" rel="search" title="Mathematical Distractions" type="application/opensearchdescription+xml"/>
-      <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
-      <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
-      <title>Mathematical Distractions</title>
-      <updated>2018-04-04T19:45:15Z</updated>
-    </source>
-  </entry>
-
-  <entry xml:lang="en">
-    <id>http://mathstoc.wordpress.com/?p=182</id>
-    <link href="https://mathstoc.wordpress.com/2017/08/26/gershgorins-circle-theorem/" rel="alternate" type="text/html"/>
-    <title>Gershgorin’s Circle Theorem</title>
-    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">Here we present briefly a quick way to obtain crude bounds on eigenvalues of complex square matrices. Fix a matrix  with eigenvalue-eigenvector pairs . For each , define . Finally, define the Gershgorin discs to be the closed discs . Gershgorin’s Circle Theorem: For every , for some Proof: Let be an eigenvalue of with corresponding … <a class="more-link" href="https://mathstoc.wordpress.com/2017/08/26/gershgorins-circle-theorem/">Continue reading <span class="screen-reader-text">Gershgorin’s Circle Theorem</span></a></div>
-    </summary>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>Here we present briefly a quick way to obtain crude bounds on eigenvalues of complex square matrices.</p>
-<p>Fix a matrix <img alt="A \in \mathbb{C}^{n \times n}" class="latex" src="https://s0.wp.com/latex.php?latex=A+%5Cin+%5Cmathbb%7BC%7D%5E%7Bn+%5Ctimes+n%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="A \in \mathbb{C}^{n \times n}"/> with eigenvalue-eigenvector pairs <img alt="(\lambda_{1},v_{1}),\dots,(\lambda_{n},v_{n})" class="latex" src="https://s0.wp.com/latex.php?latex=%28%5Clambda_%7B1%7D%2Cv_%7B1%7D%29%2C%5Cdots%2C%28%5Clambda_%7Bn%7D%2Cv_%7Bn%7D%29&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="(\lambda_{1},v_{1}),\dots,(\lambda_{n},v_{n})"/>. For each <img alt="i = 1,\dots,n " class="latex" src="https://s0.wp.com/latex.php?latex=i+%3D+1%2C%5Cdots%2Cn+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="i = 1,\dots,n "/>, define <img alt="R_{i} \neq \sum_{j \neq i} |A_{ij}|" class="latex" src="https://s0.wp.com/latex.php?latex=R_%7Bi%7D+%5Cneq+%5Csum_%7Bj+%5Cneq+i%7D+%7CA_%7Bij%7D%7C&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="R_{i} \neq \sum_{j \neq i} |A_{ij}|"/>. Finally, define the <b>Gershgorin discs</b> to be the closed discs <img alt="\mathbb{D}(a_{ii}, R_{i}) &#xA0;= \{z \in \mathbb{C} : |z - a_{ii}| \leq R_{i}\} \subset \mathbb{C}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbb%7BD%7D%28a_%7Bii%7D%2C+R_%7Bi%7D%29+%C2%A0%3D+%5C%7Bz+%5Cin+%5Cmathbb%7BC%7D+%3A+%7Cz+-+a_%7Bii%7D%7C+%5Cleq+R_%7Bi%7D%5C%7D+%5Csubset+%5Cmathbb%7BC%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mathbb{D}(a_{ii}, R_{i}) &#xA0;= \{z \in \mathbb{C} : |z - a_{ii}| \leq R_{i}\} \subset \mathbb{C}"/>.</p>
-<blockquote><p><b>Gershgorin’s Circle Theorem:</b> <em> For every <img alt="i = 1,\dots,n" class="latex" src="https://s0.wp.com/latex.php?latex=i+%3D+1%2C%5Cdots%2Cn&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="i = 1,\dots,n"/>, <img alt="\lambda_{i} \in \mathbb{D}(a_{jj}, R_{j})" class="latex" src="https://s0.wp.com/latex.php?latex=%5Clambda_%7Bi%7D+%5Cin+%5Cmathbb%7BD%7D%28a_%7Bjj%7D%2C+R_%7Bj%7D%29&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\lambda_{i} \in \mathbb{D}(a_{jj}, R_{j})"/> for some <img alt="j=1,\dots,n" class="latex" src="https://s0.wp.com/latex.php?latex=j%3D1%2C%5Cdots%2Cn&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="j=1,\dots,n"/></em></p></blockquote>
-<p><em>Proof:</em> Let <img alt="\lambda " class="latex" src="https://s0.wp.com/latex.php?latex=%5Clambda+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\lambda "/> be an eigenvalue of <img alt="A" class="latex" src="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="A"/> with corresponding eigenvector <img alt="v " class="latex" src="https://s0.wp.com/latex.php?latex=v+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="v "/>. Let us renormalize <img alt="v" class="latex" src="https://s0.wp.com/latex.php?latex=v&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="v"/> by <img alt="1/v_{k} " class="latex" src="https://s0.wp.com/latex.php?latex=1%2Fv_%7Bk%7D+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="1/v_{k} "/> where <img alt="k" class="latex" src="https://s0.wp.com/latex.php?latex=k&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="k"/> is the index <img alt="i " class="latex" src="https://s0.wp.com/latex.php?latex=i+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="i "/> maximizing <img alt="|v_{i}| " class="latex" src="https://s0.wp.com/latex.php?latex=%7Cv_%7Bi%7D%7C+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="|v_{i}| "/>. Thus <img alt="\max_{i} |v_{i}| = 1 " class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmax_%7Bi%7D+%7Cv_%7Bi%7D%7C+%3D+1+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\max_{i} |v_{i}| = 1 "/> and <img alt="v_{k} = 1 " class="latex" src="https://s0.wp.com/latex.php?latex=v_%7Bk%7D+%3D+1+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="v_{k} = 1 "/>.</p>
-<p>Now, by definition, <img alt="Ax = \lambda x " class="latex" src="https://s0.wp.com/latex.php?latex=Ax+%3D+%5Clambda+x+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="Ax = \lambda x "/>. In particular, for the <img alt="k " class="latex" src="https://s0.wp.com/latex.php?latex=k+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="k "/>th coordinate, <img alt="a_{kk} + \sum_{j \neq k} A_{kj} v_{j} = a_{kk}v_{k} + \sum_{j \neq k} A_{kj}v_{j} = \sum_{j} A_{kj}v_{j} = \lambda v_{k} = \lambda " class="latex" src="https://s0.wp.com/latex.php?latex=a_%7Bkk%7D+%2B+%5Csum_%7Bj+%5Cneq+k%7D+A_%7Bkj%7D+v_%7Bj%7D+%3D+a_%7Bkk%7Dv_%7Bk%7D+%2B+%5Csum_%7Bj+%5Cneq+k%7D+A_%7Bkj%7Dv_%7Bj%7D+%3D+%5Csum_%7Bj%7D+A_%7Bkj%7Dv_%7Bj%7D+%3D+%5Clambda+v_%7Bk%7D+%3D+%5Clambda+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="a_{kk} + \sum_{j \neq k} A_{kj} v_{j} = a_{kk}v_{k} + \sum_{j \neq k} A_{kj}v_{j} = \sum_{j} A_{kj}v_{j} = \lambda v_{k} = \lambda "/>. Finally, by the Triangle Inequality, <img alt="|\lambda - a_{kk}| = \left|\sum_{j \neq k} A_{kj} v_{j} \right|\leq \sum_{j \neq k} |A_{kj}| \cdot |v_{j}| \leq \sum_{j \neq k} |A_{kj}| = R_{k} " class="latex" src="https://s0.wp.com/latex.php?latex=%7C%5Clambda+-+a_%7Bkk%7D%7C+%3D+%5Cleft%7C%5Csum_%7Bj+%5Cneq+k%7D+A_%7Bkj%7D+v_%7Bj%7D+%5Cright%7C%5Cleq+%5Csum_%7Bj+%5Cneq+k%7D+%7CA_%7Bkj%7D%7C+%5Ccdot+%7Cv_%7Bj%7D%7C+%5Cleq+%5Csum_%7Bj+%5Cneq+k%7D+%7CA_%7Bkj%7D%7C+%3D+R_%7Bk%7D+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="|\lambda - a_{kk}| = \left|\sum_{j \neq k} A_{kj} v_{j} \right|\leq \sum_{j \neq k} |A_{kj}| \cdot |v_{j}| \leq \sum_{j \neq k} |A_{kj}| = R_{k} "/>. <img alt="\Box" class="latex" src="https://s0.wp.com/latex.php?latex=%5CBox&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\Box"/></p></div>
-    </content>
-    <updated>2017-08-26T17:51:26Z</updated>
-    <category term="Uncategorized"/>
-    <author>
-      <name>mathstoc</name>
-    </author>
-    <source>
-      <id>https://mathstoc.wordpress.com</id>
-      <logo>https://s0.wp.com/i/buttonw-com.png</logo>
-      <link href="https://mathstoc.wordpress.com/feed/" rel="self" type="application/rss+xml"/>
-      <link href="https://mathstoc.wordpress.com" rel="alternate" type="text/html"/>
-      <link href="https://mathstoc.wordpress.com/osd.xml" rel="search" title="Mathematical Distractions" type="application/opensearchdescription+xml"/>
-      <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
-      <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
-      <title>Mathematical Distractions</title>
-      <updated>2018-04-04T19:45:15Z</updated>
-    </source>
-  </entry>
-
-  <entry xml:lang="en">
-    <id>http://mathstoc.wordpress.com/?p=148</id>
-    <link href="https://mathstoc.wordpress.com/2017/07/22/gan-training/" rel="alternate" type="text/html"/>
-    <title>GAN Idea Introduction</title>
-    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">Disclaimer: I am no expert on deep learning or even machine learning. The hottest new technique in deep learning is one that combines neural networks with ideas from algorithmic game theory: the generative adversarial network (GAN). It is a technique proposed by Goodfellow et. al. in 2014 and one that Yann LeCun, the Director of Facebook AI, … <a class="more-link" href="https://mathstoc.wordpress.com/2017/07/22/gan-training/">Continue reading <span class="screen-reader-text">GAN Idea Introduction</span></a></div>
-    </summary>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>Disclaimer: I am no expert on deep learning or even machine learning.</p>
-<p>The hottest new technique in deep learning is one that combines neural networks with ideas from algorithmic game theory: the <em>generative adversarial network (GAN).</em> It is a technique <a href="https://arxiv.org/abs/1406.2661">proposed by Goodfellow et. al.</a> in 2014 and one that Yann LeCun, the Director of Facebook AI, heralds as</p>
-<blockquote>
-<p style="text-align: center;"><span style="color: #000000;">“…the most interesting idea in the last 10 years in machine learning…”</span></p>
-</blockquote>
-<p>(This is the <img alt="n" class="latex" src="https://s0.wp.com/latex.php?latex=n&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="n"/>th utterance of any variation of this quote, for some large and unknown <img alt="n" class="latex" src="https://s0.wp.com/latex.php?latex=n&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="n"/>.)</p>
-<p>Before we proceed, here is a good high-level <a href="https://blog.openai.com/generative-models/">blog post by OpenAI</a> on GANs. What I like most about it is how it refers to other recent techniques in generative models such as variational autoencoders and what they’re doing to improve these models. I also highly recommend the original <a href="https://arxiv.org/abs/1406.2661">Goodfellow et. al.</a> paper; it is very readable.</p>
-<p>Let’s begin with a concrete goal: We want a machine to learn how to generate realistic images of, say, dogs (general photorealistic image generation has essentially been the greatest success for GANs thus far).</p>
-<p>One can model this problem as drawing samples from some fixed, true, unknown probability distribution <img alt="p_{r}" class="latex" src="https://s0.wp.com/latex.php?latex=p_%7Br%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="p_{r}"/> (in our example, the probability distribution over all possible images, with a higher density value for an image indicating a higher likelihood of it being an image of a dog).</p>
-<p>The set up of a GAN is as follows: we train not one but two neural networks <img alt="G" class="latex" src="https://s0.wp.com/latex.php?latex=G&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="G"/> and <img alt="D" class="latex" src="https://s0.wp.com/latex.php?latex=D&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="D"/>, canonically referred to as the <em>generator</em> and the <em>discriminator</em> respectively. The goal of the generator is to generate samples that “look” like they come from <img alt="p_{r}" class="latex" src="https://s0.wp.com/latex.php?latex=p_%7Br%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="p_{r}"/>, i.e. generate samples according to some probability distribution <img alt="p_{g}" class="latex" src="https://s0.wp.com/latex.php?latex=p_%7Bg%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="p_{g}"/> that is “close” to <img alt="p_{r}" class="latex" src="https://s0.wp.com/latex.php?latex=p_%7Br%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="p_{r}"/> in some sense (generate realistic images of dogs). The goal of the discriminator is to determine correctly whether a given sample is drawn from <img alt="p_{r}" class="latex" src="https://s0.wp.com/latex.php?latex=p_%7Br%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="p_{r}"/> or from <img alt="p_{g}" class="latex" src="https://s0.wp.com/latex.php?latex=p_%7Bg%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="p_{g}"/> (distinguish between real and generated images of dogs).</p></div>
-    </content>
-    <updated>2017-07-22T17:45:57Z</updated>
-    <category term="Uncategorized"/>
-    <author>
-      <name>mathstoc</name>
-    </author>
-    <source>
-      <id>https://mathstoc.wordpress.com</id>
-      <logo>https://s0.wp.com/i/buttonw-com.png</logo>
-      <link href="https://mathstoc.wordpress.com/feed/" rel="self" type="application/rss+xml"/>
-      <link href="https://mathstoc.wordpress.com" rel="alternate" type="text/html"/>
-      <link href="https://mathstoc.wordpress.com/osd.xml" rel="search" title="Mathematical Distractions" type="application/opensearchdescription+xml"/>
-      <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
-      <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
-      <title>Mathematical Distractions</title>
-      <updated>2018-04-04T19:45:15Z</updated>
-    </source>
-  </entry>
-
-  <entry xml:lang="en">
-    <id>http://mathstoc.wordpress.com/?p=125</id>
-    <link href="https://mathstoc.wordpress.com/2017/07/16/irrational-power-of-an-irrational/" rel="alternate" type="text/html"/>
-    <title>Irrational Power of an Irrational</title>
-    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">This was just a neat proof I came across somewhere. I’m definitely not clever enough to come up with this myself. Lemma: There exist positive irrational numbers such that is rational. Proof: Assume is rational. Then we are done by taking . Otherwise, assume is irrational. Then, taking and , we have . Still at … <a class="more-link" href="https://mathstoc.wordpress.com/2017/07/16/irrational-power-of-an-irrational/">Continue reading <span class="screen-reader-text">Irrational Power of an Irrational</span></a></div>
-    </summary>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>This was just a neat proof I came across somewhere. I’m definitely not clever enough to come up with this myself.</p>
-<blockquote><p><b>Lemma:</b> <em> There exist positive irrational numbers <img alt="x,y" class="latex" src="https://s0.wp.com/latex.php?latex=x%2Cy&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="x,y"/> such that <img alt="x^{y}" class="latex" src="https://s0.wp.com/latex.php?latex=x%5E%7By%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="x^{y}"/> is rational.</em></p></blockquote>
-<p><em>Proof:</em> Assume <img alt="\sqrt{2}^{\sqrt{2}}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Csqrt%7B2%7D%5E%7B%5Csqrt%7B2%7D%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\sqrt{2}^{\sqrt{2}}"/> is rational. Then we are done by taking <img alt="x = y = \sqrt{2}" class="latex" src="https://s0.wp.com/latex.php?latex=x+%3D+y+%3D+%5Csqrt%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="x = y = \sqrt{2}"/>. Otherwise, assume <img alt="\sqrt{2}^{\sqrt{2}}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Csqrt%7B2%7D%5E%7B%5Csqrt%7B2%7D%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\sqrt{2}^{\sqrt{2}}"/> is irrational. Then, taking <img alt="x = \sqrt{2}^{\sqrt{2}}" class="latex" src="https://s0.wp.com/latex.php?latex=x+%3D+%5Csqrt%7B2%7D%5E%7B%5Csqrt%7B2%7D%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="x = \sqrt{2}^{\sqrt{2}}"/> and <img alt="y = \sqrt{2}" class="latex" src="https://s0.wp.com/latex.php?latex=y+%3D+%5Csqrt%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="y = \sqrt{2}"/>, we have <img alt="x^{y} = (\sqrt{2}^{\sqrt{2}})^{\sqrt{2}} = \sqrt{2}^{\sqrt{2} \cdot \sqrt{2}} = \sqrt{2}^{2} = 2" class="latex" src="https://s0.wp.com/latex.php?latex=x%5E%7By%7D+%3D+%28%5Csqrt%7B2%7D%5E%7B%5Csqrt%7B2%7D%7D%29%5E%7B%5Csqrt%7B2%7D%7D+%3D+%5Csqrt%7B2%7D%5E%7B%5Csqrt%7B2%7D+%5Ccdot+%5Csqrt%7B2%7D%7D+%3D+%5Csqrt%7B2%7D%5E%7B2%7D+%3D+2&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="x^{y} = (\sqrt{2}^{\sqrt{2}})^{\sqrt{2}} = \sqrt{2}^{\sqrt{2} \cdot \sqrt{2}} = \sqrt{2}^{2} = 2"/>. <img alt="\Box" class="latex" src="https://s0.wp.com/latex.php?latex=%5CBox&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\Box"/><br/>
-Still at the end of this proof, I have no clue whether <img alt="\sqrt{2}^{\sqrt{2}}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Csqrt%7B2%7D%5E%7B%5Csqrt%7B2%7D%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="\sqrt{2}^{\sqrt{2}}"/> is rational or irrational! A bit more Googling revealed <a href="https://math.stackexchange.com/questions/446647/irrationality-of-sqrt2-sqrt2">this</a>.</p></div>
-    </content>
-    <updated>2017-07-16T23:53:32Z</updated>
-    <category term="Fun Problems"/>
-    <author>
-      <name>mathstoc</name>
-    </author>
-    <source>
-      <id>https://mathstoc.wordpress.com</id>
-      <logo>https://s0.wp.com/i/buttonw-com.png</logo>
-      <link href="https://mathstoc.wordpress.com/feed/" rel="self" type="application/rss+xml"/>
-      <link href="https://mathstoc.wordpress.com" rel="alternate" type="text/html"/>
-      <link href="https://mathstoc.wordpress.com/osd.xml" rel="search" title="Mathematical Distractions" type="application/opensearchdescription+xml"/>
-      <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
-      <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
-      <title>Mathematical Distractions</title>
-      <updated>2018-04-04T19:45:15Z</updated>
-    </source>
-  </entry>
-
-  <entry xml:lang="en">
-    <id>http://mathstoc.wordpress.com/?p=14</id>
-    <link href="https://mathstoc.wordpress.com/2017/07/14/a-cute-problem-that-is-np-hard/" rel="alternate" type="text/html"/>
-    <title>A Neat Problem: Number Balancing</title>
-    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">Let be numbers. The Number Balancing Problem: Select disjoint subsets , not both empty, such that is as close to as possible. Alternatively, we can phrase the problem as finding a nonzero minimizing . A very simple but cool application of the Pigeonhole Principle shows us there always exists a nonzero such that is exponentially … <a class="more-link" href="https://mathstoc.wordpress.com/2017/07/14/a-cute-problem-that-is-np-hard/">Continue reading <span class="screen-reader-text">A Neat Problem: Number Balancing</span></a></div>
-    </summary>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>Let <img alt="{a_{1},\dots,a_{n} \in [0,1]}" class="latex" src="https://s0.wp.com/latex.php?latex=%7Ba_%7B1%7D%2C%5Cdots%2Ca_%7Bn%7D+%5Cin+%5B0%2C1%5D%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="{a_{1},\dots,a_{n} \in [0,1]}"/> be numbers.</p>
-<blockquote><p><b>The Number Balancing Problem:</b> <em> Select disjoint subsets <img alt="I_{1},I_{2} \subset \{1,\dots,n\}" class="latex" src="https://s0.wp.com/latex.php?latex=I_%7B1%7D%2CI_%7B2%7D+%5Csubset+%5C%7B1%2C%5Cdots%2Cn%5C%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="I_{1},I_{2} \subset \{1,\dots,n\}"/>, not both empty, such that <img alt="\sum_{k \in I_{1}} a_{k}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Csum_%7Bk+%5Cin+I_%7B1%7D%7D+a_%7Bk%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\sum_{k \in I_{1}} a_{k}"/> is as close to <img alt="\sum_{k \in I_{2}} a_{k}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Csum_%7Bk+%5Cin+I_%7B2%7D%7D+a_%7Bk%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\sum_{k \in I_{2}} a_{k}"/> as possible. Alternatively, we can phrase the problem as finding a nonzero <img alt="\mathbf{x} \in \{-1,0,1\}^{n}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbf%7Bx%7D+%5Cin+%5C%7B-1%2C0%2C1%5C%7D%5E%7Bn%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mathbf{x} \in \{-1,0,1\}^{n}"/> minimizing <img alt="\left|\sum_{k=1}^{n} a_{k}x_{k}\right|" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cleft%7C%5Csum_%7Bk%3D1%7D%5E%7Bn%7D+a_%7Bk%7Dx_%7Bk%7D%5Cright%7C&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\left|\sum_{k=1}^{n} a_{k}x_{k}\right|"/>.</em></p></blockquote>
-<p>A very simple but cool application of the Pigeonhole Principle shows us there always exists a nonzero <img alt="\mathbf{x} \in \{-1,0,1\}^{n}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbf%7Bx%7D+%5Cin+%5C%7B-1%2C0%2C1%5C%7D%5E%7Bn%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mathbf{x} \in \{-1,0,1\}^{n}"/> such that <img alt="\left|\sum_{k=1}^{n} a_{k}x_{k}\right|" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cleft%7C%5Csum_%7Bk%3D1%7D%5E%7Bn%7D+a_%7Bk%7Dx_%7Bk%7D%5Cright%7C&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\left|\sum_{k=1}^{n} a_{k}x_{k}\right|"/> is exponentially small in <img alt="n" class="latex" src="https://s0.wp.com/latex.php?latex=n&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="n"/> in <img alt="n" class="latex" src="https://s0.wp.com/latex.php?latex=n&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="n"/>. Moreover, the bound is completely independent of the choice of <img alt="a_{1},\dots,a_{n}" class="latex" src="https://s0.wp.com/latex.php?latex=a_%7B1%7D%2C%5Cdots%2Ca_%7Bn%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="a_{1},\dots,a_{n}"/>!</p>
-<blockquote><p><b>Lemma 1:</b> <em> There exists a nonzero <img alt="\mathbf{x} \in \{-1,0,1\}^{n}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbf%7Bx%7D+%5Cin+%5C%7B-1%2C0%2C1%5C%7D%5E%7Bn%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mathbf{x} \in \{-1,0,1\}^{n}"/> such that <img alt="\left|\sum_{k=1}^{n} a_{k}x_{k}\right|\leq \frac{n}{2^{n} - 1}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cleft%7C%5Csum_%7Bk%3D1%7D%5E%7Bn%7D+a_%7Bk%7Dx_%7Bk%7D%5Cright%7C%5Cleq+%5Cfrac%7Bn%7D%7B2%5E%7Bn%7D+-+1%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\left|\sum_{k=1}^{n} a_{k}x_{k}\right|\leq \frac{n}{2^{n} - 1}"/></em></p></blockquote>
-<p><em>Proof:</em> Observe that <img alt="\sum_{k=1}^{n} a_{k}x_{k} \in [0,n]" class="latex" src="https://s0.wp.com/latex.php?latex=%5Csum_%7Bk%3D1%7D%5E%7Bn%7D+a_%7Bk%7Dx_%7Bk%7D+%5Cin+%5B0%2Cn%5D&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="\sum_{k=1}^{n} a_{k}x_{k} \in [0,n]"/> for all choices of <img alt="\mathbf{x} \in \{0,1\}^{n}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbf%7Bx%7D+%5Cin+%5C%7B0%2C1%5C%7D%5E%7Bn%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="\mathbf{x} \in \{0,1\}^{n}"/>. Partition <img alt="{[0,n]}" class="latex" src="https://s0.wp.com/latex.php?latex=%7B%5B0%2Cn%5D%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="{[0,n]}"/> into <img alt="{2^{n} - 1}" class="latex" src="https://s0.wp.com/latex.php?latex=%7B2%5E%7Bn%7D+-+1%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="{2^{n} - 1}"/> intervals, each of length <img alt="{n / (2^{n} - 1)}" class="latex" src="https://s0.wp.com/latex.php?latex=%7Bn+%2F+%282%5E%7Bn%7D+-+1%29%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="{n / (2^{n} - 1)}"/>. Now, there are <img alt="{2^{n}}" class="latex" src="https://s0.wp.com/latex.php?latex=%7B2%5E%7Bn%7D%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="{2^{n}}"/> distinct points in <img alt="{\{0,1\}^{n}}" class="latex" src="https://s0.wp.com/latex.php?latex=%7B%5C%7B0%2C1%5C%7D%5E%7Bn%7D%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="{\{0,1\}^{n}}"/> so by the Pigeonhole Principle, there exists distinct <img alt="{\mathbf{x}, \mathbf{x'} \in \{0,1\}^{n}}" class="latex" src="https://s0.wp.com/latex.php?latex=%7B%5Cmathbf%7Bx%7D%2C+%5Cmathbf%7Bx%27%7D+%5Cin+%5C%7B0%2C1%5C%7D%5E%7Bn%7D%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="{\mathbf{x}, \mathbf{x'} \in \{0,1\}^{n}}"/> such that <img alt="{\sum_{k=1}^{n} a_{k}x_{k}}" class="latex" src="https://s0.wp.com/latex.php?latex=%7B%5Csum_%7Bk%3D1%7D%5E%7Bn%7D+a_%7Bk%7Dx_%7Bk%7D%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="{\sum_{k=1}^{n} a_{k}x_{k}}"/> and <img alt="{\sum_{k=1}^{n} a_{k}x_{k}'}" class="latex" src="https://s0.wp.com/latex.php?latex=%7B%5Csum_%7Bk%3D1%7D%5E%7Bn%7D+a_%7Bk%7Dx_%7Bk%7D%27%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="{\sum_{k=1}^{n} a_{k}x_{k}'}"/> lie within the same interval of the partition. In particular,</p>
-<p align="center"><img alt="\begin{aligned}\left|\sum_{k=1}^{n} a_{k} \cdot (x_{k} - x_{k}')\right| \leq \frac{n}{2^{n} - 1}\end{aligned}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cbegin%7Baligned%7D%5Cleft%7C%5Csum_%7Bk%3D1%7D%5E%7Bn%7D+a_%7Bk%7D+%5Ccdot+%28x_%7Bk%7D+-+x_%7Bk%7D%27%29%5Cright%7C+%5Cleq+%5Cfrac%7Bn%7D%7B2%5E%7Bn%7D+-+1%7D%5Cend%7Baligned%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\begin{aligned}\left|\sum_{k=1}^{n} a_{k} \cdot (x_{k} - x_{k}')\right| \leq \frac{n}{2^{n} - 1}\end{aligned}"/>.</p>
-<p>Furthermore, <img alt="\mathbf{x} - \mathbf{x'} \in \{-1,0,1\}^{n} " class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbf%7Bx%7D+-+%5Cmathbf%7Bx%27%7D+%5Cin+%5C%7B-1%2C0%2C1%5C%7D%5E%7Bn%7D+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mathbf{x} - \mathbf{x'} \in \{-1,0,1\}^{n} "/> so <img alt="\mathbf{x} - \mathbf{x'} " class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbf%7Bx%7D+-+%5Cmathbf%7Bx%27%7D+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mathbf{x} - \mathbf{x'} "/> is our desired point. <img alt="\Box" class="latex" src="https://s0.wp.com/latex.php?latex=%5CBox&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\Box"/></p>
-<p>Recently, researchers at the University of Washington proved reductions between the <a href="https://en.wikipedia.org/wiki/Lattice_problem#Shortest_vector_problem_(SVP)">Shortest Vector Problem</a> and algorithmically finding a good <img alt="\mathbf{x} \in \{-1,0,1\}^{n}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbf%7Bx%7D+%5Cin+%5C%7B-1%2C0%2C1%5C%7D%5E%7Bn%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="\mathbf{x} \in \{-1,0,1\}^{n}"/> for this Number Balancing Problem. The paper can be found <a href="https://arxiv.org/pdf/1611.08757.pdf">here</a>.</p></div>
-    </content>
-    <updated>2017-07-14T09:02:50Z</updated>
-    <category term="Fun Problems"/>
-    <author>
-      <name>mathstoc</name>
-    </author>
-    <source>
-      <id>https://mathstoc.wordpress.com</id>
-      <logo>https://s0.wp.com/i/buttonw-com.png</logo>
-      <link href="https://mathstoc.wordpress.com/feed/" rel="self" type="application/rss+xml"/>
-      <link href="https://mathstoc.wordpress.com" rel="alternate" type="text/html"/>
-      <link href="https://mathstoc.wordpress.com/osd.xml" rel="search" title="Mathematical Distractions" type="application/opensearchdescription+xml"/>
-      <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
-      <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
-      <title>Mathematical Distractions</title>
-      <updated>2018-04-04T19:45:15Z</updated>
+      <updated>2018-04-04T19:52:52Z</updated>
     </source>
   </entry>
 </feed>
