@@ -2,7 +2,7 @@
 <opml version="1.1">
   <head>
     <title>NLP Capstone Spring 2018</title>
-    <dateModified>Wed, 04 Apr 2018 19:30:06 GMT</dateModified>
+    <dateModified>Wed, 04 Apr 2018 19:37:49 GMT</dateModified>
     <ownerName>Nelson Liu</ownerName>
     <ownerEmail>nfliu[at]cs.washington.edu</ownerEmail>
   </head>
@@ -12,5 +12,13 @@
     <outline type="rss" text="Zichun Liu, Ning Hong, Sujie Zhou &lt;br/&gt; Team The Bugless" title="Stories by Ning Hong on Medium" xmlUrl="https://medium.com/feed/@hongnin1"/>
     <outline type="rss" text="Boyan Li, Dennis Orzikh, Lanhao Wu &lt;br/&gt; Team Watch Your Language!" title="Team Watch Your Language!" xmlUrl="http://cse481n-capstone.azurewebsites.net/feed/"/>
     <outline type="rss" text="Belinda Li &lt;br/&gt; Team Sentimentity" title="Stories by Belinda Zou Li on Medium" xmlUrl="https://medium.com/feed/@be.li.nda"/>
+    <outline type="rss" text="Tam Dang, Karishma Mandyam &lt;br/&gt; Team Illimitatum" title="NLP Capstone Blog - Medium" xmlUrl="https://medium.com/feed/nlp-capstone-blog"/>
+    <outline type="rss" text="Aaron Johnston, Lynsey Liu &lt;br/&gt; Team Viterbi Or Not To Be" title="Stories by Viterbi Or Not To Be on Medium" xmlUrl="https://medium.com/feed/@viterbi.or.not"/>
+    <outline type="rss" text="Ananth Gottumukkala &lt;br/&gt; Team Turing Test" title="NLP Capstone Project Updates &#x2013; Ananth" xmlUrl="https://deeplearningturingtest.wordpress.com/feed/"/>
+    <outline type="rss" text="Sarah Yu &lt;br/&gt; Team Jekyll-Hyde" title="Sarah yu - CSE 481N" xmlUrl="http://sarahyu.weebly.com/6/feed"/>
+    <outline type="rss" text="Ron Fan, Aditya Saraf &lt;br/&gt; Team PrimeapeNLP" title="PrimeapeNLP" xmlUrl="https://cse481n.blogspot.com/feeds/posts/default?alt=rss"/>
+    <outline type="rss" text="Pinyi Wang, Dawei Shen, Xukai Liu &lt;br/&gt; Team Overfit" title="" xmlUrl=""/>
+    <outline type="rss" text="Kuikui Liu &lt;br/&gt; Team INLP" title="Mathematical Distractions" xmlUrl="https://mathstoc.wordpress.com/feed/"/>
+    <outline type="rss" text="Nicholas Ruhland &lt;br/&gt; Team nlp-wikipedia" title="CSE 481 N - NLP Capstone Spring 2018" xmlUrl="http://www.blogger.com/feeds/354195895616735293/posts/default"/>
   </body>
 </opml>

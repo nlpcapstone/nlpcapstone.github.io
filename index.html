@@ -33,6 +33,244 @@
 
 
 
+<h3><a href="https://mathstoc.wordpress.com" title="Mathematical Distractions">Kuikui Liu <br/> Team INLP</a></h3>
+
+
+<div class="entrygroup" id="http://mathstoc.wordpress.com/?p=272">
+<h4 lang="en"><a href="https://mathstoc.wordpress.com/2018/04/04/3-coloring-the-plane/">3-Coloring the Plane</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<p>Today, I would like to present a very neat problem my friend, Alex Tsun, told me recently while he was playing Pokemon Go. I’ll give the problem a name for convenience below.</p>
+<blockquote><p><b>3-Coloring the Plane:</b><em> Suppose you assign a color to every point in the plane <img alt="\mathbb{R}^{2}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbb%7BR%7D%5E%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mathbb{R}^{2}" />. Your only choices are red, green, and blue. Prove that there must exist a rectangle (in any orientation, located anywhere), such that all four corners of the rectangle have the same color.</em></p></blockquote>
+<p>For convenience, let’s call such a desired rectangle a monochromatic rectangle.</p>
+<p>Seems daunting, and the key difficulty I had with this problem was its lack of “structure”. The rectangle could be anywhere! Yet, the infinitude of <img alt="\mathbb{R}^{2}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbb%7BR%7D%5E%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mathbb{R}^{2}" />, and hence, the sheer abundance (uncountably many) of rectangles, leads one to believe that there should be at least one (and perhaps, also infinitely many). Such an observation hinted at a Pigeonhole Principle type argument.</p>
+<p>Here is how one way of setting it up. The key to think about it (at least for me) was to introduce additional structure into the rectangles. Here, we will consider a specific way of generating rectangles. Fix a pair of distinct parallel lines <img alt="L_{1},L_{2}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%2CL_%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1},L_{2}" /> and then fix another pair of distinct parallel lines <img alt="L_{1}^{\perp},L_{2}^{\perp}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%5E%7B%5Cperp%7D%2CL_%7B2%7D%5E%7B%5Cperp%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1}^{\perp},L_{2}^{\perp}" />, which are perpendicular to <img alt="L_{1},L_{2}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%2CL_%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1},L_{2}" />. The intersections of the lines <img alt="L_{1},L_{2}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%2CL_%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1},L_{2}" /> with <img alt="L_{1}^{\perp},L_{2}^{\perp}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%5E%7B%5Cperp%7D%2CL_%7B2%7D%5E%7B%5Cperp%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1}^{\perp},L_{2}^{\perp}" /> will form the corners of a rectangle. Now, imagine sliding <img alt="L_{1}^{\perp},L_{2}^{\perp}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%5E%7B%5Cperp%7D%2CL_%7B2%7D%5E%7B%5Cperp%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1}^{\perp},L_{2}^{\perp}" /> along <img alt="L_{1},L_{2}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%2CL_%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1},L_{2}" />. This, again, produces infinitely many rectangles. And the set of all possible rectangles in <img alt="\mathbb{R}^{2}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbb%7BR%7D%5E%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mathbb{R}^{2}" /> certainly contains the set of all possible rectangles that can be produced via this method. Thus, it suffices to find a monochromatic rectangle produced in this manner.</p>
+<p>Unfortunately, this doesn’t work, and there is an easy way to see it. Suppose <img alt="L_{1}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1}" /> is completely colored, say, blue, while <img alt="L_{2}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{2}" /> is completely colored, say, red. Then, no matter how one positions <img alt="L_{1}^{\perp},L_{2}^{\perp}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%5E%7B%5Cperp%7D%2CL_%7B2%7D%5E%7B%5Cperp%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1}^{\perp},L_{2}^{\perp}" />, there will always be two corners blue and two corners red.</p>
+<p>However, this leads one to the following idea: instead of having two distinct parallel lines <img alt="L_{1},L_{2}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%2CL_%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1},L_{2}" />, let’s have four distinct parallel lines <img alt="L_{1},L_{2},L_{3},L_{4}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%2CL_%7B2%7D%2CL_%7B3%7D%2CL_%7B4%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1},L_{2},L_{3},L_{4}" /> (with <img alt="L_{1}^{\perp},L_{2}^{\perp}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%5E%7B%5Cperp%7D%2CL_%7B2%7D%5E%7B%5Cperp%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1}^{\perp},L_{2}^{\perp}" /> still lying perpendicular to these and sliding along them to produce rectangles). Now, this completely avoids the previous problem, as the intersection points of <img alt="L_{1}^{\perp}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%5E%7B%5Cperp%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1}^{\perp}" /> with the lines <img alt="L_{1},L_{2},L_{3},L_{4}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%2CL_%7B2%7D%2CL_%7B3%7D%2CL_%7B4%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1},L_{2},L_{3},L_{4}" /> give a configuration of four colors which necessarily contain two points with the same color (by the Pigeonhole Principle, with 4 intersection points for the pigeons and 3 colors for the holes).</p>
+<p>This is good because now, we just have to find another position for <img alt="L_{2}^{\perp}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B2%7D%5E%7B%5Cperp%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{2}^{\perp}" /> along <img alt="L_{1},L_{2},L_{3},L_{4}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%2CL_%7B2%7D%2CL_%7B3%7D%2CL_%7B4%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1},L_{2},L_{3},L_{4}" /> that yields the same configuration when intersected with <img alt="L_{1},L_{2},L_{3},L_{4}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B1%7D%2CL_%7B2%7D%2CL_%7B3%7D%2CL_%7B4%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{1},L_{2},L_{3},L_{4}" />. This is obviously true because there are only finitely many (exactly <img alt="3^{4} = 81" class="latex" src="https://s0.wp.com/latex.php?latex=3%5E%7B4%7D+%3D+81&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="3^{4} = 81" />) possible configurations (holes) but infinitely many possible places to place <img alt="L_{2}^{\perp}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7B2%7D%5E%7B%5Cperp%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{2}^{\perp}" /> (pigeons)!</p>
+<p>Thus we have the claim.</p>
+<p>Upon examining this pigeonhole argument, we see that one doesn’t actually need infinite lines. All we need is a <img alt="4 \times 82" class="latex" src="https://s0.wp.com/latex.php?latex=4+%5Ctimes+82&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="4 \times 82" /> rectangular grid, and the conclusion that there is a monochromatic rectangle (with corners on the grid) still holds. This observation immediately shows us that in fact, there are uncountably infinitely many monochromatic rectangles in <img alt="\mathbb{R}^{2}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbb%7BR%7D%5E%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mathbb{R}^{2}" />. Furthermore, there is one for any desired orientation.</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://mathstoc.wordpress.com/2018/04/04/3-coloring-the-plane/">by mathstoc at April 04, 2018 07:34 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="http://nlp-wikipedia.blogspot.com/" title="CSE 481 N - NLP Capstone Spring 2018">Nicholas Ruhland <br/> Team nlp-wikipedia</a></h3>
+
+
+<div class="entrygroup" id="tag:blogger.com,1999:blog-354195895616735293.post-6386758378464642504">
+<h4><a href="http://nlp-wikipedia.blogspot.com/2018/04/milestone.html">Week 2 Milestone</a></h4>
+<div class="entry">
+<div class="content">
+<h2>Project ideas</h2><hr /><h3>Wikipedia vandalism detection</h3>One of the primary challenges facing Wikipedia's content is vandals, or users who intentionally add incorrect or irrelevant information to articles. To combat this ongoing issue, bots automatically check each incoming edit and make an attempt to label the edit as contributive or vandalism.<br /><br />Existing research tends to focus on labelling users as either editing in good faith or as vandals, encoded by embedding each user's edits into a dense vector (Yuan). Information about series of edits allows much more accurate classification than considering each edit independently, but is also causes a more complex model.<br /><br />At least 2 datasets have been publicly provided in the cited papers: UMDWikipedia dataset (Kumar) and SpamDataset (Green). The UMDWikipedia dataset has 33K users and 770 edits, and the SpamDataset has 4.2K users and 75.6K edits.<br /><br />A minimal action plan could include the following steps:<br /><ul><li>- Implement a baseline model that considers edits independently, as opposed to generating a user embedding.</li><li>- Extract features as described in the Kumar paper, and attempt to replicate results with an SVM model. Stretch: try other models to try to improve accuracy. Stretch: find more features that could potentially improve the results.</li><li>- Implement the model proposed in the Yuan paper (user embedding by LSTM) and attempt to replicate results.</li><li>- Implement the model proposed in the Green paper and attempt to replicate results. Compare these features with those in the earlier Kumar paper.</li><li>- Use the larger (UMDWikipedia) dataset in the Kumar model. Attempt to improve the accuracy by using the larger dataset.</li><li>- Novel models. Implement a GAN that will use a generative model trained to fool the discriminator. </li><li>- Stretch: Context specific vandalism. Train a model to recognize common vandalism patterns specific to one article topic. </li></ul><br />Papers<br /><br /><ol><li>[1] Kumar - VEWS: A Wikipedia Vandal Early Warning System (2015) https://arxiv.org/abs/1507.01272</li><li>[2] Yuan - Wikipedia Vandal Early Detection: from User Behavior to User Embedding (2017) https://arxiv.org/abs/1706.00887</li><li>[3] Green - Spam Users Identification in Wikipedia via Editing Behavior (2017) https://sites.google.com/site/francescaspezzano/publications/spammers</li></ol><hr /><h3>Suggesting Missing Wikipedia Articles</h3>Wikipedia as a resource has the potential to present cutting edge research to a large audience in an accessible manner. Many recent academic research topics could be qualified to have articles, but people knowledgable enough in a relevant field do not know which topics need to be added or expanded on Wikipedia.<br /><br />Current research includes: providing potentially missed citations given a paper (<a href="http://allenai.org/semantic-scholar/citeomatic/">http://allenai.org/semantic-scholar/citeomatic/</a>)<br /><br />This project combines aspects of keyword extraction or article summary with a classification task of determining which topics are notable enough to have articles. This sort of data could be extracted from Wikipedia category listings for various topics.<br /><br /><br />Tasks include:<br /><ul><li>Parsing out topics (article names) from a collection of academic papers</li><li>Determining which topics are eligible to have articles, but either lack articles or are missing important information from the articles</li><li>Possible demo: input the content of a paper and output which wikipedia articles would be relevant to include the information in this paper. </li><li>Possible demo: given a topic, find articles that do not yet exist and provide relevant papers for those articles.</li></ul><hr /><h3>Analyzing Citations in Wikipedia</h3><div>Though not as rigorous as academic, Wikipedia generally has strict guidelines about when to include citations. The quality of citations is important for the integrity of an article, so it makes sense to check that the sources provided are being used appropriately.</div><div><br /></div><div>Tasks of forming datasets have helped to structure the task of analyzing Wikipedia's citations (2). </div><div><br /></div><div>From this dataset, we hope to train a classifier to predict good and bad citations. Labels can be computed as those that remain in the current state of an article versus those that get removed after being added.</div><div><br /></div><div>Tasks include:</div><div><ul><li>Adding labels to the dataset as described.</li><li>Training models based on the features provided in the dataset. These models include the context of the citation (its position in an article) and the text that is being referenced.</li><li>More advanced processing could include checking for relevance of the source, if possible. Features could be extracted from some of the structured data, such as the URL or other content contained in the citation.</li></ul></div><div><br /></div><div>References</div><div><ol><li>[1] Nielsen - Scientific citations in Wikipedia (2007) https://arxiv.org/abs/0705.2106</li><li>[2] https://meta.wikimedia.org/wiki/Research:Understanding_the_context_of_citations_in_Wikipedia</li></ol></div><br /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="http://nlp-wikipedia.blogspot.com/2018/04/milestone.html">by Nicholas Ruhland (noreply@blogger.com) at April 04, 2018 07:29 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2" title="Stories by Viterbi Or Not To Be on Medium">Aaron Johnston, Lynsey Liu <br/> Team Viterbi Or Not To Be</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/9a0f5382cff5">
+<h4><a href="https://medium.com/@viterbi.or.not/preliminary-ideas-9a0f5382cff5?source=rss-c522ef075bb3------2">Preliminary Ideas</a></h4>
+<div class="entry">
+<div class="content">
+<p>While considering various ideas to explore for our project, our team ultimately decided to approach the project in “research mode”, with a greater focus on novel models and analysis of their performance. Although it would be exciting to build a complete platform incorporating a Natural Language Processing techniques, we decided it would be more educational overall to examine the workings of the models themselves. With that overarching direction in mind, we began to think about the issues in the field that would be most interesting to work with, and came up with a few ideas:</p><p><strong>Automatic Conversation Summarization</strong></p><p>One idea is to explore various approaches for the automatic summarization of written conversations. As a topic, the usefulness of written conversation summaries is undeniable — as so many methods of communication are being powered through online e-mail or chat interfaces, there is value in being able to extract relevant topics or action items from conversations just as there is for documents or news articles. As a task, however, there are plenty of challenges to overcome to determine what properties of a topic in a discussion influence its importance to the overall summary and how a summary can be generated based off that data.</p><p>In our preliminary research, we found that relatively few efforts to automatically summarize natural language text have focused on conversational input specifically, but those that have show promise. One paper in particular examines the <a href="https://pdfs.semanticscholar.org/efe0/fffe080ac4b1a943f62cc56f2baa27c6e195.pdf">summarization of both spoken and written conversations</a>, and notes that there are substantial differences in the two types of data. Although the results of the summarization efforts presented in this paper are well below the baseline established by human summarizers, we think it would be interesting to implement a comparable system and explore modifications that could be made or alternative models that could be used to get a more complete picture of the possibilities. By reading the research papers of related projects, we have identified a number of datasets that would allow us to train our model, including <a href="http://groups.inf.ed.ac.uk/ami/corpus/">meeting summaries</a>, <a href="https://www.cs.cmu.edu/~./enron/">summaries of email threads</a>, and <a href="https://flossmole.org/content/software-archaeology-gnue-irc-data-summaries">summaries of chat logs</a>.</p><p>If we were to pursue this option, we would initially focus on replicating the approaches used by previous research projects to automatically summarize conversations as a baseline. Once that is working, we would move toward creating a minimum viable product by examining the features and models used in past approaches and performing an analysis of possible alternatives. Although it may not be within the scope of this quarter-long project to apply an entirely novel model to the problem, at a minimum we would seek to determine the relationship between different features and the various types of conversation available through experimentation.</p><p>Beyond the minimum viable product, there are several stretch goals we would like to tackle. One of the more seemingly impactful would be using model parameters and features extracted from one type of data to improve the model’s performance on another, such as using the result of training a model on spoken meeting data to improve the automatic summarization of emails. In the previously linked research paper, the authors mention that a future goal for their research is to implement such a system, and they assert that preliminary results are promising. Another stretch goal would be attempting to beat previous approaches by focusing on one specific domain and using the unique properties of that data to produce better summaries. An example could be to focus on chat logs from the GNU dataset that deal specifically with bugfixes — by restricting the domain to a set of code-related topics that likely share a much smaller vocabulary and a consistent notion of “importance”, such as action items during the lifecycle of a bugfix, it may be possible to produce better summaries than in the case of general summarization. Finally, we are interested in comparing the results of extractive and abstractive summarization — while the former works by identifying the most important sentences in a text and combining them, the latter attempts to make a more “human” summary by identifying topics in a text and generating new sentences that paraphrase the intent. One extension could therefore be to try extending extractive models proposed previously to be abstractive.</p><p>While our primary interest would be in conversation summarization, we would also consider doing a similar summarization project based on research papers if the conversation data proved to be insufficient. To do so, we would identify corpuses of research papers, and use the author-written abstracts as the summaries for our training data.</p><p><strong>Multiple Premise Entailment</strong></p><p>Another idea is to pursue a project that tackles the problem of Multiple Premise Entailment, which involves being able to make inferences based on multiple premises. This would contribute to the making of more “knowledgeable” models that aim to use and understand contexts across multiple ideas, a more challenging problem than making inferences from a single sentence as is done in standard entailment tasks.</p><p>If we were to take on this challenge, we would start by looking at <a href="http://aclweb.org/anthology/I17-1011">existing research</a> and begin our approach in a similar way, first using baseline neural models for standard entailment. Once this is running on the MPE dataset, we would do some study and error analysis of these runs, then aim to improve upon these models in a way that takes our findings on the baseline models into account and includes adaptations to tackle multiple premises to create a minimum viable product.</p><p>Beyond the minimum viable product, a stretch goal for this problem would be to present a unique model that possibly uses a novel approach from the baseline models to tackle multiple premises in a way that best suits this new challenge, relying less on models for standard entailment.</p><p><strong>Visual Reasoning</strong></p><p>The last idea we are interested in involves the <a href="http://lic.nlp.cornell.edu/nlvr/">Cornell Natural Language Visual Reasoning dataset</a>, which contains 92.244 pairs of natural language statements grounded in synthetic images. The challenge that involves language is to determine whether a statement about the image is true or false. Doing so would typically involve reasoning based on spatial relations, quantities, and other qualities about sets of objects that might appear in the NLVR dataset images.</p><p>If we were to work on this problem, we would focus first on reimplementation of the <a href="https://arxiv.org/pdf/1511.02799.pdf">state of the art model</a> from UC Berkeley. As noted in the “Future Work” section of the UC Berkeley paper, their model maintains a strict separation between predicting network structures and learning network parameters. As a stretch goal, we could work on integrating the current approach with existing tools for learning semantic parsers to achieve an integration between the two components that would possibly improve performance or make way for a novel approach to the problem.</p><p>As a start for our to-be-determined project, we’ve created a <a href="https://github.com/viterbi-or-not-to-be/viterbi-or-not-to-be">git repository</a> where you can access our code and see our progress!</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=9a0f5382cff5" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@viterbi.or.not/preliminary-ideas-9a0f5382cff5?source=rss-c522ef075bb3------2">by Viterbi Or Not To Be at April 04, 2018 07:03 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://mathstoc.wordpress.com" title="Mathematical Distractions">Kuikui Liu <br/> Team INLP</a></h3>
+
+
+<div class="entrygroup" id="http://mathstoc.wordpress.com/?p=277">
+<h4 lang="en"><a href="https://mathstoc.wordpress.com/2018/04/04/nlp-capstone-post-1-ideation/">NLP Capstone Post #1: Ideation</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<p>In this post, I’d like to briefly discuss three different ideas I have for my capstone project.</p>
+<h1>A Theoretical Analysis of RNNs (Research Mode):</h1>
+<p> A recent <a href="https://arxiv.org/abs/1703.00810">paper of Professor Naftali Tishby</a> provided some useful observations on the behavior of feedforward neural networks, and proposed a promising approach to understanding their performance. Earlier empirical work done in the vision community showed that when a convolutional neural network is trained, layers closer to the input learn lower level features (such as edges and corners) and layers closer to the output learn higher level features (“this part of the image resembles a nose, and this other part resembles an eye”). One might expect similar behavior to occur with general feedforward neural networks: that earlier layers learn lower level features of the input and later levels learn higher level features of the input. The key insight here was to think of each layer of a neural network as a Markov chain, where each layer <img alt="L_{i}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7Bi%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{i}" /> is a (vector-valued) random variable that is conditionally independent of <img alt="L_{j}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7Bj%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{j}" /> for all <img alt="j &lt; i - 1" class="latex" src="https://s0.wp.com/latex.php?latex=j+%3C+i+-+1&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="j &lt; i - 1" /> given <img alt="L_{i-1}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7Bi-1%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{i-1}" />. In this way, information flowing forward in the network can be quantified via notions of entropy from traditional information theory.</p>
+<p>The paper contains some empirical work, observing that there are generally two phases to learning artificial neural networks via stochastic gradient descent: the fitting phase, and the compression phase. The fitting phase is the shorter phase, where the model is quickly tuning itself to minimize the empirical loss function. At the end of this phase, we don't necessarily have a model that will generalize to new data. The compression phase is where the model begins to learn the relevant features in the input, with the intuition that there are many irrelevant parts of the input (I don't need to know every atom in an object to identify it). </p>
+<p>The goal of this project would be to perform a similar theoretical analysis and empirical work for RNN architectures (whose "natural" Markov chain isn't as simple, as there are cycles) on some traditional NLP task, such as Machine Translation, with the goal of studying the flow of information in an RNN architecture, rather than performing comparably to state-of-the-art Machine Translation models (although this can be a stretch goal).</p>
+<p>The relevant steps in this project will likely look like the following:<br />
+1. Reading up on the relevant work by Tishby et. al. (and any other theoretical papers on deep learning).<br />
+2. Understand basic and traditional RNN architectures.<br />
+3. Learning PyTorch.<br />
+4. Implementing several of these architectures and testing (for example, to see if learning also comes in two distinct phases: fitting and compression)<br />
+5. Using these empirical observations, and information theory to analyze these architectures.<br />
+6. Time permitted, play around with new RNN architectures.</p>
+<h1>Musical Style Learning from Musical Scores (Research/Start-Up Mode):</h1>
+<p> This idea lies somewhat outside traditional NLP in that it tackles the language of music. While the alphabet of a musical score consist chiefly of the 12 musical notes, there is added challenge in that several notes may be played simultaneously, especially if there are several instruments involved or simply the two hands of a pianist. Furthermore, the exact timing of each note played matters, note merely the ordering of the notes.</p>
+<p>The idea here is simply to, given the score of a musical piece, represented as a sequence of notes at each time, predict the era (Baroque, Classical, Romantic, etc.) or even, the composer of the piece (Bach, Beethoven, Brahms, etc.) There are several problems to be solved step by step for this project.</p>
+<p>1. Data collection from a large library of musical scores (ex: <a href="http://imslp.org/">IMSLP</a>)<br />
+2. Data formatting so as to be usable.<br />
+3. Model selection.<br />
+4. Model implementation (PyTorch).<br />
+5. Model testing.</p>
+<p>There are also several extensions that can be viewed as stretch goals. For these, the first two can be reused.</p>
+<h3>Musical Score Generation:</h3>
+<p> Now, we learn how to compose a piece that “sounds” similar to a given composer. This will involve learning from the pieces written by a given input composer, and outputting a new piece. One core challenge here is ensuring that the output is syntactically correct.</p>
+<h1>Story Illustration (Start-Up Mode):</h1>
+<p> Given a short story and a specific scene (or place in the text), produce an image that is representative of the scene. This project combines aspects of NLP and vision. This project may also explore generative adversarial methods. One well-known challenge here is convergence.</p>
+<p>Here are the general steps for this project:<br />
+1. Data collection (image captioning dataset can be helpful)<br />
+2. Model selection.<br />
+3. Model implementation (PyTorch).<br />
+4. Model testing.</p>
+<p>As an extension, one can also generate several frames to form a short “movie”. Another can be comic book pane generation.</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://mathstoc.wordpress.com/2018/04/04/nlp-capstone-post-1-ideation/">by mathstoc at April 04, 2018 06:53 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://deeplearningturingtest.wordpress.com" title="NLP Capstone Project Updates – Ananth">Ananth Gottumukkala <br/> Team Turing Test</a></h3>
+
+
+<div class="entrygroup" id="http://deeplearningturingtest.wordpress.com/?p=3">
+<h4 lang="en"><a href="https://deeplearningturingtest.wordpress.com/2018/04/04/the-journey-begins/">Top 3 Project Ideas I’m Excited For</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<ol>
+<li><strong>Visualizing a text-based description:</strong> Train a model to learn a language to image mapping with simple descriptions. The minimum plan would be to feed the model short text descriptions like “white hat” and “black cat” with their corresponding visual outputs. Then, if the text “white cat” is input at test time, the model should output the cat with the same shade of white as the hat. Stretch goals include visualizing multiple objects in the same picture and/or visualizing them in different spatial orientations with respect to each other (e.g. on top of, inside, underneath, next to, etc.).</li>
+<li><strong>Generating Multimodal Word Embeddings:</strong> The goal is to create word embeddings that describe a word more holistically from multiple modalities like audio and visual inputs. One possible approach is to concatenate pre-trained word embeddings (e.g. GloVe vector) with additional features based on what context the word is in the present sentence. Then, concatenate this with features generated from a deep fully connected layer of a ConvNet where the input is an image of the actual word (e.g. car). Stretch goals include using these augmented embeddings to enhance performance in applications like sentiment analysis or further augmenting these embeddings with audio features of the word being pronounced (which can help distinguish different meanings of the word).</li>
+<li><strong>Dialogue and Information State Tracking:</strong> The goal is to create a model that can either receive contextual information as text or probe the environment with questions and receive an answer as text. This text can either be input into a linear or tree LSTM for entity extraction, coreference resolution, parsing, and/or other algorithms which can extract valuable contextual information. Then, this text can be used to update the current dialogue and/or information state using deep reinforcement learning. The policy then uses the updated state to choose the next action and hopefully keep repeating this until the text is satisfactorily understood. Stretch goals include using this model to answer test questions about the reading material using a machine comprehension model like the ReasoNet architecture.</li>
+</ol>
+<p> </p>
+<p>Git Repo URL: <a href="https://gitlab.cs.washington.edu/ananthgo/cse481n-capstone" rel="nofollow">https://gitlab.cs.washington.edu/ananthgo/cse481n-capstone</a></p>
+<p>This project is in research mode with a heavy focus on making improvements in keeping track of the meaning behind lines of input text.</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://deeplearningturingtest.wordpress.com/2018/04/04/the-journey-begins/">by ananthgo at April 04, 2018 05:42 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/nlp-capstone-blog?source=rss----9ba3897b6688---4" title="NLP Capstone Blog - Medium">Tam Dang, Karishma Mandyam <br/> Team Illimitatum</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/93d82eed396c">
+<h4><a href="https://medium.com/nlp-capstone-blog/a-discussion-of-language-tasks-for-the-nlp-capstone-blog-post-1-93d82eed396c?source=rss----9ba3897b6688---4">A Discussion of Language Tasks for the NLP Capstone (Blog Post #1)</a></h4>
+<div class="entry">
+<div class="content">
+<p>Welcome to Team Illimitatum! In this first blog post, we’ll discuss the top three/four ideas that emerged over several days of brainstorming. We started the week with seven exciting potential projects and carefully narrowed them down to these three ideas after taking into consideration feasibility, dataset availability, scope, and complexity for each project. Here they are!</p><h3>1. Machine Dictionary</h3><h4>Motivation &amp; Context</h4><p>The breadth and ubiquity of data and online material is both a gift and a curse. Availability of resources ultimately leads to better-informed decisions, but puts an enormous strain on a researcher to</p><ul><li>Search for sources while having to determine which ones are credible and which ones are not</li><li>Read passages and excerpts of these sources</li><li>Reach an understanding that is consistent with all of the sources they have seen</li></ul><p>On one hand, a concept or idea embedded in lengthy text (a textbook, article, or research paper, etc.), makes it so the reader has to achieve some basic understanding of the context surrounding the concept of interest as well as find all related details in order to learn the concept. On the other hand, basic web definitions and blogs <em>may</em> provide a more presentable and explicit definition of a particular concept, but may be lacking in the amount detail a researcher is looking for along with confidence in its credibility.</p><p>Summarization is a task in NLP that aims to reduce passages to a more condense form without sacrificing semantic meaning. The trouble then, of needing to make sense of lengthy text can be alleviated by solving this task.</p><p>Entity recognition is another task in NLP where the goal is to highlight “entities” or figures of significance in text that conventially refer to nouns people, places, and organizations. In a medical context, entities could include chemical names, technical terms pertaining to the anatomy of the human body, and diseases.</p><p>We aim to combine aspects of both summarization and entity recognition to solve the three “maladies” of research we’ve outlined above: to produce a model that produces the most probable definition for a given entity that would be consistent with as much of the data as possible.</p><p>With the intention of training such a model only on publications and research papers, we hope to pave the way for “specialized dictionaries”. Training the data on all publications from a particular field of study would simultaneously restrict the search space to only credible and relevant sources for any definition contained. Providing a generated definition would also prevent the need for the researcher to hunt for it in every source and make sense of it, themselves.</p><h4>Minimum Viable Product</h4><p>Steps toward the realization of this model involve finding a <strong>dataset</strong>, defining <strong>metrics of accuracy and performance</strong>, and determining a reasonable <strong>baseline</strong>.</p><p>Semantic Scholar’s <a href="http://labs.semanticscholar.org/corpus/">Open Research Corpus</a> provides over 20 million publications in Computer Science, Neuroscience, and Medicine. While also providing the metadata for each publication, the dataset is primed for the task as it provides credible sources while opening up the possibility of testing the model in three different fields of study.</p><p>Metrics of accuracy and performance will be difficult to define. At the moment, we plan on using precision and recall of relevant terms found in Google, Oxford, and Webster definitions and whether they appear in a generated definition.</p><p>As for determining a baseline, we plan to implement a standard approach to the Question-Answering task, where the question is always “What is X?”. Ideally, our model should be able to provide more complete definitions with more tangential detail than a standard QA model.</p><h4>Stretch Goal: Ontology Matching</h4><p>If we were to succeed at the task, applications of our methodology could lead to advancement in both summarization and entity recognition. However, a working version of the model could also pave the way for a novel approach to Ontology Matching.</p><p>We could extend our model to solve Ontology Matching by first extracting all significant entities from the corpora. We could then assign each of these entities a definition through our model, and cluster terms based on the definitions accordingly. By doing so, we can in a sense eliminate entities that are linearly dependent with another, reducing the set of entities to one in which their definitions are unique and different enough to be stand-alone definitions.</p><p>Through this, we could achieve a new means of standardizing vocabulary in order to clean up knowledge bases or assist in the advent of a new field. Deep Learning in particular has experienced a lot of redundancy in notation and definitions and would benefit from this application.</p><h3><strong>2. Natural Language Visual Reasoning</strong></h3><h4><strong>Motivation &amp; Context</strong></h4><p>Natural Language Visual Reasoning is a task which involves answering questions about an image. Extracting information from an image is an incredibly important but difficult task. Pictures provide a plethora of context about the world, especially about the relationships between objects. It’s also important to be able to extract knowledge about these relationships through natural language. If we can successfully reason about image content, we can change the way we train models and how they integrate with the physical world.</p><p>This task is also exciting because it combines Computer Vision and Natural Language Processing. While this goal is fairly lofty, researchers at Cornell and Facebook have collaborated to create a new visual reasoning language dataset (<a href="http://lic.nlp.cornell.edu/nlvr/">http://lic.nlp.cornell.edu/nlvr/</a>), which is a simplified set of images (which contain shapes and colors of a certain format) and sentences. One of the major motivations of this project is the fact that this dataset is so vast and complete.</p><h4><strong>Minimum Viable Product</strong></h4><p>The Visual Reasoning task can be described as follows. The below image represents one instance of training data.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/924/1*O1uEL-Ljs3OgfkVeTJZJuQ.png" />Example training instance</figure><p>As you can see, each piece of data consists of a statement and an image of three boxes. If the statement is true of the image, then we output true, otherwise false. There are two viable courses of action for this problem. In the first approach, we can take the current best performing model (<a href="https://arxiv.org/pdf/1511.02799.pdf">Neural Module Networks</a>) and improve the model to produce better results. In the second approach, we can start from scratch and try to develop a model that is uniquely trained for this dataset. It’s important to note that the Neural Module Network can be applied to any image, whereas we can train a model that can only be applied to images of this type.</p><p>Putting it all together, the end product should be able to take the sentence and image as input, extract all relevant information from the image into some intermediate form, validate the criteria described in the sentence for each image, and output the correct answer. We can start by coming up with a basic model which represents each image as a list of objects (yellow triangle at (a, b), blue square at (c, d), black circle at (e, f)) and finds a relationship between the sentence and the list of objects. A more effective model might try to represent the image in a different way, or utilize some of the techniques from the Neural Module Network paper.</p><p>The evaluation metrics for this project are very simple. The output of the model will always be true or false and we can do a simple accuracy test to determine the strength of our model.</p><h4><strong>Stretch Goals</strong></h4><p>A stretch goal for this project would be to generalize to different pictures of the same type. For example, what would happen if we changed the shapes and colors in the picture? What would happen if we changed the type of picture? Trying to achieve a high accuracy on different types of pictures would definitely be a stretch for this project.</p><h3><strong>3. You Can Read This, Machines Can’t</strong></h3><h4><strong>Motivation and Context</strong></h4><p>The motivation for this project idea came from one of the datasets that Yonatan introduced to the class. Research has shown that humans are able to read the following sentence, but it turns out that computers are not able to do the same:</p><blockquote>“Aoccdrnig to a rscheearch at Cmabrigde Uinervtisy, it deosn’t mttaer in waht oredr the ltteers in a wrod are, the olny iprmoetnt tihng is taht the frist and lsat ltteer be at the rghit pclae”</blockquote><p>This is an interesting project because it explores how robust Machine Learning models can be to error (like misspellings). It also explores how much computers might be able to infer given surrounding words.</p><p>Another interesting aspect of this project is the available data. We can constantly generate new scrambled sentences with a simple algorithm.</p><h4><strong>Minimum Viable Product</strong></h4><p>The goal of this task is to take a scrambled English sentence and produce the unscrambled version. In particular, each word in the English sentence will have the correct first and last letter but the letters in between might all be incorrect. There are several variations of this data. In the easiest version, the letters in the middle of each word are all correct but they are scrambled. A slightly more difficult challenge would be evaluating sentences where the letters in the middle of each word are semi-random and the number of letters may not correspond to the number of letters in the actual word.</p><p>In order to approach this problem, we can start with a very basic approach (for the easier version of the dataset) where we create a very efficient dictionary search algorithm. This approach would not use any Machine Learning and might be very slow. A better approach might be to train a very effective sequence to sequence model which maps a scrambled sentence to the correct sentence. Since we can mutate the data in many ways, we can train several different versions of the same sentence.</p><p>We could also explore a more effective way of training the model, rather than training on several mutations of the same sentence. One approach would be to represent words as a volume in N-Dimensional space, so a model would be able to recognize any data point within that volume as the original word. Another interesting approach would be to infer what the next word might be based on the most likely translation of the previous word. This would not only involve choosing a likely translation of the word, but also choosing the most likely translation of the sentence. A third approach might be to treat the the scrambled sentence as a language and use Machine Translation techniques to “translate” the sentence to English.</p><p>The performance metric for this would be the number of correctly predicted words in each sentence.</p><h4><strong>Stretch Goals</strong></h4><p>The stretch goal for this project would be to recognize any mutated sentence as the original sentence. This includes random letters, swapped letters, dropped letters, etc. We also could generate new datasets in different languages pretty easily. It might be interesting to see how our model performs on languages like Spanish or French.</p><h3>Conclusion</h3><p>Questioning the immediate vs. long-term impact, along with the tractability and scope of each task, helped define our motivations while ensuring to the best of our knowledge, the viability of each potential project. We asked each other questions along the lines of “why is this task important?”,<br />“if other people have done this before, how can we do it better?”, and “can it be done in 10 weeks?”.</p><p>Ultimately, we want our efforts and insights to have potentially long-term and significant consequences. Without consciously keeping track of whether an idea was research or industry/product oriented, we both came up with only research-oriented proposals. These proposals, if executed properly, would have impacts on related works, having fundamental and methodological influence through novel approaches and perspectives rather than aiding in the downstream application of any particular product. For the time being, we consider ourselves a research mode team.</p><p>Link to Code: <a href="https://github.com/NLP-Capstone-Project">https://github.com/NLP-Capstone-Project</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=93d82eed396c" width="1" /><hr /><p><a href="https://medium.com/nlp-capstone-blog/a-discussion-of-language-tasks-for-the-nlp-capstone-blog-post-1-93d82eed396c">A Discussion of Language Tasks for the NLP Capstone (Blog Post #1)</a> was originally published in <a href="https://medium.com/nlp-capstone-blog">NLP Capstone Blog</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/nlp-capstone-blog/a-discussion-of-language-tasks-for-the-nlp-capstone-blog-post-1-93d82eed396c?source=rss----9ba3897b6688---4">by Karishma Mandyam at April 04, 2018 03:24 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
 <h3><a href="https://medium.com/@be.li.nda?source=rss-fad49d942bf3------2" title="Stories by Belinda Zou Li on Medium">Belinda Li <br/> Team Sentimentity</a></h3>
 
 
@@ -86,6 +324,38 @@ I'm working on my project in my fork of Allennlp. I got the dataset and have wri
 
 <p class="date">
 <a href="https://nlpcapstonesemparse.blogspot.com/2018/04/blog-post-2-warmup.html">by nlpcapstone (noreply@blogger.com) at April 03, 2018 09:53 PM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="http://sarahyu.weebly.com/cse-481n" title="Sarah yu - CSE 481N">Sarah Yu <br/> Team Jekyll-Hyde</a></h3>
+
+
+<div class="entrygroup" id="http://sarahyu.weebly.com/cse-481n/inaugural-blog-post">
+<h4><a href="http://sarahyu.weebly.com/cse-481n/inaugural-blog-post">Inaugural Blog Post</a></h4>
+<div class="entry">
+<div class="content">
+<div class="paragraph">Welcome to the first blog post of <u><em>Jekyll-Hyde</em></u><em> </em><u>(</u>my very cool and somewhat related group-of-1 name).<br />As the name might reveal, I’m interested in using NLP to uncover the duality of language, the ability to simultaneously present both sides of a coin, whether in everyday conversation or more curated prose. Because language matters; so much so that we mend and mold our language to navigate the different social environments and spaces we inhabit, whether for power, survival, or acceptance, and often in the most primitive and subconscious ways. And because in today’s (supposedly) civilized world, the language we employ with another can be a sort of proxy for the relationship we share. I'd like to get at some of these ideas through the NLP capstone and think the next three topics are a potential start. <br /><br />1) Language Accommodation (or my unlikely paper title: <em>Nice Guy by Day, A**hole by Night: Language Accommodation for Self-Presentation in Subreddit Communities)</em><ul><li>​MVP: Scrape Reddit user data, identify language baselines for a given subreddit or capture linguistic differences of a single user across subreddits</li><li>Stretch Goals: Do both (subreddit baselines and user difference) and not only identify a user's language accommodation, but how they fall in line with the communities' baseline (a kind of hive mentality)</li></ul><br />2) Identifying Condescension (another working title: "<em>Well, Actually": Identifying Ambiguities in emails from 'helpful' colleagues</em>)<ul><li>​MVP: Identify an appropriate data source (ideally emails or more personal interactions), manually identify possible ambiguities, train model (maybe one that doesn't require a large dataset) to identify ambiguous spans of a sentence. </li><li>Stretch Goals: Begin identifying entity-entity-relationships with cues from ambiguous interactions or maybe something cooler about context and the different meanings if ambiguous...</li></ul><br />3) Identifying Disrespect (might as well for consistency: <em>Linguistic (dis)R.E.S.P.E.C.T. - Addressing 90% of Comment Sections)</em><ul><li>​MVP: Scrape Youtube comment data, classify comments as hateful/not hateful, train model on classified comments, test and tune</li><li>Stretch Goals: Train a portable model that can work with content from other mediums such as Twitter and Reddit</li></ul><br />I'll be pursuing one of these ideas in <strong>research mode</strong> and you can follow along at:<br />                                      https://github.com/sarahyu17/481n</div>  <div class="wsite-spacer" style="height: 50px;"></div>  <div> 				<form action="http://www.weebly.com/weebly/apps/formSubmit.php" enctype="multipart/form-data" id="form-147197638403517045" method="POST"> 					<div class="wsite-form-container" id="147197638403517045-form-parent" style="margin-top: 10px;"> 						<ul class="formlist" id="147197638403517045-form-list"> 							<h2 class="wsite-content-title">Any Favorite Paper Titles?</h2>  <label class="wsite-form-label wsite-form-fields-required-label"><span class="form-required">*</span> Indicates required field</label><div><div class="wsite-form-field" style="margin: 5px 0px 0px 0px;">   <label class="wsite-form-label" for="input-789590629342031487">Paper Title <span class="form-required">*</span></label>   <div class="wsite-form-radio-container">     <span class="form-radio-container"><input id="radio-0-_u789590629342031487" name="_u789590629342031487" type="radio" value="#1" /><label for="radio-0-_u789590629342031487">#1</label></span><span class="form-radio-container"><input id="radio-1-_u789590629342031487" name="_u789590629342031487" type="radio" value="#2" /><label for="radio-1-_u789590629342031487">#2</label></span><span class="form-radio-container"><input id="radio-2-_u789590629342031487" name="_u789590629342031487" type="radio" value="#3" /><label for="radio-2-_u789590629342031487">#3</label></span>   </div>   <div class="wsite-form-instructions" id="instructions-Paper Title" style="display: none;"></div> </div></div> 						</ul> 					</div> 					<div style="display: none;"> 						<input name="weebly_subject" type="text" /> 					</div> 					<div style="text-align: left; margin-top: 10px; margin-bottom: 10px;"> 						<input name="form_version" type="hidden" value="2" /> 						<input id="weebly-approved" name="weebly_approved" type="hidden" value="approved" /> 						<input name="ucfid" type="hidden" value="147197638403517045" /> 						<input name="recaptcha_token" type="hidden" /> 						<input name="opted_in" type="hidden" value="0" /> 						<input type="submit" /> 						<a class="wsite-button"> 							<span class="wsite-button-inner">vote</span> 						</a> 					</div> 				</form> 				<div class="recaptcha" id="g-recaptcha-147197638403517045"></div> 			  			</div></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="http://sarahyu.weebly.com/cse-481n/inaugural-blog-post">April 03, 2018 07:00 AM</a>
 </p>
 </div>
 </div>
@@ -206,6 +476,38 @@ I'm working on my project in my fork of Allennlp. I got the dataset and have wri
 </div>
 
 
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://cse481n.blogspot.com/" title="PrimeapeNLP">Ron Fan, Aditya Saraf <br/> Team PrimeapeNLP</a></h3>
+
+
+<div class="entrygroup" id="tag:blogger.com,1999:blog-3753031463594823927.post-6307882466820480344">
+<h4><a href="https://cse481n.blogspot.com/2018/04/blog-post-1.html">Blog Post #1</a></h4>
+<div class="entry">
+<div class="content">
+<div style="font-family: Verdana; text-align: left;">    <div>Temporary GitHub URL: <a href="https://github.com/rococode/primeapeNLP" target="_blank">https://github.com/rococode/primeapeNLP</a></div>    <div>We plan to be in “research mode” for this capstone.</div>    <div style="font-size: 1.1rem;">Three possible ideas:</div>     <div style="font-size: 1.1rem;">1. New evaluation methods for text generation models</div>    <div>There don’t seem to be many good ways to evaluate the output of machine generated text (such as in the problem of creating hotel reviews). We want our models to generate text that’s indistinguishable from human text, but it’s hard to quantify how similar generated text is to human text, so it’s hard to see when progress is being made. However, it feels like the problem of actually generating human-like text should be harder than the problem of just checking if that text seems human. As a baseline approach, we would like to explore building a regression model for the “humanness” of a piece of unfamiliar text.</div>    <div><strong>        M<span style="font-size: 0.7rem; font-weight: normal;">(inimal)</span>        V<span style="font-size: 0.7rem; font-weight: normal;">(iable)</span>        P<span style="font-size: 0.7rem; font-weight: normal;">(lan)</span>    :</strong></div>    <ol>        <li>Build a reasonably large dataset using a combination of web scraping, existing datasets, and existing generative models</li>        <li>Build a regression model with decent performance on training set</li>        <li>Build a regression model with decent performance on development and test sets</li>    </ol>    <div><strong>Stretch goals:</strong></div>    <ol>        <li>Use our model to score various generative models and compare our model’s rankings for these generative models to commonly agreed-upon rankings by researchers</li>        <li>Integrate model scores into a “generate a lot of possibilities, then search for the best one” approach for text generation</li>    </ol>    <div>We would also explore non-neural methods for evaluating Natural Language Generation (NLG). One idea would be to compare the probability distribution of generated sentences to real sentences. A common problem is that generated text repeats the most probable sentences over and over. Thus, the distribution of sentences is front-loaded. We hypothesize that generated text with a sentence distribution that closely mirrors real text would be more difficult to distinguish from real text. However, we first need to investigate what real world sentence distributions look like. It may be likely that individual sentences are not likely to repeat - in that case, the distribution would be more-or-less uniform across all sentences. We may need to come up with a novel method to categorize similar sentences. We would have to decide whether to use semantic similarity or syntactic similarity.</div>    <div><strong>MVP:</strong></div>    <ol>        <li>Gather a data set - perhaps the data set Ari showed us for hotel reviews.</li>        <li>Examine the existing probability distribution at the sentence-level in the corpus. If the distribution is too uniform, design a method to place similar sentences in the same “bucket” and re-compute the probability distribution.</li>        <li>Design metrics to compute the similarity of two distributions; if a model is “good”, the distribution of the generated sentences will match the distribution of the training corpus.</li>        <li>Use our metric to score generated text models found in the literature.</li>    </ol>    <div><strong>Stretch goals:</strong></div>    <ul>        <li>Use insights from our metrics to improve on current approaches to NLG.</li>    </ul>    <div style="font-size: 1.1rem;">2. Single-document summarization</div>    <div>Single document summarization (SDS) models typically label each sentence in the document as in the summary or not in the summary. The problem then becomes a binary classification problem, and many people train a NN with supervised learning. However, there are other non-neural approaches to this problem that have been tried successfully. One paper shows how SDS can be thought of as a tree based Knapsack problem, which is then solved by a Integer Linear Programming (ILP) solver (see: <a href="https://www.semanticscholar.org/paper/Single-Document-Summarization-as-a-Tree-Knapsack-Hirao-Yoshida/ed0c8a7ab911cdb30b7e95edada3a55c01eb22c5">https://www.semanticscholar.org/paper/Single-Document-Summarization-as-a-Tree-Knapsack-Hirao-Yoshida/ed0c8a7ab911cdb30b7e95edada3a55c01eb22c5</a>). We would like to explore both neural models and non-neural approaches to SDS. </div>    <div><strong>MVP:</strong></div>    <ol>        <li>As a baseline approach, build neural models from current papers that solve SDS. Evaluate the performance using F1 as well as ROUGE metrics (see: <a href="https://en.wikipedia.org/wiki/ROUGE_(metric)">https://en.wikipedia.org/wiki/ROUGE_(metric)</a>).</li>        <li>Build neural models from current papers that focus on non-neural approaches, such as the combinatorial approach described above.</li>        <li>Evaluate neural and non-neural approaches: what do these approaches have in common? What key insights are they leveraging? Are there any generalizations of the problem that can be extracted? Hopefully, this study will allow us to either improve the SOTA neural models or fine tune some non-neural approach.</li>    </ol>    <div><strong>Stretch goal:</strong></div>    <ul>        <li>Use insights from our studies to formulate and solve SDS in a unique way. Evaluate our approach using F1 and ROUGE metrics.</li>    </ul>    <div style="font-size: 1.1rem;">3. Multi-span comprehension</div>    <div>Reading comprehension models generally operate by extracting an answer to a question by outputting a start and end index on the original passage. This is not a very human-like way of answering questions, and makes it impossible to generate good answers to some simple factual questions using common sentence structures. We would like to explore ways of answering questions from passages without being limited to a single span from the passage text.</div>    <div><strong>MVP:</strong></div>    <ol>        <li>Implement a baseline model that performs near state of the art levels on the SQuAD dataset.</li>        <li>Build a dataset that requires information from multiple spans to answer the questions well. We will likely create this dataset by hand.</li>        <li>Build a model that answers questions about a passage by generating multiple spans. We envision designing our model to output a sequence of indices such that every pair of indices corresponds to one part of the answer. This model should perform almost as well as the baseline model on SQuAD, since that’s just a specific case (one span) of a multi-span answer.</li>        <li>Build upon the previous model by using the output spans to generate a formal answer through a generative model, using the output spans and the question sentence as inputs.</li>    </ol>    <div><strong>Stretch goal:</strong></div>    <ul>        <li>Optimize model to actually be effective at answering multispan questions. We expect this to be quite difficult, so while building a functioning model is part of the MVP, actually having it perform comparatively well is a stretch goal.</li>    </ul></div></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://cse481n.blogspot.com/2018/04/blog-post-1.html">by Ron &amp;amp; Aditya (noreply@blogger.com) at April 02, 2018 04:32 AM</a>
+</p>
+</div>
+</div>
+
+
 </div>
 
 </div>
@@ -245,6 +547,231 @@ I'm working on my project in my fork of Allennlp. I got the dataset and have wri
 </div>
 
 </div>
+<div class="daygroup">
+<h2>January 12, 2018</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://mathstoc.wordpress.com" title="Mathematical Distractions">Kuikui Liu <br/> Team INLP</a></h3>
+
+
+<div class="entrygroup" id="http://mathstoc.wordpress.com/?p=265">
+<h4 lang="en"><a href="https://mathstoc.wordpress.com/2018/01/12/brunn-minkowski-implies-uniform-measures-on-convex-sets-are-logconcave/">Brunn-Minkowski Implies Uniform Measures on Convex Sets are Logconcave</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<p>Recently, I’ve been reading about logconcave measures, which is a set of measures contain the uniform measures over convex sets. We like analyzing them as a “generalization of convex sets” because their densities are additionally closed under convolution, unlike the indicators of convex sets. Thus, they are quite useful in convex geometry. TCS researchers study them in pursuit of fast algorithms for sampling points from convex bodies, estimating integrals, and optimization.</p>
+<p>Let’s start with a definition.</p>
+<blockquote><p><b>Definition (Logconcave Measure):</b><em> A measure <img alt="\mu" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmu&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="\mu" /> on <img alt="\mathbb{R}^{n}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbb%7BR%7D%5E%7Bn%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mathbb{R}^{n}" /> is <strong>logconcave</strong> if for every measurable <img alt="A,B \subset \mathbb{R}^{n}" class="latex" src="https://s0.wp.com/latex.php?latex=A%2CB+%5Csubset+%5Cmathbb%7BR%7D%5E%7Bn%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="A,B \subset \mathbb{R}^{n}" /> and <img alt="0 &lt; \lambda &lt; 1" class="latex" src="https://s0.wp.com/latex.php?latex=0+%3C+%5Clambda+%3C+1&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="0 &lt; \lambda &lt; 1" /> with <img alt="\lambda A + (1 - \lambda)B" class="latex" src="https://s0.wp.com/latex.php?latex=%5Clambda+A+%2B+%281+-+%5Clambda%29B&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\lambda A + (1 - \lambda)B" /> measurable, we have <img alt="\mu(\lambda A + (1 - \lambda)B) \geq \mu(A)^{\lambda}\mu(B)^{1-\lambda}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmu%28%5Clambda+A+%2B+%281+-+%5Clambda%29B%29+%5Cgeq+%5Cmu%28A%29%5E%7B%5Clambda%7D%5Cmu%28B%29%5E%7B1-%5Clambda%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mu(\lambda A + (1 - \lambda)B) \geq \mu(A)^{\lambda}\mu(B)^{1-\lambda}" />, where <img alt="\lambda A + (1 - \lambda)B = \{\lambda a + (1 - \lambda)b : a \in A, b \in B\}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Clambda+A+%2B+%281+-+%5Clambda%29B+%3D+%5C%7B%5Clambda+a+%2B+%281+-+%5Clambda%29b+%3A+a+%5Cin+A%2C+b+%5Cin+B%5C%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\lambda A + (1 - \lambda)B = \{\lambda a + (1 - \lambda)b : a \in A, b \in B\}" /> is the <strong>Minkowski sum</strong> of <img alt="\lambda A = \{\lambda a : a \in A\}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Clambda+A+%3D+%5C%7B%5Clambda+a+%3A+a+%5Cin+A%5C%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\lambda A = \{\lambda a : a \in A\}" /> and <img alt="(1 - \lambda)B = \{(1 - \lambda)b : b \in B\}" class="latex" src="https://s0.wp.com/latex.php?latex=%281+-+%5Clambda%29B+%3D+%5C%7B%281+-+%5Clambda%29b+%3A+b+%5Cin+B%5C%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="(1 - \lambda)B = \{(1 - \lambda)b : b \in B\}" />.</em></p></blockquote>
+<p>For the purposes of this post, we’ll ignore issues of compactness, etc. just to make the presentation clean.</p>
+<p>A typical introduction into the theory here begins with the <strong>Brunn-Minkowski Inequality</strong>, which simply states that <img alt="m(A + B)^{1/n} \geq m(A)^{1/n} + m(B)^{1/n}" class="latex" src="https://s0.wp.com/latex.php?latex=m%28A+%2B+B%29%5E%7B1%2Fn%7D+%5Cgeq+m%28A%29%5E%7B1%2Fn%7D+%2B+m%28B%29%5E%7B1%2Fn%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="m(A + B)^{1/n} \geq m(A)^{1/n} + m(B)^{1/n}" /> where the volume is with respect to Lebesgue measure <img alt="m" class="latex" src="https://s0.wp.com/latex.php?latex=m&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="m" /> on <img alt="\mathbb{R}^{n}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbb%7BR%7D%5E%7Bn%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mathbb{R}^{n}" />. This initially confused me, as it wasn’t clear how this implies that the Lebesgue measure (and more generally, the uniform measure on a convex set) is logconcave, until I discovered a quick proof of the implication using the (generalized) AMGM inequality. Let’s recall what it states.</p>
+<blockquote><p><b>Generalized Arithmetic-Mean Geometric-Mean Inequality (AMGM):</b><em> Let <img alt="\alpha_{1},\dots,\alpha_{n} \geq 0" class="latex" src="https://s0.wp.com/latex.php?latex=%5Calpha_%7B1%7D%2C%5Cdots%2C%5Calpha_%7Bn%7D+%5Cgeq+0&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\alpha_{1},\dots,\alpha_{n} \geq 0" /> be nonnegative numbers and <img alt="\lambda_{1},\dots,\lambda_{n} \geq 0" class="latex" src="https://s0.wp.com/latex.php?latex=%5Clambda_%7B1%7D%2C%5Cdots%2C%5Clambda_%7Bn%7D+%5Cgeq+0&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\lambda_{1},\dots,\lambda_{n} \geq 0" /> be weights such that <img alt="\sum_{i=1}^{n} \lambda_{i} = 1" class="latex" src="https://s0.wp.com/latex.php?latex=%5Csum_%7Bi%3D1%7D%5E%7Bn%7D+%5Clambda_%7Bi%7D+%3D+1&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\sum_{i=1}^{n} \lambda_{i} = 1" />. Then <img alt="\sum_{i=1}^{n} \lambda_{i}\alpha_{i} \geq \prod_{i=1}^{n} \alpha_{i}^{\lambda_{i}}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Csum_%7Bi%3D1%7D%5E%7Bn%7D+%5Clambda_%7Bi%7D%5Calpha_%7Bi%7D+%5Cgeq+%5Cprod_%7Bi%3D1%7D%5E%7Bn%7D+%5Calpha_%7Bi%7D%5E%7B%5Clambda_%7Bi%7D%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\sum_{i=1}^{n} \lambda_{i}\alpha_{i} \geq \prod_{i=1}^{n} \alpha_{i}^{\lambda_{i}}" />, with the convention that <img alt="\alpha_{i}^{\lambda_{i}} = 1" class="latex" src="https://s0.wp.com/latex.php?latex=%5Calpha_%7Bi%7D%5E%7B%5Clambda_%7Bi%7D%7D+%3D+1&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\alpha_{i}^{\lambda_{i}} = 1" /> for any <img alt="i" class="latex" src="https://s0.wp.com/latex.php?latex=i&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="i" /> with <img alt="\alpha_{i} = \lambda_{i} = 0" class="latex" src="https://s0.wp.com/latex.php?latex=%5Calpha_%7Bi%7D+%3D+%5Clambda_%7Bi%7D+%3D+0&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\alpha_{i} = \lambda_{i} = 0" />.</em></p></blockquote>
+<p>Proof of this inequality is a simple application of Jensen’s Inequality and convexity of <img alt="-\log(x)" class="latex" src="https://s0.wp.com/latex.php?latex=-%5Clog%28x%29&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="-\log(x)" />.</p>
+<p>We will also need to know about how the Minkowski sum interacts with intersection with a convex set.</p>
+<blockquote><p><b>Lemma:</b><em> Let <img alt="A,B \subset \mathbb{R}^{n}" class="latex" src="https://s0.wp.com/latex.php?latex=A%2CB+%5Csubset+%5Cmathbb%7BR%7D%5E%7Bn%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="A,B \subset \mathbb{R}^{n}" /> be measurable and <img alt="0 &lt; \lambda &lt; 1" class="latex" src="https://s0.wp.com/latex.php?latex=0+%3C+%5Clambda+%3C+1&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="0 &lt; \lambda &lt; 1" /> such that <img alt="\lambda A + (1 - \lambda)B" class="latex" src="https://s0.wp.com/latex.php?latex=%5Clambda+A+%2B+%281+-+%5Clambda%29B&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\lambda A + (1 - \lambda)B" /> is measurable. Let <img alt="K" class="latex" src="https://s0.wp.com/latex.php?latex=K&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="K" /> be a convex set (which is automatically convex). Then <img alt="(\lambda A + (1 - \lambda)B) \cap K \supset \lambda (A \cap K) + (1 - \lambda)(B \cap K)" class="latex" src="https://s0.wp.com/latex.php?latex=%28%5Clambda+A+%2B+%281+-+%5Clambda%29B%29+%5Ccap+K+%5Csupset+%5Clambda+%28A+%5Ccap+K%29+%2B+%281+-+%5Clambda%29%28B+%5Ccap+K%29&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="(\lambda A + (1 - \lambda)B) \cap K \supset \lambda (A \cap K) + (1 - \lambda)(B \cap K)" />.</em></p></blockquote>
+<p><em>Proof:</em> Let <img alt="z \in \lambda(A \cap K) + (1 - \lambda)(B \cap K)" class="latex" src="https://s0.wp.com/latex.php?latex=z+%5Cin+%5Clambda%28A+%5Ccap+K%29+%2B+%281+-+%5Clambda%29%28B+%5Ccap+K%29&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="z \in \lambda(A \cap K) + (1 - \lambda)(B \cap K)" />. By definition, we may write <img alt="z = \lambda x + (1 - \lambda)y" class="latex" src="https://s0.wp.com/latex.php?latex=z+%3D+%5Clambda+x+%2B+%281+-+%5Clambda%29y&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="z = \lambda x + (1 - \lambda)y" /> for some <img alt="x \in A \cap K, y \in B \cap K" class="latex" src="https://s0.wp.com/latex.php?latex=x+%5Cin+A+%5Ccap+K%2C+y+%5Cin+B+%5Ccap+K&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="x \in A \cap K, y \in B \cap K" />. Since <img alt="x \in A, y \in B" class="latex" src="https://s0.wp.com/latex.php?latex=x+%5Cin+A%2C+y+%5Cin+B&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="x \in A, y \in B" />, <img alt="z \in \lambda A + (1 -\lambda)B" class="latex" src="https://s0.wp.com/latex.php?latex=z+%5Cin+%5Clambda+A+%2B+%281+-%5Clambda%29B&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="z \in \lambda A + (1 -\lambda)B" />. Finally, since <img alt="x \in K, y \in K" class="latex" src="https://s0.wp.com/latex.php?latex=x+%5Cin+K%2C+y+%5Cin+K&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="x \in K, y \in K" /> and <img alt="K" class="latex" src="https://s0.wp.com/latex.php?latex=K&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="K" /> is convex, <img alt="z \in K" class="latex" src="https://s0.wp.com/latex.php?latex=z+%5Cin+K&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="z \in K" />. Thus, <img alt="z \in (\lambda A + (1 - \lambda)B) \cap K" class="latex" src="https://s0.wp.com/latex.php?latex=z+%5Cin+%28%5Clambda+A+%2B+%281+-+%5Clambda%29B%29+%5Ccap+K&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="z \in (\lambda A + (1 - \lambda)B) \cap K" /> as desired. <img alt="\Box" class="latex" src="https://s0.wp.com/latex.php?latex=%5CBox&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\Box" /></p>
+<p>Note that this containment is strict in general, even in one dimension. For example, one can take <img alt="A = \{0\}, B = \{2\}, \lambda = 1/2" class="latex" src="https://s0.wp.com/latex.php?latex=A+%3D+%5C%7B0%5C%7D%2C+B+%3D+%5C%7B2%5C%7D%2C+%5Clambda+%3D+1%2F2&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="A = \{0\}, B = \{2\}, \lambda = 1/2" /> so that <img alt="\lambda A = \{0\}, (1 - \lambda)B = \{1\}, \lambda A + (1 - \lambda)B = \{1\}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Clambda+A+%3D+%5C%7B0%5C%7D%2C+%281+-+%5Clambda%29B+%3D+%5C%7B1%5C%7D%2C+%5Clambda+A+%2B+%281+-+%5Clambda%29B+%3D+%5C%7B1%5C%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\lambda A = \{0\}, (1 - \lambda)B = \{1\}, \lambda A + (1 - \lambda)B = \{1\}" />. If <img alt="K = [1/2,3/2]" class="latex" src="https://s0.wp.com/latex.php?latex=K+%3D+%5B1%2F2%2C3%2F2%5D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="K = [1/2,3/2]" />, then <img alt="(\lambda A + (1 - \lambda)B) \cap K = \{1\}" class="latex" src="https://s0.wp.com/latex.php?latex=%28%5Clambda+A+%2B+%281+-+%5Clambda%29B%29+%5Ccap+K+%3D+%5C%7B1%5C%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="(\lambda A + (1 - \lambda)B) \cap K = \{1\}" /> but <img alt="A \cap K = B \cap K = \emptyset" class="latex" src="https://s0.wp.com/latex.php?latex=A+%5Ccap+K+%3D+B+%5Ccap+K+%3D+%5Cemptyset&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="A \cap K = B \cap K = \emptyset" /> so that <img alt="\lambda (A \cap K) + (1 - \lambda)(B \cap K) = \emptyset" class="latex" src="https://s0.wp.com/latex.php?latex=%5Clambda+%28A+%5Ccap+K%29+%2B+%281+-+%5Clambda%29%28B+%5Ccap+K%29+%3D+%5Cemptyset&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\lambda (A \cap K) + (1 - \lambda)(B \cap K) = \emptyset" />.</p>
+<p>Now, on to the implication.</p>
+<blockquote><p><b>Corollary (of the Brunn-Minkowski Inequality):</b><em> The uniform measure w.r.t. a convex set <img alt="K" class="latex" src="https://s0.wp.com/latex.php?latex=K&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="K" />, defined as <img alt="\mu_{K}(S) = m(K \cap S) = \int_{S} \chi_{K} \,dm" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmu_%7BK%7D%28S%29+%3D+m%28K+%5Ccap+S%29+%3D+%5Cint_%7BS%7D+%5Cchi_%7BK%7D+%5C%2Cdm&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mu_{K}(S) = m(K \cap S) = \int_{S} \chi_{K} \,dm" />, is logconcave.</em></p></blockquote>
+<p><em>Proof:</em> Let <img alt="A,B \subset \mathbb{R}^{n}" class="latex" src="https://s0.wp.com/latex.php?latex=A%2CB+%5Csubset+%5Cmathbb%7BR%7D%5E%7Bn%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="A,B \subset \mathbb{R}^{n}" /> be measurable and <img alt="0 &lt; \lambda &lt; 1" class="latex" src="https://s0.wp.com/latex.php?latex=0+%3C+%5Clambda+%3C+1&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="0 &lt; \lambda &lt; 1" /> with <img alt="\lambda A + (1 - \lambda)B" class="latex" src="https://s0.wp.com/latex.php?latex=%5Clambda+A+%2B+%281+-+%5Clambda%29B&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\lambda A + (1 - \lambda)B" /> measurable. The preceding lemma shows that</p>
+<p align="center"><img alt="\begin{aligned}\mu_{K}(\lambda A + (1 -  \lambda)B)^{1/n} = m(K \cap (\lambda A + (1 - \lambda) B))^{1/n} \geq m(\lambda(A \cap K) + (1 - \lambda)(B \cap K))^{1/n}\end{aligned}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cbegin%7Baligned%7D%5Cmu_%7BK%7D%28%5Clambda+A+%2B+%281+-++%5Clambda%29B%29%5E%7B1%2Fn%7D+%3D+m%28K+%5Ccap+%28%5Clambda+A+%2B+%281+-+%5Clambda%29+B%29%29%5E%7B1%2Fn%7D+%5Cgeq+m%28%5Clambda%28A+%5Ccap+K%29+%2B+%281+-+%5Clambda%29%28B+%5Ccap+K%29%29%5E%7B1%2Fn%7D%5Cend%7Baligned%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\begin{aligned}\mu_{K}(\lambda A + (1 -  \lambda)B)^{1/n} = m(K \cap (\lambda A + (1 - \lambda) B))^{1/n} \geq m(\lambda(A \cap K) + (1 - \lambda)(B \cap K))^{1/n}\end{aligned}" />.</p>
+<p> Now, applying the Brunn-Minkowski Inequality, we have a lower bound of</p>
+<p align="center"><img alt="\begin{aligned}m(\lambda(A \cap K))^{1/n} + m((1 -  \lambda)(B \cap K))^{1/n} = \lambda m(A \cap K)^{1/n} + (1 -  \lambda)m(B \cap K)^{1/n} = \lambda \mu_{K}(A)^{1/n} + (1 -  \lambda)\mu_{K}(B)^{1/n}\end{aligned}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cbegin%7Baligned%7Dm%28%5Clambda%28A+%5Ccap+K%29%29%5E%7B1%2Fn%7D+%2B+m%28%281+-++%5Clambda%29%28B+%5Ccap+K%29%29%5E%7B1%2Fn%7D+%3D+%5Clambda+m%28A+%5Ccap+K%29%5E%7B1%2Fn%7D+%2B+%281+-++%5Clambda%29m%28B+%5Ccap+K%29%5E%7B1%2Fn%7D+%3D+%5Clambda+%5Cmu_%7BK%7D%28A%29%5E%7B1%2Fn%7D+%2B+%281+-++%5Clambda%29%5Cmu_%7BK%7D%28B%29%5E%7B1%2Fn%7D%5Cend%7Baligned%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\begin{aligned}m(\lambda(A \cap K))^{1/n} + m((1 -  \lambda)(B \cap K))^{1/n} = \lambda m(A \cap K)^{1/n} + (1 -  \lambda)m(B \cap K)^{1/n} = \lambda \mu_{K}(A)^{1/n} + (1 -  \lambda)\mu_{K}(B)^{1/n}\end{aligned}" />.</p>
+<p> Applying AMGM with <img alt="\alpha_{1} = \mu_{K}(A)^{1/n}, \alpha_{2} = \mu_{K}(B)^{1/n}, \lambda_{1}=\lambda, \lambda_{2}=1 - \lambda" class="latex" src="https://s0.wp.com/latex.php?latex=%5Calpha_%7B1%7D+%3D+%5Cmu_%7BK%7D%28A%29%5E%7B1%2Fn%7D%2C+%5Calpha_%7B2%7D+%3D+%5Cmu_%7BK%7D%28B%29%5E%7B1%2Fn%7D%2C+%5Clambda_%7B1%7D%3D%5Clambda%2C+%5Clambda_%7B2%7D%3D1+-+%5Clambda&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\alpha_{1} = \mu_{K}(A)^{1/n}, \alpha_{2} = \mu_{K}(B)^{1/n}, \lambda_{1}=\lambda, \lambda_{2}=1 - \lambda" />, we obtain a final lower bound of <img alt="\mu_{K}(A)^{\lambda/n}\mu_{K}(B)^{(1-\lambda)/n}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmu_%7BK%7D%28A%29%5E%7B%5Clambda%2Fn%7D%5Cmu_%7BK%7D%28B%29%5E%7B%281-%5Clambda%29%2Fn%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mu_{K}(A)^{\lambda/n}\mu_{K}(B)^{(1-\lambda)/n}" />. Raising both sides of the inequality to the <img alt="n" class="latex" src="https://s0.wp.com/latex.php?latex=n&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="n" />th power gives the result. <img alt="\Box" class="latex" src="https://s0.wp.com/latex.php?latex=%5CBox&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\Box" /></p>
+<p>Note that in this, all we really needed about the Lebesgue measure is that it is <strong>positive homogeneous of degree <img alt="n" class="latex" src="https://s0.wp.com/latex.php?latex=n&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="n" /></strong>, i.e. that <img alt="m(\lambda A) = \lambda^{n}m(A)" class="latex" src="https://s0.wp.com/latex.php?latex=m%28%5Clambda+A%29+%3D+%5Clambda%5E%7Bn%7Dm%28A%29&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="m(\lambda A) = \lambda^{n}m(A)" />. Perhaps I am missing some other technical aspects of the Lebesgue measure that are necessary for the proof to go through.</p>
+<p>UPDATE (01/17/2018): It turns out the converse is true as well, i.e. logconcavity of the Lebesgue measure implies the Brunn-Minkowski Inequality. We refer the reader to Corollary 5.3 from <a href="http://faculty.wwu.edu/gardner/gorizia12.pdf">Gardner’s survey titled “The Brunn-Minkowski Inequality”</a> for the proof, which just rescales <img alt="A,B" class="latex" src="https://s0.wp.com/latex.php?latex=A%2CB&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="A,B" /> to have unit volume and then makes a clever choice for the parameter <img alt="\lambda" class="latex" src="https://s0.wp.com/latex.php?latex=%5Clambda&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\lambda" />.</p>
+<blockquote><p><b>Lemma:</b><em> Suppose for all measurable <img alt="A,B" class="latex" src="https://s0.wp.com/latex.php?latex=A%2CB&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="A,B" />, and <img alt="0 &lt; \lambda &lt; 1" class="latex" src="https://s0.wp.com/latex.php?latex=0+%3C+%5Clambda+%3C+1&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="0 &lt; \lambda &lt; 1" /> such that <img alt="\lambda A + (1 - \lambda)B" class="latex" src="https://s0.wp.com/latex.php?latex=%5Clambda+A+%2B+%281+-+%5Clambda%29B&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\lambda A + (1 - \lambda)B" /> is measurable,<br />
+ that <img alt="m(\lambda A + (1 - \lambda)B) \geq m(A)^{\lambda}m(B)^{1-\lambda}" class="latex" src="https://s0.wp.com/latex.php?latex=m%28%5Clambda+A+%2B+%281+-+%5Clambda%29B%29+%5Cgeq+m%28A%29%5E%7B%5Clambda%7Dm%28B%29%5E%7B1-%5Clambda%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="m(\lambda A + (1 - \lambda)B) \geq m(A)^{\lambda}m(B)^{1-\lambda}" />.<br />
+ Then the Brunn-Minkowski Inequality holds.</em></p></blockquote></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://mathstoc.wordpress.com/2018/01/12/brunn-minkowski-implies-uniform-measures-on-convex-sets-are-logconcave/">by mathstoc at January 12, 2018 06:25 AM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
+<div class="daygroup">
+<h2>August 26, 2017</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://mathstoc.wordpress.com" title="Mathematical Distractions">Kuikui Liu <br/> Team INLP</a></h3>
+
+
+<div class="entrygroup" id="http://mathstoc.wordpress.com/?p=182">
+<h4 lang="en"><a href="https://mathstoc.wordpress.com/2017/08/26/gershgorins-circle-theorem/">Gershgorin’s Circle Theorem</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<p>Here we present briefly a quick way to obtain crude bounds on eigenvalues of complex square matrices.</p>
+<p>Fix a matrix <img alt="A \in \mathbb{C}^{n \times n}" class="latex" src="https://s0.wp.com/latex.php?latex=A+%5Cin+%5Cmathbb%7BC%7D%5E%7Bn+%5Ctimes+n%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="A \in \mathbb{C}^{n \times n}" /> with eigenvalue-eigenvector pairs <img alt="(\lambda_{1},v_{1}),\dots,(\lambda_{n},v_{n})" class="latex" src="https://s0.wp.com/latex.php?latex=%28%5Clambda_%7B1%7D%2Cv_%7B1%7D%29%2C%5Cdots%2C%28%5Clambda_%7Bn%7D%2Cv_%7Bn%7D%29&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="(\lambda_{1},v_{1}),\dots,(\lambda_{n},v_{n})" />. For each <img alt="i = 1,\dots,n " class="latex" src="https://s0.wp.com/latex.php?latex=i+%3D+1%2C%5Cdots%2Cn+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="i = 1,\dots,n " />, define <img alt="R_{i} \neq \sum_{j \neq i} |A_{ij}|" class="latex" src="https://s0.wp.com/latex.php?latex=R_%7Bi%7D+%5Cneq+%5Csum_%7Bj+%5Cneq+i%7D+%7CA_%7Bij%7D%7C&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="R_{i} \neq \sum_{j \neq i} |A_{ij}|" />. Finally, define the <b>Gershgorin discs</b> to be the closed discs <img alt="\mathbb{D}(a_{ii}, R_{i})  = \{z \in \mathbb{C} : |z - a_{ii}| \leq R_{i}\} \subset \mathbb{C}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbb%7BD%7D%28a_%7Bii%7D%2C+R_%7Bi%7D%29+%C2%A0%3D+%5C%7Bz+%5Cin+%5Cmathbb%7BC%7D+%3A+%7Cz+-+a_%7Bii%7D%7C+%5Cleq+R_%7Bi%7D%5C%7D+%5Csubset+%5Cmathbb%7BC%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mathbb{D}(a_{ii}, R_{i})  = \{z \in \mathbb{C} : |z - a_{ii}| \leq R_{i}\} \subset \mathbb{C}" />.</p>
+<blockquote><p><b>Gershgorin’s Circle Theorem:</b> <em> For every <img alt="i = 1,\dots,n" class="latex" src="https://s0.wp.com/latex.php?latex=i+%3D+1%2C%5Cdots%2Cn&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="i = 1,\dots,n" />, <img alt="\lambda_{i} \in \mathbb{D}(a_{jj}, R_{j})" class="latex" src="https://s0.wp.com/latex.php?latex=%5Clambda_%7Bi%7D+%5Cin+%5Cmathbb%7BD%7D%28a_%7Bjj%7D%2C+R_%7Bj%7D%29&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\lambda_{i} \in \mathbb{D}(a_{jj}, R_{j})" /> for some <img alt="j=1,\dots,n" class="latex" src="https://s0.wp.com/latex.php?latex=j%3D1%2C%5Cdots%2Cn&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="j=1,\dots,n" /></em></p></blockquote>
+<p><em>Proof:</em> Let <img alt="\lambda " class="latex" src="https://s0.wp.com/latex.php?latex=%5Clambda+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\lambda " /> be an eigenvalue of <img alt="A" class="latex" src="https://s0.wp.com/latex.php?latex=A&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="A" /> with corresponding eigenvector <img alt="v " class="latex" src="https://s0.wp.com/latex.php?latex=v+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="v " />. Let us renormalize <img alt="v" class="latex" src="https://s0.wp.com/latex.php?latex=v&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="v" /> by <img alt="1/v_{k} " class="latex" src="https://s0.wp.com/latex.php?latex=1%2Fv_%7Bk%7D+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="1/v_{k} " /> where <img alt="k" class="latex" src="https://s0.wp.com/latex.php?latex=k&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="k" /> is the index <img alt="i " class="latex" src="https://s0.wp.com/latex.php?latex=i+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="i " /> maximizing <img alt="|v_{i}| " class="latex" src="https://s0.wp.com/latex.php?latex=%7Cv_%7Bi%7D%7C+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="|v_{i}| " />. Thus <img alt="\max_{i} |v_{i}| = 1 " class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmax_%7Bi%7D+%7Cv_%7Bi%7D%7C+%3D+1+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\max_{i} |v_{i}| = 1 " /> and <img alt="v_{k} = 1 " class="latex" src="https://s0.wp.com/latex.php?latex=v_%7Bk%7D+%3D+1+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="v_{k} = 1 " />.</p>
+<p>Now, by definition, <img alt="Ax = \lambda x " class="latex" src="https://s0.wp.com/latex.php?latex=Ax+%3D+%5Clambda+x+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="Ax = \lambda x " />. In particular, for the <img alt="k " class="latex" src="https://s0.wp.com/latex.php?latex=k+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="k " />th coordinate, <img alt="a_{kk} + \sum_{j \neq k} A_{kj} v_{j} = a_{kk}v_{k} + \sum_{j \neq k} A_{kj}v_{j} = \sum_{j} A_{kj}v_{j} = \lambda v_{k} = \lambda " class="latex" src="https://s0.wp.com/latex.php?latex=a_%7Bkk%7D+%2B+%5Csum_%7Bj+%5Cneq+k%7D+A_%7Bkj%7D+v_%7Bj%7D+%3D+a_%7Bkk%7Dv_%7Bk%7D+%2B+%5Csum_%7Bj+%5Cneq+k%7D+A_%7Bkj%7Dv_%7Bj%7D+%3D+%5Csum_%7Bj%7D+A_%7Bkj%7Dv_%7Bj%7D+%3D+%5Clambda+v_%7Bk%7D+%3D+%5Clambda+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="a_{kk} + \sum_{j \neq k} A_{kj} v_{j} = a_{kk}v_{k} + \sum_{j \neq k} A_{kj}v_{j} = \sum_{j} A_{kj}v_{j} = \lambda v_{k} = \lambda " />. Finally, by the Triangle Inequality, <img alt="|\lambda - a_{kk}| = \left|\sum_{j \neq k} A_{kj} v_{j} \right|\leq \sum_{j \neq k} |A_{kj}| \cdot |v_{j}| \leq \sum_{j \neq k} |A_{kj}| = R_{k} " class="latex" src="https://s0.wp.com/latex.php?latex=%7C%5Clambda+-+a_%7Bkk%7D%7C+%3D+%5Cleft%7C%5Csum_%7Bj+%5Cneq+k%7D+A_%7Bkj%7D+v_%7Bj%7D+%5Cright%7C%5Cleq+%5Csum_%7Bj+%5Cneq+k%7D+%7CA_%7Bkj%7D%7C+%5Ccdot+%7Cv_%7Bj%7D%7C+%5Cleq+%5Csum_%7Bj+%5Cneq+k%7D+%7CA_%7Bkj%7D%7C+%3D+R_%7Bk%7D+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="|\lambda - a_{kk}| = \left|\sum_{j \neq k} A_{kj} v_{j} \right|\leq \sum_{j \neq k} |A_{kj}| \cdot |v_{j}| \leq \sum_{j \neq k} |A_{kj}| = R_{k} " />. <img alt="\Box" class="latex" src="https://s0.wp.com/latex.php?latex=%5CBox&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\Box" /></p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://mathstoc.wordpress.com/2017/08/26/gershgorins-circle-theorem/">by mathstoc at August 26, 2017 05:51 PM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
+<div class="daygroup">
+<h2>July 22, 2017</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://mathstoc.wordpress.com" title="Mathematical Distractions">Kuikui Liu <br/> Team INLP</a></h3>
+
+
+<div class="entrygroup" id="http://mathstoc.wordpress.com/?p=148">
+<h4 lang="en"><a href="https://mathstoc.wordpress.com/2017/07/22/gan-training/">GAN Idea Introduction</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<p>Disclaimer: I am no expert on deep learning or even machine learning.</p>
+<p>The hottest new technique in deep learning is one that combines neural networks with ideas from algorithmic game theory: the <em>generative adversarial network (GAN).</em> It is a technique <a href="https://arxiv.org/abs/1406.2661">proposed by Goodfellow et. al.</a> in 2014 and one that Yann LeCun, the Director of Facebook AI, heralds as</p>
+<blockquote>
+<p style="text-align: center;"><span style="color: #000000;">“…the most interesting idea in the last 10 years in machine learning…”</span></p>
+</blockquote>
+<p>(This is the <img alt="n" class="latex" src="https://s0.wp.com/latex.php?latex=n&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="n" />th utterance of any variation of this quote, for some large and unknown <img alt="n" class="latex" src="https://s0.wp.com/latex.php?latex=n&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="n" />.)</p>
+<p>Before we proceed, here is a good high-level <a href="https://blog.openai.com/generative-models/">blog post by OpenAI</a> on GANs. What I like most about it is how it refers to other recent techniques in generative models such as variational autoencoders and what they’re doing to improve these models. I also highly recommend the original <a href="https://arxiv.org/abs/1406.2661">Goodfellow et. al.</a> paper; it is very readable.</p>
+<p>Let’s begin with a concrete goal: We want a machine to learn how to generate realistic images of, say, dogs (general photorealistic image generation has essentially been the greatest success for GANs thus far).</p>
+<p>One can model this problem as drawing samples from some fixed, true, unknown probability distribution <img alt="p_{r}" class="latex" src="https://s0.wp.com/latex.php?latex=p_%7Br%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="p_{r}" /> (in our example, the probability distribution over all possible images, with a higher density value for an image indicating a higher likelihood of it being an image of a dog).</p>
+<p>The set up of a GAN is as follows: we train not one but two neural networks <img alt="G" class="latex" src="https://s0.wp.com/latex.php?latex=G&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="G" /> and <img alt="D" class="latex" src="https://s0.wp.com/latex.php?latex=D&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="D" />, canonically referred to as the <em>generator</em> and the <em>discriminator</em> respectively. The goal of the generator is to generate samples that “look” like they come from <img alt="p_{r}" class="latex" src="https://s0.wp.com/latex.php?latex=p_%7Br%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="p_{r}" />, i.e. generate samples according to some probability distribution <img alt="p_{g}" class="latex" src="https://s0.wp.com/latex.php?latex=p_%7Bg%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="p_{g}" /> that is “close” to <img alt="p_{r}" class="latex" src="https://s0.wp.com/latex.php?latex=p_%7Br%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="p_{r}" /> in some sense (generate realistic images of dogs). The goal of the discriminator is to determine correctly whether a given sample is drawn from <img alt="p_{r}" class="latex" src="https://s0.wp.com/latex.php?latex=p_%7Br%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="p_{r}" /> or from <img alt="p_{g}" class="latex" src="https://s0.wp.com/latex.php?latex=p_%7Bg%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="p_{g}" /> (distinguish between real and generated images of dogs).</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://mathstoc.wordpress.com/2017/07/22/gan-training/">by mathstoc at July 22, 2017 05:45 PM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
+<div class="daygroup">
+<h2>July 16, 2017</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://mathstoc.wordpress.com" title="Mathematical Distractions">Kuikui Liu <br/> Team INLP</a></h3>
+
+
+<div class="entrygroup" id="http://mathstoc.wordpress.com/?p=125">
+<h4 lang="en"><a href="https://mathstoc.wordpress.com/2017/07/16/irrational-power-of-an-irrational/">Irrational Power of an Irrational</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<p>This was just a neat proof I came across somewhere. I’m definitely not clever enough to come up with this myself.</p>
+<blockquote><p><b>Lemma:</b> <em> There exist positive irrational numbers <img alt="x,y" class="latex" src="https://s0.wp.com/latex.php?latex=x%2Cy&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="x,y" /> such that <img alt="x^{y}" class="latex" src="https://s0.wp.com/latex.php?latex=x%5E%7By%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="x^{y}" /> is rational.</em></p></blockquote>
+<p><em>Proof:</em> Assume <img alt="\sqrt{2}^{\sqrt{2}}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Csqrt%7B2%7D%5E%7B%5Csqrt%7B2%7D%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\sqrt{2}^{\sqrt{2}}" /> is rational. Then we are done by taking <img alt="x = y = \sqrt{2}" class="latex" src="https://s0.wp.com/latex.php?latex=x+%3D+y+%3D+%5Csqrt%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="x = y = \sqrt{2}" />. Otherwise, assume <img alt="\sqrt{2}^{\sqrt{2}}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Csqrt%7B2%7D%5E%7B%5Csqrt%7B2%7D%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\sqrt{2}^{\sqrt{2}}" /> is irrational. Then, taking <img alt="x = \sqrt{2}^{\sqrt{2}}" class="latex" src="https://s0.wp.com/latex.php?latex=x+%3D+%5Csqrt%7B2%7D%5E%7B%5Csqrt%7B2%7D%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="x = \sqrt{2}^{\sqrt{2}}" /> and <img alt="y = \sqrt{2}" class="latex" src="https://s0.wp.com/latex.php?latex=y+%3D+%5Csqrt%7B2%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="y = \sqrt{2}" />, we have <img alt="x^{y} = (\sqrt{2}^{\sqrt{2}})^{\sqrt{2}} = \sqrt{2}^{\sqrt{2} \cdot \sqrt{2}} = \sqrt{2}^{2} = 2" class="latex" src="https://s0.wp.com/latex.php?latex=x%5E%7By%7D+%3D+%28%5Csqrt%7B2%7D%5E%7B%5Csqrt%7B2%7D%7D%29%5E%7B%5Csqrt%7B2%7D%7D+%3D+%5Csqrt%7B2%7D%5E%7B%5Csqrt%7B2%7D+%5Ccdot+%5Csqrt%7B2%7D%7D+%3D+%5Csqrt%7B2%7D%5E%7B2%7D+%3D+2&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="x^{y} = (\sqrt{2}^{\sqrt{2}})^{\sqrt{2}} = \sqrt{2}^{\sqrt{2} \cdot \sqrt{2}} = \sqrt{2}^{2} = 2" />. <img alt="\Box" class="latex" src="https://s0.wp.com/latex.php?latex=%5CBox&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\Box" /><br />
+Still at the end of this proof, I have no clue whether <img alt="\sqrt{2}^{\sqrt{2}}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Csqrt%7B2%7D%5E%7B%5Csqrt%7B2%7D%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="\sqrt{2}^{\sqrt{2}}" /> is rational or irrational! A bit more Googling revealed <a href="https://math.stackexchange.com/questions/446647/irrationality-of-sqrt2-sqrt2">this</a>.</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://mathstoc.wordpress.com/2017/07/16/irrational-power-of-an-irrational/">by mathstoc at July 16, 2017 11:53 PM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
+<div class="daygroup">
+<h2>July 14, 2017</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://mathstoc.wordpress.com" title="Mathematical Distractions">Kuikui Liu <br/> Team INLP</a></h3>
+
+
+<div class="entrygroup" id="http://mathstoc.wordpress.com/?p=14">
+<h4 lang="en"><a href="https://mathstoc.wordpress.com/2017/07/14/a-cute-problem-that-is-np-hard/">A Neat Problem: Number Balancing</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<p>Let <img alt="{a_{1},\dots,a_{n} \in [0,1]}" class="latex" src="https://s0.wp.com/latex.php?latex=%7Ba_%7B1%7D%2C%5Cdots%2Ca_%7Bn%7D+%5Cin+%5B0%2C1%5D%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="{a_{1},\dots,a_{n} \in [0,1]}" /> be numbers.</p>
+<blockquote><p><b>The Number Balancing Problem:</b> <em> Select disjoint subsets <img alt="I_{1},I_{2} \subset \{1,\dots,n\}" class="latex" src="https://s0.wp.com/latex.php?latex=I_%7B1%7D%2CI_%7B2%7D+%5Csubset+%5C%7B1%2C%5Cdots%2Cn%5C%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="I_{1},I_{2} \subset \{1,\dots,n\}" />, not both empty, such that <img alt="\sum_{k \in I_{1}} a_{k}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Csum_%7Bk+%5Cin+I_%7B1%7D%7D+a_%7Bk%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\sum_{k \in I_{1}} a_{k}" /> is as close to <img alt="\sum_{k \in I_{2}} a_{k}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Csum_%7Bk+%5Cin+I_%7B2%7D%7D+a_%7Bk%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\sum_{k \in I_{2}} a_{k}" /> as possible. Alternatively, we can phrase the problem as finding a nonzero <img alt="\mathbf{x} \in \{-1,0,1\}^{n}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbf%7Bx%7D+%5Cin+%5C%7B-1%2C0%2C1%5C%7D%5E%7Bn%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mathbf{x} \in \{-1,0,1\}^{n}" /> minimizing <img alt="\left|\sum_{k=1}^{n} a_{k}x_{k}\right|" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cleft%7C%5Csum_%7Bk%3D1%7D%5E%7Bn%7D+a_%7Bk%7Dx_%7Bk%7D%5Cright%7C&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\left|\sum_{k=1}^{n} a_{k}x_{k}\right|" />.</em></p></blockquote>
+<p>A very simple but cool application of the Pigeonhole Principle shows us there always exists a nonzero <img alt="\mathbf{x} \in \{-1,0,1\}^{n}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbf%7Bx%7D+%5Cin+%5C%7B-1%2C0%2C1%5C%7D%5E%7Bn%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mathbf{x} \in \{-1,0,1\}^{n}" /> such that <img alt="\left|\sum_{k=1}^{n} a_{k}x_{k}\right|" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cleft%7C%5Csum_%7Bk%3D1%7D%5E%7Bn%7D+a_%7Bk%7Dx_%7Bk%7D%5Cright%7C&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\left|\sum_{k=1}^{n} a_{k}x_{k}\right|" /> is exponentially small in <img alt="n" class="latex" src="https://s0.wp.com/latex.php?latex=n&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="n" /> in <img alt="n" class="latex" src="https://s0.wp.com/latex.php?latex=n&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="n" />. Moreover, the bound is completely independent of the choice of <img alt="a_{1},\dots,a_{n}" class="latex" src="https://s0.wp.com/latex.php?latex=a_%7B1%7D%2C%5Cdots%2Ca_%7Bn%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="a_{1},\dots,a_{n}" />!</p>
+<blockquote><p><b>Lemma 1:</b> <em> There exists a nonzero <img alt="\mathbf{x} \in \{-1,0,1\}^{n}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbf%7Bx%7D+%5Cin+%5C%7B-1%2C0%2C1%5C%7D%5E%7Bn%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mathbf{x} \in \{-1,0,1\}^{n}" /> such that <img alt="\left|\sum_{k=1}^{n} a_{k}x_{k}\right|\leq \frac{n}{2^{n} - 1}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cleft%7C%5Csum_%7Bk%3D1%7D%5E%7Bn%7D+a_%7Bk%7Dx_%7Bk%7D%5Cright%7C%5Cleq+%5Cfrac%7Bn%7D%7B2%5E%7Bn%7D+-+1%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\left|\sum_{k=1}^{n} a_{k}x_{k}\right|\leq \frac{n}{2^{n} - 1}" /></em></p></blockquote>
+<p><em>Proof:</em> Observe that <img alt="\sum_{k=1}^{n} a_{k}x_{k} \in [0,n]" class="latex" src="https://s0.wp.com/latex.php?latex=%5Csum_%7Bk%3D1%7D%5E%7Bn%7D+a_%7Bk%7Dx_%7Bk%7D+%5Cin+%5B0%2Cn%5D&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="\sum_{k=1}^{n} a_{k}x_{k} \in [0,n]" /> for all choices of <img alt="\mathbf{x} \in \{0,1\}^{n}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbf%7Bx%7D+%5Cin+%5C%7B0%2C1%5C%7D%5E%7Bn%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="\mathbf{x} \in \{0,1\}^{n}" />. Partition <img alt="{[0,n]}" class="latex" src="https://s0.wp.com/latex.php?latex=%7B%5B0%2Cn%5D%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="{[0,n]}" /> into <img alt="{2^{n} - 1}" class="latex" src="https://s0.wp.com/latex.php?latex=%7B2%5E%7Bn%7D+-+1%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="{2^{n} - 1}" /> intervals, each of length <img alt="{n / (2^{n} - 1)}" class="latex" src="https://s0.wp.com/latex.php?latex=%7Bn+%2F+%282%5E%7Bn%7D+-+1%29%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="{n / (2^{n} - 1)}" />. Now, there are <img alt="{2^{n}}" class="latex" src="https://s0.wp.com/latex.php?latex=%7B2%5E%7Bn%7D%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="{2^{n}}" /> distinct points in <img alt="{\{0,1\}^{n}}" class="latex" src="https://s0.wp.com/latex.php?latex=%7B%5C%7B0%2C1%5C%7D%5E%7Bn%7D%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="{\{0,1\}^{n}}" /> so by the Pigeonhole Principle, there exists distinct <img alt="{\mathbf{x}, \mathbf{x'} \in \{0,1\}^{n}}" class="latex" src="https://s0.wp.com/latex.php?latex=%7B%5Cmathbf%7Bx%7D%2C+%5Cmathbf%7Bx%27%7D+%5Cin+%5C%7B0%2C1%5C%7D%5E%7Bn%7D%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="{\mathbf{x}, \mathbf{x'} \in \{0,1\}^{n}}" /> such that <img alt="{\sum_{k=1}^{n} a_{k}x_{k}}" class="latex" src="https://s0.wp.com/latex.php?latex=%7B%5Csum_%7Bk%3D1%7D%5E%7Bn%7D+a_%7Bk%7Dx_%7Bk%7D%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="{\sum_{k=1}^{n} a_{k}x_{k}}" /> and <img alt="{\sum_{k=1}^{n} a_{k}x_{k}'}" class="latex" src="https://s0.wp.com/latex.php?latex=%7B%5Csum_%7Bk%3D1%7D%5E%7Bn%7D+a_%7Bk%7Dx_%7Bk%7D%27%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="{\sum_{k=1}^{n} a_{k}x_{k}'}" /> lie within the same interval of the partition. In particular,</p>
+<p align="center"><img alt="\begin{aligned}\left|\sum_{k=1}^{n} a_{k} \cdot (x_{k} - x_{k}')\right| \leq \frac{n}{2^{n} - 1}\end{aligned}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cbegin%7Baligned%7D%5Cleft%7C%5Csum_%7Bk%3D1%7D%5E%7Bn%7D+a_%7Bk%7D+%5Ccdot+%28x_%7Bk%7D+-+x_%7Bk%7D%27%29%5Cright%7C+%5Cleq+%5Cfrac%7Bn%7D%7B2%5E%7Bn%7D+-+1%7D%5Cend%7Baligned%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\begin{aligned}\left|\sum_{k=1}^{n} a_{k} \cdot (x_{k} - x_{k}')\right| \leq \frac{n}{2^{n} - 1}\end{aligned}" />.</p>
+<p>Furthermore, <img alt="\mathbf{x} - \mathbf{x'} \in \{-1,0,1\}^{n} " class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbf%7Bx%7D+-+%5Cmathbf%7Bx%27%7D+%5Cin+%5C%7B-1%2C0%2C1%5C%7D%5E%7Bn%7D+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mathbf{x} - \mathbf{x'} \in \{-1,0,1\}^{n} " /> so <img alt="\mathbf{x} - \mathbf{x'} " class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbf%7Bx%7D+-+%5Cmathbf%7Bx%27%7D+&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\mathbf{x} - \mathbf{x'} " /> is our desired point. <img alt="\Box" class="latex" src="https://s0.wp.com/latex.php?latex=%5CBox&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="\Box" /></p>
+<p>Recently, researchers at the University of Washington proved reductions between the <a href="https://en.wikipedia.org/wiki/Lattice_problem#Shortest_vector_problem_(SVP)">Shortest Vector Problem</a> and algorithmically finding a good <img alt="\mathbf{x} \in \{-1,0,1\}^{n}" class="latex" src="https://s0.wp.com/latex.php?latex=%5Cmathbf%7Bx%7D+%5Cin+%5C%7B-1%2C0%2C1%5C%7D%5E%7Bn%7D&amp;bg=ffffff&amp;fg=444444&amp;s=0" title="\mathbf{x} \in \{-1,0,1\}^{n}" /> for this Number Balancing Problem. The paper can be found <a href="https://arxiv.org/pdf/1611.08757.pdf">here</a>.</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://mathstoc.wordpress.com/2017/07/14/a-cute-problem-that-is-np-hard/">by mathstoc at July 14, 2017 09:02 AM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
 
 
 <div class="sidebar">
@@ -252,16 +779,40 @@ I'm working on my project in my fork of Allennlp. I got the dataset and have wri
 <h2>Subscriptions</h2>
 <ul>
 <li>
+<a href="https://medium.com/feed/@viterbi.or.not" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2" title="Stories by Viterbi Or Not To Be on Medium">Aaron Johnston, Lynsey Liu <br/> Team Viterbi Or Not To Be</a>
+</li>
+<li>
+<a href="https://deeplearningturingtest.wordpress.com/feed/" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="https://deeplearningturingtest.wordpress.com" title="NLP Capstone Project Updates – Ananth">Ananth Gottumukkala <br/> Team Turing Test</a>
+</li>
+<li>
 <a href="https://medium.com/feed/@be.li.nda" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="https://medium.com/@be.li.nda?source=rss-fad49d942bf3------2" title="Stories by Belinda Zou Li on Medium">Belinda Li <br/> Team Sentimentity</a>
 </li>
 <li>
 <a href="http://cse481n-capstone.azurewebsites.net/feed" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="http://cse481n-capstone.azurewebsites.net" title="Team Watch Your Language!">Boyan Li, Dennis Orzikh, Lanhao Wu <br/> Team Watch Your Language!</a>
 </li>
 <li>
+<a href="https://mathstoc.wordpress.com/feed/" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="https://mathstoc.wordpress.com" title="Mathematical Distractions">Kuikui Liu <br/> Team INLP</a>
+</li>
+<li>
+<a href="http://www.blogger.com/feeds/354195895616735293/posts/default" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="http://nlp-wikipedia.blogspot.com/" title="CSE 481 N - NLP Capstone Spring 2018">Nicholas Ruhland <br/> Team nlp-wikipedia</a>
+</li>
+<li>
+<a href="" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a title="">Pinyi Wang, Dawei Shen, Xukai Liu <br/> Team Overfit</a>
+</li>
+<li>
 <a href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="https://nlpcapstonesemparse.blogspot.com/" title="NlpCapstone">Rajas Agashe <br/> Team Han Flying Solo</a>
 </li>
 <li>
+<a href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="https://cse481n.blogspot.com/" title="PrimeapeNLP">Ron Fan, Aditya Saraf <br/> Team PrimeapeNLP</a>
+</li>
+<li>
 <a href="https://medium.com/feed/@ryanp97" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2" title="Stories by Ryan Pham on Medium">Ryan Pham <br/> Team NeuralEmpty</a>
+</li>
+<li>
+<a href="http://sarahyu.weebly.com/6/feed" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="http://sarahyu.weebly.com/cse-481n" title="Sarah yu - CSE 481N">Sarah Yu <br/> Team Jekyll-Hyde</a>
+</li>
+<li>
+<a href="https://medium.com/feed/nlp-capstone-blog" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="https://medium.com/nlp-capstone-blog?source=rss----9ba3897b6688---4" title="NLP Capstone Blog - Medium">Tam Dang, Karishma Mandyam <br/> Team Illimitatum</a>
 </li>
 <li>
 <a href="https://medium.com/feed/@hongnin1" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="https://medium.com/@hongnin1?source=rss-c450eb982161------2" title="Stories by Ning Hong on Medium">Zichun Liu, Ning Hong, Sujie Zhou <br/> Team The Bugless</a>
@@ -270,7 +821,7 @@ I'm working on my project in my fork of Allennlp. I got the dataset and have wri
 
 <p>
 <strong>Last updated:</strong><br>
-April 04, 2018 07:30 PM<br>
+April 04, 2018 07:37 PM<br>
 <em>All times are UTC.</em><br>
 
 <!--
