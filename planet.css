@@ -82,6 +82,9 @@ img.face {
 .entry h3 {
         font-family: "Bitstream Vera Sans", sans-serif;
         font-weight: normal;
+        background-color: initial;
+        border: initial;
+        padding: initial;
 }
 
 .sidebar {
