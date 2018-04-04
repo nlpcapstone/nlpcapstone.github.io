@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:planet="http://planet.intertwingly.net/" xmlns:indexing="urn:atom-extension:indexing" indexing:index="no"><access:restriction xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" relationship="deny"/>
   <title>NLP Capstone Spring 2018</title>
-  <updated>2018-04-04T00:30:16Z</updated>
+  <updated>2018-04-04T01:00:16Z</updated>
   <generator uri="http://intertwingly.net/code/venus/">Venus</generator>
   <author>
     <name>Nelson Liu</name>
@@ -10,6 +10,31 @@
   <id>https://nlpcapstone.github.io/atom.xml</id>
   <link href="https://nlpcapstone.github.io/atom.xml" rel="self" type="application/atom+xml"/>
   <link href="https://nlpcapstone.github.io/" rel="alternate"/>
+
+  <entry>
+    <id>https://medium.com/p/f7412889d221</id>
+    <link href="https://medium.com/@be.li.nda/nlp-capstone-blog-1-f7412889d221?source=rss-fad49d942bf3------2" rel="alternate" type="text/html"/>
+    <title>NLP Capstone Blog #1</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>Brainstorming project ideas for my CSE 481N NLP Capstone class.</p><p>The following project ideas are all research-oriented (research mode).</p><h3>Document Level Entity-Entity Sentiment Analysis</h3><p><strong>Github URL</strong>: <a href="https://github.com/eunsol/document-e2e-sent">https://github.com/eunsol/document-e2e-sent</a></p><p>Given a document and named entities within the documents, we try to model the sentiment between the various entities in a document, categorizing the sentiments as “positive,” “negative,” or “neutral/no sentiment.” We focus especially on world news, which usually involve many named entities (i.e. countries, world leaders, etc.). For example, given such a document and the named entities in the document:</p><blockquote>Iran’s President <strong>Mahmoud Ahmadinejad</strong> said <strong>Iran</strong> opposes the “aggressive and arrogant policies” of the <strong>United States</strong>, local satellite <strong>Press TV</strong> reported Sunday.</blockquote><blockquote>“The <strong>Iranian nation</strong> opposes the aggressive and arrogant policies of the <strong>U.S. government</strong> and will stand against them forever,” <strong>Ahmadinejad</strong> told a religious conference Saturday.</blockquote><blockquote><strong>Iranian president</strong> also urged the <strong>United States</strong> and other western countries to change their attitude.</blockquote><blockquote>“You should change your attitude,” <strong>Ahmadinejad</strong> said.</blockquote><blockquote><strong>Iran</strong> has constantly accused the <strong>United States</strong> and western powers of earmarking funds to stir up protests against the country and its way of dealing with human rights.</blockquote><p>We should be able to generate the following set of relations between the <strong>bolded</strong>, named entities:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/290/1*ThoNzALuI1a78NOYImbGiw.png"/>Graphical representation of the annotations for the document above. Note that the <strong>red edges</strong> represent <strong>negative</strong> sentiment, <strong>green edges </strong>represent <strong>positive</strong> sentiment, <strong>light green edges</strong> represent <strong>non-negative</strong> sentiments, and <strong>light red edges</strong> represent <strong>non-positive</strong> sentiments.</figure><h4>Minimal Viable Action Plan</h4><ul><li>Fortunately, I already have a pre-existing, labelled dataset I can work with (<a href="https://homes.cs.washington.edu/~eunsol/project_page/acl16/index.html">some examples here</a>), so I don’t have worry about procuring data.</li><li>Implement and train a basic LSTM. This will serve as the baseline model for which to compare results.</li><li>Improve the LSTM with attention, word and sentiment embeddings, dropout, etc. Experiment with various hyper-parameter settings such as learning rate, dropout rate, batch sizes, etc. to maximize performance.</li></ul><h4>Stretch Goals</h4><ul><li>Implement and train a bi-affine relation attention network as delineated in <a href="https://arxiv.org/pdf/1802.10569.pdf">this paper</a>, and adapt it for sentiment analysis between entities.</li><li>Experiment with new network architectures for the bi-affine network to hopefully improve results.</li></ul><p>As I am 99.99% sure that I will be doing entity-entity sentiment analysis for this class, the two ideas below are just here to represent research directions that I’m generally interested in, and how I would approach working on them.</p><h3>Generating Conversational Responses</h3><p>Given an input sentence, generate an appropriate and believable sentence in response. As chat bots are on the rise, these sorts of problems are becoming increasingly pervasive.</p><h4>Minimal Viable Action Plan</h4><ul><li>Procure data from some pre-existing dataset. <a href="http://www.cs.cornell.edu/~cristian/Cornell_Movie-Dialogs_Corpus.html">This movie dialogue corpus</a> could be a good source. Note though that movie dialogue can be written quite differently from everyday dialogue, and may vary depending on movie genre and setting.</li><li>Implement beam search as described in the lecture slides and in <a href="https://geekyisawesome.blogspot.com/2016/10/using-beam-search-to-generate-most.html">the referenced blog post</a>. This will be used as the benchmark model to which the performance of other models will be compared to.</li></ul><h4>Stretch Goals</h4><ul><li>Implement the semantically-conditioned LSTM-based model as described in <a href="https://arxiv.org/pdf/1508.01745.pdf">the following paper</a>.</li><li>Attempt to improve the model in some way.</li></ul><h3>Fake News/Misinformation Detection</h3><p>Given quotes from news articles, notable politicians, or online communities, categorize it as “true,” “mostly true,” “half true,” “mostly false,” “false,” or “pants on fire.”</p><h4>Minimal Viable Action Plan</h4><ul><li>Politifact is a great data source, and an inspiration for this project.</li><li>Based off of <a href="https://arxiv.org/pdf/1803.03786.pdf">this paper</a>, implement and train a model that combines a bidirectional attention-based LSTM with an SVM. In particular, the model works by feeding the output of the last hidden layer in the LSTM network into an SVM, which then outputs the label.</li></ul><h4>Stretch Goals</h4><ul><li>Since the source paper applied the model to news articles, the model may or may not adapt well to quotes. It would be good to experiment with the architecture of the LSTM and/or determine whether the LSTM + SVM model actually performs better than just an LSTM or just an SVM.</li><li>Experiment with various combinations of LSTM and other machine learning models in an attempt to improve performance.</li></ul><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=f7412889d221" width="1"/></div>
+    </content>
+    <updated>2018-04-04T00:34:38Z</updated>
+    <category term="machine-learning"/>
+    <category term="deep-learning"/>
+    <category term="naturallanguageprocessing"/>
+    <author>
+      <name>Belinda Zou Li</name>
+    </author>
+    <source>
+      <id>https://medium.com/@be.li.nda?source=rss-fad49d942bf3------2</id>
+      <logo>https://cdn-images-1.medium.com/fit/c/150/150/0*A16vZtRWBzxYPlmn.</logo>
+      <link href="https://medium.com/@be.li.nda?source=rss-fad49d942bf3------2" rel="alternate" type="text/html"/>
+      <link href="https://medium.com/feed/@be.li.nda" rel="self" type="application/rss+xml"/>
+      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
+      <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
+      <title>Stories by Belinda Zou Li on Medium</title>
+      <updated>2018-04-04T01:00:16Z</updated>
+    </source>
+  </entry>
 
   <entry>
     <id>tag:blogger.com,1999:blog-5600014144802012716.post-4534461914269998368</id>
@@ -53,7 +78,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-04T00:30:04Z</updated>
+      <updated>2018-04-04T01:00:04Z</updated>
     </source>
   </entry>
 
@@ -76,7 +101,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-04T00:30:04Z</updated>
+      <updated>2018-04-04T01:00:04Z</updated>
     </source>
   </entry>
 
