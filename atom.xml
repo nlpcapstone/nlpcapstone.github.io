@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:planet="http://planet.intertwingly.net/" xmlns:indexing="urn:atom-extension:indexing" indexing:index="no"><access:restriction xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" relationship="deny"/>
   <title>NLP Capstone Spring 2018</title>
-  <updated>2018-04-05T17:30:08Z</updated>
+  <updated>2018-04-05T18:00:11Z</updated>
   <generator uri="http://intertwingly.net/code/venus/">Venus</generator>
   <author>
     <name>Nelson Liu</name>
@@ -10,6 +10,37 @@
   <id>https://nlpcapstone.github.io/atom.xml</id>
   <link href="https://nlpcapstone.github.io/atom.xml" rel="self" type="application/atom+xml"/>
   <link href="https://nlpcapstone.github.io/" rel="alternate"/>
+
+  <entry xml:lang="en-US">
+    <id>http://cse481n-capstone.azurewebsites.net/?p=31</id>
+    <link href="http://cse481n-capstone.azurewebsites.net/2018/04/05/warm-up/" rel="alternate" type="text/html"/>
+    <title>Warm Up!</title>
+    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">Data Collection: We have already begun the process of collecting data from Reddit for our project, using the Reddit API. We want to train our first neural-net model, which will be able to tell if some text is offensive or not, on a large amount of data. Besides using the Reddit API to get posts … <a class="more-link" href="http://cse481n-capstone.azurewebsites.net/2018/04/05/warm-up/">Continue reading<span class="screen-reader-text"> "Warm Up!"</span></a></div>
+    </summary>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><h3><b>Data Collection:</b></h3>
+<p><span style="font-weight: 400;">We have already begun the process of collecting data from Reddit for our project, using the Reddit API. We want to train our first neural-net model, which will be able to tell if some text is offensive or not, on a large amount of data.</span></p>
+<p><span style="font-weight: 400;">Besides using the Reddit API to get posts from r/MeanJokes, we also use the Reddit submission dataset from </span><a href="https://pushshift.io/"><span style="font-weight: 400;">pushshift.io</span></a><span style="font-weight: 400;"> to get more examples from a wider context. We pre-processed data by filtering out non-text submission and deleted posts. </span></p>
+<p><span style="font-weight: 400;">Now that we have the r/meanJokes posts, we want to determine the content phrases of these posts so that we can use them to find similar sentences all over Reddit. We know that the r/meanJokes posts are all offensive, and similar sentences elsewhere in Reddit could give us non-offensive examples. We have found an algorithm for pulling content phrases out of sentences, the </span><span style="font-weight: 400;">Rapid Automatic Keyword Extraction (RAKE) algorithm. We have extracted content phrases from r/meanJokes posts and also want to extract them from the rest of Reddit and the next step is to decide on a way to compare similarity and output the final set of posts we want to train the model on.</span></p>
+<h3><b>Deep Learning Tools Set Up:</b></h3>
+<p><span style="font-weight: 400;">For our modeling purposes, we are exploring PyTorch and AllenNLP. We learned PyTorch basics and went through Nelson’s tutorial in the undergrad NLP course last quarter. PyTorch would be our weapon of choice if we experiment with novel models.</span></p>
+<p><span style="font-weight: 400;">We also installed AllenNLP because it looks like a nice tool to build and evaluate baseline models. We are currently going through AllenNLP’s official tutorial by running some of their existing models and demos.</span></p>
+<p><span style="font-weight: 400;">So far, these tools are working as we expected.</span></p>
+<p> </p></div>
+    </content>
+    <updated>2018-04-05T17:41:07Z</updated>
+    <category term="Weekly blog"/>
+    <author>
+      <name>Team Watch Your Language!</name>
+    </author>
+    <source>
+      <id>http://cse481n-capstone.azurewebsites.net</id>
+      <link href="http://cse481n-capstone.azurewebsites.net/feed/" rel="self" type="application/rss+xml"/>
+      <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
+      <subtitle>Spring2018 CSE481N Capstone</subtitle>
+      <title>Team Watch Your Language!</title>
+      <updated>2018-04-05T18:00:08Z</updated>
+    </source>
+  </entry>
 
   <entry>
     <id>tag:blogger.com,1999:blog-354195895616735293.post-6386758378464642504</id>
@@ -62,7 +93,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-05T17:30:06Z</updated>
+      <updated>2018-04-05T18:00:09Z</updated>
     </source>
   </entry>
 
@@ -119,7 +150,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-05T17:30:08Z</updated>
+      <updated>2018-04-05T18:00:11Z</updated>
     </source>
   </entry>
 
@@ -146,7 +177,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-05T17:30:07Z</updated>
+      <updated>2018-04-05T18:00:10Z</updated>
     </source>
   </entry>
 
@@ -170,7 +201,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-05T17:30:08Z</updated>
+      <updated>2018-04-05T18:00:11Z</updated>
     </source>
   </entry>
 
@@ -202,7 +233,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-05T17:30:06Z</updated>
+      <updated>2018-04-05T18:00:10Z</updated>
     </source>
   </entry>
 
@@ -229,7 +260,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-05T17:30:06Z</updated>
+      <updated>2018-04-05T18:00:09Z</updated>
     </source>
   </entry>
 
@@ -254,7 +285,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-05T17:30:06Z</updated>
+      <updated>2018-04-05T18:00:09Z</updated>
     </source>
   </entry>
 
@@ -277,7 +308,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-05T17:30:04Z</updated>
+      <updated>2018-04-05T18:00:04Z</updated>
     </source>
   </entry>
 
@@ -322,7 +353,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-05T17:30:05Z</updated>
+      <updated>2018-04-05T18:00:06Z</updated>
     </source>
   </entry>
 
@@ -345,7 +376,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-05T17:30:04Z</updated>
+      <updated>2018-04-05T18:00:05Z</updated>
     </source>
   </entry>
 
@@ -383,7 +414,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-05T17:30:05Z</updated>
+      <updated>2018-04-05T18:00:08Z</updated>
     </source>
   </entry>
 
@@ -407,7 +438,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-05T17:30:07Z</updated>
+      <updated>2018-04-05T18:00:10Z</updated>
     </source>
   </entry>
 
@@ -431,7 +462,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-05T17:30:04Z</updated>
+      <updated>2018-04-05T18:00:04Z</updated>
     </source>
   </entry>
 </feed>

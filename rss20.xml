@@ -9,6 +9,21 @@
 	<atom:link rel="self" href="https://nlpcapstone.github.io/rss20.xml" type="application/rss+xml"/>
 
 <item>
+	<title>Boyan Li, Dennis Orzikh, Lanhao Wu &lt;br/&gt; Team Watch Your Language!: Warm Up!</title>
+	<guid isPermaLink="false">http://cse481n-capstone.azurewebsites.net/?p=31</guid>
+	<link>http://cse481n-capstone.azurewebsites.net/2018/04/05/warm-up/</link>
+	<description>&lt;h3&gt;&lt;b&gt;Data Collection:&lt;/b&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;We have already begun the process of collecting data from Reddit for our project, using the Reddit API. We want to train our first neural-net model, which will be able to tell if some text is offensive or not, on a large amount of data.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Besides using the Reddit API to get posts from r/MeanJokes, we also use the Reddit submission dataset from &lt;/span&gt;&lt;a href=&quot;https://pushshift.io/&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;pushshift.io&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; to get more examples from a wider context. We pre-processed data by filtering out non-text submission and deleted posts. &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Now that we have the r/meanJokes posts, we want to determine the content phrases of these posts so that we can use them to find similar sentences all over Reddit. We know that the r/meanJokes posts are all offensive, and similar sentences elsewhere in Reddit could give us non-offensive examples. We have found an algorithm for pulling content phrases out of sentences, the &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Rapid Automatic Keyword Extraction (RAKE) algorithm. We have extracted content phrases from r/meanJokes posts and also want to extract them from the rest of Reddit and the next step is to decide on a way to compare similarity and output the final set of posts we want to train the model on.&lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;&lt;b&gt;Deep Learning Tools Set Up:&lt;/b&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;For our modeling purposes, we are exploring PyTorch and AllenNLP. We learned PyTorch basics and went through Nelson’s tutorial in the undergrad NLP course last quarter. PyTorch would be our weapon of choice if we experiment with novel models.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;We also installed AllenNLP because it looks like a nice tool to build and evaluate baseline models. We are currently going through AllenNLP’s official tutorial by running some of their existing models and demos.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;So far, these tools are working as we expected.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt; &lt;/p&gt;</description>
+	<pubDate>Thu, 05 Apr 2018 17:41:07 +0000</pubDate>
+</item>
+<item>
 	<title>Nicholas Ruhland &lt;br/&gt; Team nlp-wikipedia: Week 2 Milestone</title>
 	<guid isPermaLink="false">tag:blogger.com,1999:blog-354195895616735293.post-6386758378464642504</guid>
 	<link>http://nlp-wikipedia.blogspot.com/2018/04/milestone.html</link>
