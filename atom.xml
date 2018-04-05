@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:planet="http://planet.intertwingly.net/" xmlns:indexing="urn:atom-extension:indexing" indexing:index="no"><access:restriction xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" relationship="deny"/>
   <title>NLP Capstone Spring 2018</title>
-  <updated>2018-04-05T04:30:08Z</updated>
+  <updated>2018-04-05T05:01:09Z</updated>
   <generator uri="http://intertwingly.net/code/venus/">Venus</generator>
   <author>
     <name>Nelson Liu</name>
@@ -62,7 +62,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-05T04:30:06Z</updated>
+      <updated>2018-04-05T05:01:07Z</updated>
     </source>
   </entry>
 
@@ -119,7 +119,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-05T04:30:08Z</updated>
+      <updated>2018-04-05T05:01:09Z</updated>
     </source>
   </entry>
 
@@ -146,7 +146,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-05T04:30:08Z</updated>
+      <updated>2018-04-05T05:01:08Z</updated>
     </source>
   </entry>
 
@@ -170,7 +170,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-05T04:30:08Z</updated>
+      <updated>2018-04-05T05:01:09Z</updated>
     </source>
   </entry>
 
@@ -202,7 +202,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-05T04:30:07Z</updated>
+      <updated>2018-04-05T05:01:08Z</updated>
     </source>
   </entry>
 
@@ -229,7 +229,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-05T04:30:06Z</updated>
+      <updated>2018-04-05T05:01:06Z</updated>
     </source>
   </entry>
 
@@ -254,7 +254,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-05T04:30:06Z</updated>
+      <updated>2018-04-05T05:01:06Z</updated>
     </source>
   </entry>
 
@@ -277,7 +277,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-05T04:30:03Z</updated>
+      <updated>2018-04-05T05:00:04Z</updated>
     </source>
   </entry>
 
@@ -322,7 +322,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-05T04:30:04Z</updated>
+      <updated>2018-04-05T05:00:05Z</updated>
     </source>
   </entry>
 
@@ -345,45 +345,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-05T04:30:04Z</updated>
-    </source>
-  </entry>
-
-  <entry xml:lang="en-US">
-    <id>http://cse481n-capstone.azurewebsites.net/?p=15</id>
-    <link href="http://cse481n-capstone.azurewebsites.net/2018/04/02/first-blog-post/" rel="alternate" type="text/html"/>
-    <title>First Blog Post!</title>
-    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">Team Name:  Team Watch Your Language! Three Project Ideas: Offensive Text Recognition Our minimal viable plan is to create two models, one which determines if text is offensive or not, and another which determines if any particular group is targeted by the text, such as a racial, religious, or political grouping. Our stretch goal is … <a class="more-link" href="http://cse481n-capstone.azurewebsites.net/2018/04/02/first-blog-post/">Continue reading<span class="screen-reader-text"> "First Blog Post!"</span></a></div>
-    </summary>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><h3><strong>Team Name: </strong></h3>
-<p><span style="font-weight: 400;">Team Watch Your Language!</span></p>
-<h3><strong>Three Project Ideas:</strong></h3>
-<p><span style="text-decoration: underline;">Offensive Text Recognition</span></p>
-<p><span style="font-weight: 400;">Our minimal viable plan is to create two models, one which determines if text is offensive or not, and another which determines if any particular group is targeted by the text, such as a racial, religious, or political grouping. </span></p>
-<p><span style="font-weight: 400;">Our stretch goal is to use these models to make a third model which can use the first two outputs as assumptions to then provide human-readable explanations as to why that particular text was labeled the way it was. This way we can determine if text is offensive or not and provide reasons for that labeling. This can be used to assist in teaching conversational agents common sense about what to say.</span></p>
-<p><span style="text-decoration: underline;"><span style="font-weight: 400;">Domain-Specific Conversational Agent</span></span></p>
-<p><span style="font-weight: 400;">Our minimal viable plan is to create a conversational agent which can provide information and hold a conversation with a well-intentioned user about a particular domain. </span></p>
-<p><span style="font-weight: 400;">The stretch goal here would be to just continually make it better at conversing, at least in the particular domain it is trained to be good at talking about.</span></p>
-<p><span style="text-decoration: underline;"><span style="font-weight: 400;">Image Description</span></span></p>
-<p><span style="font-weight: 400;">Our minimal viable plan is to create a model that can describe a simple image correctly, like generating a sentence describing the spatial relation between a box and a cylinder.</span></p>
-<p><span style="font-weight: 400;">For the stretch goal, we would like to improve our model that can describe a unique pattern of an image among 3 (or multiple) other images. For example, if we have 3 images A, B, and C, we would like to come up with a model to generate a sentence that describes image A but not image B or C.</span></p>
-<h3><strong>GitLab Repo:</strong></h3>
-<p><span style="font-weight: 400;"> </span><a href="https://gitlab.cs.washington.edu/danielby/nlp-capstone"><span style="font-weight: 400;">https://gitlab.cs.washington.edu/danielby/nlp-capstone</span></a></p>
-<h3><strong>Mode:</strong></h3>
-<p><span style="font-weight: 400;">We will be tackling the Offensive Text Recognition task in</span> <em>research mode</em><span style="font-weight: 400;">!</span></p></div>
-    </content>
-    <updated>2018-04-02T06:58:42Z</updated>
-    <category term="Weekly blog"/>
-    <author>
-      <name>Team Watch Your Language!</name>
-    </author>
-    <source>
-      <id>http://cse481n-capstone.azurewebsites.net</id>
-      <link href="http://cse481n-capstone.azurewebsites.net/feed/" rel="self" type="application/rss+xml"/>
-      <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
-      <subtitle>Spring2018 CSE481N Capstone</subtitle>
-      <title>Team Watch Your Language!</title>
-      <updated>2018-04-05T04:30:05Z</updated>
+      <updated>2018-04-05T05:00:05Z</updated>
     </source>
   </entry>
 
@@ -407,7 +369,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-05T04:30:07Z</updated>
+      <updated>2018-04-05T05:01:08Z</updated>
     </source>
   </entry>
 
@@ -431,7 +393,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-05T04:30:03Z</updated>
+      <updated>2018-04-05T05:00:04Z</updated>
     </source>
   </entry>
 </feed>
