@@ -177,38 +177,6 @@
 
 
 
-<h3><a href="http://nlp-wikipedia.blogspot.com/" title="CSE 481 N - NLP Capstone Spring 2018">Nicholas Ruhland <br/> Team nlp-wikipedia</a></h3>
-
-
-<div class="entrygroup" id="tag:blogger.com,1999:blog-354195895616735293.post-6386758378464642504">
-<h4><a href="http://nlp-wikipedia.blogspot.com/2018/04/milestone.html">Week 2 Milestone</a></h4>
-<div class="entry">
-<div class="content">
-<h2>Project ideas</h2><hr /><h3>Wikipedia vandalism detection</h3>One of the primary challenges facing Wikipedia's content is vandals, or users who intentionally add incorrect or irrelevant information to articles. To combat this ongoing issue, bots automatically check each incoming edit and make an attempt to label the edit as contributive or vandalism.<br /><br />Existing research tends to focus on labelling users as either editing in good faith or as vandals, encoded by embedding each user's edits into a dense vector (Yuan). Information about series of edits allows much more accurate classification than considering each edit independently, but is also causes a more complex model.<br /><br />At least 2 datasets have been publicly provided in the cited papers: UMDWikipedia dataset (Kumar) and SpamDataset (Green). The UMDWikipedia dataset has 33K users and 770 edits, and the SpamDataset has 4.2K users and 75.6K edits.<br /><br />A minimal action plan could include the following steps:<br /><ul><li>- Implement a baseline model that considers edits independently, as opposed to generating a user embedding.</li><li>- Extract features as described in the Kumar paper, and attempt to replicate results with an SVM model. Stretch: try other models to try to improve accuracy. Stretch: find more features that could potentially improve the results.</li><li>- Implement the model proposed in the Yuan paper (user embedding by LSTM) and attempt to replicate results.</li><li>- Implement the model proposed in the Green paper and attempt to replicate results. Compare these features with those in the earlier Kumar paper.</li><li>- Use the larger (UMDWikipedia) dataset in the Kumar model. Attempt to improve the accuracy by using the larger dataset.</li><li>- Novel models. Implement a GAN that will use a generative model trained to fool the discriminator. </li><li>- Stretch: Context specific vandalism. Train a model to recognize common vandalism patterns specific to one article topic. </li></ul><br />Papers<br /><br /><ol><li>[1] Kumar - VEWS: A Wikipedia Vandal Early Warning System (2015) https://arxiv.org/abs/1507.01272</li><li>[2] Yuan - Wikipedia Vandal Early Detection: from User Behavior to User Embedding (2017) https://arxiv.org/abs/1706.00887</li><li>[3] Green - Spam Users Identification in Wikipedia via Editing Behavior (2017) https://sites.google.com/site/francescaspezzano/publications/spammers</li></ol><hr /><h3>Suggesting Missing Wikipedia Articles</h3>Wikipedia as a resource has the potential to present cutting edge research to a large audience in an accessible manner. Many recent academic research topics could be qualified to have articles, but people knowledgable enough in a relevant field do not know which topics need to be added or expanded on Wikipedia.<br /><br />Current research includes: providing potentially missed citations given a paper (<a href="http://allenai.org/semantic-scholar/citeomatic/">http://allenai.org/semantic-scholar/citeomatic/</a>)<br /><br />This project combines aspects of keyword extraction or article summary with a classification task of determining which topics are notable enough to have articles. This sort of data could be extracted from Wikipedia category listings for various topics.<br /><br /><br />Tasks include:<br /><ul><li>Parsing out topics (article names) from a collection of academic papers</li><li>Determining which topics are eligible to have articles, but either lack articles or are missing important information from the articles</li><li>Possible demo: input the content of a paper and output which wikipedia articles would be relevant to include the information in this paper. </li><li>Possible demo: given a topic, find articles that do not yet exist and provide relevant papers for those articles.</li></ul><hr /><h3>Analyzing Citations in Wikipedia</h3><div>Though not as rigorous as academic, Wikipedia generally has strict guidelines about when to include citations. The quality of citations is important for the integrity of an article, so it makes sense to check that the sources provided are being used appropriately.</div><div><br /></div><div>Tasks of forming datasets have helped to structure the task of analyzing Wikipedia's citations (2). </div><div><br /></div><div>From this dataset, we hope to train a classifier to predict good and bad citations. Labels can be computed as those that remain in the current state of an article versus those that get removed after being added.</div><div><br /></div><div>Tasks include:</div><div><ul><li>Adding labels to the dataset as described.</li><li>Training models based on the features provided in the dataset. These models include the context of the citation (its position in an article) and the text that is being referenced.</li><li>More advanced processing could include checking for relevance of the source, if possible. Features could be extracted from some of the structured data, such as the URL or other content contained in the citation.</li></ul></div><div><br /></div><div>References</div><div><ol><li>[1] Nielsen - Scientific citations in Wikipedia (2007) https://arxiv.org/abs/0705.2106</li><li>[2] https://meta.wikimedia.org/wiki/Research:Understanding_the_context_of_citations_in_Wikipedia</li></ol></div><br /></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="http://nlp-wikipedia.blogspot.com/2018/04/milestone.html">by Nicholas Ruhland (noreply@blogger.com) at April 04, 2018 07:29 AM</a>
-</p>
-</div>
-</div>
-
-
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
 <h3><a href="https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2" title="Stories by Viterbi Or Not To Be on Medium">Aaron Johnston, Lynsey Liu <br/> Team Viterbi Or Not To Be</a></h3>
 
 
@@ -241,7 +209,7 @@
 
 
 
-<h3><a href="https://mathstoc.wordpress.com" title="NLP Capstone – Mathematical Distractions">Kuikui Liu <br/> Team INLP</a></h3>
+<h3><a href="https://mathstoc.wordpress.com" title="NLP Capstone – Mathematical Distractions">Kuikui Liu, Nicholas Ruhland <br/> Team INLP</a></h3>
 
 
 <div class="entrygroup" id="http://mathstoc.wordpress.com/?p=277">
@@ -736,10 +704,7 @@ I'm working on my project in my fork of Allennlp. I got the dataset and have wri
 <a href="https://medium.com/feed/@halden.lin" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="https://medium.com/@halden.lin?source=rss-2759d54493c0------2" title="Stories by Halden Lin on Medium">Halden Lin <br/> Team undef.</a>
 </li>
 <li>
-<a href="https://mathstoc.wordpress.com/category/nlp-capstone/feed/" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="https://mathstoc.wordpress.com" title="NLP Capstone – Mathematical Distractions">Kuikui Liu <br/> Team INLP</a>
-</li>
-<li>
-<a href="http://www.blogger.com/feeds/354195895616735293/posts/default" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="http://nlp-wikipedia.blogspot.com/" title="CSE 481 N - NLP Capstone Spring 2018">Nicholas Ruhland <br/> Team nlp-wikipedia</a>
+<a href="https://mathstoc.wordpress.com/category/nlp-capstone/feed/" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="https://mathstoc.wordpress.com" title="NLP Capstone – Mathematical Distractions">Kuikui Liu, Nicholas Ruhland <br/> Team INLP</a>
 </li>
 <li>
 <a href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="https://teamoverfit.blogspot.com/" title="NLP Capstone">Pinyi Wang, Dawei Shen, Xukai Liu <br/> Team Overfit</a>
@@ -766,7 +731,7 @@ I'm working on my project in my fork of Allennlp. I got the dataset and have wri
 
 <p>
 <strong>Last updated:</strong><br>
-April 06, 2018 03:00 AM<br>
+April 06, 2018 03:08 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--

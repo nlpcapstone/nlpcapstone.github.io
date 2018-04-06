@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:planet="http://planet.intertwingly.net/" xmlns:indexing="urn:atom-extension:indexing" indexing:index="no"><access:restriction xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" relationship="deny"/>
   <title>NLP Capstone Spring 2018</title>
-  <updated>2018-04-06T03:00:19Z</updated>
+  <updated>2018-04-06T03:08:45Z</updated>
   <generator uri="http://intertwingly.net/code/venus/">Venus</generator>
   <author>
     <name>Nelson Liu</name>
@@ -30,7 +30,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-06T03:00:05Z</updated>
+      <updated>2018-04-06T03:08:40Z</updated>
     </source>
   </entry>
 
@@ -77,7 +77,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-06T03:00:17Z</updated>
+      <updated>2018-04-06T03:08:42Z</updated>
     </source>
   </entry>
 
@@ -108,39 +108,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-06T03:00:16Z</updated>
-    </source>
-  </entry>
-
-  <entry>
-    <id>tag:blogger.com,1999:blog-354195895616735293.post-6386758378464642504</id>
-    <link href="http://nlp-wikipedia.blogspot.com/feeds/6386758378464642504/comments/default" rel="replies" title="Post Comments" type="application/atom+xml"/>
-    <link href="http://nlp-wikipedia.blogspot.com/2018/04/milestone.html#comment-form" rel="replies" title="0 Comments" type="text/html"/>
-    <link href="http://www.blogger.com/feeds/354195895616735293/posts/default/6386758378464642504" rel="edit" type="application/atom+xml"/>
-    <link href="http://www.blogger.com/feeds/354195895616735293/posts/default/6386758378464642504" rel="self" type="application/atom+xml"/>
-    <link href="http://nlp-wikipedia.blogspot.com/2018/04/milestone.html" rel="alternate" title="Week 2 Milestone" type="text/html"/>
-    <title>Week 2 Milestone</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><h2>Project ideas</h2><hr/><h3>Wikipedia vandalism detection</h3>One of the primary challenges facing Wikipedia's content is vandals, or users who intentionally add incorrect or irrelevant information to articles. To combat this ongoing issue, bots automatically check each incoming edit and make an attempt to label the edit as contributive or vandalism.<br/><br/>Existing research tends to focus on labelling users as either editing in good faith or as vandals, encoded by embedding each user's edits into a dense vector (Yuan). Information about series of edits allows much more accurate classification than considering each edit independently, but is also causes a more complex model.<br/><br/>At least 2 datasets have been publicly provided in the cited papers: UMDWikipedia dataset (Kumar) and SpamDataset (Green). The UMDWikipedia dataset has 33K users and 770 edits, and the SpamDataset has 4.2K users and 75.6K edits.<br/><br/>A minimal action plan could include the following steps:<br/><ul><li>- Implement a baseline model that considers edits independently, as opposed to generating a user embedding.</li><li>- Extract features as described in the Kumar paper, and attempt to replicate results with an SVM model. Stretch: try other models to try to improve accuracy. Stretch: find more features that could potentially improve the results.</li><li>- Implement the model proposed in the Yuan paper (user embedding by LSTM) and attempt to replicate results.</li><li>- Implement the model proposed in the Green paper and attempt to replicate results. Compare these features with those in the earlier Kumar paper.</li><li>- Use the larger (UMDWikipedia) dataset in the Kumar model. Attempt to improve the accuracy by using the larger dataset.</li><li>- Novel models. Implement a GAN that will use a generative model trained to fool the discriminator. </li><li>- Stretch: Context specific vandalism. Train a model to recognize common vandalism patterns specific to one article topic. </li></ul><br/>Papers<br/><br/><ol><li>[1] Kumar - VEWS: A Wikipedia Vandal Early Warning System (2015) https://arxiv.org/abs/1507.01272</li><li>[2] Yuan - Wikipedia Vandal Early Detection: from User Behavior to User Embedding (2017) https://arxiv.org/abs/1706.00887</li><li>[3] Green - Spam Users Identification in Wikipedia via Editing Behavior (2017) https://sites.google.com/site/francescaspezzano/publications/spammers</li></ol><hr/><h3>Suggesting Missing Wikipedia Articles</h3>Wikipedia as a resource has the potential to present cutting edge research to a large audience in an accessible manner. Many recent academic research topics could be qualified to have articles, but people knowledgable enough in a relevant field do not know which topics need to be added or expanded on Wikipedia.<br/><br/>Current research includes: providing potentially missed citations given a paper (<a href="http://allenai.org/semantic-scholar/citeomatic/">http://allenai.org/semantic-scholar/citeomatic/</a>)<br/><br/>This project combines aspects of keyword extraction or article summary with a classification task of determining which topics are notable enough to have articles. This sort of data could be extracted from Wikipedia category listings for various topics.<br/><br/><br/>Tasks include:<br/><ul><li>Parsing out topics (article names) from a collection of academic papers</li><li>Determining which topics are eligible to have articles, but either lack articles or are missing important information from the articles</li><li>Possible demo: input the content of a paper and output which wikipedia articles would be relevant to include the information in this paper. </li><li>Possible demo: given a topic, find articles that do not yet exist and provide relevant papers for those articles.</li></ul><hr/><h3>Analyzing Citations in Wikipedia</h3><div>Though not as rigorous as academic, Wikipedia generally has strict guidelines about when to include citations. The quality of citations is important for the integrity of an article, so it makes sense to check that the sources provided are being used appropriately.</div><div><br/></div><div>Tasks of forming datasets have helped to structure the task of analyzing Wikipedia's citations (2). </div><div><br/></div><div>From this dataset, we hope to train a classifier to predict good and bad citations. Labels can be computed as those that remain in the current state of an article versus those that get removed after being added.</div><div><br/></div><div>Tasks include:</div><div><ul><li>Adding labels to the dataset as described.</li><li>Training models based on the features provided in the dataset. These models include the context of the citation (its position in an article) and the text that is being referenced.</li><li>More advanced processing could include checking for relevance of the source, if possible. Features could be extracted from some of the structured data, such as the URL or other content contained in the citation.</li></ul></div><div><br/></div><div>References</div><div><ol><li>[1] Nielsen - Scientific citations in Wikipedia (2007) https://arxiv.org/abs/0705.2106</li><li>[2] https://meta.wikimedia.org/wiki/Research:Understanding_the_context_of_citations_in_Wikipedia</li></ol></div><br/></div>
-    </content>
-    <updated>2018-04-04T07:29:53Z</updated>
-    <published>2018-04-04T07:04:00Z</published>
-    <author>
-      <name>Nicholas Ruhland</name>
-      <email>noreply@blogger.com</email>
-      <uri>https://plus.google.com/115630689240248801413</uri>
-    </author>
-    <source>
-      <id>tag:blogger.com,1999:blog-354195895616735293</id>
-      <author>
-        <name>Nicholas Ruhland</name>
-        <email>noreply@blogger.com</email>
-      </author>
-      <link href="http://nlp-wikipedia.blogspot.com/feeds/posts/default" rel="http://schemas.google.com/g/2005#feed" type="application/atom+xml"/>
-      <link href="http://www.blogger.com/feeds/354195895616735293/posts/default" rel="self" type="application/atom+xml"/>
-      <link href="http://nlp-wikipedia.blogspot.com/" rel="alternate" type="text/html"/>
-      <link href="http://pubsubhubbub.appspot.com/" rel="hub" type="text/html"/>
-      <title>CSE 481 N - NLP Capstone Spring 2018</title>
-      <updated>2018-04-04T07:29:53Z</updated>
+      <updated>2018-04-06T03:08:42Z</updated>
     </source>
   </entry>
 
@@ -163,7 +131,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-06T03:00:18Z</updated>
+      <updated>2018-04-06T03:08:43Z</updated>
     </source>
   </entry>
 
@@ -220,7 +188,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-06T03:00:19Z</updated>
+      <updated>2018-04-06T03:08:45Z</updated>
     </source>
   </entry>
 
@@ -247,7 +215,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-06T03:00:19Z</updated>
+      <updated>2018-04-06T03:08:44Z</updated>
     </source>
   </entry>
 
@@ -271,7 +239,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-06T03:00:19Z</updated>
+      <updated>2018-04-06T03:08:44Z</updated>
     </source>
   </entry>
 
@@ -303,7 +271,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-06T03:00:18Z</updated>
+      <updated>2018-04-06T03:08:43Z</updated>
     </source>
   </entry>
 
@@ -330,7 +298,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-06T03:00:17Z</updated>
+      <updated>2018-04-06T03:08:43Z</updated>
     </source>
   </entry>
 
@@ -355,7 +323,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-06T03:00:17Z</updated>
+      <updated>2018-04-06T03:08:42Z</updated>
     </source>
   </entry>
 
@@ -378,7 +346,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-06T03:00:04Z</updated>
+      <updated>2018-04-06T03:08:40Z</updated>
     </source>
   </entry>
 
@@ -423,7 +391,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-06T03:00:05Z</updated>
+      <updated>2018-04-06T03:08:41Z</updated>
     </source>
   </entry>
 
@@ -446,7 +414,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-06T03:00:04Z</updated>
+      <updated>2018-04-06T03:08:40Z</updated>
     </source>
   </entry>
 
@@ -484,7 +452,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-06T03:00:16Z</updated>
+      <updated>2018-04-06T03:08:42Z</updated>
     </source>
   </entry>
 
@@ -508,7 +476,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-06T03:00:18Z</updated>
+      <updated>2018-04-06T03:08:44Z</updated>
     </source>
   </entry>
 
@@ -532,7 +500,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-06T03:00:04Z</updated>
+      <updated>2018-04-06T03:08:40Z</updated>
     </source>
   </entry>
 </feed>
