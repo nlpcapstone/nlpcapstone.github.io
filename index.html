@@ -33,6 +33,192 @@
 
 
 
+<h3><a href="https://deeplearningturingtest.wordpress.com" title="NLP Capstone Project Updates – Ananth">Ananth Gottumukkala <br/> Team Turing Test</a></h3>
+
+
+<div class="entrygroup" id="http://deeplearningturingtest.wordpress.com/?p=12">
+<h4 lang="en"><a href="https://deeplearningturingtest.wordpress.com/2018/04/06/warm-up-testing-a-codebase/">Warm Up: Testing a Codebase</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<p>I installed both the Tensorflow and Pytorch API’s since I’m not sure which framework I will use yet. Then, I downloaded the following repository which implemented Hybrid Code Networks for Dialog State tracking in its respective research paper.</p>
+<p>Code base URL: <a href="https://github.com/voicy-ai/DialogStateTracking" rel="nofollow">https://github.com/voicy-ai/DialogStateTracking</a></p>
+<p>Research Paper URL: <a href="https://www.semanticscholar.org/paper/Hybrid-Code-Networks%3A-practical-and-efficient-with-Williams-Asadi/0645905d70caf180433145be09c9af266a85c863" rel="nofollow">https://www.semanticscholar.org/paper/Hybrid-Code-Networks%3A-practical-and-efficient-with-Williams-Asadi/0645905d70caf180433145be09c9af266a85c863</a></p>
+<p>Their implementation uses Keras (built on Tensorflow) to build the network. The model stores a predetermined set of action templates to execute based on what the user requests. By feeding in features like the previous action taken, a bag of words vector, an entity tracking feature vector, etc. their RNN outputs a softmax distribution over the possible action templates. The action taken is the one with the highest probability. Because the conversation is restricted to a particular domain such as searching for a restaurant, the model performed well when I ran and tested it. The model generally recognized the type of request I was making, but its responses were extremely robotic and towards the end, gave me yes or no questions to answer to narrow down what action it should take. My goal is to generalize the type of information the model can store between time steps to be able to provide responses for requests outside of a restricted domain (like searching for a restaurant in this case).</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://deeplearningturingtest.wordpress.com/2018/04/06/warm-up-testing-a-codebase/">by ananthgo at April 06, 2018 06:58 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/@halden.lin?source=rss-2759d54493c0------2" title="Stories by Halden Lin on Medium">Halden Lin <br/> Team undef.</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/96fb908765f5">
+<h4><a href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5?source=rss-2759d54493c0------2">NLP Capstone | 02: Getting Started</a></h4>
+<div class="entry">
+<div class="content">
+<p><a href="https://medium.com/@halden.lin/nlp-capstone-01-options-ee873b6885d5">previous post</a></p><p>Alright, it’s been only 2 days since my last entry, so this will be a relatively short post. The direction I proposed in <strong>Option 1 </strong>of that post was towards a more robust, interpretable, and informative visualization of attention, particularly in the context of text summarization. A quick recap:</p><blockquote>Perhaps interaction can be used to create a more insightful and interpretable visualization framework for understanding attention. For example, text heat-maps are already used widely to visualize sentiment analysis.</blockquote><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*lsgeuBXGGBog4YkuQNgJVw.png" />Lin et al. (2017) [6]. Visualization of sentiment analysis on a token-by-token basis.</figure><blockquote>In a static context, using this method for attention would require repeat of the same input sequence for each word in the output sequence. Using interaction, however, a model creator could brush over single or sequences of words in the output sequence to view corresponding soft-alignment in the input sequence. Aggregate visualizations could be shown to supplement this view (either aggregates over a particular input / output sequence, or aggregates over all input / output sequences).</blockquote><p>I’m currently working on laying out the groundwork for such a project. Here’s what I’ve been up to:</p><h4>Finding a Text Summarization Dataset</h4><p>A quick survey of recent research papers [1–5] on text summarization points, as well as online forums, points to three commonly used datasets.</p><ol><li><a href="https://cs.nyu.edu/~kcho/DMQA/">CNN/Daily Mail Corpus</a>. A collection of articles and their bullet point summaries, with each bullet split for Q/A purposes. <a href="https://github.com/abisee/cnn-dailymail">A script</a> [1] can be ran over the original dataset to restore the original bullet point summaries, to be used as a summarization corpus.</li><li><a href="https://www-nlpir.nist.gov/projects/duc/data.html">DUC Corpus</a>. In particular, DUC 2003 and DUC 2004. These contain a collection of documents, each accompanied by a short (~10 word) summary. There is also a longer summary for each cluster of documents.</li><li><a href="https://catalog.ldc.upenn.edu/ldc2003t05">Gigaword Corpus</a>. An annotated collection of millions of documents. The summarization task here would be to predict the headline of each [5]</li></ol><p>The accessibility of the <strong>CNN/Daily Mail Corpus</strong> (a process is required for the other two), in addition to the prevalence of projects that used it as a primary dataset [1, 2, 4], made it the most attractive option. The relatively longer summaries (~4 bullet points as opposed a short blurb in the other two datasets) also lends itself conveniently to the case of an interactive visualization with multi-token selection (e.g. select a whole bullet point and see where it attended). For a baseline, this will be my dataset!</p><h4>Identifying a Baseline Model</h4><p>See et al. (2017) [1] lay out a seq2seq attentional model as their baseline (a bidirectional LSTM). I’ll be using this as a baseline model with which to obtain data.</p><h4>Getting Some Code Up</h4><p>I’ll be using <a href="http://pytorch.org/">PyTorch</a> and the <a href="http://allennlp.org/">AllenNLP</a> toolkit [7] to implement my NN models. These are both ready to go on both my machine and Azure. I’m currently in the process of writing a DatasetReader for the dataset described above.</p><h3>Next Steps</h3><ul><li>Finish writing the DatasetReader for the CNN/Daily Mail Corpus.</li><li>Begin work on a baseline seq2seq attentional model, as described in <strong>Identifying a Baseline Model</strong></li></ul><h4>Works Cited</h4><p>[1] <a href="https://arxiv.org/pdf/1704.04368.pdf">See, Abigail et al. “Get To The Point: Summarization with Pointer-Generator Networks.” <em>ACL</em> (2017).</a></p><p>[2] <a href="https://arxiv.org/pdf/1712.06100.pdf">Hasselqvist, Johan et al. “Query-Based Abstractive Summarization Using Neural Networks.” <em>CoRR</em> abs/1712.06100 (2017): n. pag.</a></p><p>[3] <a href="https://arxiv.org/pdf/1602.06023.pdf">Nallapati, Ramesh et al. “Abstractive Text Summarization using Sequence-to-sequence RNNs and Beyond.” <em>CoNLL</em> (2016).</a></p><p>[4] <a href="https://arxiv.org/pdf/1705.04304.pdf">Paulus, Romain et al. “A Deep Reinforced Model for Abstractive Summarization.” <em>CoRR</em> abs/1705.04304 (2017): n. pag.</a></p><p>[5] <a href="https://arxiv.org/pdf/1509.00685.pdf">Rush, Alexander M. et al. “A Neural Attention Model for Abstractive Sentence Summarization.” <em>EMNLP</em> (2015).</a></p><p>[6] <a href="https://arxiv.org/pdf/1703.03130.pdf">Lin, Zhouhan, <em>et al.</em>, “A structured self-attentive sentence embedding.”<em>arXiv preprint arXiv:1703.03130</em> (2017).</a></p><p>[7] <a href="https://pdfs.semanticscholar.org/a550/2187140cdd98d76ae711973dbcdaf1fef46d.pdf?_ga=2.150901366.1370831839.1522970228-1363309632.1522194596">Gardner, Matt et al. “AllenNLP: A Deep Semantic Natural Language Processing Platform.” (2017).</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=96fb908765f5" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5?source=rss-2759d54493c0------2">by Halden Lin at April 06, 2018 06:53 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2" title="Stories by Viterbi Or Not To Be on Medium">Aaron Johnston, Lynsey Liu <br/> Team Viterbi Or Not To Be</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/278789e4d04a">
+<h4><a href="https://medium.com/@viterbi.or.not/warming-up-278789e4d04a?source=rss-c522ef075bb3------2">Warming Up</a></h4>
+<div class="entry">
+<div class="content">
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*qc9b3NkzkWe1kNnqmlHukA.png" /></figure><p>In order to begin implementing our baseline model, for which we intend to duplicate the results presented in another research paper covering discussion summarization, we began by identifying software that was referenced by other papers as being useful for their implementations.</p><p>Using these leads, we decided to “warm up” by installing the software and gaining some familiarity with it. The main libraries that we identified are listed here:</p><h4><a href="https://www.nltk.org/"><strong>Natural Language Toolkit (nltk)</strong></a></h4><p>Perhaps it is no surprise that this resource ended up first on our list, but it was a clear choice to familiarize ourselves with because of the sheer variety of tools it provides. While performing an initial survey of conversation summarization papers, we discovered a reference to the TextTiling algorithm, described in <a href="http://www.aclweb.org/anthology/J97-1003">this paper</a> and referenced as a technique used in <a href="http://www.aclweb.org/anthology/D08-1081">another paper</a> about summarization. Broadly, the algorithm detects boundaries between topics in text, so it was used by this summarization paper as part of a pipeline before assigning scores to those topics representing their importance. For our baseline model, one possibility is to implement a similar pipeline, so having access to an implementation of the TextTiling algorithm would allow us to quickly implement that component and spend more time on other design decisions and implementation details. The nltk library provides a <a href="https://www.nltk.org/api/nltk.tokenize.html#module-nltk.tokenize.texttiling">TextTiling module</a> with this functionality.</p><h4><a href="http://scikit-learn.org/stable/"><strong>SciKit-Learn</strong></a></h4><p><a href="http://www.aclweb.org/anthology/P05-1037">Another research paper</a> we found concerning the topic of conversation summarization had several sections dedicated to the task of identifying portions of a chatlog with direct relevance to one another — for example, a question asked by one contributor and answered by another contributor several messages down would be considered a pair of directly relevant sections. As part of their technique for identifying these pairs, the researchers used <a href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html">Support Vector Machines</a> and <a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">Maximum Entropy</a> models in order to determine the sections that most likely directly respond to previous portions of the conversation. SciKit-Learn provides these functionalities, and in order to familiarize ourselves with additional existing tools that might be useful in building a baseline model we have installed this tool and begun experimenting with it.</p><h4><a href="https://www.cs.waikato.ac.nz/ml/weka/"><strong>Weka Toolkit</strong></a></h4><p>Another less commonly seen method for chat summarization can be found in a more recent (in comparison to the others we have referenced) <a href="http://web2py.iiit.ac.in/research_centres/publications/download/inproceedings.pdf.8b32440f2dc771c4.323031325f414e445f43616d6572612e706466.pdf">research paper</a> which explores the usage of Multilayer Perceptrons (MLP) for the task, among several other approaches. The MLP approach in the paper is broadly composed of a feedforward neural network with more layers between the input and output layers using backpropagation to train the network and built with the Weka toolkit, a collection of machine learning algorithms that can applied to a dataset and which contains tools for developing a variety of schemes for processing data. Although the paper finds an approach using Naive Bayes to be the most effective on the GNUe archives, their MLP implementation comes in relatively close second and we think the idea is worth pursuing further. For a baseline model, we could start by working on a similar MLP system to the one in the paper using the same Weka toolkit implementation and strive to improve from there.</p><h4><a href="http://pytorch.org/"><strong>PyTorch</strong></a></h4><p>Though not referenced by any of the papers we have encountered so far, PyTorch would be a really helpful tool for us to further the explore the usage of neural network models in chat summarization, which we can use for the aforementioned MLP approach as well as apply to our stretch goal of working on a less commonly used deep learning based model.</p><p>In addition to researching libraries and tools that we might use in our project, we have begun the process of finding and enumerating datasets that might be useful for our project ideas — more to come on the datasets and other resources in our next blog post!</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=278789e4d04a" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@viterbi.or.not/warming-up-278789e4d04a?source=rss-c522ef075bb3------2">by Viterbi Or Not To Be at April 06, 2018 06:41 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://cse481n.blogspot.com/" title="PrimeapeNLP">Ron Fan, Aditya Saraf <br/> Team PrimeapeNLP</a></h3>
+
+
+<div class="entrygroup" id="tag:blogger.com,1999:blog-3753031463594823927.post-2253300890173394060">
+<h4><a href="https://cse481n.blogspot.com/2018/04/blog-post-2.html">Blog Post #2</a></h4>
+<div class="entry">
+<div class="content">
+<div>We’ve mostly settled on working on a single document summarization task. We want to pick a type of document to work on summarizing, although we haven’t decided on one specific category yet. </div><br /> <div>While we narrow down the details of the project, we have been reading a number of papers and other resources to become more familiar with the subject. We have setup PyTorch on our machines, which we are both familiar with, as well as Tensorflow, which we are still playing around with. We’ve found some interesting repositories on GitHub related to SDS that we are trying out: </div> <br /> <div><a href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss">https://github.com/tensorflow/models/tree/master/research/textsum</a><br /> <a href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss">https://github.com/gregdurrett/berkeley-doc-summarizer</a><br /> <a href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss">https://github.com/chakki-works/sumeval</a><br /> <a href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss">https://github.com/ceteri/pytextrank</a><br /> <a href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss">https://github.com/adamfabish/Reduction</a><br /></div> <br /><div>Not all of these tools use machine learning - many seem to be heuristic-based sentence extractors. Nonetheless, it is interesting to consider their ideas in the context of neural network approaches. </div><br /> <div>One of the reasons we chose to attack this problem is that there is a rich literature to consult; this problem has been worked on in one form or another since 1958 [1]. As one would imagine, this means that there have been many different approaches to this problem, to varying degrees of success. But unlike other problems, where all current approaches are based on deep learning, there is active research into non-neural solutions to SDS. </div><br /> <div>Many researchers have tried to solve SDS with combinatorial optimization, reducing it to the Knapsack problem, the Maximum Coverage problem, or the Budgeted Median problem. For example, the Maximum Coverage problem is: given a number k and a collection S, of m sets, choose less than k sets in S that maximize the number of covered elements. To frame SDS as a Maximum Coverage problem, you break the document into “conceptual units”. Conceptual units are supposed to represent a single concept - for example, “the man bought a book” and the “the man read a book”. But it’s not clear at what granularity these conceptual units should be defined. One easy (but not especially effective) solution is to simply make each word a conceptual unit. Then, the document = S, and each sentence is a set of words inside S. The problem is now to pick k sentences from the document that maximize the word coverage in the document [2]. </div><br /> <div>One example of a recent non-neural approach is from a paper published 5 years ago [3]. The paper solves SDS by reducing it to the so-called Tree Knapsack Problem. We’ve haven’t fully wrapped our heads around the Tree Knapsack problem (it’s actually not that easy to quickly state), but the researchers’ basically involved representing a document as a Rhetorical Structure Theory-based discourse tree (RST-DT) by “select[ing] textual units according to a preference ranking”. The researchers’ first transform the RST-DT into a dependency-based discourse tree (DEP-DT) in order to get a tree that contains textual units on all nodes (RST-DT only have textual units as leaves), and then trim the DEP-DT using the Tree Knapsack problem.  </div><br /> <div>We aim to find a suitable corpus, and implement multiple models directly from these papers as our baseline models. Hopefully, that will give us insight that’ll help us formulate the problem differently. We also want to explore some neural architectures for single document summarization.  </div><br /> <div>We also have to consider whether we want to build an extractive or abstractive text summarization - the former collects a set of sentences or phrases that summarize the document while the latter tries to “learn the internal language representation to generate more human-like summaries, paraphrasing the intent of the original text” [4]. We’re leaning towards an extractive model, although we may try both. </div><br /> <div>[1] = <a target="">https://onlinelibrary.wiley.com/doi/pdf/10.1002/9781119004752.ch3</a> <br />[2] = <a target="">http://www.anthology.aclweb.org/E/E09/E09-1089.pdf</a> <br /> [3] = <a target="">https://www.semanticscholar.org/paper/Single-Document-Summarization-as-a-Tree-Knapsack-Hirao-Yoshida/ed0c8a7ab911cdb30b7e95edada3a55c01eb22c5</a><br /> [4] = <a target="">https://rare-technologies.com/text-summarization-in-python-extractive-vs-abstractive-techniques-revisited/</a></div></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://cse481n.blogspot.com/2018/04/blog-post-2.html">by Ron &amp;amp; Aditya (noreply@blogger.com) at April 06, 2018 06:31 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://mathstoc.wordpress.com" title="NLP Capstone – Mathematical Distractions">Kuikui Liu, Nicholas Ruhland <br/> Team INLP</a></h3>
+
+
+<div class="entrygroup" id="http://mathstoc.wordpress.com/?p=304">
+<h4 lang="en"><a href="https://mathstoc.wordpress.com/2018/04/06/milestone-2-music-as-a-natural-language-task/">Milestone #2: Music as a Natural Language Task</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<h3>Framing the problem</h3>
+<p>The focus of Natural Language Processing relies on patterns in the structure of language and models that find ways to encode the complexities of these structures. Many forms of music also have large amounts of structure which could potentially be discovered using similar models as a standard natural language.</p>
+<p>Music datasets for machine learning purposes have recently become available through projects like MusicNet in 2016 [1]. This music is primarily classical, and provided as both audio and MIDI.</p>
+<h3>Project ideas</h3>
+<p>For our project we are interested in music with lyrical content – both for the potential to create a creative demo and for the interest of making this a language task. The current direction we are most interested in is the generation of lyrics for a song, given its nonlyrical content. This will be broken up into subtasks depending on the feasible scale of the project. Not all of the following points will necessarily be parts of our project, but we will use them as as starting point as we see the success of our models.</p>
+<ul>
+<li>Creating a machine learning model for MIDI music</li>
+<li>Translating MIDI into specific artists or styles</li>
+<li>Creating models for the lyrical content of specific artists or styles of music</li>
+<li>Generating lyrics given an artist or style</li>
+<li>Seq2seq conversion of MIDI into lyrical content</li>
+<li>GANs for either side of the conversion – MIDI encoding or lyrical generating</li>
+</ul>
+<h3>Using MIDIs in RNNs</h3>
+<p>Work by Pakhomov [2] has already used RNNs to create models for lyrics. In his <a href="http://warmspringwinds.github.io/pytorch/rnns/2018/01/27/learning-to-generate-lyrics-and-music-with-recurrent-neural-networks/">blog post</a> he additionally discusses a method for forming any MIDI into piano roll format. This is essentially a matrix where each column represents a different time step, and each row represents a different note. Having a 1 corresponds to that note sounding at that time. The individual time vectors can be used as the inputs to an RNN at each time step to create a model representing the various songs.</p>
+<p>One possible data source for our project is karaoke data available from various sources online. If available in large enough quantities this could be extremely convenient because it already contains many pairings of MIDI music to their lyrics.</p>
+<h3>Azure</h3>
+<p>We intend to use PyTorch to train our models, and have begun setting up an instance on Microsoft Azure.</p>
+<h3>Relevant work</h3>
+<p>[1] <a href="https://homes.cs.washington.edu/~thickstn/musicnet.html" rel="nofollow">https://homes.cs.washington.edu/~thickstn/musicnet.html</a></p>
+<p>[2] <a href="http://warmspringwinds.github.io/pytorch/rnns/2018/01/27/learning-to-generate-lyrics-and-music-with-recurrent-neural-networks/" rel="nofollow">http://warmspringwinds.github.io/pytorch/rnns/2018/01/27/learning-to-generate-lyrics-and-music-with-recurrent-neural-networks/</a></p>
+<p>[3] Dong, Hao-Wen. 2017. MuseGAN: Multi-track Sequential Generative Adversarial Networks for Symbolic Music Generation and Accompaniment. <a href="https://arxiv.org/pdf/1709.06298" rel="nofollow">https://arxiv.org/pdf/1709.06298</a></p>
+<p>[4] Yu, Lantao. 2016. SeqGAN: Sequence Generative Adversarial Nets with Policy Gradient. <a href="https://arxiv.org/abs/1609.05473" rel="nofollow">https://arxiv.org/abs/1609.05473</a></p>
+<p>[5] Lee, Sang-gil. 2017. A SeqGAN for Polyphonic Music Generation. <a href="https://arxiv.org/abs/1710.11418" rel="nofollow">https://arxiv.org/abs/1710.11418</a></p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://mathstoc.wordpress.com/2018/04/06/milestone-2-music-as-a-natural-language-task/">by Nicholas Ruhland at April 06, 2018 06:30 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
 <h3><a href="https://medium.com/nlp-capstone-blog?source=rss----9ba3897b6688---4" title="NLP Capstone Blog - Medium">Tam Dang, Karishma Mandyam <br/> Team Illimitatum</a></h3>
 
 
@@ -796,7 +982,7 @@ I'm working on my project in my fork of Allennlp. I got the dataset and have wri
 
 <p>
 <strong>Last updated:</strong><br>
-April 06, 2018 06:30 AM<br>
+April 06, 2018 07:00 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
