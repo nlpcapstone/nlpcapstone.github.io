@@ -15,6 +15,7 @@
 
 	<items>
 		<rdf:Seq>
+			<rdf:li rdf:resource="tag:blogger.com,1999:blog-9203775015655831448.post-34377626932024049" />
 			<rdf:li rdf:resource="https://medium.com/p/3d3651220219" />
 			<rdf:li rdf:resource="http://sarahyu.weebly.com/cse-481n/technical-details-blog-post-2" />
 			<rdf:li rdf:resource="https://medium.com/p/280325a548d1" />
@@ -37,6 +38,13 @@
 	</items>
 </channel>
 
+<item rdf:about="tag:blogger.com,1999:blog-9203775015655831448.post-34377626932024049">
+	<title>Pinyi Wang, Dawei Shen, Xukai Liu &lt;br/&gt; Team Overfit: #2 Milestone: Warm up</title>
+	<link>https://teamoverfit.blogspot.com/2018/04/2-milestone-warm-up.html</link>
+	<content:encoded>&lt;h2 style=&quot;height: 0px;&quot;&gt;&lt;span&gt;Team Overfit&lt;/span&gt;&lt;/h2&gt;&lt;h3&gt;&lt;span&gt;&lt;br /&gt;&lt;/span&gt;&lt;/h3&gt;&lt;h3&gt;&lt;span&gt;Project repo: &lt;span style=&quot;font-size: 18.72px;&quot;&gt;&lt;a href=&quot;https://github.com/pinyiw/nlpcapstone-teamoverfit&quot;&gt;https://github.com/pinyiw/nlpcapstone-teamoverfit&lt;/a&gt;&lt;/span&gt;&lt;/span&gt;&lt;/h3&gt;&lt;h4&gt;&lt;span&gt;Team members: Dawei Shen, Pinyi Wang, Xukai Liu&lt;/span&gt;&lt;/h4&gt;&lt;br /&gt;&lt;div&gt;&lt;/div&gt;&lt;br /&gt;&lt;div style=&quot;text-align: start; text-indent: 0px;&quot;&gt;&lt;div&gt;&lt;span&gt;&lt;b&gt;Blog Post: #2: 04/05/2018&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;&lt;b&gt;&lt;br /&gt;&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;margin: 0px;&quot;&gt;&lt;/div&gt;&lt;br /&gt;&lt;ul&gt;&lt;li&gt;&lt;span&gt;We first installed Pytorch 3.6 and we tried to run small programs on our local machines.&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;We then explored the usage of the RNN and seq2seq APIs, which we are going to use for most of our projects ideas.&lt;/span&gt;&lt;/li&gt;&lt;ul&gt;&lt;li&gt;&lt;span&gt;We looked through the tutorial of RNNs/LSTMs/GRUs from the previous 447 class.&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;ul&gt;&lt;li&gt;&lt;span id=&quot;docs-internal-guid-97b5af9d-9943-133b-4f16-5d4414eefd5d&quot;&gt;&lt;span&gt;&lt;a href=&quot;https://colab.research.google.com/drive/11iLtGFDpnIuHj5B0rQDGG5lqq6BQ8FRh&quot;&gt;https://colab.research.google.com/drive/11iLtGFDpnIuHj5B0rQDGG5lqq6BQ8FRh&lt;/a&gt;&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;li&gt;&lt;span&gt;&lt;span style=&quot;white-space: pre-wrap;&quot;&gt;We tried to set up an Azure instance for GPU computation&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;&lt;ul&gt;&lt;li&gt;&lt;span&gt;&lt;span style=&quot;white-space: pre-wrap;&quot;&gt;We installed cuda support for the Pytorch package and it ran successfully with Tesla K80&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;li&gt;&lt;span&gt;&lt;span style=&quot;white-space: pre-wrap;&quot;&gt;We revisited the Recurrent Neural Networks, Attention and Reading Comprehension projects from the last quarter and experimented with other Pytorch features related to our project.&lt;/span&gt;&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;br /&gt;&lt;/div&gt;</content:encoded>
+	<dc:date>2018-04-06T04:48:00+00:00</dc:date>
+	<dc:creator>Team Overfit</dc:creator>
+</item>
 <item rdf:about="https://medium.com/p/3d3651220219">
 	<title>Ryan Pham &lt;br/&gt; Team NeuralEmpty: Project Logistics and Package Exploration</title>
 	<link>https://medium.com/@ryanp97/project-logistics-and-package-exploration-3d3651220219?source=rss-6378d85d3a9b------2</link>
