@@ -15,6 +15,7 @@
 
 	<items>
 		<rdf:Seq>
+			<rdf:li rdf:resource="http://sarahyu.weebly.com/cse-481n/technical-details-blog-post-2" />
 			<rdf:li rdf:resource="https://medium.com/p/280325a548d1" />
 			<rdf:li rdf:resource="http://cse481n-capstone.azurewebsites.net/?p=31" />
 			<rdf:li rdf:resource="tag:blogger.com,1999:blog-354195895616735293.post-6386758378464642504" />
@@ -36,6 +37,12 @@
 	</items>
 </channel>
 
+<item rdf:about="http://sarahyu.weebly.com/cse-481n/technical-details-blog-post-2">
+	<title>Sarah Yu &lt;br/&gt; Team Jekyll-Hyde: Technical Details (Blog Post #2)</title>
+	<link>http://sarahyu.weebly.com/cse-481n/technical-details-blog-post-2</link>
+	<content:encoded>&lt;div class=&quot;paragraph&quot;&gt;&lt;span style=&quot;color: rgb(0, 0, 0);&quot;&gt;For my project I am planning to do some deep learning at the end if I have time and if the results up to that point lead to that track. (I have pytorch installed from NLP so that's nice to have). &lt;br /&gt;&lt;br /&gt;With that said, I've been working with the Reddit API's and Reddit datadumps to get started on gathering the necessary data for pursuing the Language Accommodation project. I've been trying to figure out if the best approach is to work with the limited requests, the direct json files, or if some of the data dumps will suffice. I hope to have most of that and some basic data visualizations ready in the next couple of days to inform some of the choices I should make regarding the data (i.e. what time period to gather data from, what subreddits to pull from, etc.)&lt;/span&gt;&lt;br /&gt;&lt;/div&gt;</content:encoded>
+	<dc:date>2018-04-06T00:10:50+00:00</dc:date>
+</item>
 <item rdf:about="https://medium.com/p/280325a548d1">
 	<title>Belinda Li &lt;br/&gt; Team Sentimentity: NLP Capstone Blog #2: Learning PyTorch</title>
 	<link>https://medium.com/@be.li.nda/nlp-capstone-blog-2-learning-pytorch-280325a548d1?source=rss-fad49d942bf3------2</link>
