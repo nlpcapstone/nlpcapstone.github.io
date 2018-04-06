@@ -33,6 +33,38 @@
 
 
 
+<h3><a href="https://medium.com/nlp-capstone-blog?source=rss----9ba3897b6688---4" title="NLP Capstone Blog - Medium">Tam Dang, Karishma Mandyam <br/> Team Illimitatum</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/3a2f40b355a5">
+<h4><a href="https://medium.com/nlp-capstone-blog/getting-started-for-the-capstone-software-installation-pipeline-brainstorming-3a2f40b355a5?source=rss----9ba3897b6688---4">Getting Started for the Capstone: Software Installation &amp; Pipeline Brainstorming</a></h4>
+<div class="entry">
+<div class="content">
+<p>Currently, our top two choices for the capstone is</p><ol><li><strong>Machine Dictionary: </strong>learning definitions of technical terms whose semantics are averaged over all places it is mentioned in training (in this case, research publications in the given field of study)</li><li><strong>Visual Reasoning: </strong>Given three windows, each of which containing a random arrangement of colored, geometric shapes, and a statement about the image, predict whether the statement is true or false.</li></ol><p>Despite being problems with very different needs and challenges, the bulk of the tools and frameworks we’ll be using overlap for both tasks. Here, we discuss those tools and frameworks, followed by things we need specific to <strong>Machine Dictionary </strong>and <strong>Visual Reasoning </strong>separately.</p><h3>Resources Used for Both Tasks</h3><h4>PyTorch</h4><p>Given the limited time that we have, a neural-based approach using an established framework is preferred over implementing all of the model architecture from scratch, and to help avoid complications that can accompany other methods such as deriving parameter updates for bayesian models. PyTorch is an excellent framework that abstracts away differentiation and tensor arithmetic while still allowing a healthy amount of flexibility with it’s ability to dynamically produce computation graphs.</p><h4>AllenNLP</h4><p>After the crash course on the framework provided by AI2 in class, along with our experience from using it in the undergraduate NLP class, we’re convinced that the integration of AllenNLP with PyTorch is the best way to be as productive as possible. We plan to use the libraries it provides to make training more streamline and organized.</p><p>Since we’ve taken the undergraduate NLP class, we’ve already installed PyTorch and AllenNLP. We installed PyTorch through conda and AllenNLP through pip. Deep Learning projects also tend to involve complicated models which might require more computing resources, so we will also utilize the Azure credits available through the capstone. This process involved installing PyTorch and AllenNLP on Ubuntu VMs on Azure configured into include NVIDIA GPUs so that we can take advantage of PyTorch’s .</p><h3>Resources Specific to Machine Dictionary</h3><h4>Semantic Scholar Open Research Corpus</h4><p>The best dataset we’ve seen so far for this task is the <a href="http://labs.semanticscholar.org/corpus/">Semantic Scholar Open Research Corpus</a> provided by <a href="http://allenai.org/">AI2</a>. The dataset specifically consists of JSON files with metadata for each publication. The most relevant files will be <em>title, pdfUrls, </em>and <em>year</em>. Given all of the content besides the paper abstract (which is included as a field called <em>paperAbstract</em>), we resort to using the <em>pdfUrls</em> and extracting the text from each.</p><h4>Textract</h4><p><a href="https://github.com/deanmalmgren/textract">Textract</a> is a Python package that allows the extraction of text from PDFs. We plan to rely on this package given that it’s robust to both compiled and scanned PDFs.</p><p>We downloaded Textract to the Azure Linux VM using the Ubuntu installation directions:</p><pre>apt-get install python-dev libxml2-dev libxslt1-dev antiword unrtf poppler-utils pstotext tesseract-ocr \<br />flac ffmpeg lame libmad0 libsox-fmt-mp3 sox libjpeg-dev swig<br />pip install textract</pre><p>but ran into an issue that the developers haven’t dealt with yet. In the first line, they are missing a dependency to the libpulse-dev package, which causes the build to fail when downloading Textract. Doing a pip install libpulse-dev takes care of it.</p><p>Grabbing the text from a PDF file is then fairly convenient. We tested this on a <a href="https://www.semanticscholar.org/paper/Effects-of-anthocyanins-on-the-prevention-and-of-Lin-Gong/1bcf9ae84d4ec5c0aba7918e6784dbfd0e8514b6">cancer research paper</a> taken from the Semantic Scholar dataset:</p><pre><strong>import</strong> textract<br />text = textract.process("path-to-doc.pdf", encoding="ascii")</pre><p>which produced an excellent parse of the PDF.</p><blockquote>b’BJP\n\nBritish Journal of\nPharmacology\n\nBritish Journal of Pharmacology (2016) \n\n1\n\nREVIEW ARTICLE THEMED ISSUE\nEffects of anthocyanins on the prevention and\ntreatment of cancer\nCorrespondence Ying-Yu Cui, Department of Regenerative Medicine, Tongji University School of Medicine, Shanghai 200092,\nChina. E-mail: yycui@tongji.edu.cn\n\nReceived 13 June 2016; Revised 17 August 2016; Accepted 13 September 2016\n\nBo-Wen Lin1, Cheng-Chen Gong1, Hai-Fei Song1 and Ying-Yu Cui1,2,3\n1\n\nDepartment of Regenerative Medicine, Tongji University School of Medicine, Shanghai, China, 2Key Laboratory of Arrhythmias, Ministry of\n\nEducation (Tongji University), Shanghai, China, and 3Institute of Medical Genetics, Tongji University School of Medicine, Shanghai, China\n\nAnthocyanins are a class of water-soluble avonoids, which show a range of pharmacological effects, such as prevention of\ncardiovascular disease, obesity control and antitumour activity.</blockquote><h3>Resources Specific to Visual Reasoning</h3><h4>Cornell NLVR Dataset</h4><p>The dataset for the Visual Reasoning task is easily available through <a href="https://github.com/clic-lab/nlvr">github</a>. This dataset was also very conveniently organized into three folders: testing data, development data, and training data. Each folder contains the actual images which are provided for us to train on.</p><p>In addition to the images, each folder also includes a JSON file which contains basic JSON representations of each image and the sentence that needs to be validated in each data point. This JSON representation is very useful because we do not need to parse the image to retrieve the raw elements (shape, color, location).</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=3a2f40b355a5" width="1" /><hr /><p><a href="https://medium.com/nlp-capstone-blog/getting-started-for-the-capstone-software-installation-pipeline-brainstorming-3a2f40b355a5">Getting Started for the Capstone: Software Installation &amp; Pipeline Brainstorming</a> was originally published in <a href="https://medium.com/nlp-capstone-blog">NLP Capstone Blog</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/nlp-capstone-blog/getting-started-for-the-capstone-software-installation-pipeline-brainstorming-3a2f40b355a5?source=rss----9ba3897b6688---4">by Tam Dang at April 06, 2018 06:06 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
 <h3><a href="https://teamoverfit.blogspot.com/" title="NLP Capstone">Pinyi Wang, Dawei Shen, Xukai Liu <br/> Team Overfit</a></h3>
 
 
@@ -764,7 +796,7 @@ I'm working on my project in my fork of Allennlp. I got the dataset and have wri
 
 <p>
 <strong>Last updated:</strong><br>
-April 06, 2018 06:00 AM<br>
+April 06, 2018 06:30 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
