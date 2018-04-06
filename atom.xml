@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:planet="http://planet.intertwingly.net/" xmlns:indexing="urn:atom-extension:indexing" indexing:index="no"><access:restriction xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" relationship="deny"/>
   <title>NLP Capstone Spring 2018</title>
-  <updated>2018-04-06T07:00:22Z</updated>
+  <updated>2018-04-06T07:30:23Z</updated>
   <generator uri="http://intertwingly.net/code/venus/">Venus</generator>
   <author>
     <name>Nelson Liu</name>
@@ -35,7 +35,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-06T07:00:20Z</updated>
+      <updated>2018-04-06T07:30:21Z</updated>
     </source>
   </entry>
 
@@ -43,7 +43,7 @@
     <id>https://medium.com/p/96fb908765f5</id>
     <link href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5?source=rss-2759d54493c0------2" rel="alternate" type="text/html"/>
     <title>NLP Capstone | 02: Getting Started</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p><a href="https://medium.com/@halden.lin/nlp-capstone-01-options-ee873b6885d5">previous post</a></p><p>Alright, it’s been only 2 days since my last entry, so this will be a relatively short post. The direction I proposed in <strong>Option 1 </strong>of that post was towards a more robust, interpretable, and informative visualization of attention, particularly in the context of text summarization. A quick recap:</p><blockquote>Perhaps interaction can be used to create a more insightful and interpretable visualization framework for understanding attention. For example, text heat-maps are already used widely to visualize sentiment analysis.</blockquote><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*lsgeuBXGGBog4YkuQNgJVw.png"/>Lin et al. (2017) [6]. Visualization of sentiment analysis on a token-by-token basis.</figure><blockquote>In a static context, using this method for attention would require repeat of the same input sequence for each word in the output sequence. Using interaction, however, a model creator could brush over single or sequences of words in the output sequence to view corresponding soft-alignment in the input sequence. Aggregate visualizations could be shown to supplement this view (either aggregates over a particular input / output sequence, or aggregates over all input / output sequences).</blockquote><p>I’m currently working on laying out the groundwork for such a project. Here’s what I’ve been up to:</p><h4>Finding a Text Summarization Dataset</h4><p>A quick survey of recent research papers [1–5] on text summarization points, as well as online forums, points to three commonly used datasets.</p><ol><li><a href="https://cs.nyu.edu/~kcho/DMQA/">CNN/Daily Mail Corpus</a>. A collection of articles and their bullet point summaries, with each bullet split for Q/A purposes. <a href="https://github.com/abisee/cnn-dailymail">A script</a> [1] can be ran over the original dataset to restore the original bullet point summaries, to be used as a summarization corpus.</li><li><a href="https://www-nlpir.nist.gov/projects/duc/data.html">DUC Corpus</a>. In particular, DUC 2003 and DUC 2004. These contain a collection of documents, each accompanied by a short (~10 word) summary. There is also a longer summary for each cluster of documents.</li><li><a href="https://catalog.ldc.upenn.edu/ldc2003t05">Gigaword Corpus</a>. An annotated collection of millions of documents. The summarization task here would be to predict the headline of each [5]</li></ol><p>The accessibility of the <strong>CNN/Daily Mail Corpus</strong> (a process is required for the other two), in addition to the prevalence of projects that used it as a primary dataset [1, 2, 4], made it the most attractive option. The relatively longer summaries (~4 bullet points as opposed a short blurb in the other two datasets) also lends itself conveniently to the case of an interactive visualization with multi-token selection (e.g. select a whole bullet point and see where it attended). For a baseline, this will be my dataset!</p><h4>Identifying a Baseline Model</h4><p>See et al. (2017) [1] lay out a seq2seq attentional model as their baseline (a bidirectional LSTM). I’ll be using this as a baseline model with which to obtain data.</p><h4>Getting Some Code Up</h4><p>I’ll be using <a href="http://pytorch.org/">PyTorch</a> and the <a href="http://allennlp.org/">AllenNLP</a> toolkit [7] to implement my NN models. These are both ready to go on both my machine and Azure. I’m currently in the process of writing a DatasetReader for the dataset described above.</p><h3>Next Steps</h3><ul><li>Finish writing the DatasetReader for the CNN/Daily Mail Corpus.</li><li>Begin work on a baseline seq2seq attentional model, as described in <strong>Identifying a Baseline Model</strong></li></ul><h4>Works Cited</h4><p>[1] <a href="https://arxiv.org/pdf/1704.04368.pdf">See, Abigail et al. “Get To The Point: Summarization with Pointer-Generator Networks.” <em>ACL</em> (2017).</a></p><p>[2] <a href="https://arxiv.org/pdf/1712.06100.pdf">Hasselqvist, Johan et al. “Query-Based Abstractive Summarization Using Neural Networks.” <em>CoRR</em> abs/1712.06100 (2017): n. pag.</a></p><p>[3] <a href="https://arxiv.org/pdf/1602.06023.pdf">Nallapati, Ramesh et al. “Abstractive Text Summarization using Sequence-to-sequence RNNs and Beyond.” <em>CoNLL</em> (2016).</a></p><p>[4] <a href="https://arxiv.org/pdf/1705.04304.pdf">Paulus, Romain et al. “A Deep Reinforced Model for Abstractive Summarization.” <em>CoRR</em> abs/1705.04304 (2017): n. pag.</a></p><p>[5] <a href="https://arxiv.org/pdf/1509.00685.pdf">Rush, Alexander M. et al. “A Neural Attention Model for Abstractive Sentence Summarization.” <em>EMNLP</em> (2015).</a></p><p>[6] <a href="https://arxiv.org/pdf/1703.03130.pdf">Lin, Zhouhan, <em>et al.</em>, “A structured self-attentive sentence embedding.”<em>arXiv preprint arXiv:1703.03130</em> (2017).</a></p><p>[7] <a href="https://pdfs.semanticscholar.org/a550/2187140cdd98d76ae711973dbcdaf1fef46d.pdf?_ga=2.150901366.1370831839.1522970228-1363309632.1522194596">Gardner, Matt et al. “AllenNLP: A Deep Semantic Natural Language Processing Platform.” (2017).</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=96fb908765f5" width="1"/></div>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p><a href="https://medium.com/@halden.lin/nlp-capstone-01-options-ee873b6885d5">previous post</a></p><p>Alright, it’s been only 2 days since my last entry, so this will be a relatively short post. The direction I proposed in <strong>Option 1 </strong>of that post was towards a more robust, interpretable, and informative visualization of attention, particularly in the context of text summarization. A quick recap:</p><blockquote>Perhaps interaction can be used to create a more insightful and interpretable visualization framework for understanding attention. For example, text heat-maps are already used widely to visualize sentiment analysis.</blockquote><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*lsgeuBXGGBog4YkuQNgJVw.png"/>Lin et al. (2017) [6]. Visualization of sentiment analysis on a token-by-token basis.</figure><blockquote>In a static context, using this method for attention would require repeat of the same input sequence for each word in the output sequence. Using interaction, however, a model creator could brush over single or sequences of words in the output sequence to view corresponding soft-alignment in the input sequence. Aggregate visualizations could be shown to supplement this view (either aggregates over a particular input / output sequence, or aggregates over all input / output sequences).</blockquote><p>I’m currently working on laying out the groundwork for such a project. Task 1: implement a model. Without one, there’s no data to visualize!</p><p>With that in mind, here’s what I’ve been up to:</p><h4>Finding a Text Summarization Dataset</h4><p>A quick survey of recent research papers [1–5] on text summarization points, as well as online forums, points to three commonly used datasets.</p><ol><li><a href="https://cs.nyu.edu/~kcho/DMQA/">CNN/Daily Mail Corpus</a>. A collection of articles and their bullet point summaries, with each bullet split for Q/A purposes. <a href="https://github.com/abisee/cnn-dailymail">A script</a> [1] can be ran over the original dataset to restore the original bullet point summaries, to be used as a summarization corpus.</li><li><a href="https://www-nlpir.nist.gov/projects/duc/data.html">DUC Corpus</a>. In particular, DUC 2003 and DUC 2004. These contain a collection of documents, each accompanied by a short (~10 word) summary. There is also a longer summary for each cluster of documents.</li><li><a href="https://catalog.ldc.upenn.edu/ldc2003t05">Gigaword Corpus</a>. An annotated collection of millions of documents. The summarization task here would be to predict the headline of each [5]</li></ol><p>The accessibility of the <strong>CNN/Daily Mail Corpus</strong> (a process is required for the other two), in addition to the prevalence of projects that used it as a primary dataset [1, 2, 4], made it the most attractive option. The relatively longer summaries (~4 bullet points as opposed a short blurb in the other two datasets) also lends itself conveniently to the case of an interactive visualization with multi-token selection (e.g. select a whole bullet point and see where it attended). For a baseline, this will be my dataset!</p><h4>Identifying a Baseline Model</h4><p>See et al. (2017) [1] lay out a seq2seq attentional model as their baseline (a bidirectional LSTM). I’ll be using this as a baseline model with which to obtain data.</p><h4>Getting Some Code Up</h4><p>I’ll be using <a href="http://pytorch.org/">PyTorch</a> and the <a href="http://allennlp.org/">AllenNLP</a> toolkit [7] to implement my NN models. These are both ready to go on both my machine and Azure. I’m currently in the process of writing a DatasetReader for the dataset described above.</p><h3>Next Steps</h3><ul><li>Finish writing the DatasetReader for the CNN/Daily Mail Corpus.</li><li>Begin work on a baseline seq2seq attentional model, as described in <strong>Identifying a Baseline Model</strong></li></ul><h4>Works Cited</h4><p>[1] <a href="https://arxiv.org/pdf/1704.04368.pdf">See, Abigail et al. “Get To The Point: Summarization with Pointer-Generator Networks.” <em>ACL</em> (2017).</a></p><p>[2] <a href="https://arxiv.org/pdf/1712.06100.pdf">Hasselqvist, Johan et al. “Query-Based Abstractive Summarization Using Neural Networks.” <em>CoRR</em> abs/1712.06100 (2017): n. pag.</a></p><p>[3] <a href="https://arxiv.org/pdf/1602.06023.pdf">Nallapati, Ramesh et al. “Abstractive Text Summarization using Sequence-to-sequence RNNs and Beyond.” <em>CoNLL</em> (2016).</a></p><p>[4] <a href="https://arxiv.org/pdf/1705.04304.pdf">Paulus, Romain et al. “A Deep Reinforced Model for Abstractive Summarization.” <em>CoRR</em> abs/1705.04304 (2017): n. pag.</a></p><p>[5] <a href="https://arxiv.org/pdf/1509.00685.pdf">Rush, Alexander M. et al. “A Neural Attention Model for Abstractive Sentence Summarization.” <em>EMNLP</em> (2015).</a></p><p>[6] <a href="https://arxiv.org/pdf/1703.03130.pdf">Lin, Zhouhan, <em>et al.</em>, “A structured self-attentive sentence embedding.”<em>arXiv preprint arXiv:1703.03130</em> (2017).</a></p><p>[7] <a href="https://pdfs.semanticscholar.org/a550/2187140cdd98d76ae711973dbcdaf1fef46d.pdf?_ga=2.150901366.1370831839.1522970228-1363309632.1522194596">Gardner, Matt et al. “AllenNLP: A Deep Semantic Natural Language Processing Platform.” (2017).</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=96fb908765f5" width="1"/></div>
     </content>
     <updated>2018-04-06T06:53:32Z</updated>
     <category term="computer-science"/>
@@ -62,7 +62,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-06T07:00:21Z</updated>
+      <updated>2018-04-06T07:30:22Z</updated>
     </source>
   </entry>
 
@@ -85,7 +85,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-06T07:00:20Z</updated>
+      <updated>2018-04-06T07:30:21Z</updated>
     </source>
   </entry>
 
@@ -109,7 +109,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-06T07:00:21Z</updated>
+      <updated>2018-04-06T07:30:21Z</updated>
     </source>
   </entry>
 
@@ -158,7 +158,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-06T07:00:22Z</updated>
+      <updated>2018-04-06T07:30:22Z</updated>
     </source>
   </entry>
 
@@ -184,7 +184,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-06T07:00:20Z</updated>
+      <updated>2018-04-06T07:30:20Z</updated>
     </source>
   </entry>
 
@@ -208,7 +208,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-06T07:00:22Z</updated>
+      <updated>2018-04-06T07:30:22Z</updated>
     </source>
   </entry>
 
@@ -231,7 +231,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-06T07:00:06Z</updated>
+      <updated>2018-04-06T07:30:05Z</updated>
     </source>
   </entry>
 
@@ -278,7 +278,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-06T07:00:19Z</updated>
+      <updated>2018-04-06T07:30:20Z</updated>
     </source>
   </entry>
 
@@ -309,7 +309,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-06T07:00:19Z</updated>
+      <updated>2018-04-06T07:30:19Z</updated>
     </source>
   </entry>
 
@@ -332,7 +332,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-06T07:00:20Z</updated>
+      <updated>2018-04-06T07:30:21Z</updated>
     </source>
   </entry>
 
@@ -390,7 +390,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-06T07:00:22Z</updated>
+      <updated>2018-04-06T07:30:22Z</updated>
     </source>
   </entry>
 
@@ -417,7 +417,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-06T07:00:21Z</updated>
+      <updated>2018-04-06T07:30:22Z</updated>
     </source>
   </entry>
 
@@ -441,7 +441,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-06T07:00:22Z</updated>
+      <updated>2018-04-06T07:30:22Z</updated>
     </source>
   </entry>
 
@@ -473,7 +473,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-06T07:00:20Z</updated>
+      <updated>2018-04-06T07:30:21Z</updated>
     </source>
   </entry>
 
@@ -500,7 +500,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-06T07:00:20Z</updated>
+      <updated>2018-04-06T07:30:20Z</updated>
     </source>
   </entry>
 
@@ -525,7 +525,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-06T07:00:19Z</updated>
+      <updated>2018-04-06T07:30:20Z</updated>
     </source>
   </entry>
 
@@ -548,7 +548,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-06T07:00:04Z</updated>
+      <updated>2018-04-06T07:30:05Z</updated>
     </source>
   </entry>
 
@@ -593,7 +593,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-06T07:00:06Z</updated>
+      <updated>2018-04-06T07:30:06Z</updated>
     </source>
   </entry>
 
@@ -616,7 +616,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-06T07:00:06Z</updated>
+      <updated>2018-04-06T07:30:05Z</updated>
     </source>
   </entry>
 
@@ -654,7 +654,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-06T07:00:19Z</updated>
+      <updated>2018-04-06T07:30:19Z</updated>
     </source>
   </entry>
 
@@ -678,7 +678,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-06T07:00:21Z</updated>
+      <updated>2018-04-06T07:30:21Z</updated>
     </source>
   </entry>
 
@@ -702,7 +702,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-06T07:00:04Z</updated>
+      <updated>2018-04-06T07:30:05Z</updated>
     </source>
   </entry>
 </feed>
