@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:planet="http://planet.intertwingly.net/" xmlns:indexing="urn:atom-extension:indexing" indexing:index="no"><access:restriction xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" relationship="deny"/>
   <title>NLP Capstone Spring 2018</title>
-  <updated>2018-04-06T03:30:21Z</updated>
+  <updated>2018-04-06T04:00:26Z</updated>
   <generator uri="http://intertwingly.net/code/venus/">Venus</generator>
   <author>
     <name>Nelson Liu</name>
@@ -30,7 +30,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-06T03:30:04Z</updated>
+      <updated>2018-04-06T04:00:07Z</updated>
     </source>
   </entry>
 
@@ -77,7 +77,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-06T03:30:17Z</updated>
+      <updated>2018-04-06T04:00:21Z</updated>
     </source>
   </entry>
 
@@ -108,7 +108,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-06T03:30:17Z</updated>
+      <updated>2018-04-06T04:00:20Z</updated>
     </source>
   </entry>
 
@@ -131,7 +131,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-06T03:30:18Z</updated>
+      <updated>2018-04-06T04:00:23Z</updated>
     </source>
   </entry>
 
@@ -188,7 +188,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-06T03:30:20Z</updated>
+      <updated>2018-04-06T04:00:26Z</updated>
     </source>
   </entry>
 
@@ -215,7 +215,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-06T03:30:20Z</updated>
+      <updated>2018-04-06T04:00:26Z</updated>
     </source>
   </entry>
 
@@ -239,7 +239,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-06T03:30:20Z</updated>
+      <updated>2018-04-06T04:00:26Z</updated>
     </source>
   </entry>
 
@@ -271,7 +271,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-06T03:30:18Z</updated>
+      <updated>2018-04-06T04:00:23Z</updated>
     </source>
   </entry>
 
@@ -298,7 +298,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-06T03:30:18Z</updated>
+      <updated>2018-04-06T04:00:22Z</updated>
     </source>
   </entry>
 
@@ -323,7 +323,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-06T03:30:17Z</updated>
+      <updated>2018-04-06T04:00:21Z</updated>
     </source>
   </entry>
 
@@ -346,7 +346,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-06T03:30:04Z</updated>
+      <updated>2018-04-06T04:00:06Z</updated>
     </source>
   </entry>
 
@@ -376,7 +376,7 @@
     <id>https://medium.com/p/5258ddd9eedd</id>
     <link href="https://medium.com/@hongnin1/nlp-5258ddd9eedd?source=rss-c450eb982161------2" rel="alternate" type="text/html"/>
     <title>NLP</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>This is a blog about Natural Language Processing.</p><p>Group member: Ning Hong, Zichun Liu, Zhou Sujie</p><p>Team name: The Bugless</p><p>Three topics our team is considering doing (All start-up mode):</p><ol><li>Movie summarization (imdb)/Food review summarization (yelp)</li></ol><p>minimal viable action plan: scrap data from twitter/imdb/rotten tomato/yelp and train our model to be able to summarize the reviews for movies (or food if we are scrapping data from yelp). The summarization of the movie is how the audience feel about the movie in general, for example, given a movie title, our model should be able to produce something like this: It is violent but good.</p><p>stretch goals: Output a overall review for the movie instead of simple sentences, for example, given a movie title as input, our model should output: “The Terror got my full attention from beginning to end. I couldn’t turn away. I didn’t want to turn away. For me, that’s extremely rare.”</p><p>Another stretch goal is to be able to detect sentiment not only in the US market, but also in China market by using data from DouBan (one of the largest movie review site for China), and compare the sentiment between US and China for a certain movie.</p><p>2.Chinese Phoneticization mapping:</p><p>The way input Chinese to machine is by typing Pinyin, a kind of phoneticization for Chinese sentence and words, which almost every boy in China know about. However, one Chinese character may have many phoneticization can one Chinese phoneticization sequence may map to many Chinese sentences. When typing Chinese to a machine by Pinyin, the machine will rank the potential Chinese sentences by preferences. However, the ranking may not be so consistent to the context. Therefore, we want to generate a language model that map from Pinyin (English character) to Chinese words and sentences depend on context and speaking habit of this person. In addition, this can be potentially turned into an online learn algorithm.</p><p>First step: finding data, where input is Chinese phoneticization (pinyin) and output is Chinese sentences and words. Also, we need to find a good algorithm to do that, and onlint learning algorithm will be better.</p><p>Ideas come from Neural Input Method Engine of last quarter: <a href="https://www.dropbox.com/sh/z3idncggfpwm8rs/AAAnHVvHIPvt_CxTXsaDVqvda?dl=0&amp;preview=teamverynatural_3417269_43042970_Very+Natural+Final+Report.pdf">https://www.dropbox.com/sh/z3idncggfpwm8rs/AAAnHVvHIPvt_CxTXsaDVqvda?dl=0&amp;preview=teamverynatural_3417269_43042970_Very+Natural+Final+Report.pdf</a></p><p>3. Flirt tutor:</p><p>When you chat with your beloved boy/girl, you must have some hard time picking interesting and flirting word to response. Then let the machine teach you! Specifically, we want to build a model that can generate cute response giving the context of chatting. This model is neural based.</p><p>First step: figuring out what is the right dataset and find such. Meanwhile, consider the right model to use and find paper/resources about is.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=5258ddd9eedd" width="1"/></div>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>This is a blog about Natural Language Processing.</p><p>Group member: Ning Hong, Zichun Liu, Zhou Sujie</p><p>Team name: The Bugless</p><p>Three topics our team is considering doing (All start-up mode):</p><ol><li><strong>Movie summarization (imdb)/Food review summarization (yelp)</strong></li></ol><p>minimal viable action plan: scrap data from twitter/imdb/rotten tomato/yelp and train our model to be able to summarize the reviews for movies (or food if we are scrapping data from yelp). The summarization of the movie is how the audience feel about the movie in general, for example, given a movie title, our model should be able to produce something like this: It is violent but good.</p><p>stretch goals: Output a overall review for the movie instead of simple sentences, for example, given a movie title as input, our model should output: “The Terror got my full attention from beginning to end. I couldn’t turn away. I didn’t want to turn away. For me, that’s extremely rare.”</p><p>Another stretch goal is to be able to detect sentiment not only in the US market, but also in China market by using data from DouBan (one of the largest movie review site for China), and compare the sentiment between US and China for a certain movie.</p><p><strong>2.Chinese Phoneticization mapping:</strong></p><p>The way input Chinese to machine is by typing Pinyin, a kind of phoneticization for Chinese sentence and words, which almost every boy in China know about. However, one Chinese character may have many phoneticization can one Chinese phoneticization sequence may map to many Chinese sentences. When typing Chinese to a machine by Pinyin, the machine will rank the potential Chinese sentences by preferences. However, the ranking may not be so consistent to the context. Therefore, we want to generate a language model that map from Pinyin (English character) to Chinese words and sentences depend on context and speaking habit of this person. In addition, this can be potentially turned into an online learn algorithm.</p><p>First step: finding data, where input is Chinese phoneticization (pinyin) and output is Chinese sentences and words. Also, we need to find a good algorithm to do that, and onlint learning algorithm will be better.</p><p>Ideas come from Neural Input Method Engine of last quarter: <a href="https://www.dropbox.com/sh/z3idncggfpwm8rs/AAAnHVvHIPvt_CxTXsaDVqvda?dl=0&amp;preview=teamverynatural_3417269_43042970_Very+Natural+Final+Report.pdf">https://www.dropbox.com/sh/z3idncggfpwm8rs/AAAnHVvHIPvt_CxTXsaDVqvda?dl=0&amp;preview=teamverynatural_3417269_43042970_Very+Natural+Final+Report.pdf</a></p><p><strong>3. Flirt tutor:</strong></p><p>When you chat with your beloved boy/girl, you must have some hard time picking interesting and flirting word to response. Then let the machine teach you! Specifically, we want to build a model that can generate cute response giving the context of chatting. This model is neural based.</p><p>First step: figuring out what is the right dataset and find such. Meanwhile, consider the right model to use and find paper/resources about is.</p><p><strong>APIs:</strong></p><p>Weibo API:</p><p><a href="https://www.cs.cmu.edu/~lingwang/weiboguide/">Sina Weibo API Guide</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=5258ddd9eedd" width="1"/></div>
     </content>
     <updated>2018-04-03T02:48:17Z</updated>
     <category term="nlp"/>
@@ -391,7 +391,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-06T03:30:05Z</updated>
+      <updated>2018-04-06T04:00:08Z</updated>
     </source>
   </entry>
 
@@ -414,7 +414,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-06T03:30:04Z</updated>
+      <updated>2018-04-06T04:00:07Z</updated>
     </source>
   </entry>
 
@@ -452,7 +452,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-06T03:30:17Z</updated>
+      <updated>2018-04-06T04:00:20Z</updated>
     </source>
   </entry>
 
@@ -476,7 +476,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-06T03:30:19Z</updated>
+      <updated>2018-04-06T04:00:24Z</updated>
     </source>
   </entry>
 
@@ -500,7 +500,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-06T03:30:04Z</updated>
+      <updated>2018-04-06T04:00:06Z</updated>
     </source>
   </entry>
 </feed>
