@@ -2,7 +2,7 @@
 <opml version="1.1">
   <head>
     <title>NLP Capstone Spring 2018</title>
-    <dateModified>Tue, 10 Apr 2018 19:30:19 GMT</dateModified>
+    <dateModified>Tue, 10 Apr 2018 20:00:25 GMT</dateModified>
     <ownerName>Nelson Liu</ownerName>
     <ownerEmail>nfliu[at]cs.washington.edu</ownerEmail>
   </head>
@@ -15,6 +15,7 @@
     <outline type="rss" text="Tam Dang, Karishma Mandyam &lt;br/&gt; Team Illimitatum" title="NLP Capstone Blog - Medium" xmlUrl="https://medium.com/feed/nlp-capstone-blog"/>
     <outline type="rss" text="Aaron Johnston, Lynsey Liu &lt;br/&gt; Team Viterbi Or Not To Be" title="Stories by Viterbi Or Not To Be on Medium" xmlUrl="https://medium.com/feed/@viterbi.or.not"/>
     <outline type="rss" text="Ananth Gottumukkala &lt;br/&gt; Team Turing Test" title="NLP Capstone Project Updates &#x2013; Ananth" xmlUrl="https://deeplearningturingtest.wordpress.com/feed/"/>
+    <outline type="rss" text="Sarah Yu &lt;br/&gt; Team Jekyll-Hyde" title="Sarah yu - CSE 481N" xmlUrl="http://sarahyu.weebly.com/6/feed"/>
     <outline type="rss" text="Ron Fan, Aditya Saraf &lt;br/&gt; Team PrimeapeNLP" title="PrimeapeNLP" xmlUrl="https://cse481n.blogspot.com/feeds/posts/default?alt=rss"/>
     <outline type="rss" text="Halden Lin &lt;br/&gt; Team undef." title="Stories by Halden Lin on Medium" xmlUrl="https://medium.com/feed/@halden.lin"/>
     <outline type="rss" text="Pinyi Wang, Dawei Shen, Xukai Liu &lt;br/&gt; Team Overfit" title="NLP Capstone" xmlUrl="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss"/>
