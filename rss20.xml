@@ -9,6 +9,44 @@
 	<atom:link rel="self" href="https://nlpcapstone.github.io/rss20.xml" type="application/rss+xml"/>
 
 <item>
+	<title>Boyan Li, Dennis Orzikh, Lanhao Wu &lt;br/&gt; Team Watch Your Language!: Formal Proposal</title>
+	<guid isPermaLink="false">http://cse481n-capstone.azurewebsites.net/?p=37</guid>
+	<link>http://cse481n-capstone.azurewebsites.net/2018/04/10/formal-proposal/</link>
+	<description>&lt;h3&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Motivations:&lt;/span&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;We want to create novel models for determining if the text is offensive, and why that text is offensive. To do this we want to create a new dataset that makes this task easier. We hope that our dataset and models pave the way for further innovations by others, as well as better trained conversational agents that have a better understanding of what they should or should not say. We’re going to teach them how to watch their language!&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;We would like to correctly classify sentences that keywords matching cannot achieve. For example:&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;b&gt;&lt;i&gt;What do you call an adult that has imaginary friends? Religious&lt;/i&gt;&lt;/b&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;And we would like to tell the reason why the sentence above is bad as well.&lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Minimal Viable Plan:&lt;/span&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;By comparing the similarity of content phrases found in r/MeanJokes posts and posts all over Reddit, we hope to create a large, high-quality dataset for training models to detect offensive text. We want to create this dataset and use crowdsourcing to label it. The labels should say if the text was offensive, and if it was then was it an attack against a particular group, what group that was, as well as the reasoning for why the labeler labeled the text this way. &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;While we wait for our data to be labeled, we want to start by creating baseline models on existing datasets, such as Twitter Hate Speech, Wiki Detox, and Stanford Politeness. We think that these datasets are similar enough to begin work on classifiers that don’t make use of deep annotation. After this, we can start work on improving performance on these datasets up until our crowdsourcing completes. We will explore novel models on existing datasets and try to improve their performance. &lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Stretch Goals:&lt;/span&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Once our new Reddit dataset is fully labeled, we want to test the existing models that we made on the other datasets and continue improving them. We also want to use the new data to experiment with Q&amp;amp;A or Deep Annotation models for creating a model that knows why a particularly offensive post is offensive. &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;In case if we can’t receive labeled dataset on time, we will continue to make improvements to novel models on existing datasets.&lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Evaluation Plan: &lt;/span&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Classifier Models: Precision, Recall, F1 score&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Rationale Models: deeper comparison to crowdsourced label explanations&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Dataset: Random Sampling + Human Judgement&lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Existing Work: &lt;/span&gt;&lt;/h3&gt;
+&lt;h5&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Previous Capstone Project: &lt;/span&gt;&lt;/h5&gt;
+&lt;h5&gt;&lt;a href=&quot;https://michael0x2a.github.io/nlp-capstone/&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Team Inverted Cat&lt;/span&gt;&lt;/a&gt;&lt;/h5&gt;
+&lt;h5&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Datasets: &lt;/span&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/ZeerakW/hatespeech&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Hate Speech Twitter Annotations&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; (Waseem et al. 2016)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/t-davidson/hate-speech-and-offensive-language&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Hate Speech and Offensive language dataset &lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; (Davidson et al. 2017)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://meta.wikimedia.org/wiki/Research:Detox/Data_Release&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Wikipedia Talk Corpus &lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; (Wulczyn et al. 2017)&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;http://www.cs.cornell.edu/~cristian//Politeness.html&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Stanford Politeness Corpus&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.frontgatemedia.com/a-list-of-723-bad-words-to-blacklist-and-how-to-use-facebooks-moderation-tool/&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;A list of bad words&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Pre-trained word embeddings: GloVe, Facebook FastText, Google Word2Vec&lt;/span&gt;&lt;/p&gt;
+&lt;h5&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Papers: &lt;/span&gt;&lt;/h5&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.semanticscholar.org/paper/Hateful-Symbols-or-Hateful-People%3F-Predictive-for-Waseem-Hovy/df704cca917666dace4e42b4d3a50f65597b8f06&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Waseem, Zeerak and Dirk Hovy. “Hateful Symbols or Hateful People? Predictive Features for Hate Speech Detection on Twitter.” SRW@HLT-NAACL (2016).&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.semanticscholar.org/paper/Automated-Hate-Speech-Detection-and-the-Problem-of-Davidson-Warmsley/6ccfff0d7a10bf7046fbfd109b301323293b67da&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Davidson, Thomas J et al. “Automated Hate Speech Detection and the Problem of Offensive Language.” ICWSM (2017).&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.semanticscholar.org/paper/Hate-Speech-Detection-with-Comment-Embeddings-Djuric-Zhou/c9948f7213167d65db79b60381d01ea71d438f94&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Djuric, Nemanja et al. “Hate Speech Detection with Comment Embeddings.” &lt;/span&gt;&lt;i&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;WWW&lt;/span&gt;&lt;/i&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;(2015).&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.semanticscholar.org/paper/Using-Convolutional-Neural-Networks-to-Classify-Gamb%C3%A4ck-Sikdar/0dca29b6a5ea2fe2b6373aba9fe0ab829c06fd78&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Gambäck, Björn and Utpal Kumar Sikdar. “Using Convolutional Neural Networks to Classify Hate-Speech.” (2017).&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.semanticscholar.org/paper/Abusive-Language-Detection-in-Online-User-Content-Nobata-Tetreault/e39b586e561b36a3b71fa3d9ee7cb15c35d84203&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Nobata, Chikashi et al. “Abusive Language Detection in Online User Content.” &lt;/span&gt;&lt;i&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;WWW&lt;/span&gt;&lt;/i&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;(2016).&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.semanticscholar.org/paper/Ex-Machina%3A-Personal-Attacks-Seen-at-Scale-Wulczyn-Thain/4a7204431900338877c738c8f56b10a71a52e064&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Wulczyn, Ellery et al. “Ex Machina: Personal Attacks Seen at Scale.” &lt;/span&gt;&lt;i&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;WWW&lt;/span&gt;&lt;/i&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; (2017).&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;</description>
+	<pubDate>Tue, 10 Apr 2018 22:37:31 +0000</pubDate>
+</item>
+<item>
 	<title>Ryan Pham &lt;br/&gt; Team NeuralEmpty: Project Proposal — Neural Machine Translation with Semantic Transfer</title>
 	<guid isPermaLink="false">https://medium.com/p/a1903faeadb7</guid>
 	<link>https://medium.com/@ryanp97/project-proposal-neural-machine-translation-with-semantic-transfer-a1903faeadb7?source=rss-6378d85d3a9b------2</link>

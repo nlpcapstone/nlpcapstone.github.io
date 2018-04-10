@@ -33,6 +33,69 @@
 
 
 
+<h3><a href="http://cse481n-capstone.azurewebsites.net" title="Team Watch Your Language!">Boyan Li, Dennis Orzikh, Lanhao Wu <br/> Team Watch Your Language!</a></h3>
+
+
+<div class="entrygroup" id="http://cse481n-capstone.azurewebsites.net/?p=37">
+<h4 lang="en-US"><a href="http://cse481n-capstone.azurewebsites.net/2018/04/10/formal-proposal/">Formal Proposal</a></h4>
+<div class="entry">
+<div class="content" lang="en-US">
+<h3><span style="font-weight: 400;">Motivations:</span></h3>
+<p><span style="font-weight: 400;">We want to create novel models for determining if the text is offensive, and why that text is offensive. To do this we want to create a new dataset that makes this task easier. We hope that our dataset and models pave the way for further innovations by others, as well as better trained conversational agents that have a better understanding of what they should or should not say. We’re going to teach them how to watch their language!</span></p>
+<p><span style="font-weight: 400;">We would like to correctly classify sentences that keywords matching cannot achieve. For example:</span></p>
+<p><b><i>What do you call an adult that has imaginary friends? Religious</i></b></p>
+<p><span style="font-weight: 400;">And we would like to tell the reason why the sentence above is bad as well.</span></p>
+<h3><span style="font-weight: 400;">Minimal Viable Plan:</span></h3>
+<p><span style="font-weight: 400;">By comparing the similarity of content phrases found in r/MeanJokes posts and posts all over Reddit, we hope to create a large, high-quality dataset for training models to detect offensive text. We want to create this dataset and use crowdsourcing to label it. The labels should say if the text was offensive, and if it was then was it an attack against a particular group, what group that was, as well as the reasoning for why the labeler labeled the text this way. </span></p>
+<p><span style="font-weight: 400;">While we wait for our data to be labeled, we want to start by creating baseline models on existing datasets, such as Twitter Hate Speech, Wiki Detox, and Stanford Politeness. We think that these datasets are similar enough to begin work on classifiers that don’t make use of deep annotation. After this, we can start work on improving performance on these datasets up until our crowdsourcing completes. We will explore novel models on existing datasets and try to improve their performance. </span></p>
+<h3><span style="font-weight: 400;">Stretch Goals:</span></h3>
+<p><span style="font-weight: 400;">Once our new Reddit dataset is fully labeled, we want to test the existing models that we made on the other datasets and continue improving them. We also want to use the new data to experiment with Q&amp;A or Deep Annotation models for creating a model that knows why a particularly offensive post is offensive. </span></p>
+<p><span style="font-weight: 400;">In case if we can’t receive labeled dataset on time, we will continue to make improvements to novel models on existing datasets.</span></p>
+<h3><span style="font-weight: 400;">Evaluation Plan: </span></h3>
+<p><span style="font-weight: 400;">Classifier Models: Precision, Recall, F1 score</span></p>
+<p><span style="font-weight: 400;">Rationale Models: deeper comparison to crowdsourced label explanations</span></p>
+<p><span style="font-weight: 400;">Dataset: Random Sampling + Human Judgement</span></p>
+<h3><span style="font-weight: 400;">Existing Work: </span></h3>
+<h5><span style="font-weight: 400;">Previous Capstone Project: </span></h5>
+<h5><a href="https://michael0x2a.github.io/nlp-capstone/"><span style="font-weight: 400;">Team Inverted Cat</span></a></h5>
+<h5><span style="font-weight: 400;">Datasets: </span></h5>
+<p><a href="https://github.com/ZeerakW/hatespeech"><span style="font-weight: 400;">Hate Speech Twitter Annotations</span></a><span style="font-weight: 400;"> (Waseem et al. 2016)</span></p>
+<p><a href="https://github.com/t-davidson/hate-speech-and-offensive-language"><span style="font-weight: 400;">Hate Speech and Offensive language dataset </span></a><span style="font-weight: 400;"> (Davidson et al. 2017)</span></p>
+<p><a href="https://meta.wikimedia.org/wiki/Research:Detox/Data_Release"><span style="font-weight: 400;">Wikipedia Talk Corpus </span></a><span style="font-weight: 400;"> (Wulczyn et al. 2017)</span></p>
+<p><a href="http://www.cs.cornell.edu/~cristian//Politeness.html"><span style="font-weight: 400;">Stanford Politeness Corpus</span></a></p>
+<p><a href="https://www.frontgatemedia.com/a-list-of-723-bad-words-to-blacklist-and-how-to-use-facebooks-moderation-tool/"><span style="font-weight: 400;">A list of bad words</span></a></p>
+<p><span style="font-weight: 400;">Pre-trained word embeddings: GloVe, Facebook FastText, Google Word2Vec</span></p>
+<h5><span style="font-weight: 400;">Papers: </span></h5>
+<p><a href="https://www.semanticscholar.org/paper/Hateful-Symbols-or-Hateful-People%3F-Predictive-for-Waseem-Hovy/df704cca917666dace4e42b4d3a50f65597b8f06"><span style="font-weight: 400;">Waseem, Zeerak and Dirk Hovy. “Hateful Symbols or Hateful People? Predictive Features for Hate Speech Detection on Twitter.” SRW@HLT-NAACL (2016).</span></a></p>
+<p><a href="https://www.semanticscholar.org/paper/Automated-Hate-Speech-Detection-and-the-Problem-of-Davidson-Warmsley/6ccfff0d7a10bf7046fbfd109b301323293b67da"><span style="font-weight: 400;">Davidson, Thomas J et al. “Automated Hate Speech Detection and the Problem of Offensive Language.” ICWSM (2017).</span></a></p>
+<p><a href="https://www.semanticscholar.org/paper/Hate-Speech-Detection-with-Comment-Embeddings-Djuric-Zhou/c9948f7213167d65db79b60381d01ea71d438f94"><span style="font-weight: 400;">Djuric, Nemanja et al. “Hate Speech Detection with Comment Embeddings.” </span><i><span style="font-weight: 400;">WWW</span></i><span style="font-weight: 400;">(2015).</span></a></p>
+<p><a href="https://www.semanticscholar.org/paper/Using-Convolutional-Neural-Networks-to-Classify-Gamb%C3%A4ck-Sikdar/0dca29b6a5ea2fe2b6373aba9fe0ab829c06fd78"><span style="font-weight: 400;">Gambäck, Björn and Utpal Kumar Sikdar. “Using Convolutional Neural Networks to Classify Hate-Speech.” (2017).</span></a></p>
+<p><a href="https://www.semanticscholar.org/paper/Abusive-Language-Detection-in-Online-User-Content-Nobata-Tetreault/e39b586e561b36a3b71fa3d9ee7cb15c35d84203"><span style="font-weight: 400;">Nobata, Chikashi et al. “Abusive Language Detection in Online User Content.” </span><i><span style="font-weight: 400;">WWW</span></i><span style="font-weight: 400;">(2016).</span></a></p>
+<p><a href="https://www.semanticscholar.org/paper/Ex-Machina%3A-Personal-Attacks-Seen-at-Scale-Wulczyn-Thain/4a7204431900338877c738c8f56b10a71a52e064"><span style="font-weight: 400;">Wulczyn, Ellery et al. “Ex Machina: Personal Attacks Seen at Scale.” </span><i><span style="font-weight: 400;">WWW</span></i><span style="font-weight: 400;"> (2017).</span></a></p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="http://cse481n-capstone.azurewebsites.net/2018/04/10/formal-proposal/">by Team Watch Your Language! at April 10, 2018 10:37 PM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
 <h3><a href="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2" title="Stories by Ryan Pham on Medium">Ryan Pham <br/> Team NeuralEmpty</a></h3>
 
 
@@ -1082,7 +1145,7 @@ I'm working on my project in my fork of Allennlp. I got the dataset and have wri
 
 <p>
 <strong>Last updated:</strong><br>
-April 10, 2018 10:30 PM<br>
+April 10, 2018 11:00 PM<br>
 <em>All times are UTC.</em><br>
 
 <!--
