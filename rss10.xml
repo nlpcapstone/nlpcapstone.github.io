@@ -15,6 +15,7 @@
 
 	<items>
 		<rdf:Seq>
+			<rdf:li rdf:resource="https://medium.com/p/45c89bec2c2e" />
 			<rdf:li rdf:resource="http://deeplearningturingtest.wordpress.com/?p=12" />
 			<rdf:li rdf:resource="https://medium.com/p/96fb908765f5" />
 			<rdf:li rdf:resource="https://medium.com/p/278789e4d04a" />
@@ -44,6 +45,13 @@
 	</items>
 </channel>
 
+<item rdf:about="https://medium.com/p/45c89bec2c2e">
+	<title>Zichun Liu, Ning Hong, Sujie Zhou &lt;br/&gt; Team The Bugless: Movie Sentiment Summarization — Project Proposal</title>
+	<link>https://medium.com/@hongnin1/movie-sentiment-summarization-project-proposal-45c89bec2c2e?source=rss-c450eb982161------2</link>
+	<content:encoded>&lt;p&gt;This project has a lot of potential uses. Not only can we use movie dataset to output movie sentiment summarization, if given restaurant review dataset (Yelp), we can also output summarization about how customers feel about a restaurant.&lt;/p&gt;&lt;p&gt;On the other hand, there might be some difficulties we will be facing: we are planning to use sequence2sequence model to generate summarization, it is hard to determine how good is the output we are generating; more research needs to be done for this problem.&lt;/p&gt;&lt;img height=&quot;1&quot; src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=45c89bec2c2e&quot; width=&quot;1&quot; /&gt;</content:encoded>
+	<dc:date>2018-04-10T02:54:02+00:00</dc:date>
+	<dc:creator>Ning Hong</dc:creator>
+</item>
 <item rdf:about="http://deeplearningturingtest.wordpress.com/?p=12">
 	<title>Ananth Gottumukkala &lt;br/&gt; Team Turing Test: Warm Up: Testing a Codebase</title>
 	<link>https://deeplearningturingtest.wordpress.com/2018/04/06/warm-up-testing-a-codebase/</link>

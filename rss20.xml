@@ -9,6 +9,13 @@
 	<atom:link rel="self" href="https://nlpcapstone.github.io/rss20.xml" type="application/rss+xml"/>
 
 <item>
+	<title>Zichun Liu, Ning Hong, Sujie Zhou &lt;br/&gt; Team The Bugless: Movie Sentiment Summarization — Project Proposal</title>
+	<guid isPermaLink="false">https://medium.com/p/45c89bec2c2e</guid>
+	<link>https://medium.com/@hongnin1/movie-sentiment-summarization-project-proposal-45c89bec2c2e?source=rss-c450eb982161------2</link>
+	<description>&lt;p&gt;This project has a lot of potential uses. Not only can we use movie dataset to output movie sentiment summarization, if given restaurant review dataset (Yelp), we can also output summarization about how customers feel about a restaurant.&lt;/p&gt;&lt;p&gt;On the other hand, there might be some difficulties we will be facing: we are planning to use sequence2sequence model to generate summarization, it is hard to determine how good is the output we are generating; more research needs to be done for this problem.&lt;/p&gt;&lt;img height=&quot;1&quot; src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=45c89bec2c2e&quot; width=&quot;1&quot; /&gt;</description>
+	<pubDate>Tue, 10 Apr 2018 02:54:02 +0000</pubDate>
+</item>
+<item>
 	<title>Ananth Gottumukkala &lt;br/&gt; Team Turing Test: Warm Up: Testing a Codebase</title>
 	<guid isPermaLink="false">http://deeplearningturingtest.wordpress.com/?p=12</guid>
 	<link>https://deeplearningturingtest.wordpress.com/2018/04/06/warm-up-testing-a-codebase/</link>
