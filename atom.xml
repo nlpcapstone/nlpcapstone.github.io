@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:planet="http://planet.intertwingly.net/" xmlns:indexing="urn:atom-extension:indexing" indexing:index="no"><access:restriction xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" relationship="deny"/>
   <title>NLP Capstone Spring 2018</title>
-  <updated>2018-04-10T03:00:22Z</updated>
+  <updated>2018-04-10T03:30:18Z</updated>
   <generator uri="http://intertwingly.net/code/venus/">Venus</generator>
   <author>
     <name>Nelson Liu</name>
@@ -12,10 +12,34 @@
   <link href="https://nlpcapstone.github.io/" rel="alternate"/>
 
   <entry>
+    <id>tag:blogger.com,1999:blog-5600014144802012716.post-8898628104121215850</id>
+    <link href="https://nlpcapstonesemparse.blogspot.com/2018/04/blog-3-formal-proposal.html" rel="alternate" type="text/html"/>
+    <title>Blog 3: Formal Proposal</title>
+    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><b style="font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;">Minimal viable action plan </b><br/><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">Implement the model from the java paper mentioned in the previous blog posts. This includes the variable and method camel case encoding, the two step attention, the type constrained decoding, and many other tasks such as preprocessing, evaluation metrics etc.</span></span><br/><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;"><br/></span></span><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>Stretch goals</b></span><br/><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;">This depends on my error analysis on the mvp, but here are a couple ideas.</span><br/><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>1. </b>Incorporate implementation specific encoding. The encoder just uses the method names, but it'd be interesting to also include the method implementations.</span><br/><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;"><b>2. </b>More type constraints on the decoder. Currently if the decoder wants to generate a variable, there's nothing to check that the variable was previously declared.</span></span><br/><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><br/></span><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>Project objectives</b></span><br/><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">Reproduce the strong paper baseline. </span></span><br/><br/><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>Proposed methodologies</b> </span><br/><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">Implement the model from the paper. Potentially experiment with other semantic parsing task architectures and see if they also perform competitively with the baseline, for example seq2seq.</span></span><br/><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;"><br/></span></span><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>Available resources</b></span><br/><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">The dataset and allennlp.</span></span><br/><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b><br/></b></span><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>Evaluation plan</b></span><br/><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;">Test on the test set and measure bleu and exact match metrics.</span><br/><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">Test if this is useful by coming up with a couple of real classes that I've written and see if it generates the method.</span></span><br/><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">Perhaps come up with a new metric, such as a binary executability metric (stretch goal).</span></span><br/><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b><br/></b></span><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>Literature survey</b></span><br/><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">The type constrained architecture was used in a number of recent papers such as "</span><span style="font-size: 14.44px;">A syntactic neural model for parsing natural language to executable code". The dataset is novel in that previous ones haven't used programmatic contexts and have focused on nl2code pairs.</span></span></div>
+    </summary>
+    <updated>2018-04-10T03:21:00Z</updated>
+    <author>
+      <name>nlpcapstone</name>
+      <email>noreply@blogger.com</email>
+    </author>
+    <source>
+      <id>tag:blogger.com,1999:blog-5600014144802012716</id>
+      <author>
+        <name>nlpcapstone</name>
+        <email>noreply@blogger.com</email>
+      </author>
+      <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
+      <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
+      <title>NlpCapstone</title>
+      <updated>2018-04-10T03:30:04Z</updated>
+    </source>
+  </entry>
+
+  <entry>
     <id>https://medium.com/p/45c89bec2c2e</id>
     <link href="https://medium.com/@hongnin1/movie-sentiment-summarization-project-proposal-45c89bec2c2e?source=rss-c450eb982161------2" rel="alternate" type="text/html"/>
     <title>Movie Sentiment Summarization — Project Proposal</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>This project has a lot of potential uses. Not only can we use movie dataset to output movie sentiment summarization, if given restaurant review dataset (Yelp), we can also output summarization about how customers feel about a restaurant.</p><p>On the other hand, there might be some difficulties we will be facing: we are planning to use sequence2sequence model to generate summarization, it is hard to determine how good is the output we are generating; more research needs to be done for this problem.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=45c89bec2c2e" width="1"/></div>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>Overview: our model will be able to summarize the reviews for the input movies. The summarization of the movie include how the audience feel about the movie and what is the overall rating for the movie, for example, given a movie title, our model should be able to produce something like this: &lt;movie title&gt; is violet but good, most people think this movie is 6/10.</p><p>If time permits, we would like to improve our model such that it can also output a more detailed overall review for the movie instead of simple sentences, for example, given a movie title as input, our model should output: “&lt;movie title&gt; got my full attention from beginning to end. I couldn’t turn away. I didn’t want to turn away. For me, that’s extremely rare, I would give it 8/10.”</p><p>Another stretch goal for our model is to be able to detect sentiment not only in the US market, but also in China market by using data from DouBan (one of the largest movie review site for China), and compare the sentiment between US and China for a certain movie, for example, given an input movie title, our model can output something like: &lt;movie title&gt; was generally perceived more positively in the US than in China, the Chinese audience mostly felt uncomfortable about its violent and explicit content whereas more American audience appreciated the bloodiness of the film.</p><p>Model: we are going to use basic encoder- decoder RNN that serves as our baseline and then propose several novel models for summarization, each addressing a specific weakness in the base- line such as encoder-decoder RNN with attention and large vocabulary trick, capturing keywords using feature-rich encoder, modeling rare/unseen words using switching generator-pointer, and capturing hierarchical document structure with hierarchical attention.</p><p>This project has a lot of potential uses. Not only can we use movie dataset to output movie sentiment summarization, if given restaurant review dataset (Yelp), we can also output summarization about how customers feel about a restaurant.</p><p>On the other hand, there might be some difficulties we will be facing: we are planning to use sequence2sequence model to generate summarization, it is hard to determine how good is the output we are generating; more research needs to be done for this problem.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=45c89bec2c2e" width="1"/></div>
     </content>
     <updated>2018-04-10T02:54:02Z</updated>
     <category term="data-science"/>
@@ -30,7 +54,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-10T03:00:05Z</updated>
+      <updated>2018-04-10T03:30:05Z</updated>
     </source>
   </entry>
 
@@ -58,7 +82,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-10T03:00:20Z</updated>
+      <updated>2018-04-10T03:30:17Z</updated>
     </source>
   </entry>
 
@@ -85,7 +109,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-10T03:00:21Z</updated>
+      <updated>2018-04-10T03:30:18Z</updated>
     </source>
   </entry>
 
@@ -108,7 +132,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-10T03:00:20Z</updated>
+      <updated>2018-04-10T03:30:16Z</updated>
     </source>
   </entry>
 
@@ -132,7 +156,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-10T03:00:20Z</updated>
+      <updated>2018-04-10T03:30:17Z</updated>
     </source>
   </entry>
 
@@ -181,7 +205,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-10T03:00:21Z</updated>
+      <updated>2018-04-10T03:30:18Z</updated>
     </source>
   </entry>
 
@@ -207,7 +231,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-10T03:00:19Z</updated>
+      <updated>2018-04-10T03:30:16Z</updated>
     </source>
   </entry>
 
@@ -231,7 +255,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-10T03:00:21Z</updated>
+      <updated>2018-04-10T03:30:18Z</updated>
     </source>
   </entry>
 
@@ -254,7 +278,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-10T03:00:04Z</updated>
+      <updated>2018-04-10T03:30:05Z</updated>
     </source>
   </entry>
 
@@ -301,7 +325,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-10T03:00:18Z</updated>
+      <updated>2018-04-10T03:30:16Z</updated>
     </source>
   </entry>
 
@@ -332,7 +356,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-10T03:00:17Z</updated>
+      <updated>2018-04-10T03:30:15Z</updated>
     </source>
   </entry>
 
@@ -355,7 +379,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-10T03:00:20Z</updated>
+      <updated>2018-04-10T03:30:16Z</updated>
     </source>
   </entry>
 
@@ -413,7 +437,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-10T03:00:21Z</updated>
+      <updated>2018-04-10T03:30:18Z</updated>
     </source>
   </entry>
 
@@ -440,7 +464,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-10T03:00:21Z</updated>
+      <updated>2018-04-10T03:30:18Z</updated>
     </source>
   </entry>
 
@@ -464,7 +488,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-10T03:00:21Z</updated>
+      <updated>2018-04-10T03:30:18Z</updated>
     </source>
   </entry>
 
@@ -496,7 +520,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-10T03:00:20Z</updated>
+      <updated>2018-04-10T03:30:17Z</updated>
     </source>
   </entry>
 
@@ -523,7 +547,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-10T03:00:19Z</updated>
+      <updated>2018-04-10T03:30:16Z</updated>
     </source>
   </entry>
 
@@ -548,7 +572,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-10T03:00:18Z</updated>
+      <updated>2018-04-10T03:30:16Z</updated>
     </source>
   </entry>
 
@@ -571,7 +595,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-10T03:00:04Z</updated>
+      <updated>2018-04-10T03:30:04Z</updated>
     </source>
   </entry>
 
@@ -616,7 +640,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-10T03:00:05Z</updated>
+      <updated>2018-04-10T03:30:05Z</updated>
     </source>
   </entry>
 
@@ -639,7 +663,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-10T03:00:04Z</updated>
+      <updated>2018-04-10T03:30:05Z</updated>
     </source>
   </entry>
 
@@ -677,7 +701,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-10T03:00:17Z</updated>
+      <updated>2018-04-10T03:30:15Z</updated>
     </source>
   </entry>
 
@@ -701,7 +725,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-10T03:00:20Z</updated>
+      <updated>2018-04-10T03:30:17Z</updated>
     </source>
   </entry>
 
@@ -725,7 +749,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-10T03:00:04Z</updated>
+      <updated>2018-04-10T03:30:04Z</updated>
     </source>
   </entry>
 </feed>
