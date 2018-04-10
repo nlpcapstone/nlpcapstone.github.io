@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:planet="http://planet.intertwingly.net/" xmlns:indexing="urn:atom-extension:indexing" indexing:index="no"><access:restriction xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" relationship="deny"/>
   <title>NLP Capstone Spring 2018</title>
-  <updated>2018-04-10T03:30:18Z</updated>
+  <updated>2018-04-10T04:00:20Z</updated>
   <generator uri="http://intertwingly.net/code/venus/">Venus</generator>
   <author>
     <name>Nelson Liu</name>
@@ -31,7 +31,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-10T03:30:04Z</updated>
+      <updated>2018-04-10T04:00:04Z</updated>
     </source>
   </entry>
 
@@ -39,7 +39,7 @@
     <id>https://medium.com/p/45c89bec2c2e</id>
     <link href="https://medium.com/@hongnin1/movie-sentiment-summarization-project-proposal-45c89bec2c2e?source=rss-c450eb982161------2" rel="alternate" type="text/html"/>
     <title>Movie Sentiment Summarization — Project Proposal</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>Overview: our model will be able to summarize the reviews for the input movies. The summarization of the movie include how the audience feel about the movie and what is the overall rating for the movie, for example, given a movie title, our model should be able to produce something like this: &lt;movie title&gt; is violet but good, most people think this movie is 6/10.</p><p>If time permits, we would like to improve our model such that it can also output a more detailed overall review for the movie instead of simple sentences, for example, given a movie title as input, our model should output: “&lt;movie title&gt; got my full attention from beginning to end. I couldn’t turn away. I didn’t want to turn away. For me, that’s extremely rare, I would give it 8/10.”</p><p>Another stretch goal for our model is to be able to detect sentiment not only in the US market, but also in China market by using data from DouBan (one of the largest movie review site for China), and compare the sentiment between US and China for a certain movie, for example, given an input movie title, our model can output something like: &lt;movie title&gt; was generally perceived more positively in the US than in China, the Chinese audience mostly felt uncomfortable about its violent and explicit content whereas more American audience appreciated the bloodiness of the film.</p><p>Model: we are going to use basic encoder- decoder RNN that serves as our baseline and then propose several novel models for summarization, each addressing a specific weakness in the base- line such as encoder-decoder RNN with attention and large vocabulary trick, capturing keywords using feature-rich encoder, modeling rare/unseen words using switching generator-pointer, and capturing hierarchical document structure with hierarchical attention.</p><p>This project has a lot of potential uses. Not only can we use movie dataset to output movie sentiment summarization, if given restaurant review dataset (Yelp), we can also output summarization about how customers feel about a restaurant.</p><p>On the other hand, there might be some difficulties we will be facing: we are planning to use sequence2sequence model to generate summarization, it is hard to determine how good is the output we are generating; more research needs to be done for this problem.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=45c89bec2c2e" width="1"/></div>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>Team: Ning Hong, Zhuchun Liu, Sujie Zhou</p><p>Overview: our model will be able to summarize the reviews for the input movies. The summarization of the movie include how the audience feel about the movie and what is the overall rating for the movie, for example, given a movie title, our model should be able to produce something like this: &lt;movie title&gt; is violet but good, most people think this movie is 6/10.</p><p>If time permits, we would like to improve our model such that it can also output a more detailed overall review for the movie instead of simple sentences, for example, given a movie title as input, our model should output: “&lt;movie title&gt; got my full attention from beginning to end. I couldn’t turn away. I didn’t want to turn away. For me, that’s extremely rare, I would give it 8/10.”</p><p>Another stretch goal for our model is to be able to detect sentiment not only in the US market, but also in China market by using data from DouBan (one of the largest movie review site for China), and compare the sentiment between US and China for a certain movie, for example, given an input movie title, our model can output something like: &lt;movie title&gt; was generally perceived more positively in the US than in China, the Chinese audience mostly felt uncomfortable about its violent and explicit content whereas more American audience appreciated the bloodiness of the film.</p><p>Model: we are going to use basic encoder- decoder RNN that serves as our baseline and then propose several novel models for summarization, each addressing a specific weakness in the base- line such as encoder-decoder RNN with attention and large vocabulary trick, capturing keywords using feature-rich encoder, modeling rare/unseen words using switching generator-pointer, and capturing hierarchical document structure with hierarchical attention.</p><p>This project has a lot of potential uses. Not only can we use movie dataset to output movie sentiment summarization, if given restaurant review dataset (Yelp), we can also output summarization about how customers feel about a restaurant.</p><p>On the other hand, there might be some difficulties we will be facing: we are planning to use sequence2sequence model to generate summarization, it is hard to determine how good is the output we are generating; more research needs to be done for this problem.</p><p>Resources:</p><p>Data scraping blogpost:</p><p><a href="https://www.dataquest.io/blog/web-scraping-beautifulsoup/">An intermediate tutorial</a></p><p>Model paper:</p><a href="https://medium.com/media/1ff2a893f361e9bda813a32d4e89c5f6/href">https://medium.com/media/1ff2a893f361e9bda813a32d4e89c5f6/href</a><p>Model github:</p><p><a href="https://github.com/thunlp/TensorFlow-Summarization">thunlp/TensorFlow-Summarization</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=45c89bec2c2e" width="1"/></div>
     </content>
     <updated>2018-04-10T02:54:02Z</updated>
     <category term="data-science"/>
@@ -54,7 +54,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-10T03:30:05Z</updated>
+      <updated>2018-04-10T04:00:04Z</updated>
     </source>
   </entry>
 
@@ -82,7 +82,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-10T03:30:17Z</updated>
+      <updated>2018-04-10T04:00:19Z</updated>
     </source>
   </entry>
 
@@ -109,7 +109,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-10T03:30:18Z</updated>
+      <updated>2018-04-10T04:00:20Z</updated>
     </source>
   </entry>
 
@@ -132,7 +132,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-10T03:30:16Z</updated>
+      <updated>2018-04-10T04:00:18Z</updated>
     </source>
   </entry>
 
@@ -156,7 +156,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-10T03:30:17Z</updated>
+      <updated>2018-04-10T04:00:19Z</updated>
     </source>
   </entry>
 
@@ -205,7 +205,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-10T03:30:18Z</updated>
+      <updated>2018-04-10T04:00:20Z</updated>
     </source>
   </entry>
 
@@ -231,7 +231,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-10T03:30:16Z</updated>
+      <updated>2018-04-10T04:00:18Z</updated>
     </source>
   </entry>
 
@@ -255,7 +255,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-10T03:30:18Z</updated>
+      <updated>2018-04-10T04:00:20Z</updated>
     </source>
   </entry>
 
@@ -278,7 +278,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-10T03:30:05Z</updated>
+      <updated>2018-04-10T04:00:04Z</updated>
     </source>
   </entry>
 
@@ -325,7 +325,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-10T03:30:16Z</updated>
+      <updated>2018-04-10T04:00:17Z</updated>
     </source>
   </entry>
 
@@ -356,7 +356,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-10T03:30:15Z</updated>
+      <updated>2018-04-10T04:00:16Z</updated>
     </source>
   </entry>
 
@@ -379,7 +379,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-10T03:30:16Z</updated>
+      <updated>2018-04-10T04:00:18Z</updated>
     </source>
   </entry>
 
@@ -437,7 +437,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-10T03:30:18Z</updated>
+      <updated>2018-04-10T04:00:20Z</updated>
     </source>
   </entry>
 
@@ -464,7 +464,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-10T03:30:18Z</updated>
+      <updated>2018-04-10T04:00:20Z</updated>
     </source>
   </entry>
 
@@ -488,7 +488,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-10T03:30:18Z</updated>
+      <updated>2018-04-10T04:00:20Z</updated>
     </source>
   </entry>
 
@@ -520,7 +520,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-10T03:30:17Z</updated>
+      <updated>2018-04-10T04:00:19Z</updated>
     </source>
   </entry>
 
@@ -547,7 +547,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-10T03:30:16Z</updated>
+      <updated>2018-04-10T04:00:18Z</updated>
     </source>
   </entry>
 
@@ -572,7 +572,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-10T03:30:16Z</updated>
+      <updated>2018-04-10T04:00:17Z</updated>
     </source>
   </entry>
 
@@ -595,7 +595,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-10T03:30:04Z</updated>
+      <updated>2018-04-10T04:00:04Z</updated>
     </source>
   </entry>
 
@@ -640,7 +640,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-10T03:30:05Z</updated>
+      <updated>2018-04-10T04:00:04Z</updated>
     </source>
   </entry>
 
@@ -663,7 +663,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-10T03:30:05Z</updated>
+      <updated>2018-04-10T04:00:04Z</updated>
     </source>
   </entry>
 
@@ -701,7 +701,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-10T03:30:15Z</updated>
+      <updated>2018-04-10T04:00:16Z</updated>
     </source>
   </entry>
 
@@ -725,7 +725,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-10T03:30:17Z</updated>
+      <updated>2018-04-10T04:00:19Z</updated>
     </source>
   </entry>
 
@@ -749,7 +749,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-10T03:30:04Z</updated>
+      <updated>2018-04-10T04:00:04Z</updated>
     </source>
   </entry>
 </feed>
