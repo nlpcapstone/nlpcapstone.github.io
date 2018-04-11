@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:planet="http://planet.intertwingly.net/" xmlns:indexing="urn:atom-extension:indexing" indexing:index="no"><access:restriction xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" relationship="deny"/>
   <title>NLP Capstone Spring 2018</title>
-  <updated>2018-04-11T06:30:21Z</updated>
+  <updated>2018-04-11T07:00:22Z</updated>
   <generator uri="http://intertwingly.net/code/venus/">Venus</generator>
   <author>
     <name>Nelson Liu</name>
@@ -10,6 +10,206 @@
   <id>https://nlpcapstone.github.io/atom.xml</id>
   <link href="https://nlpcapstone.github.io/atom.xml" rel="self" type="application/atom+xml"/>
   <link href="https://nlpcapstone.github.io/" rel="alternate"/>
+
+  <entry xml:lang="en">
+    <id>http://deeplearningturingtest.wordpress.com/?p=14</id>
+    <link href="https://deeplearningturingtest.wordpress.com/2018/04/11/project-proposal-question-based-knowledge-representation/" rel="alternate" type="text/html"/>
+    <title>Project Proposal: Question-Based Knowledge Representation</title>
+    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">Project Objective: The objective of this project is to create a model that can build a representation of the knowledge it’s gathered by reading the input text line by line and asking appropriate clarifying questions to a human for further insight. Literature Survey: Williams, Jason D. et al. “Hybrid Code Networks: practical and efficient end-to-end … <a class="more-link" href="https://deeplearningturingtest.wordpress.com/2018/04/11/project-proposal-question-based-knowledge-representation/">Continue reading <span class="screen-reader-text">Project Proposal: Question-Based Knowledge Representation</span> <span class="meta-nav">→</span></a></div>
+    </summary>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p><strong>Project Objective:</strong> The objective of this project is to create a model that can build a representation of the knowledge it’s gathered by reading the input text line by line and asking appropriate clarifying questions to a human for further insight.</p>
+<p><strong>Literature Survey:</strong></p>
+<ul>
+<li><cite class="formatted-citation formatted-citation--style-mla">Williams, Jason D. et al. “Hybrid Code Networks: practical and efficient end-to-end dialog control with supervised and reinforcement learning.” <em>ACL</em> (2017).</cite></li>
+<li>
+<div class="padded"><cite class="formatted-citation formatted-citation--style-mla">Zhang, Qianqian et al. “A Review on Entity Relation Extraction.” <em>2017 Second International Conference on Mechanical, Control and Computer Engineering (ICMCCE)</em> (2017): 178-183.</cite></div>
+</li>
+<li>Arvind Neelakantan’s Doctoral Disseration: <em>Knowledge Representation and Reasoning with Deep Neural Networks (2017)</em></li>
+<li>
+<div class="padded"><cite class="formatted-citation formatted-citation--style-mla">Zhao, Tiancheng and Maxine Eskénazi. “Towards End-to-End Learning for Dialog State Tracking and Management using Deep Reinforcement Learning.” <em>SIGDIAL Conference</em> (2016).</cite></div>
+</li>
+</ul>
+<p><strong>Minimal Viable Action Plan:</strong> My minimum action plan would be to implement and train an RL model to ask certain question template(s) as clarification as it processes input text line by line. Then a human (myself) would assign a reward to indicate the quality of the question and give a brief answer to the question. This brief answer would then be used to expand the model’s stored knowledge representation and the assigned reward would be used to train the RL model. This series of exchanges is treated like a one-on-one conversation even if it’s more like a one-sided lecture.</p>
+<p><strong>Stretch Goals:</strong> Stretch goals include extracting features from the existing knowledge base and feeding those into the model to further improve the relevancy of questions (for example not asking questions that the model should already know). Another stretch goal would be to translate the knowledge representation back into everyday English text for tasks such as answering reading comprehension questions. This can be done either by training a Machine Translation model, using a parser like ANTLR, or some other method.</p>
+<p><strong>Proposed Methodologies:</strong> My proposed methodologies follows a similar outline as given by Williams et al. in their paper on Hybrid Code Networks (HCNs).</p>
+<ul>
+<li>The input text is read in line-by-line and goes through various preprocessing steps like entity extraction, word embeddings layer, sentiment analysis, bag of words, etc. These features are concatenated and fed into the model.</li>
+<li>In the HCN paper, the model was an RNN followed by a softmax layer (probability distribution over the various actions to take).
+<ul>
+<li>In this problem, the “actions” to take are the different types of question templates to ask so copying this model and substituting their action templates with my question templates would work.</li>
+</ul>
+</li>
+<li>An alternative approach would be to build a Deep Q Network model with an LSTM (or GRU) layer at the end, so the network would update the Q values for each question type that can be asked (and the one with the highest Q value can be greedily selected). For clarification, each input sentence would represent a time step.</li>
+<li>After a question type is selected with either of the 2 approaches above, nouns need to be substituted in to form an actual question (as in the HCN paper). For example, a question template might be “Is there a relationship between ______ and ______?” and the two blanks need to be filled in with nouns. If the substitution results in a good question, a good reward is assigned and otherwise, a very negative reward is assigned. If it’s a good question, then an answer is given to update the knowledge representation.
+<ul>
+<li>Some possible ways to create this knowledge representation is to use lists, trees, semantic networks, production rules, logical propositions and/or other existing NLP knowledge representation models (I haven’t decided on one yet).</li>
+</ul>
+</li>
+</ul>
+<p><strong>Available Resources/Databases:</strong> To train the model, any reading comprehension dataset like MS Marco (Microsoft), SQuAD (Stanford), RACE, etc. can be used. If my project is successful enough, I can even use these datasets for evaluation.</p>
+<p><strong>Evaluation Plan:</strong> If I only finish my minimum viable action plan, I’m not sure how I can qualitatively assess my knowledge representation except by comparing the representation against the information I wanted to be recorded (or have other people judge what knowledge should be stored). On the other hand, if I finish my stretch goals (translating knowledge representation to English) I can try to use the knowledge representation to train on and respond to queries in a reading comprehension dataset (which would be a much more qualitative evaluation).</p></div>
+    </content>
+    <updated>2018-04-11T06:59:08Z</updated>
+    <category term="Uncategorized"/>
+    <author>
+      <name>ananthgo</name>
+    </author>
+    <source>
+      <id>https://deeplearningturingtest.wordpress.com</id>
+      <logo>https://s0.wp.com/i/buttonw-com.png</logo>
+      <link href="https://deeplearningturingtest.wordpress.com/feed/" rel="self" type="application/rss+xml"/>
+      <link href="https://deeplearningturingtest.wordpress.com" rel="alternate" type="text/html"/>
+      <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
+      <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
+      <title>NLP Capstone Project Updates – Ananth</title>
+      <updated>2018-04-11T07:00:19Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>https://medium.com/p/7b6d1a9ec67c</id>
+    <link href="https://medium.com/@viterbi.or.not/formal-project-proposal-7b6d1a9ec67c?source=rss-c522ef075bb3------2" rel="alternate" type="text/html"/>
+    <title>Formal Project Proposal</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*cr8jfKVLjgd9Y7YmxXWSYA.png"/></figure><p>Introducing our project topic, <strong>automatic conversation summarization</strong>! Our proposal will outline specific objectives, motivations, and plan we have for this project. We also cover here the resources we have gathered — related work, datasets (as promised), and evaluation frameworks, to demonstrate viability and give background on the topic.</p><h4><strong>Objective</strong></h4><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*DmM6aXAhZi61Ec7Yhp6YBw.png"/>Example summarization of an email chain from the <a href="https://www.cs.ubc.ca/cs-research/lci/research-groups/natural-language-processing/bc3.html">W3C email threads corpus</a></figure><p>In the field of automatic text summarization, there are numerous techniques that can be used to produce summaries of general text data. However, for our project, we seek to work on a more specific type of data by exploring and evaluating techniques for summarization of conversation logs. Therefore, the models we will attempt to implement and measure will take input in the form of natural text from conversations, such as email threads, chat logs, or transcribed spoken conversations, and output more concise summaries that capture the most important parts of the input.</p><p>While a document or paper typically sticks to a single topic at once and represents communication between an author and the reader, conversational data is characterized by a mixing of sub-topics and, in many cases, contributions from multiple different authors before one topic is finished. As a result, the objective of conversational summarization includes identifying topics and threads among a potentially chaotic conversation in order to make a sensible summarization even without the benefit of a single, linear topic progression.</p><h4><strong>Extractive vs. Abstractive</strong></h4><p>When considering text summarization, a distinction has to be made between two different approaches to summarization that offer different levels of implementation difficulty and usefulness. An extractive summary is produced by identifying the most important sentences from the input text and combining them to form a summary that is the concatenation of those sentences.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*iZujvW2rP_HSVU2KXLtvew.png"/>Example of a short chatlog and its corresponding extractive summary</figure><p>Alternatively, an abstractive summary consists of new text generated from the topics and important aspects of the input text, but requires the model to create new summary sentences rather than simply re-using existing ones. As a result of this generation process, abstractive summaries are typically considered to be more useful, because they consist of natural-sounding text while still paraphrasing the concepts that are important. However, current techniques perform much better at generating extractive summaries, which are considered much easier to implement because they only require assigning scores to the sentences of the input.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*1oiGv-MrfdubjbKv-Vp9fA.png"/>Example of a short chatlog and its corresponding abstractive summary</figure><h4><strong>Motivation</strong></h4><p>The <strong>academic</strong> motivations behind our project are to pursue a topic in summarization that has been relatively less explored. This means tackling the challenges that come with the conversation summarization domain — annotated conversation datasets are typically smaller and more unpredictable, and whereas tasks like document summary usually involve one topic written by one author/voice, conversations and involve many participants and have less well-defined topic segmentation.</p><p>The project is also motivated by the possibly impactful <strong>applications </strong>of conversation summarization. Being able to summarize long chains of emails or group IMs is an increasingly important task to tackle in today’s world and can be a useful augmentation to digital group conversations.</p><h4><strong>Related Work</strong></h4><p>In our literature survey, we will first discuss the two papers that have been most impactful in helping establish our project plan.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*U0i-moKx4s_YB3My."/>Graph of contributions of general feature categories to the performance of logistic regression classifiers</figure><p><a href="http://www.aclweb.org/anthology/D08-1081"><strong>Summarizing Spoken and Written Conversations</strong></a><strong>¹ </strong>uses meeting and email datasets. The authors of this paper approach extractive summarization with logistic regression classifiers and a mix of general summarization features as well as some basic conversation summarization features. The overall feature categories can be seen in the corresponding figure, which graphs the contributions of each feature category to the classifier’s performance. “Participant” category features were found to help achieve competitive results.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1010/0*wLl3u1tR-GKYuIql."/>Table of performances of previously published models and the models used in the experiment (C4.5, NB, MLP, SVM)</figure><p><a href="http://web2py.iiit.ac.in/research_centres/publications/download/inproceedings.pdf.8b32440f2dc771c4.323031325f414e445f43616d6572612e706466.pdf"><strong>Summarizing Online Conversations: A Machine Learning Approach</strong></a><strong>²</strong> uses chatlog and meeting datasets. The authors of this paper conduct experiments with Decision Tree, Naive Bayes classifier, Multilayer Perceptron (MLP) and Support Vector Machine (SVM) summarizers to create extractive summaries. The input feature vectors to these trainable summarizers use both general summarization features (sentence length, sentence position, similarity to title, etc.) as well as conversation specific summarization features that are more specialized than those mentioned in the previously discussed paper (is question, sentiment score, discourse markers). The paper overall found that the Naive Bayes classifier and MLP performed the best.</p><h4><strong>Datasets</strong></h4><p>The datasets we found cover a variety of conversation domains and are all human-annotated with summaries.</p><p><strong>Email: </strong><a href="https://www.cs.ubc.ca/cs-research/lci/research-groups/natural-language-processing/bc3.html"><strong>W3C Email Threads</strong></a></p><ul><li>40 email threads of ~80 lines each</li><li>Extractive and Abstractive Summaries</li></ul><p><strong>Chat: </strong><a href="https://flossmole.org/content/software-archaeology-gnue-irc-data-summaries"><strong>GNU Enterprise Chatlogs</strong></a></p><ul><li>~120 chats of ~1200 lines each</li><li>Abstractive Summaries</li></ul><p><strong>Spoken Conversation: </strong><a href="http://groups.inf.ed.ac.uk/ami/corpus/"><strong>AMI Meeting Transcripts</strong></a></p><ul><li>140 meeting transcriptions of ~45 minutes each</li><li>Extractive and Abstractive Summaries</li></ul><h4><strong>Evaluation</strong></h4><p>In terms of <strong>automated</strong> methods of evaluation for the summaries that we will generate, there are a few frameworks we can use:</p><p><strong>BLEU</strong> (BIlingual Evaluation Understudy)</p><ul><li>Precision measure with some enhancements</li></ul><p><strong>METEOR</strong> (Metric for Evaluation of Translation with Explicit ORdering)</p><ul><li>Improves on BLEU by adding recall, synonyms</li><li>Better at sentence-level evaluation</li></ul><p><strong>ROUGE</strong> (Recall-Oriented Understudy for Gisting Evaluation)</p><ul><li><strong>ROUGE-L</strong>: Longest common subsequence</li><li><strong>ROUGE-N</strong>: Overlap of N-Grams between passages</li></ul><p>However, for summarization tasks, <strong>human evaluation</strong> is possibly most ideal and it is unclear if any automatic metric can be as effective.</p><h4><strong>Minimum Viable Product</strong></h4><p>Our plan is to start with two <strong>baseline models</strong> that replicate the best performing models (Naive Bayes and MLP approaches) of “Summarizing Online Conversations: A Machine Learning Approach” using the non-conversation specific features.</p><p>We would then experiment with tweaks to the baseline models that use conversation-specific features, both based off of the ones described in the paper and also based on some of our ideas about what kinds of domain-specific features might benefit conversation summarization. We can also continue to explore alternative models and compare model approaches.</p><h4><strong>Stretch Goals</strong></h4><p>There are a number of ideas we have for stretch goals that can push our project further:</p><p><strong>Neural Network implementation: </strong>Applying general summarization techniques to conversation</p><p><strong>Model entity relationships: </strong>Identifying the role of a contributor or named entity, such as a supervisor in an email thread</p><p><strong>Abstractive summarization: </strong>Convert a previously extractive summary to be natural-sounding and abstractive</p><p><strong>Optimize performance for a specific domain: </strong>For example, in chats about bugfixes, use that specific context to try outperforming the general case</p><p><strong>Relate parameters from different types of data: </strong>For example, use data from spoken corpus to improve results on email</p><p>We hope you enjoyed reading our project proposal and we are excited to get working!</p><p>[1] Murray, G. &amp; Carenini, G. (2008). Summarizing Spoken and Written Conversations. <em>Proceedings of the 2008 Conference on Empirical Methods in Natural Language Processing, </em>773–782.</p><p>[2] Sood, A. &amp; Varma, V. (2012). Summarizing Online Conversations: A Machine Learning Approach. <em>Centre for Search and Information Extraction Lab International Institute of Information Technology Hyderabad,</em> 500.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=7b6d1a9ec67c" width="1"/></div>
+    </content>
+    <updated>2018-04-11T06:56:31Z</updated>
+    <category term="nlp"/>
+    <author>
+      <name>Viterbi Or Not To Be</name>
+    </author>
+    <source>
+      <id>https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2</id>
+      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*wiisg40Bu4z11RTWJ66mnA.png</logo>
+      <link href="https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2" rel="alternate" type="text/html"/>
+      <link href="https://medium.com/feed/@viterbi.or.not" rel="self" type="application/rss+xml"/>
+      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
+      <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
+      <title>Stories by Viterbi Or Not To Be on Medium</title>
+      <updated>2018-04-11T07:00:19Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>https://medium.com/p/c8a12d3ae611</id>
+    <link href="https://medium.com/@be.li.nda/nlp-capstone-blog-3-project-proposal-c8a12d3ae611?source=rss-fad49d942bf3------2" rel="alternate" type="text/html"/>
+    <title>NLP Capstone Blog #3: Project Proposal</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>The project I’m working on is document-level entity-entity sentiment analysis.</p><h4>Objectives and Definition</h4><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*mfDKzKS3wAEnJZ3gvLHwyw.png"/>Notice in the above example that the arc from Russia to Belarus is negative, which makes sense if our article has the sentence “Russia criticizes Belarus.”</figure><p>The goal of my project can be stated thusly: given a document, be able to figure out whether various entities within the document feel positively or negatively towards each other.</p><p>In particular, I’m looking to apply a neural model to <a href="https://homes.cs.washington.edu/~eunsol/papers/acl2016.pdf">an existing paper</a> in an attempt to improve its F1 scores.</p><p>Applications of this work include:</p><ul><li>Modeling social dynamics between entities</li><li>Applying sentiment analysis to problems beyond simply movie/product reviews</li></ul><p>A farther motivation for this project is that entity-entity sentiment analysis is a relatively novel task, with little existing work thus far. Also, even work in related fields is usually focused on the sentence level, rather than the document level.</p><h4><strong>Literature Survey</strong></h4><p>Some work in related fields to this project. For each paper, I will be focusing especially on its model /methodologies, which could be of use to developing my own model —</p><p><strong>Targeted Sentiment Analysis</strong></p><p><a href="https://www.aaai.org/ocs/index.php/AAAI/AAAI16/paper/download/12074/12065">Zhang, Meishan, Zhang, Yue, and Vo, Duy-Tin, 2016. Gated Neural Networks for Targeted Sentiment Analysis.</a></p><ul><li>Introduced the use of gated neural networks to perform targeted sentiment analysis.</li><li>Inputs: Concatenation of 2 types of word embeddings: both embeddings incorporate sentiment information in some way</li><li>Model: GRNN + G3 model, where outputs of GRNN are pooled and fed into G3. The G3 was used to better model interaction between left and right context for an entity, as sentiment can be dominated by left or right context</li><li>Outputs: Targeted sentiment</li></ul><p><strong>Coreference Resolution</strong></p><p><a href="https://homes.cs.washington.edu/~luheng/files/emnlp2017_lhlz.pdf">Lee, Kenton, He, Luheng, Lewis, Mike, and Zettlemoyer, Luke, 2017. End-to-end Neural Coreference Resolution.</a></p><ul><li>Model: 2-step, 1st step being a biLSTM, and 2nd step being a FFNN</li><li>Inputs to FFNN: Something nice about this model is the fact that they were able to encode multi-word entities efficiently by concatenating LSTM outputs.</li></ul><figure><img alt="" src="https://cdn-images-1.medium.com/max/227/1*7yoU47vuvU5CaBm-r3n3aw.png"/>ϕ used to encode size of span. x* are outputs of LSTMs for boundaries of span. x hat are outputs of attention mechanism over span.</figure><ul><li>FFNN architecture:</li></ul><figure><img alt="" src="https://cdn-images-1.medium.com/max/390/1*9KxdIWkYNSzMwDJeSI3fuw.png"/></figure><p><strong>Document-level Relation Extraction</strong></p><p><a href="https://www.cs.jhu.edu/~npeng/papers/TACL_17_RelationExtraction.pdf">Peng, Nanyun, Poon, Hoifung, Quirk, Chris, Toutanova, Kristina, Yih, and Wen-tau, 2017. Cross-Sentence N-ary Relation Extraction with Graph LSTMs.</a></p><figure><img alt="" src="https://cdn-images-1.medium.com/max/600/1*-M0TCCGCpmYtYpVnYfhAHg.png"/>Example of a graph LSTM structure used in the paper. Note the additional links between non-adjacent cells encodes for syntactic dependencies and discourse relations.</figure><ul><li>Uses a graph LSTM with architecture following the structure of the document graph (introduced by <a href="https://arxiv.org/pdf/1609.04873.pdf">Quirk and Poon, 2017</a>), which encodes various dependencies, including word adjacency, syntactic dependencies, and discourse relations</li></ul><p><a href="https://arxiv.org/pdf/1802.10569.pdf">Verga, Patrick, Strubell, Emma, and McCallum, </a><a href="https://arxiv.org/pdf/1802.10569.pdf">Andrew</a><a href="https://arxiv.org/pdf/1802.10569.pdf">, 2018. Simultaneously Self-Attending to All Mentions for Full-Abstract Biological Relation Extraction</a>.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/345/1*6ap---pVvwWNNdCgwhh16w.png"/></figure><ul><li>Bi-affine neural model: First pass document through Transformer, then evaluate relations between pairs of tokens using a bi-affine operator and the LogSumExp function</li></ul><h4><strong>Methodologies</strong></h4><p><strong>Baseline Neural Model (Minimal Viable Plan)</strong></p><p>Inputs: for each token, concatenate word embeddings, polarity embeddings, and holder/target/none embeddings</p><ul><li>Word embeddings are pre-trained GloVe embeddings</li><li>EX: “the cat disliked milk”, holder = “cat”, target = “milk”</li><li>Input becomes: [the, 0, 0] [cat, 0, H] [disliked, NEG, 0] [milk, 0, T]</li></ul><p>Model: Attentive biLSTM</p><p>Output: Sentiment score for positivity and negativity</p><p><strong>Scoring Holder/Target Sentiment in a Second Step (Minimal Viable Plan / Stretch Goal, i.e. I think I can get this but I can’t guaruntee it)</strong></p><ol><li>Feedforward Neural Network: Incorporating the FFNN from the Lee et al. paper (see above for details). To adapt the architecture for my needs, I will get rid of the mention score, and thus the white and grey cells will be the same. The grey cell, instead of outputting a coreference score, will output a sentiment (positivity and negativity) score.</li><li>Bi-affine Scoring: Incorporating the scoring mechanism from the Verga et al. paper (see above for details). Instead of a “Transformer,” I will use the LSTM from my baseline model, which gets fed in to two MLPs, the biaffine operator, and finally aggregated using the LogSumExp function.</li></ol><p><strong>Experimenting with Different Ways of Aggregating across Different Mentions (Stretch Goal)</strong></p><ol><li>LogSumExp function from the Verga et al. paper (see above).</li><li>Encode inputs to second step in a way that incorporates information from all mentions.</li></ol><p><strong>Experimenting with Graph LSTM Structure (Stretch Goal)</strong></p><ul><li>Based off of ideas in Peng et al. paper (see above)</li></ul><p><strong>Incorporate Ideas from Targeted Sentiment Analysis (Stretch Goal)</strong></p><ul><li>Add a G3 gate, based on Zhang et al. paper (see above), or even adapt the architecture of the G3 gate to better suit the task of sentiment analysis between entities</li></ul><h4><strong>Available Resources</strong></h4><p>Dataset from Choi et al. (paper I’m improving). The data has already been pre-processed using StanfordNLP. Some of the preprocessing that’s been done includes tokenization, named entity recognition, and co-reference resolution.</p><h4><strong>Evaluation Plan</strong></h4><p>As an evaluation metric, I’m going to use the F1 scores for both positive and negative sentiments.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=c8a12d3ae611" width="1"/></div>
+    </content>
+    <updated>2018-04-11T06:47:08Z</updated>
+    <category term="deep-learning"/>
+    <category term="naturallanguageprocessing"/>
+    <category term="machine-learning"/>
+    <author>
+      <name>Belinda Zou Li</name>
+    </author>
+    <source>
+      <id>https://medium.com/@be.li.nda?source=rss-fad49d942bf3------2</id>
+      <logo>https://cdn-images-1.medium.com/fit/c/150/150/0*A16vZtRWBzxYPlmn.</logo>
+      <link href="https://medium.com/@be.li.nda?source=rss-fad49d942bf3------2" rel="alternate" type="text/html"/>
+      <link href="https://medium.com/feed/@be.li.nda" rel="self" type="application/rss+xml"/>
+      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
+      <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
+      <title>Stories by Belinda Zou Li on Medium</title>
+      <updated>2018-04-11T07:00:18Z</updated>
+    </source>
+  </entry>
+
+  <entry xml:lang="en">
+    <id>http://mathstoc.wordpress.com/?p=309</id>
+    <link href="https://mathstoc.wordpress.com/2018/04/11/nlp-capstone-post-3-proposal/" rel="alternate" type="text/html"/>
+    <title>NLP Capstone Post #3: Proposal</title>
+    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">Here, we finally present our project proposal in full. Project Objectives: Our goal for this project is to engineer a model that, given the instrumental (“karaoke”) music for a song in English represented as MIDI data, output a coherent sequence of words corresponding to lyrics for the music. The model will produce timings along with … <a class="more-link" href="https://mathstoc.wordpress.com/2018/04/11/nlp-capstone-post-3-proposal/">Continue reading <span class="screen-reader-text">NLP Capstone Post #3: Proposal</span></a></div>
+    </summary>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>Here, we finally present our project proposal in full.</p>
+<h3>Project Objectives:</h3>
+<p>Our goal for this project is to engineer a model that, given the instrumental (“karaoke”) music for a song in English represented as MIDI data, output a coherent sequence of words corresponding to lyrics for the music. The model will produce timings along with the words to align it with the background instrumentals. Additionally, given the output of the model and the input music, we will automate their combination into a song complete with lyrics and supporting instrumentals. This combined output will be playable and we intend to do live demonstration.</p>
+<h3>Proposed Methodology:</h3>
+<p>Here, we outline the steps we will need to take in detail.</p>
+<li>Data collection (datasets of songs, preferably with instrumentals and lyrics already separated)</li>
+<li>Decide on vocabulary and how to handle uncommon words</li>
+<li>Decide and implement any required preprocessing of the raw MIDI data. Strip lyrics from MIDI data if not already provided in dataset.</li>
+<li>Decide and implement model (see Model Design)</li>
+<li>Implement model sanity checks</li>
+<li>Model tweaking (we expect this will take the majority of the time; see Model Design)</li>
+<li>Implement automated combination of model output (lyrics) and model input (instrumentals)</li>
+<li>Further testing</li>
+<li>Assuming preceding steps are completed satisfactorily, proceed to stretch goals</li>
+<li>Presentation and write-up</li>
+<h3>Model Design:</h3>
+<p>We will pursue a seq2seq RNN approach, taking in input MIDI data represented as a sequence, and outputting a sequence of words from a specified vocabulary. This model will be referred to as the generator. We will employ adversarial training, simultaneously training a many-to-one RNN discriminator that, given the input instrumentals and corresponding lyrics, output if the lyrics were produced by the generator or not. We will follow approaches taken in previous works such as SeqGAN [2] (and [3, 4]), namely using policy gradient ideas from reinforcement learning to obtain gradients that can be backpropagated from the discriminator network through the generator network. We note that syntactic correctness can be enforced in this manner, as malformed lyrical output can be assigned arbitrarily small reward.</p>
+<h3>Stretch Goals:</h3>
+<p>There are several stretch goals we will consider, time permitted. They are as follows, in no particular order.</p>
+<li>Handling multiple languages, particularly those with less available data</li>
+<li>Given a specific songwriter/band, produce the instrumentals along with lyrics for a new song that is in the style of that songwriter/band</li>
+<li>Lyrics generation for duets, or multi-singer songs</li>
+<li>Playing with phoneme-level generation</li>
+<h3>Core Challenges:</h3>
+<p>The core challenges we will need to overcome include alignment of lyrics with the music, and production of sensible lyrics. On the more technical side, it is well-known that ensuring convergence in adversarial training is difficult.</p>
+<h3>Available Resources:</h3>
+<p>Existing music datasets for machine learning tasks are made up of audio samples (such as .wav or .mp3), or MIDI data that specifies timing and notes. For karaoke, lyrics are also provided either as a separate text file (.LRC) specifying the timing of each word, or can be embedded into the MIDI file directly (.KAR). It may also be useful to train a lyric model on a larger corpus of song lyrics, since lyrics are easier to collect than fully time-annotated karaoke files.</p>
+<p>The MusicNet dataset [9] provides 330 classical instrumental audio files, each of which has associated timing provided for every note. Since we are primarily interested in lyrical generation and alignment, this dataset is not going to be useful for creating a language model.</p>
+<p>An existing karaoke dataset called Kara1k [1] provides many features computed from 1000 lyric-annotated songs. This provides lots of metadata about each song, including annotated chords for each timestep of the song. According to the KaraMIR website, these features are extracted from audio samples using Vamp Plugins, which estimates chords with accuracy up to 70%. </p>
+<p>We propose a new dataset (name not yet determined) of MIDI karaoke data with embedded lyrics (.KAR). This dataset contains over 700 files, scraped from a karaoke content aggregator [11]. Timed lyrical data has been extracted from these files, and the precise timing of each note is already available by nature of the MIDI format.</p>
+<p>Additional datasets for training a lyric model may be useful, and many are available. One such dataset is the 55000+ Song Lyrics on Kaggle [10]. This could help our model generalize its lyrical output beyond the limited set of vocabulary available within the 1000 or fewer annotated karaoke songs.</p>
+<h3>Evaluation Plan:</h3>
+<p>Evaluation of our model can be done several ways. The first is simply to listen to the music ourselves. This is the most direct method of evaluation but is not efficient, as likely we will need many iterations of tuning; furthermore, will likely need to listen to several songs to be confident of the model’s quality. Hence, we will also design basic “sanity check” tests for our models.</p>
+<p>Recall that in our proposed methodology, we intend to use adversarial training. The discriminator network itself gives a direct evaluation of the generator. As long as the discriminator is of vetted quality, and the discriminator is run on sufficiently many examples (with roughly even number of generated and true examples mixed in), the generator will be deemed also of sufficient quality (as a “sanity check”).</p>
+<p>Of course, this leaves the question of ensuring the discriminator is good. We can run the discriminator on instrumentals combined with randomly generated words (according to some distribution), or on instrumentals combined with the original lyrics, which are perturbed in some fashion. As an example, one can perturb the original lyrics temporally (making an utterance off-beat when it should be precisely on the down-beat of a bar) or replacing a few words with randomly selected ones (according to some distribution over the vocabulary). These “test inputs” to the discriminator can be generated before-hand.</p>
+<h3>Literature Survey:</h3>
+<p>Here are some relevant papers (most were already included in preceding posts).</p>
+<p>[1] Y. Bayle, L. Marsik, M. Rusek, M. Robine, P. Hanna, K. Slaninova, J. Martinovic, J. Pokorny. “Kara1k: A Karaoke Dataset for Cover Song Identification and Singing Voice Analysis”. IEEE International Symposium on Multimedia (ISM), 2017. <a href="https://ieeexplore.ieee.org/document/8241597/" rel="nofollow">https://ieeexplore.ieee.org/document/8241597/</a></p>
+<p>[2] L. Yu, W. Zhang, J. Wang, Y. Yu. “SeqGAN: Sequence Generative Adversarial Nets with Policy Gradient”. Proceedings of the Thirty-First AAAI Conference on Artificial Intelligence, 2017. <a href="https://arxiv.org/abs/1609.05473" rel="nofollow">https://arxiv.org/abs/1609.05473</a></p>
+<p>[3] S. Lee, U. Hwang, S. Min, S. Yoon. “A SeqGAN for Polyphonic Music Generation”. 2017. <a href="https://arxiv.org/abs/1710.11418" rel="nofollow">https://arxiv.org/abs/1710.11418</a></p>
+<p>[4] H. W. Dong, W. Y. Hsiao, L. C. Yang, Y. H. Yang. “MuseGAN: Multi-track Sequential Generative Adversarial Networks for Symbolic Music Generation and Accompaniment”. 2017. <a href="https://arxiv.org/abs/1709.06298" rel="nofollow">https://arxiv.org/abs/1709.06298</a></p>
+<p>[5] I. J. Goodfellow, J. Pouget-Abadie, M. Mirza, B. Xu, D. Warde-Farley, S. Ozair, A. Courville, Y. Bengio. “Generative Adversarial Nets”. NIPS, 2014. <a href="https://papers.nips.cc/paper/5423-generative-adversarial-nets" rel="nofollow">https://papers.nips.cc/paper/5423-generative-adversarial-nets</a></p>
+<p>[6] T. Salimans, I. J. Goodfellow, W. Zaremba, V. Cheung, A. Radford, X. Chen. “Improved Techniques for Training GANs”. NIPS, 2016. <a href="https://arxiv.org/abs/1606.03498" rel="nofollow">https://arxiv.org/abs/1606.03498</a></p>
+<p>[7] M. Arjovsky,  S. Chintala, L. Bottou. “Wasserstein GAN”. 2017. <a href="https://arxiv.org/abs/1701.07875" rel="nofollow">https://arxiv.org/abs/1701.07875</a></p>
+<p>[8] J. Faille, Y. Wang. “Using Deep Learning to Annotate Karaoke Songs”. 2016. <a href="https://www.semanticscholar.org/paper/Using-Deep-Learning-to-Annotate-Karaoke-Songs-Faille-Wang/521361762a7327f8fcc77bd9d76eaa2b503f845a" rel="nofollow">https://www.semanticscholar.org/paper/Using-Deep-Learning-to-Annotate-Karaoke-Songs-Faille-Wang/521361762a7327f8fcc77bd9d76eaa2b503f845a</a></p>
+<p>[9] J. Thickstun, Z. Harchaoui, S. Kakade. “Learning Features of Music from Scratch”. 2017. <a href="https://arxiv.org/abs/1611.09827" rel="nofollow">https://arxiv.org/abs/1611.09827</a></p>
+<p>[10] Additional data <a href="https://www.kaggle.com/mousehead/songlyrics">here</a></p>
+<p>[11] Even more additional data <a href="http://vooch.narod.ru/midi/midi.htm">here</a></p></div>
+    </content>
+    <updated>2018-04-11T06:45:55Z</updated>
+    <category term="NLP Capstone"/>
+    <author>
+      <name>Kuikui Liu</name>
+    </author>
+    <source>
+      <id>https://mathstoc.wordpress.com</id>
+      <logo>https://s0.wp.com/i/buttonw-com.png</logo>
+      <link href="https://mathstoc.wordpress.com/category/nlp-capstone/feed/" rel="self" type="application/rss+xml"/>
+      <link href="https://mathstoc.wordpress.com" rel="alternate" type="text/html"/>
+      <link href="https://mathstoc.wordpress.com/osd.xml" rel="search" title="Mathematical Distractions" type="application/opensearchdescription+xml"/>
+      <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
+      <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
+      <title>NLP Capstone – Mathematical Distractions</title>
+      <updated>2018-04-11T07:00:22Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>tag:blogger.com,1999:blog-3753031463594823927.post-4531878816260312232</id>
+    <link href="https://cse481n.blogspot.com/2018/04/blog-post-3.html" rel="alternate" type="text/html"/>
+    <title>Blog Post #3</title>
+    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><h1 dir="ltr" id="docs-internal-guid-ea0c9d97-b369-9237-6f13-3675807d7a60" style="line-height: 1.38; margin-bottom: 6pt; margin-top: 20pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 20pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Project Objectives</span></h1><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Single document summarization (SDS) is one of the remaining challenging problems in natural language processing. Novel methods are presented frequently in new papers, but they often do not include specific code allowing for reproducibility and are evaluated on specific datasets that make comparisons between models meaningless and difficult.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">There are many approaches to SDS, but they can be broadly divided into combinatorial approaches and neural approaches. Neural approaches build a neural architecture, such as a seq2seq/encoder-decoder model or single sequence RNNs. Combinatorial approaches will either try to frame the problem as an optimization problem, and then use an ILP solver, or frame the problem as a classic NP-hard problem, like Knapsack or Maximum Coverage. We want to explore both approaches, and compare their performance on the same dataset.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">SDS is comprised of two tasks: extractive summarization and abstractive summarization. Extractive summarization compiles a summary by selecting sentences from the document’s text while abstractive summarization generates text for the summary (sentences that may not have been present in the document’s text). While abstractive summarization might have more intuitive appeal, our project will focus on extractive summarization to enable meaningful comparisons between neural and combinatorial approaches (combinatorial approaches often must be extractive).</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">In this project, we plan to implement at least one neural and one combinatorial model for extractive single document summarization. We hope to establish some meaningful ways to compare the differences between selections made by the different types of models. Our primary goal is to better understand the strengths and weaknesses of neural and combinatorial models for single document summarization - a particular important aspect of SDS given the general roughness of existing evaluation metrics. We will gauge our progress based on reaching acceptable performance on commonly-used evaluation metrics when we implement models.</span></div><h1 dir="ltr" style="line-height: 1.38; margin-bottom: 6pt; margin-top: 20pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 20pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Methodology</span></h1><h3 dir="ltr" style="line-height: 1.38; margin-bottom: 4pt; margin-top: 16pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 13.999999999999998pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Minimal Viable Action Plan</span></h3><ol style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Build our data set using existing data. Specifically, convert data better suited for training abstractive summarization models into data that can be used for extractive summarization..</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Implement a simple combinatorial model (for example, we can do a simple maximum coverage problem, where we set up the “universe” to be the vocabulary of the document, and treat the sentences as sets of words).</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Implement a simple neural model (just treat the problem as a generic binary classification problem).</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Train models on identical data sets and do a baseline comparison -- how well does a simple neural model do vs. a simple combinatorial model? This doesn’t tell us much about the relative strengths of the two approaches (we can’t quantify “simple”), but with some error analysis, we might be able to see what sentences neural models are misidentifying vs. what sentences combinatorial models are misidentifying.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Build at least one state-of-the-art combinatorial model (adapting from a recent paper). We have two candidate papers: Hirao et al.’s Tree Knapsack approach and Durrett et al.’s Compression/Anaphoricity</span></div></li></ol><br/><h3 dir="ltr" style="line-height: 1.38; margin-bottom: 4pt; margin-top: 16pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 13.999999999999998pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Stretch Goals</span></h3><ol style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Design our own model that is a combination of the strong points of the combinatorial and neural models. Ideally, our model would be as good as or better than the existing models we implemented on the quantitative and qualitative metrics we use.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Alternatively, we can use ideas from one domain to improve an aspect of a SOTA model in the other domain. For example, we might learn that neural models are great at dealing with named entities, and so incorporate a neural layer in a combinatorial model (perhaps by allowing the output of the neural layer to determine the weights of named entities).</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Design a common system for comparing performance of extractive summarization models. Rather than a differentiable evaluation metric, we think it may be useful to choose a set of “tough” documents to summarize and bundle them together with specific reasons for their difficulty, so that researchers may more easily identify weaknesses in models they are working on.</span></div></li></ol><h1 dir="ltr" style="line-height: 1.38; margin-bottom: 6pt; margin-top: 20pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 20pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Available Resources</span></h1><h3 dir="ltr" style="line-height: 1.38; margin-bottom: 4pt; margin-top: 16pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 13.999999999999998pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Dataset/Evaluation</span></h3><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">For this problem, we will be using the DailyMail/CNN dataset. From our initial research, this seems to be the standard dataset for both document summarization as well as basic reading comprehension. The dataset has 400,000 articles, and includes both the full text of the article as well as bullet point “highlights”. For reading comprehension, an important word is omitted from the highlights and the machine is asked to fill in the blank. For text summarization, the bullet points are considered the “gold standard” summaries -- machine generated summaries are evaluated against the bullet points, typically</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;"> </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">using ROUGE metrics</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;"> </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">(Lin, 2004). While this works fine for abstractive summarization, this training corpus is not annotated enough for extractive summarization. More specifically, extractive summarization requires sentence level binary annotations, to indicate whether each sentence does or doesn’t belong in the summary. So we need to first convert the bullet points into more fine grained annotations.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">We’ve looked at two papers which briefly touched on this. Nallapati et. al. used a greedy approach, where they added one sentence at a time to the extractive summary while seeking to maximize the Rouge score with respect to the abstractive summary (the bullet points). They also tried to use an RNN decoder in combination with the abstractive summaries to train the extractive model without using sentence-level annotations. However, this approach was slightly less successful than estimating sentence-level annotations. Cheng and Lapata used a different approach - they created a “rule-based system that determines whether a given sentence matches a highlight...The rules take into account the position of the sentence in the document, the unigram and bigram overlap between document sentences and highlights, [and] the number of entities appearing in the highlight and in the document sentence”. It’s not 100% clear what rules the authors used, but according to Nallapati et. al., the rule-based approach found a better “ground-truth” than the greedy approach.</span></div><h3 dir="ltr" style="line-height: 1.38; margin-bottom: 4pt; margin-top: 16pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 13.999999999999998pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">GitHub Repositories</span></h3><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Some researchers publish the code they used in their paper on GitHub. We can use repos for quick comparisons or to see how they design their code.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><a href="https://github.com/abisee/pointer-generator" style="text-decoration: none;"><span>https://github.com/abisee/pointer-generator</span></a><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">: This repo is for See et al.’s Pointer-Generator neural model.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><a href="https://github.com/cheng6076/NeuralSum" style="text-decoration: none;"><span>https://github.com/cheng6076/NeuralSum</span></a><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">: This repo is for Cheng and Lapata’s neural model, that combines a sentence level RNN with a word level CNN.</span></div><h1 dir="ltr" style="line-height: 1.38; margin-bottom: 6pt; margin-top: 20pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 20pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Related Work and References</span></h1><br/><div dir="ltr"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Cheng, J., &amp; Lapata, M. (2016). Neural Summarization by Extracting Sentences and Words. </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: italic; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">arXiv:1603.07252 [Cs]</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">. Retrieved from http://arxiv.org/abs/1603.07252</span></div><div dir="ltr"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Durrett, G., Berg-Kirkpatrick, T., &amp; Klein, D. (2016). Learning-Based Single-Document Summarization with Compression and Anaphoricity Constraints. </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: italic; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">arXiv:1603.08887 [Cs]</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">. Retrieved from http://arxiv.org/abs/1603.08887</span></div><div dir="ltr"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Hirao, T., Yoshida, Y., Nishino, M., Yasuda, N., &amp; Nagata, M. (2013). Single-Document Summarization as a Tree Knapsack Problem. In </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: italic; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Proceedings of the 2013 Conference on Empirical Methods in Natural Language Processing</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;"> (pp. 1515–1520). Seattle, Washington, USA: Association for Computational Linguistics. Retrieved from http://www.aclweb.org/anthology/D13-1158</span></div><div dir="ltr"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Lin, C.-Y. (2004). ROUGE: A Package for Automatic Evaluation of Summaries. In S. S. Marie-Francine Moens (Ed.), </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: italic; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Text Summarization Branches Out: Proceedings of the ACL-04 Workshop</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;"> (pp. 74–81). Barcelona, Spain: Association for Computational Linguistics.</span></div><div dir="ltr"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Nallapati, R., Zhai, F., &amp; Zhou, B. (2016). SummaRuNNer: A Recurrent Neural Network based Sequence Model for Extractive Summarization of Documents. </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: italic; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">arXiv:1611.04230 [Cs]</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">. Retrieved from http://arxiv.org/abs/1611.04230</span></div><div dir="ltr"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">See, A., Liu, P. J., &amp; Manning, C. D. (2017). Get To The Point: Summarization with Pointer-Generator Networks. </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: italic; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">arXiv:1704.04368 [Cs]</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">. Retrieved from http://arxiv.org/abs/1704.04368</span></div></div>
+    </summary>
+    <updated>2018-04-11T06:33:00Z</updated>
+    <author>
+      <name>Ron &amp;amp; Aditya</name>
+      <email>noreply@blogger.com</email>
+    </author>
+    <source>
+      <id>tag:blogger.com,1999:blog-3753031463594823927</id>
+      <author>
+        <name>Ron &amp;amp; Aditya</name>
+        <email>noreply@blogger.com</email>
+      </author>
+      <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
+      <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
+      <title>PrimeapeNLP</title>
+      <updated>2018-04-11T07:00:20Z</updated>
+    </source>
+  </entry>
 
   <entry>
     <id>tag:blogger.com,1999:blog-9203775015655831448.post-5878905571398539101</id>
@@ -31,7 +231,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-11T06:30:20Z</updated>
+      <updated>2018-04-11T07:00:21Z</updated>
     </source>
   </entry>
 
@@ -55,7 +255,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-11T06:30:18Z</updated>
+      <updated>2018-04-11T07:00:19Z</updated>
     </source>
   </entry>
 
@@ -109,7 +309,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-11T06:30:17Z</updated>
+      <updated>2018-04-11T07:00:18Z</updated>
     </source>
   </entry>
 
@@ -132,7 +332,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-11T06:30:05Z</updated>
+      <updated>2018-04-11T07:00:04Z</updated>
     </source>
   </entry>
 
@@ -156,7 +356,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-11T06:30:05Z</updated>
+      <updated>2018-04-11T07:00:03Z</updated>
     </source>
   </entry>
 
@@ -179,7 +379,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-11T06:30:06Z</updated>
+      <updated>2018-04-11T07:00:04Z</updated>
     </source>
   </entry>
 
@@ -207,7 +407,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-11T06:30:19Z</updated>
+      <updated>2018-04-11T07:00:19Z</updated>
     </source>
   </entry>
 
@@ -234,7 +434,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-11T06:30:20Z</updated>
+      <updated>2018-04-11T07:00:21Z</updated>
     </source>
   </entry>
 
@@ -257,7 +457,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-11T06:30:19Z</updated>
+      <updated>2018-04-11T07:00:19Z</updated>
     </source>
   </entry>
 
@@ -281,7 +481,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-11T06:30:19Z</updated>
+      <updated>2018-04-11T07:00:20Z</updated>
     </source>
   </entry>
 
@@ -330,7 +530,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-11T06:30:21Z</updated>
+      <updated>2018-04-11T07:00:22Z</updated>
     </source>
   </entry>
 
@@ -356,7 +556,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-11T06:30:18Z</updated>
+      <updated>2018-04-11T07:00:19Z</updated>
     </source>
   </entry>
 
@@ -380,7 +580,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-11T06:30:20Z</updated>
+      <updated>2018-04-11T07:00:21Z</updated>
     </source>
   </entry>
 
@@ -403,7 +603,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-11T06:30:05Z</updated>
+      <updated>2018-04-11T07:00:04Z</updated>
     </source>
   </entry>
 
@@ -450,7 +650,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-11T06:30:17Z</updated>
+      <updated>2018-04-11T07:00:18Z</updated>
     </source>
   </entry>
 
@@ -481,7 +681,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-11T06:30:17Z</updated>
+      <updated>2018-04-11T07:00:18Z</updated>
     </source>
   </entry>
 
@@ -504,7 +704,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-11T06:30:19Z</updated>
+      <updated>2018-04-11T07:00:19Z</updated>
     </source>
   </entry>
 
@@ -562,7 +762,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-11T06:30:21Z</updated>
+      <updated>2018-04-11T07:00:22Z</updated>
     </source>
   </entry>
 
@@ -589,7 +789,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-11T06:30:20Z</updated>
+      <updated>2018-04-11T07:00:21Z</updated>
     </source>
   </entry>
 
@@ -613,7 +813,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-11T06:30:20Z</updated>
+      <updated>2018-04-11T07:00:21Z</updated>
     </source>
   </entry>
 
@@ -645,7 +845,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-11T06:30:19Z</updated>
+      <updated>2018-04-11T07:00:19Z</updated>
     </source>
   </entry>
 
@@ -672,7 +872,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-11T06:30:18Z</updated>
+      <updated>2018-04-11T07:00:19Z</updated>
     </source>
   </entry>
 
@@ -697,7 +897,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-11T06:30:17Z</updated>
+      <updated>2018-04-11T07:00:18Z</updated>
     </source>
   </entry>
 
@@ -720,7 +920,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-11T06:30:05Z</updated>
+      <updated>2018-04-11T07:00:03Z</updated>
     </source>
   </entry>
 
@@ -765,7 +965,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-11T06:30:06Z</updated>
+      <updated>2018-04-11T07:00:04Z</updated>
     </source>
   </entry>
 
@@ -788,7 +988,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-11T06:30:05Z</updated>
+      <updated>2018-04-11T07:00:04Z</updated>
     </source>
   </entry>
 
@@ -826,7 +1026,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-11T06:30:17Z</updated>
+      <updated>2018-04-11T07:00:18Z</updated>
     </source>
   </entry>
 
@@ -850,7 +1050,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-11T06:30:19Z</updated>
+      <updated>2018-04-11T07:00:20Z</updated>
     </source>
   </entry>
 
@@ -874,7 +1074,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-11T06:30:05Z</updated>
+      <updated>2018-04-11T07:00:03Z</updated>
     </source>
   </entry>
 </feed>
