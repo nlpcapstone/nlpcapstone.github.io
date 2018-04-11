@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:planet="http://planet.intertwingly.net/" xmlns:indexing="urn:atom-extension:indexing" indexing:index="no"><access:restriction xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" relationship="deny"/>
   <title>NLP Capstone Spring 2018</title>
-  <updated>2018-04-11T17:00:20Z</updated>
+  <updated>2018-04-11T17:30:09Z</updated>
   <generator uri="http://intertwingly.net/code/venus/">Venus</generator>
   <author>
     <name>Nelson Liu</name>
@@ -62,7 +62,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-11T17:00:17Z</updated>
+      <updated>2018-04-11T17:30:07Z</updated>
     </source>
   </entry>
 
@@ -85,7 +85,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-11T17:00:17Z</updated>
+      <updated>2018-04-11T17:30:07Z</updated>
     </source>
   </entry>
 
@@ -93,7 +93,7 @@
     <id>https://medium.com/p/c8a12d3ae611</id>
     <link href="https://medium.com/@be.li.nda/nlp-capstone-blog-3-project-proposal-c8a12d3ae611?source=rss-fad49d942bf3------2" rel="alternate" type="text/html"/>
     <title>NLP Capstone Blog #3: Project Proposal</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>The project I’m working on is document-level entity-entity sentiment analysis.</p><h4>Objectives and Definition</h4><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*mfDKzKS3wAEnJZ3gvLHwyw.png"/>Notice in the above example that the arc from Russia to Belarus is negative, which makes sense if our article has the sentence “Russia criticizes Belarus.”</figure><p>The goal of my project can be stated thusly: given a document, be able to figure out whether various entities within the document feel positively or negatively towards each other.</p><p>In particular, I’m looking to apply a neural model to <a href="https://homes.cs.washington.edu/~eunsol/papers/acl2016.pdf">an existing paper</a> in an attempt to improve its F1 scores.</p><p>Applications of this work include:</p><ul><li>Modeling social dynamics between entities</li><li>Applying sentiment analysis to problems beyond simply movie/product reviews</li></ul><p>A farther motivation for this project is that entity-entity sentiment analysis is a relatively novel task, with little existing work thus far. Also, even work in related fields is usually focused on the sentence level, rather than the document level.</p><h4><strong>Literature Survey</strong></h4><p>Some work in related fields to this project. For each paper, I will be focusing especially on its model /methodologies, which could be of use to developing my own model —</p><p><strong>Targeted Sentiment Analysis</strong></p><p><a href="https://www.aaai.org/ocs/index.php/AAAI/AAAI16/paper/download/12074/12065">Zhang, Meishan, Zhang, Yue, and Vo, Duy-Tin, 2016. Gated Neural Networks for Targeted Sentiment Analysis.</a></p><ul><li>Introduced the use of gated neural networks to perform targeted sentiment analysis.</li><li>Inputs: Concatenation of 2 types of word embeddings: both embeddings incorporate sentiment information in some way</li><li>Model: GRNN + G3 model, where outputs of GRNN are pooled and fed into G3. The G3 was used to better model interaction between left and right context for an entity, as sentiment can be dominated by left or right context</li><li>Outputs: Targeted sentiment</li></ul><p><strong>Coreference Resolution</strong></p><p><a href="https://homes.cs.washington.edu/~luheng/files/emnlp2017_lhlz.pdf">Lee, Kenton, He, Luheng, Lewis, Mike, and Zettlemoyer, Luke, 2017. End-to-end Neural Coreference Resolution.</a></p><ul><li>Model: 2-step, 1st step being a biLSTM, and 2nd step being a FFNN</li><li>Inputs to FFNN: Something nice about this model is the fact that they were able to encode multi-word entities efficiently by concatenating LSTM outputs.</li></ul><figure><img alt="" src="https://cdn-images-1.medium.com/max/227/1*7yoU47vuvU5CaBm-r3n3aw.png"/>ϕ used to encode size of span. x* are outputs of LSTMs for boundaries of span. x hat are outputs of attention mechanism over span.</figure><ul><li>FFNN architecture:</li></ul><figure><img alt="" src="https://cdn-images-1.medium.com/max/390/1*9KxdIWkYNSzMwDJeSI3fuw.png"/></figure><p><strong>Document-level Relation Extraction</strong></p><p><a href="https://www.cs.jhu.edu/~npeng/papers/TACL_17_RelationExtraction.pdf">Peng, Nanyun, Poon, Hoifung, Quirk, Chris, Toutanova, Kristina, Yih, and Wen-tau, 2017. Cross-Sentence N-ary Relation Extraction with Graph LSTMs.</a></p><figure><img alt="" src="https://cdn-images-1.medium.com/max/600/1*-M0TCCGCpmYtYpVnYfhAHg.png"/>Example of a graph LSTM structure used in the paper. Note the additional links between non-adjacent cells encodes for syntactic dependencies and discourse relations.</figure><ul><li>Uses a graph LSTM with architecture following the structure of the document graph (introduced by <a href="https://arxiv.org/pdf/1609.04873.pdf">Quirk and Poon, 2017</a>), which encodes various dependencies, including word adjacency, syntactic dependencies, and discourse relations</li></ul><p><a href="https://arxiv.org/pdf/1802.10569.pdf">Verga, Patrick, Strubell, Emma, and McCallum, </a><a href="https://arxiv.org/pdf/1802.10569.pdf">Andrew</a><a href="https://arxiv.org/pdf/1802.10569.pdf">, 2018. Simultaneously Self-Attending to All Mentions for Full-Abstract Biological Relation Extraction</a>.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/345/1*6ap---pVvwWNNdCgwhh16w.png"/></figure><ul><li>Bi-affine neural model: First pass document through Transformer, then evaluate relations between pairs of tokens using a bi-affine operator and the LogSumExp function</li></ul><h4><strong>Methodologies</strong></h4><p><strong>Baseline Neural Model (Minimal Viable Plan)</strong></p><p>Inputs: for each token, concatenate word embeddings, polarity embeddings, and holder/target/none embeddings</p><ul><li>Word embeddings are pre-trained GloVe embeddings</li><li>EX: “the cat disliked milk”, holder = “cat”, target = “milk”</li><li>Input becomes: [the, 0, 0] [cat, 0, H] [disliked, NEG, 0] [milk, 0, T]</li></ul><p>Model: Attentive biLSTM</p><p>Output: Sentiment score for positivity and negativity</p><p><strong>Scoring Holder/Target Sentiment in a Second Step (Minimal Viable Plan / Stretch Goal, i.e. I think I can get this but I can’t guaruntee it)</strong></p><ol><li>Feedforward Neural Network: Incorporating the FFNN from the Lee et al. paper (see above for details). To adapt the architecture for my needs, I will get rid of the mention score, and thus the white and grey cells will be the same. The grey cell, instead of outputting a coreference score, will output a sentiment (positivity and negativity) score.</li><li>Bi-affine Scoring: Incorporating the scoring mechanism from the Verga et al. paper (see above for details). Instead of a “Transformer,” I will use the LSTM from my baseline model, which gets fed in to two MLPs, the biaffine operator, and finally aggregated using the LogSumExp function.</li></ol><p><strong>Experimenting with Different Ways of Aggregating across Different Mentions (Stretch Goal)</strong></p><ol><li>LogSumExp function from the Verga et al. paper (see above).</li><li>Encode inputs to second step in a way that incorporates information from all mentions.</li></ol><p><strong>Experimenting with Graph LSTM Structure (Stretch Goal)</strong></p><ul><li>Based off of ideas in Peng et al. paper (see above)</li></ul><p><strong>Incorporate Ideas from Targeted Sentiment Analysis (Stretch Goal)</strong></p><ul><li>Add a G3 gate, based on Zhang et al. paper (see above), or even adapt the architecture of the G3 gate to better suit the task of sentiment analysis between entities</li></ul><h4><strong>Available Resources</strong></h4><p>Dataset from Choi et al. (paper I’m improving). The data has already been pre-processed using StanfordNLP. Some of the preprocessing that’s been done includes tokenization, named entity recognition, and co-reference resolution.</p><h4><strong>Evaluation Plan</strong></h4><p>As an evaluation metric, I’m going to use the F1 scores for both positive and negative sentiments.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=c8a12d3ae611" width="1"/></div>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>The project I’m working on is document-level entity-entity sentiment analysis.</p><h4>Objectives and Definition</h4><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*mfDKzKS3wAEnJZ3gvLHwyw.png"/>Notice in the above example that the arc from Russia to Belarus is negative, which makes sense if our article has the sentence “Russia criticizes Belarus.”</figure><p>The goal of my project can be stated thusly: given a document, be able to figure out whether various entities within the document feel positively or negatively towards each other.</p><p>In particular, I’m looking to apply a neural model to <a href="https://homes.cs.washington.edu/~eunsol/papers/acl2016.pdf">an existing paper</a> in an attempt to improve its F1 scores.</p><p>Applications of this work include:</p><ul><li>Modeling social dynamics between entities</li><li>Applying sentiment analysis to problems beyond simply movie/product reviews</li></ul><p>A farther motivation for this project is that entity-entity sentiment analysis is a relatively novel task, with little existing work thus far. Also, even work in related fields is usually focused on the sentence level, rather than the document level.</p><h4><strong>Literature Survey</strong></h4><p>Some work in related fields to this project. For each paper, I will be focusing especially on its model /methodologies, which could be of use to developing my own model —</p><p><strong>Targeted Sentiment Analysis</strong></p><p><a href="https://www.aaai.org/ocs/index.php/AAAI/AAAI16/paper/download/12074/12065">Zhang, Meishan, Zhang, Yue, and Vo, Duy-Tin, 2016. Gated Neural Networks for Targeted Sentiment Analysis.</a></p><ul><li>Introduced the use of gated neural networks to perform targeted sentiment analysis.</li><li>Inputs: Concatenation of 2 types of word embeddings: both embeddings incorporate sentiment information in some way</li><li>Model: GRNN + G3 model, where outputs of GRNN are pooled and fed into G3. The G3 was used to better model interaction between left and right context for an entity, as sentiment can be dominated by left or right context</li><li>Outputs: Targeted sentiment</li></ul><p><strong>Coreference Resolution</strong></p><p><a href="https://homes.cs.washington.edu/~luheng/files/emnlp2017_lhlz.pdf">Lee, Kenton, He, Luheng, Lewis, Mike, and Zettlemoyer, Luke, 2017. End-to-end Neural Coreference Resolution.</a></p><ul><li>Model: 2-step, 1st step being a biLSTM, and 2nd step being a FFNN</li><li>Inputs to FFNN: Something nice about this model is the fact that they were able to encode multi-word entities efficiently by concatenating LSTM outputs.</li></ul><figure><img alt="" src="https://cdn-images-1.medium.com/max/227/1*7yoU47vuvU5CaBm-r3n3aw.png"/>ϕ used to encode size of span. x* are outputs of LSTMs for boundaries of span. x hat are outputs of attention mechanism over span.</figure><ul><li>FFNN architecture:</li></ul><figure><img alt="" src="https://cdn-images-1.medium.com/max/390/1*9KxdIWkYNSzMwDJeSI3fuw.png"/></figure><p><strong>Document-level Relation Extraction</strong></p><p><a href="https://www.cs.jhu.edu/~npeng/papers/TACL_17_RelationExtraction.pdf">Peng, Nanyun, Poon, Hoifung, Quirk, Chris, Toutanova, Kristina, Yih, and Wen-tau, 2017. Cross-Sentence N-ary Relation Extraction with Graph LSTMs.</a></p><figure><img alt="" src="https://cdn-images-1.medium.com/max/600/1*-M0TCCGCpmYtYpVnYfhAHg.png"/>Example of a graph LSTM structure used in the paper. Note the additional links between non-adjacent cells encodes for syntactic dependencies and discourse relations.</figure><ul><li>Uses a graph LSTM with architecture following the structure of the document graph (introduced by <a href="https://arxiv.org/pdf/1609.04873.pdf">Quirk and Poon, 2017</a>), which encodes various dependencies, including word adjacency, syntactic dependencies, and discourse relations</li></ul><p><a href="https://arxiv.org/pdf/1802.10569.pdf">Verga, Patrick, Strubell, Emma, and McCallum, Andrew, 2018. Simultaneously Self-Attending to All Mentions for Full-Abstract Biological Relation Extraction.</a></p><figure><img alt="" src="https://cdn-images-1.medium.com/max/345/1*6ap---pVvwWNNdCgwhh16w.png"/></figure><ul><li>Bi-affine neural model: First pass document through Transformer, then evaluate relations between pairs of tokens using a bi-affine operator and the LogSumExp function</li></ul><h4><strong>Methodologies</strong></h4><p><strong>Baseline Neural Model (Minimal Viable Plan)</strong></p><p>Inputs: for each token, concatenate word embeddings, polarity embeddings, and holder/target/none embeddings</p><ul><li>Word embeddings are pre-trained GloVe embeddings</li><li>EX: “the cat disliked milk”, holder = “cat”, target = “milk”</li><li>Input becomes: [the, 0, 0] [cat, 0, H] [disliked, NEG, 0] [milk, 0, T]</li></ul><p>Model: Attentive biLSTM</p><p>Output: Sentiment score for positivity and negativity</p><p><strong>Scoring Holder/Target Sentiment in a Second Step (Minimal Viable Plan / Stretch Goal, i.e. I think I can get this but I can’t guaruntee it)</strong></p><ol><li>Feedforward Neural Network: Incorporating the FFNN from the Lee et al. paper (see above for details). To adapt the architecture for my needs, I will get rid of the mention score, and thus the white and grey cells will be the same. The grey cell, instead of outputting a coreference score, will output a sentiment (positivity and negativity) score.</li><li>Bi-affine Scoring: Incorporating the scoring mechanism from the Verga et al. paper (see above for details). Instead of a “Transformer,” I will use the LSTM from my baseline model, which gets fed in to two MLPs, the biaffine operator, and finally aggregated using the LogSumExp function.</li></ol><p><strong>Experimenting with Different Ways of Aggregating across Different Mentions (Stretch Goal)</strong></p><ol><li>LogSumExp function from the Verga et al. paper (see above).</li><li>Encode inputs to second step in a way that incorporates information from all mentions.</li></ol><p><strong>Experimenting with Graph LSTM Structure (Stretch Goal)</strong></p><ul><li>Based off of ideas in Peng et al. paper (see above)</li></ul><p><strong>Incorporate Ideas from Targeted Sentiment Analysis (Stretch Goal)</strong></p><ul><li>Add a G3 gate, based on Zhang et al. paper (see above), or even adapt the architecture of the G3 gate to better suit the task of sentiment analysis between entities</li></ul><h4><strong>Available Resources</strong></h4><p>Dataset from Choi et al. (paper I’m improving). The data has already been pre-processed using StanfordNLP. Some of the preprocessing that’s been done includes tokenization, named entity recognition, and co-reference resolution.</p><h4><strong>Evaluation Plan</strong></h4><p>As an evaluation metric, I’m going to use the F1 scores for both positive and negative sentiments.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=c8a12d3ae611" width="1"/></div>
     </content>
     <updated>2018-04-11T06:47:08Z</updated>
     <category term="deep-learning"/>
@@ -110,7 +110,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-11T17:00:16Z</updated>
+      <updated>2018-04-11T17:30:06Z</updated>
     </source>
   </entry>
 
@@ -183,7 +183,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-11T17:00:19Z</updated>
+      <updated>2018-04-11T17:30:09Z</updated>
     </source>
   </entry>
 
@@ -207,7 +207,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-11T17:00:18Z</updated>
+      <updated>2018-04-11T17:30:07Z</updated>
     </source>
   </entry>
 
@@ -231,7 +231,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-11T17:00:19Z</updated>
+      <updated>2018-04-11T17:30:08Z</updated>
     </source>
   </entry>
 
@@ -255,7 +255,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-11T17:00:17Z</updated>
+      <updated>2018-04-11T17:30:06Z</updated>
     </source>
   </entry>
 
@@ -309,7 +309,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-11T17:00:15Z</updated>
+      <updated>2018-04-11T17:30:05Z</updated>
     </source>
   </entry>
 
@@ -332,7 +332,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-11T17:00:03Z</updated>
+      <updated>2018-04-11T17:30:04Z</updated>
     </source>
   </entry>
 
@@ -356,7 +356,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-11T17:00:03Z</updated>
+      <updated>2018-04-11T17:30:03Z</updated>
     </source>
   </entry>
 
@@ -379,7 +379,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-11T17:00:04Z</updated>
+      <updated>2018-04-11T17:30:04Z</updated>
     </source>
   </entry>
 
@@ -407,7 +407,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-11T17:00:17Z</updated>
+      <updated>2018-04-11T17:30:07Z</updated>
     </source>
   </entry>
 
@@ -434,7 +434,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-11T17:00:19Z</updated>
+      <updated>2018-04-11T17:30:08Z</updated>
     </source>
   </entry>
 
@@ -457,7 +457,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-11T17:00:17Z</updated>
+      <updated>2018-04-11T17:30:07Z</updated>
     </source>
   </entry>
 
@@ -481,7 +481,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-11T17:00:18Z</updated>
+      <updated>2018-04-11T17:30:07Z</updated>
     </source>
   </entry>
 
@@ -530,7 +530,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-11T17:00:19Z</updated>
+      <updated>2018-04-11T17:30:09Z</updated>
     </source>
   </entry>
 
@@ -556,7 +556,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-11T17:00:17Z</updated>
+      <updated>2018-04-11T17:30:06Z</updated>
     </source>
   </entry>
 
@@ -580,7 +580,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-11T17:00:19Z</updated>
+      <updated>2018-04-11T17:30:08Z</updated>
     </source>
   </entry>
 
@@ -603,7 +603,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-11T17:00:03Z</updated>
+      <updated>2018-04-11T17:30:04Z</updated>
     </source>
   </entry>
 
@@ -650,7 +650,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-11T17:00:16Z</updated>
+      <updated>2018-04-11T17:30:06Z</updated>
     </source>
   </entry>
 
@@ -681,7 +681,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-11T17:00:15Z</updated>
+      <updated>2018-04-11T17:30:05Z</updated>
     </source>
   </entry>
 
@@ -704,7 +704,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-11T17:00:17Z</updated>
+      <updated>2018-04-11T17:30:07Z</updated>
     </source>
   </entry>
 
@@ -762,7 +762,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-11T17:00:19Z</updated>
+      <updated>2018-04-11T17:30:09Z</updated>
     </source>
   </entry>
 
@@ -789,7 +789,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-11T17:00:19Z</updated>
+      <updated>2018-04-11T17:30:08Z</updated>
     </source>
   </entry>
 
@@ -813,7 +813,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-11T17:00:19Z</updated>
+      <updated>2018-04-11T17:30:08Z</updated>
     </source>
   </entry>
 
@@ -845,7 +845,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-11T17:00:17Z</updated>
+      <updated>2018-04-11T17:30:07Z</updated>
     </source>
   </entry>
 
@@ -872,7 +872,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-11T17:00:17Z</updated>
+      <updated>2018-04-11T17:30:06Z</updated>
     </source>
   </entry>
 
@@ -897,7 +897,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-11T17:00:16Z</updated>
+      <updated>2018-04-11T17:30:06Z</updated>
     </source>
   </entry>
 
@@ -920,7 +920,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-11T17:00:03Z</updated>
+      <updated>2018-04-11T17:30:03Z</updated>
     </source>
   </entry>
 
@@ -965,7 +965,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-11T17:00:04Z</updated>
+      <updated>2018-04-11T17:30:04Z</updated>
     </source>
   </entry>
 
@@ -988,7 +988,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-11T17:00:03Z</updated>
+      <updated>2018-04-11T17:30:04Z</updated>
     </source>
   </entry>
 
@@ -1026,7 +1026,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-11T17:00:15Z</updated>
+      <updated>2018-04-11T17:30:05Z</updated>
     </source>
   </entry>
 
@@ -1050,7 +1050,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-11T17:00:18Z</updated>
+      <updated>2018-04-11T17:30:07Z</updated>
     </source>
   </entry>
 
@@ -1074,7 +1074,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-11T17:00:03Z</updated>
+      <updated>2018-04-11T17:30:03Z</updated>
     </source>
   </entry>
 </feed>
