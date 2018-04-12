@@ -15,6 +15,7 @@
 
 	<items>
 		<rdf:Seq>
+			<rdf:li rdf:resource="https://medium.com/p/b951950ad9a5" />
 			<rdf:li rdf:resource="http://deeplearningturingtest.wordpress.com/?p=14" />
 			<rdf:li rdf:resource="https://medium.com/p/7b6d1a9ec67c" />
 			<rdf:li rdf:resource="https://medium.com/p/c8a12d3ae611" />
@@ -55,6 +56,13 @@
 	</items>
 </channel>
 
+<item rdf:about="https://medium.com/p/b951950ad9a5">
+	<title>Zichun Liu, Ning Hong, Sujie Zhou &lt;br/&gt; Team The Bugless: Image Summarization</title>
+	<link>https://medium.com/@hongnin1/image-summarization-b951950ad9a5?source=rss-c450eb982161------2</link>
+	<content:encoded>&lt;ul&gt;&lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1412.6632&quot;&gt;[1412.6632] Deep Captioning with Multimodal Recurrent Neural Networks (m-RNN)&lt;/a&gt;&lt;/li&gt;&lt;li&gt;&lt;a href=&quot;https://arxiv.org/abs/1411.4555&quot;&gt;[1411.4555] Show and Tell: A Neural Image Caption Generator&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;a href=&quot;https://medium.com/media/3d1f87b3acd58d4b818d676b6a67c63a/href&quot;&gt;https://medium.com/media/3d1f87b3acd58d4b818d676b6a67c63a/href&lt;/a&gt;&lt;p&gt;&lt;a href=&quot;https://arxiv.org/abs/1502.03044&quot;&gt;[1502.03044] Show, Attend and Tell: Neural Image Caption Generation with Visual Attention&lt;/a&gt;&lt;/p&gt;&lt;img height=&quot;1&quot; src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=b951950ad9a5&quot; width=&quot;1&quot; /&gt;</content:encoded>
+	<dc:date>2018-04-12T04:21:59+00:00</dc:date>
+	<dc:creator>Ning Hong</dc:creator>
+</item>
 <item rdf:about="http://deeplearningturingtest.wordpress.com/?p=14">
 	<title>Ananth Gottumukkala &lt;br/&gt; Team Turing Test: Project Proposal: Question-Based Knowledge Representation</title>
 	<link>https://deeplearningturingtest.wordpress.com/2018/04/11/project-proposal-question-based-knowledge-representation/</link>
