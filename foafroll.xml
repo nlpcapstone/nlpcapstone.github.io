@@ -83,19 +83,6 @@
     </foaf:member>
     <foaf:member>
       <foaf:Agent>
-        <foaf:name>Aaron Johnston, Lynsey Liu &lt;br/&gt; Team Viterbi Or Not To Be</foaf:name>
-        <foaf:weblog>
-          <foaf:Document rdf:about="https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2">
-            <dc:title>Stories by Viterbi Or Not To Be on Medium</dc:title>
-            <rdfs:seeAlso>
-              <rss:channel rdf:about="https://medium.com/feed/@viterbi.or.not"/>
-            </rdfs:seeAlso>
-          </foaf:Document>
-        </foaf:weblog>
-      </foaf:Agent>
-    </foaf:member>
-    <foaf:member>
-      <foaf:Agent>
         <foaf:name>Ananth Gottumukkala &lt;br/&gt; Team Turing Test</foaf:name>
         <foaf:weblog>
           <foaf:Document rdf:about="https://deeplearningturingtest.wordpress.com">
