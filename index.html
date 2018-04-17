@@ -33,6 +33,38 @@
 
 
 
+<h3><a href="https://medium.com/@hongnin1?source=rss-c450eb982161------2" title="Stories by Ning Hong on Medium">Zichun Liu, Ning Hong, Sujie Zhou <br/> Team The Bugless</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/d1d1b2d1f34c">
+<h4><a href="https://medium.com/@hongnin1/image-annotation-model-baseline-dataset-and-evaluation-framework-d1d1b2d1f34c?source=rss-c450eb982161------2">Image Annotation Model Baseline, Dataset and Evaluation Framework</a></h4>
+<div class="entry">
+<div class="content">
+<h3>Baseline approach:</h3><p>We are using a deep neural network that learns how to output the description of a general image. Example:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*RWtQGi8MpUzCsQTmWpR0Og.png" />Image from paper <a href="https://arxiv.org/pdf/1412.6632.pdf">https://arxiv.org/pdf/1412.6632.pdf</a></figure><p>Our baseline model is an encoder-decoder neural network. First it encodes a image into a vector using a deep convolutional neural network (CNN), our baseline choice of network is <a href="https://arxiv.org/abs/1512.00567">Inception v3</a> image recognition model pre-trained on the <a href="http://www.image-net.org/challenges/LSVRC/2012/">ILSVRC-2012-CLS</a> image classification dataset. Then decode the vector into a paragraph of description using a long short-term memory network (LSTM). Words in the output description are represented with an embedding model with each word in the dictionary represented by a fixed-length vector (learned during training).</p><p>Architecture:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*na7zdPNZQG66QVCJK1Kqmg.png" />Baseline Model Architecture</figure><p>Above architecture outputs the log likelihoods of the correct words at each step (logp1(S1)); later we use beam search to generate the description for given image.</p><h3>Experiment &amp; Evaluation:</h3><p>We are planning to use TensorFlow, Numpy, Natural Language ToolKit and Bazel to train our model.</p><p>We are using <a href="http://cocodataset.org/#overview">Microsoft COCO</a> for dataset as well as evaluation.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=d1d1b2d1f34c" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@hongnin1/image-annotation-model-baseline-dataset-and-evaluation-framework-d1d1b2d1f34c?source=rss-c450eb982161------2">by Ning Hong at April 17, 2018 07:30 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
 <h3><a href="https://medium.com/@be.li.nda?source=rss-fad49d942bf3------2" title="Stories by Belinda Zou Li on Medium">Belinda Li <br/> Team Sentimentity</a></h3>
 
 
@@ -1618,7 +1650,7 @@ I'm working on my project in my fork of Allennlp. I got the dataset and have wri
 
 <p>
 <strong>Last updated:</strong><br>
-April 17, 2018 07:30 AM<br>
+April 17, 2018 08:00 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
