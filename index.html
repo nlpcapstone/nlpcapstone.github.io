@@ -370,38 +370,6 @@
 
 
 
-<h3><a href="https://teamoverfit.blogspot.com/" title="NLP Capstone">Pinyi Wang, Dawei Shen, Xukai Liu <br/> Team Overfit</a></h3>
-
-
-<div class="entrygroup" id="tag:blogger.com,1999:blog-9203775015655831448.post-5878905571398539101">
-<h4><a href="https://teamoverfit.blogspot.com/2018/04/3-project-proposal.html">#3 Project Proposal</a></h4>
-<div class="entry">
-<div class="content">
-<h2 style="height: 0px;"><span>Team Overfit</span></h2><h3><span><br /></span></h3><h3><span>Project repo: <span style="font-size: 18.72px;"><a href="https://github.com/pinyiw/nlpcapstone-teamoverfit">https://github.com/pinyiw/nlpcapstone-teamoverfit</a></span></span></h3><h4><span>Team members: Dawei Shen, Pinyi Wang, Xukai Liu</span></h4><span><br /></span><br /><div></div><span><br /></span><br /><div style="text-align: start; text-indent: 0px;"><div style="margin: 0px;"><div><span><b>Blog Post: #2: 04/05/2018</b></span></div><div><span><span><b><br /></b></span></span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Social Media Predicts Stock Price (StartUp Mode)</span></div><div><span><span><b id="docs-internal-guid-213a19db-b353-3e4c-1df6-5dd289daeb8b" style="font-weight: normal;"><br /></b></span></span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>There are vast amount of new information related to companies listed on the stock market appears instantly, with immediate impact on stock prices. Our project is for monitoring those text on the social media platform and extract the key information that have impact on the stock prices and predict its future.</span><br /><span><br /></span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Background and Project objectives </span></div><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><span><a href="https://www.investopedia.com/terms/s/stockmarket.asp">Stock Market</a> refers to the collection of markets and exchanges where the issuing and trading of equities, bonds and other sorts of securities takes place.</span></li><li><span>Social media, such as Twitter, often reflects how people think about a company and therefore can be used as an indicator of the changes of stock price in the near future.</span></li><li><span>Traditionally, analytics use statistical model built on past stock prices and recent news to forecast stock prices. We would like apply Machine Learning and Natural Language Processing models on social media to see if it has enough information for us to make good prediction of future stock price.</span></li></ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"></ul><div><span><span><b style="font-weight: normal;"><br /></b></span></span></div><span><b>Proposed methodologies</b><span style="white-space: pre;"><b><br /></b></span></span><br /><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><b><span>Dataset:</span></b></li><ul><li><span><span style="background-color: white; color: black; vertical-align: baseline; white-space: pre;">Twitter data: </span><span style="background-color: white; color: #1155cc; vertical-align: baseline; white-space: pre;"><a href="https://developer.twitter.com/en/docs">https://developer.twitter.com/en/docs</a></span></span></li></ul></ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"><ul style="margin-bottom: 0pt; margin-top: 0pt;"><ul><li><span>Preprocess twitter data:</span></li></ul></ul><ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"><ul><li><span>Tokenization</span></li></ul></ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"><ul><li><span>Stemming</span></li></ul></ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"><ul><li><span>Lemmatization</span></li></ul></ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"><ul style="margin-bottom: 0pt; margin-top: 0pt;"></ul></ul><li><span><span style="background-color: white; color: black; vertical-align: baseline; white-space: pre;">Bloomberg financial news dataset: </span><span style="background-color: white; color: #1155cc; vertical-align: baseline; white-space: pre;"><a href="https://github.com/philipperemy/financial-news-dataset">https://github.com/philipperemy/financial-news-dataset</a></span></span></li></ul></ul><span><b>Minimal viable action plan</b></span><br /><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><span>Forecast companies’ stock price changes (UP, DOWN, STAY) </span></li></ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><b><span>Model</span></b></li></ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><span>N-gram with appropriate smoothing as baseline</span></li></ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><span>Use RNN/LSTM/GRU as model</span></li></ul><li><b><span>User Interface</span></b></li></ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><span>Command line REPL</span></li></ul></ul><span><b>Stretch goals</b></span><br /><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><span>We could implement LSTM/GRU model to extract important information from the text in the preprocess</span></li></ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><span>Forecast the approximate future stock price for a company given a future date</span></li></ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><span>Auto trader bot that can take streaming tweets from twitter api and update the model prediction </span></li></ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><span>Fusion with 8-K reports to elevate the accuracy</span></li></ul><span><b>Evaluation plan</b></span><br /><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><span>F-1 score for (UP/DOWN)</span></li><li><span>Loss functions for comparing predictions and expectations.</span></li><li><span>Evaluate on time required to do a prediction.</span></li></ul></div><div style="margin: 0px;"><span><b style="white-space: pre;">Reference</b></span><br /><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><span><span style="background-color: white; color: black; vertical-align: baseline; white-space: pre;">On the Importance of Text Analysis for Stock Price Prediction: </span><a href="https://nlp.stanford.edu/pubs/lrec2014-stock.pdf"><span style="background-color: white; color: #1155cc; vertical-align: baseline; white-space: pre;">https://nlp.stanford.edu/pubs/lrec2014-stock.pdf</span></a></span></li><li><span><span style="color: black; vertical-align: baseline; white-space: pre-wrap;">Stock Trend Prediction Using News Sentiment Analysis: </span><a href="https://arxiv.org/pdf/1607.01958.pdf"><span style="color: #1155cc; vertical-align: baseline; white-space: pre-wrap;">https://arxiv.org/pdf/1607.01958.pdf</span></a></span></li></ul><div style="font-family: times;"></div></div></div></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://teamoverfit.blogspot.com/2018/04/3-project-proposal.html">by Team Overfit (noreply@blogger.com) at April 11, 2018 06:10 AM</a>
-</p>
-</div>
-</div>
-
-
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
 <h3><a href="https://medium.com/nlp-capstone-blog?source=rss----9ba3897b6688---4" title="NLP Capstone Blog - Medium">Tam Dang, Karishma Mandyam <br/> Team Illimitatum</a></h3>
 
 
@@ -819,38 +787,6 @@
 
 
 
-<h3><a href="https://teamoverfit.blogspot.com/" title="NLP Capstone">Pinyi Wang, Dawei Shen, Xukai Liu <br/> Team Overfit</a></h3>
-
-
-<div class="entrygroup" id="tag:blogger.com,1999:blog-9203775015655831448.post-34377626932024049">
-<h4><a href="https://teamoverfit.blogspot.com/2018/04/2-milestone-warm-up.html">#2 Milestone: Warm up</a></h4>
-<div class="entry">
-<div class="content">
-<h2 style="height: 0px;"><span>Team Overfit</span></h2><h3><span><br /></span></h3><h3><span>Project repo: <span style="font-size: 18.72px;"><a href="https://github.com/pinyiw/nlpcapstone-teamoverfit">https://github.com/pinyiw/nlpcapstone-teamoverfit</a></span></span></h3><h4><span>Team members: Dawei Shen, Pinyi Wang, Xukai Liu</span></h4><br /><div></div><br /><div style="text-align: start; text-indent: 0px;"><div><span><b>Blog Post: #2: 04/05/2018</b></span></div><div><span><b><br /></b></span></div><div style="margin: 0px;"></div><br /><ul><li><span>We first installed Pytorch 3.6 and we tried to run small programs on our local machines.</span></li><li><span>We then explored the usage of the RNN and seq2seq APIs, which we are going to use for most of our projects ideas.</span></li><ul><li><span>We looked through the tutorial of RNNs/LSTMs/GRUs from the previous 447 class.</span></li></ul><ul><li><span id="docs-internal-guid-97b5af9d-9943-133b-4f16-5d4414eefd5d"><span><a href="https://colab.research.google.com/drive/11iLtGFDpnIuHj5B0rQDGG5lqq6BQ8FRh">https://colab.research.google.com/drive/11iLtGFDpnIuHj5B0rQDGG5lqq6BQ8FRh</a></span></span></li></ul><li><span><span style="white-space: pre-wrap;">We tried to set up an Azure instance for GPU computation</span></span></li><ul><li><span><span style="white-space: pre-wrap;">We installed cuda support for the Pytorch package and it ran successfully with Tesla K80</span></span></li></ul><li><span><span style="white-space: pre-wrap;">We revisited the Recurrent Neural Networks, Attention and Reading Comprehension projects from the last quarter and experimented with other Pytorch features related to our project.</span></span></li></ul><br /></div></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://teamoverfit.blogspot.com/2018/04/2-milestone-warm-up.html">by Team Overfit (noreply@blogger.com) at April 06, 2018 04:48 AM</a>
-</p>
-</div>
-</div>
-
-
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
 <h3><a href="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2" title="Stories by Ryan Pham on Medium">Ryan Pham <br/> Team NeuralEmpty</a></h3>
 
 
@@ -1107,38 +1043,6 @@
 
 <p class="date">
 <a href="https://medium.com/@halden.lin/nlp-capstone-01-options-ee873b6885d5?source=rss-2759d54493c0------2">by Halden Lin at April 04, 2018 06:43 AM</a>
-</p>
-</div>
-</div>
-
-
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://teamoverfit.blogspot.com/" title="NLP Capstone">Pinyi Wang, Dawei Shen, Xukai Liu <br/> Team Overfit</a></h3>
-
-
-<div class="entrygroup" id="tag:blogger.com,1999:blog-9203775015655831448.post-3003438141513431489">
-<h4><a href="https://teamoverfit.blogspot.com/2018/04/1-initial-project-ideas.html">#1 Initial Project Ideas</a></h4>
-<div class="entry">
-<div class="content">
-<h2 style="height: 0px;"><span style="font-family: Arial, Helvetica, sans-serif;">Team Overfit</span></h2><h3><span style="color: #999999; font-family: Arial, Helvetica, sans-serif;"><br /></span></h3><h3><span style="color: #999999; font-family: Arial, Helvetica, sans-serif;">Project repo: <span style="font-size: 18.72px;"><a href="https://github.com/pinyiw/nlpcapstone-teamoverfit">https://github.com/pinyiw/nlpcapstone-teamoverfit</a></span></span></h3><h4><span style="color: #444444; font-family: Arial, Helvetica, sans-serif;">Team members: Dawei Shen, Pinyi Wang, Xukai Liu</span></h4><div><span style="color: #444444; font-family: Arial, Helvetica, sans-serif;"><b>Blog Post: #1: 04/03/2018</b></span></div><div><span style="color: #444444;"><br /></span></div><div><span style="font-family: Arial, Helvetica, sans-serif;">We are likely going to choose the start-up mode and actually build some cool projects! Here's some of our initial project ideas:</span></div><div><ul><li><span style="font-family: Arial, Helvetica, sans-serif;"><b>Twitter Hate Speech Detection</b></span></li><ul><li><span style="font-family: Arial, Helvetica, sans-serif;"><b>Dataset:</b> <a href="https://github.com/zeerakw/hatespeech">https://github.com/zeerakw/hatespeech</a></span></li><ul><li><span style="font-family: Arial, Helvetica, sans-serif;">This dataset contains the tweets ID that are labelled as either Raicist, Sexist or Neither Racist or Sexist.</span></li></ul><li><span style="font-family: Arial, Helvetica, sans-serif;"><b>Minimal viable plan:</b> We could use LSTM sequence to vector encoding to extract critical features of the tweets. Then, we use RNN and attention mechanism to output the label of the speech and the hate score of tweets in each category.</span></li><li><span style="font-family: Arial, Helvetica, sans-serif;"><b>Stretch goals:</b> </span></li><ul><li><span style="font-family: Arial, Helvetica, sans-serif;">We could experiment with different model configurations to improve the performance of the model.</span></li><li><span style="font-family: Arial, Helvetica, sans-serif;">We could build a twitter bot that can collect reports or hateful speech from user, which can be used to train on, so that the model can adapt the model to the latest slangs.</span></li></ul></ul></ul><span style="font-family: Arial, Helvetica, sans-serif;"><br /></span><ul><li><span style="font-family: Arial, Helvetica, sans-serif;"><b>Virtual Date chat bot</b></span></li><ul><li><span style="font-family: Arial, Helvetica, sans-serif;"><b>Description: </b></span><span id="docs-internal-guid-6febb8b7-8f58-f3ab-f461-d5c0a5077f07"><span style="font-family: Arial; vertical-align: baseline; white-space: pre-wrap;">Use conversations between couples to train a chat bot that user can flirt with when they feel lonely.</span></span></li><li><span><span style="font-family: Arial; vertical-align: baseline; white-space: pre-wrap;"><span id="docs-internal-guid-6febb8b7-8f59-3e54-c748-e595571ddaaa"><span style="font-weight: 700; vertical-align: baseline;">Minimal viable plan:</span><span style="vertical-align: baseline;"> Use neural machine translation and attention mechanism to train a generative chat bot. Some training data can be obtained from romantic movies’ dialogue or from Twitter. The challenge would be how to use NLP to classify whether a conversation is flirt or not.</span></span></span></span></li><li><span><span style="font-family: Arial; vertical-align: baseline; white-space: pre-wrap;"><span><span style="vertical-align: baseline;"><span id="docs-internal-guid-6febb8b7-8f5a-50ce-dc63-78e864ac8b2e"><span style="font-weight: 700; vertical-align: baseline;">Stretch goals:</span><span style="vertical-align: baseline;"> Train the chat bot so that it has consistent personality and have long term memory of chat history.</span></span></span></span></span></span></li></ul></ul><span style="font-family: Arial;"><span style="white-space: pre-wrap;"><br /></span></span><ul><li><span id="docs-internal-guid-6febb8b7-8f5a-cf38-76f0-a21179c20dde"><span style="font-family: Arial; vertical-align: baseline; white-space: pre-wrap;"><b>Detect Violations of Laws (Virtual Lawyer)</b></span></span></li><ul><li><span><span style="font-family: Arial; vertical-align: baseline; white-space: pre-wrap;"><b>Description:</b> The project is to try with different models and learn to detect the laws broke given the description of behaviors or given the sworn testimonies in the court.</span></span></li><li><span><span style="font-family: Arial; vertical-align: baseline; white-space: pre-wrap;"><span id="docs-internal-guid-6febb8b7-8f5b-2fce-e8fd-4e47759e160c"><span style="vertical-align: baseline;"><b>Minimal viable plan:</b> Experiment with LSTM and attention mechanism</span><span style="background-color: white; color: #757575; vertical-align: baseline;">.</span><span style="vertical-align: baseline;"> Given the testimony, detects whether the law is broken.</span></span></span></span></li><li><span style="font-family: Arial, Helvetica, sans-serif;"><b>Stretch goals:</b></span></li><ul><li><span style="font-family: Arial, Helvetica, sans-serif;">Given the testimony, detects and return the list of laws have been broken.</span></li><li><span style="font-family: Arial, Helvetica, sans-serif;">Generate texts to offend the testimony.</span></li><li><span style="font-family: Arial, Helvetica, sans-serif;">Generate texts to defend the testimony.</span></li></ul></ul></ul><span style="font-family: Arial, Helvetica, sans-serif;"><br /></span></div></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://teamoverfit.blogspot.com/2018/04/1-initial-project-ideas.html">by Team Overfit (noreply@blogger.com) at April 04, 2018 06:36 AM</a>
 </p>
 </div>
 </div>
@@ -1526,7 +1430,7 @@ I'm working on my project in my fork of Allennlp. I got the dataset and have wri
 <a href="https://mathstoc.wordpress.com/category/nlp-capstone/feed/" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="https://mathstoc.wordpress.com" title="NLP Capstone – Mathematical Distractions">Kuikui Liu, Nicholas Ruhland <br/> Team INLP</a>
 </li>
 <li>
-<a href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="https://teamoverfit.blogspot.com/" title="NLP Capstone">Pinyi Wang, Dawei Shen, Xukai Liu <br/> Team Overfit</a>
+<a href="" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a class="message" title="404: not found">Pinyi Wang, Dawei Shen, Xukai Liu <br/> Team Overfit</a>
 </li>
 <li>
 <a href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="https://nlpcapstonesemparse.blogspot.com/" title="NlpCapstone">Rajas Agashe <br/> Team Han Flying Solo</a>
@@ -1550,7 +1454,7 @@ I'm working on my project in my fork of Allennlp. I got the dataset and have wri
 
 <p>
 <strong>Last updated:</strong><br>
-April 17, 2018 02:30 AM<br>
+April 17, 2018 03:00 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
