@@ -33,6 +33,38 @@
 
 
 
+<h3><a href="https://medium.com/@be.li.nda?source=rss-fad49d942bf3------2" title="Stories by Belinda Zou Li on Medium">Belinda Li <br/> Team Sentimentity</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/7de5277b5be">
+<h4><a href="https://medium.com/@be.li.nda/nlp-capstone-blog-4-baseline-model-i-7de5277b5be?source=rss-fad49d942bf3------2">NLP Capstone Blog #4: Baseline Model I</a></h4>
+<div class="entry">
+<div class="content">
+<p>This week, I implemented the baseline neural model from my minimal viable plan. Specifically, my model was an attentive biLSTM, which took as input concatenated word, polarity, and holder/target embeddings.</p><p>As for evaluation frameworks, I’ve implemented f1 scoring. I also kept track of other metrics like accuracy and loss, in addition to f1 score, to get a better understanding of my model’s performance.</p><p>The following is a summary of my preliminary results. I’ve done very little hyper-parameter tuning thus far, but of the tuning that I did do, I found that changing the optimizer had the greatest benefit, specifically, using the Adam optimizer over the SGD optimizer. I trained the following two hyper-parameter settings:</p><pre>╔═════════════════════╦═════════╦═════════╗<br />║   Hyperparameters   ║    1    ║    2    ║<br />╠═════════════════════╬═════════╬═════════╣<br />║ Optimizer           ║ Adam    ║ SGD     ║<br />║ Learning Rate       ║ 0.01    ║ 0.05    ║<br />║ # Epochs            ║ 20      ║ 20      ║<br />║ Loss Function       ║ NLLLoss ║ NLLLoss ║<br />║ Hidden Dimension    ║ 150     ║ 150     ║<br />║ Dropout Rate        ║ 0.20    ║ 0.20    ║<br />║ Batch Size          ║ 10      ║ 10      ║<br />║ Embedding Dimension ║ 50      ║ 50      ║<br />║    (all 3)          ║         ║         ║<br />╚═════════════════════╩═════════╩═════════╝</pre><p>As you can see, the only differences are in the optimizer and learning rate. Note I did experiment a little with learning rate for each optimizer, however, the amount of tuning I did for this is definitely not sufficiently.</p><p>Also note hyper-parameter configuration 1 (Adam optimizer) performed much better than 2 (SGD optimizer).</p><h3>Preliminary Results</h3><h4>Adam Optimizer</h4><p>Graph of the <strong>loss</strong> over time:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/640/1*sYny1MXCplPx-XQ_ToYN4Q.png" /></figure><p>Graph of <strong>f1 scores</strong> over time: (Note there are 3 types of sentiments two pairs of entities can share: positive sentiment, negative sentiment, or no sentiment)</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*iPBZ5X-TctKEGWXub_8Klw.png" /></figure><p>Graph of <strong>accuracies</strong> over time:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/640/1*5TrbatjcthnZDlaz4eNxXg.png" /></figure><h4>SGD Optimizer</h4><ul><li>For SGD, I experimented with a few values for learning rate (0.01, 0.05, and 0.1), and found 0.05 to fairly optimal.</li></ul><p>Graph of the <strong>loss</strong> over time:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/640/1*nweK1MYnyudak8XGAHMnng.png" /></figure><p>Graph of <strong>f1 scores</strong> over time:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*VPN0B5UEkH1tWDShzrcSLQ.png" /></figure><p>Graph of <strong>accuracies</strong> over time:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/640/1*9BmjOwEAcPQbHR-a1ZINLg.png" /></figure><h3>Key Takeaways</h3><ul><li>There’s a huge discrepancy between the performance on the train set and the performance on the dev set, indicating that the development data set and training data set are very different.</li><li>Analysis of the datasets, as you can see, the training set is very different in composition from the other sets:</li></ul><pre>╔══════════════╦══════════╦══════════╦══════════╦══════════╦═══════╗<br />║              ║          ║ average  ║    #     ║    #     ║   #   ║<br />║              ║    #     ║ entities ║ positive ║ negative ║ none  ║<br />║              ║ articles ║ /article ║  pairs   ║  pairs   ║ pairs ║<br />╠══════════════╬══════════╬══════════╬══════════╬══════════╬═══════╣<br />║ train-ACL    ║ 897      ║ 2.63     ║ 648      ║ 815      ║ 355   ║<br />║ dev-ACL-tune ║ 38       ║ 8.82     ║ 257      ║ 95       ║ 2520  ║<br />║ dev-ACL-test ║ 36       ║ 9        ║ 237      ║ 118      ║ 2547  ║<br />║ test-ACL     ║ 79       ║ 9.25     ║ 379      ║ 198      ║ 6037  ║<br />║ test-MPQA    ║ 54       ║ 11.72    ║ 435      ║ 362      ║ 6813  ║<br />╚══════════════╩══════════╩══════════╩══════════╩══════════╩═══════╝</pre><ul><li>For the Adam optimizer, the loss is still decreasing at the 20th epoch, meaning that I could probably keep seeing an improvement in performance if I continued running many more epochs.</li></ul><h3>Plan for Next Time</h3><ol><li>Deal with the discrepancy between train/dev/test data.</li><li>Do some more hyper-parameter tuning to try and improve scores.</li><li>Implement the end-to-end model architecture based on the <a href="https://homes.cs.washington.edu/~luheng/files/emnlp2017_lhlz.pdf">Lee et al. paper</a>, i.e. scoring holder/target sentiment using a FFNN in a second step. This is point 1 of my MVP/Stretch Goal from my last blog post. If time suffices, also implement bi-affine scoring (<a href="https://arxiv.org/pdf/1802.10569.pdf">Verga et al., 2018</a>, or point 2 in my MVP/Stretch Goal from my last blog post) and compare the results with the baseline model.</li><li>Experiment with attention mechanism, instead of calculating attention weights through a linear mapping from hidden state → weight, perhaps use <a href="https://arxiv.org/pdf/1706.03762.pdf">scaled dot-product attention</a>.</li></ol><p>All code I’ve written for this post can be found on Github: <a href="https://github.com/eunsol/document-e2e-sent">https://github.com/eunsol/document-e2e-sent</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=7de5277b5be" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@be.li.nda/nlp-capstone-blog-4-baseline-model-i-7de5277b5be?source=rss-fad49d942bf3------2">by Belinda Zou Li at April 17, 2018 06:51 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
 <h3><a href="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2" title="Stories by Ryan Pham on Medium">Ryan Pham <br/> Team NeuralEmpty</a></h3>
 
 
@@ -108,7 +140,7 @@
 <h4><a href="https://medium.com/@hongnin1/image-summarization-b951950ad9a5?source=rss-c450eb982161------2">Image Annotation Papers</a></h4>
 <div class="entry">
 <div class="content">
-<ul><li><a href="https://arxiv.org/abs/1412.6632">[1412.6632] Deep Captioning with Multimodal Recurrent Neural Networks (m-RNN)</a></li><li><a href="https://arxiv.org/abs/1411.4555">[1411.4555] Show and Tell: A Neural Image Caption Generator</a></li></ul><a href="https://medium.com/media/3d1f87b3acd58d4b818d676b6a67c63a/href">https://medium.com/media/3d1f87b3acd58d4b818d676b6a67c63a/href</a><p><a href="https://arxiv.org/abs/1502.03044">[1502.03044] Show, Attend and Tell: Neural Image Caption Generation with Visual Attention</a></p><p>Image Annotation for medical use:</p><p><a href="https://arxiv.org/pdf/1603.08486.pdf">https://arxiv.org/pdf/1603.08486.pdf</a></p><p>Image Annotation for visually impaired:</p><p><a href="https://cs224d.stanford.edu/reports/mcelamri.pdf">https://cs224d.stanford.edu/reports/mcelamri.pdf</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=b951950ad9a5" width="1" /></div>
+<p><a href="https://github.com/tensorflow/models/tree/master/research/im2txt#prepare-the-training-data">https://github.com/tensorflow/models/tree/master/research/im2txt#prepare-the-training-data</a></p><ul><li><a href="https://arxiv.org/abs/1412.6632">[1412.6632] Deep Captioning with Multimodal Recurrent Neural Networks (m-RNN)</a></li><li><a href="https://arxiv.org/abs/1411.4555">[1411.4555] Show and Tell: A Neural Image Caption Generator</a></li></ul><a href="https://medium.com/media/3d1f87b3acd58d4b818d676b6a67c63a/href">https://medium.com/media/3d1f87b3acd58d4b818d676b6a67c63a/href</a><p><a href="https://arxiv.org/abs/1502.03044">[1502.03044] Show, Attend and Tell: Neural Image Caption Generation with Visual Attention</a></p><p>Image Annotation for medical use:</p><p><a href="https://arxiv.org/pdf/1603.08486.pdf">https://arxiv.org/pdf/1603.08486.pdf</a></p><p>Image Annotation for visually impaired:</p><p><a href="https://cs224d.stanford.edu/reports/mcelamri.pdf">https://cs224d.stanford.edu/reports/mcelamri.pdf</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=b951950ad9a5" width="1" /></div>
 
 
 
@@ -1586,7 +1618,7 @@ I'm working on my project in my fork of Allennlp. I got the dataset and have wri
 
 <p>
 <strong>Last updated:</strong><br>
-April 17, 2018 06:30 AM<br>
+April 17, 2018 07:00 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
