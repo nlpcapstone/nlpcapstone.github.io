@@ -150,10 +150,10 @@
       <foaf:Agent>
         <foaf:name>Pinyi Wang, Dawei Shen, Xukai Liu &lt;br/&gt; Team Overfit</foaf:name>
         <foaf:weblog>
-          <foaf:Document rdf:about="">
-            <dc:title/>
+          <foaf:Document rdf:about="https://teamoverfit.blogspot.com/">
+            <dc:title>NLP Capstone</dc:title>
             <rdfs:seeAlso>
-              <rss:channel rdf:about=""/>
+              <rss:channel rdf:about="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss"/>
             </rdfs:seeAlso>
           </foaf:Document>
         </foaf:weblog>
