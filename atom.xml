@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:planet="http://planet.intertwingly.net/" xmlns:indexing="urn:atom-extension:indexing" indexing:index="no"><access:restriction xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" relationship="deny"/>
   <title>NLP Capstone Spring 2018</title>
-  <updated>2018-04-18T06:00:11Z</updated>
+  <updated>2018-04-18T06:30:10Z</updated>
   <generator uri="http://intertwingly.net/code/venus/">Venus</generator>
   <author>
     <name>Nelson Liu</name>
@@ -10,6 +10,30 @@
   <id>https://nlpcapstone.github.io/atom.xml</id>
   <link href="https://nlpcapstone.github.io/atom.xml" rel="self" type="application/atom+xml"/>
   <link href="https://nlpcapstone.github.io/" rel="alternate"/>
+
+  <entry>
+    <id>tag:blogger.com,1999:blog-3753031463594823927.post-8569998071322028844</id>
+    <link href="https://cse481n.blogspot.com/2018/04/blog-post-4.html" rel="alternate" type="text/html"/>
+    <title>Blog Post #4</title>
+    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div dir="ltr" id="docs-internal-guid-7937c8af-d76f-895a-8826-6121b37c8ecc" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">A big part of our work for setting up a baseline is the creation of a reasonably good dataset for training and evaluating extractive text summarization. Our goal was to build a dataset with all sentences from the articles marked with binary labels indicating whether or not they were part of the extracted summary.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">We used the DailyMail and CNN story dataset, which is meant for abstractive summarization, to build our own dataset. The data set includes automatically-parsed lines from news articles, as well as a few bullet point highlights for each article. These highlights are not sentences directly from the article, but are overall a decent indicator and considered to be one of the most useable datasets out there (if for no other reason than sheer volume of data).</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">To build our data set, we used a toy metric roughly based off of ROUGE-N, with the understanding that we would only need a way of relative ranking for each sentence.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">The procedure to generate the data set was as follows:</span></div><ol style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Read in a single .story file from the abstractive dataset into highlights and sentences.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Post-process sentences- in the original data, new lines do not correspond exactly with sentence endings. Additionally, some sentences are originally split arbitrarily by new lines. We do an additional split by the regex (?&lt;=[.?!])\s+ (whitespace with period, question mark, or exclamation mark lookbehind), but sentence “re-joining” is off by default, as some sentences in the original dataset do not end with punctuation.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Score each sentence with our metric.</span></div></li><ol style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Tokenize each sentence and highlight.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Build unigram, bigram, and trigram lists.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Count the number of matches between the sentence and all the highlights, giving more weight to bigram and trigram matches and also weighting by word length.</span></div></li></ol><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Sort sentences by score.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Let S be the number of sentences and H be the number of highlights. The algorithm picks up to min(1, floor(S/2)) sentences as part of the summary. It picks at least the H sentences with the highest scores. After sentence H is picked, subsequent sentences will only be picked if their score was at least (80+3*X)% of the previously-picked sentence’s score, where X is the number of sentences currently picked. This is effectively a fairly arbitrary metric to pick the most likely sentences roughly in accordance with the size of the abstractive summary, while also allowing for particularly similar sentences to both be chosen for completeness.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">All data input and output with UTF-8 encoding.</span></div></li></ol><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Output format:</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">&lt;#&gt; &lt;SENTENCE PLAINTEXT&gt;</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;"># is either 0 = normal sentence in the article, 1 = sentence chosen as part of extractive summary, 2 = original abstractive summary (should not be touched by model, only left there for human reference). </span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Overall, we think our data set is generally reasonable and makes sense. Nonetheless, there are a number of weaknesses with both extractive models in general and this specific type of dataset (including some problems which derive from the original abstractive dataset).</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Key weaknesses of data set:</span></div><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">In the original data, highlights do not always correspond to actual information in the article. For example, this short story has four highlights that are all new information: 008fc24ca9f4c48a54623bef423a3f2f8db8451a.story.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Frequent formatting problems - sentences that don’t terminate with punctuation, repeated sentences, bugged unicode characters, etc.</span></div></li></ul><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Key weaknesses specific to extractive summarization:</span></div><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Articles that are particularly short are effectively impossible to meaningfully summarize with extractive techniques.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Some sentences in articles contain the same content with slightly different wording. In these cases, we decided to choose both sentences, with the idea that post-processing could take care of highly-similar sentences, but a model could not be expected to accurately distinguish between two such sentences if they have different labels.</span></div></li></ul><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">The Baseline Model:</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">For our baseline combinatorial approach, we did a simple Maximum Coverage Problem implementation. The Maximum Coverage Problem is a classic NP-complete problem. Given a collection of n sets, the goal is to maximize the number of chosen (or “covered”) elements while only choosing k of the sets (where k &lt; n). It’s very straightforward to reduce summarization to this problem. The sentences in the document are the sets, and the vocabulary of the document represents the “universe”, or the elements in the sets. The goal is to cover as many words as possible while picking the same number of sentences as in the labelled summary. The intuition is that sentences with more words capture more semantic meaning, and once a word is listed in the summary, that word need not be considered again. This reduction makes some intuitive sense, but two main aspects must be refined. First, not all words are equally meaningful. Some words, like “a”, “the”, or “and”, have little semantic content, while named entities and other important words have much higher semantic content. Second, we should at least account for sentence lengths -- instead of constraining the algorithm to pick the same number of sentences, we should constrain it to the same word count. This two additional criteria turn the problem into the Budgeted Maximum Coverage Problem: elements in the sets have specified values, and the sets have specified costs. The new objective is to maximize the total value of the covered elements while remaining with a given budget.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Of course, this problem is NP-complete, so it may seem like a strange choice to model summarization with. There are two approaches to this. First, a simple greedy algorithm achieves an approximation of ~63%, which means that the greedy algorithm is guaranteed to get at least 63% of the value of the optimal solution. For the standard MCP, the greedy algorithm just chooses the set with the most uncovered elements until no more sets are allowed. For the budgeted MCP, the approximation algorithm is slightly more complex. See Khuller et al. for a detailed look at it -- the algorithm is slightly more work, but still very understandable, and achieves the same approximation bound.  We can also formulate the problem as an Integer Linear Program (ILP) and use an ILP solver to generate optimal solutions on realistic instance sizes. This works because the documents and sentences are both small.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">For now, we are using the greedy algorithm for the standard MCP. As a simple metric, we used the number of correct chosen sentences divided by the number of chosen sentences in total (correct means that the gold standard also picked that sentence). With a basic MCP approach, we had an accuracy of 0.218. This was measured on a small sample of 2000 stories. In order to approximate a weighting scheme, we use a stop list to simply remove common articles and other semantically empty words. With this small modification, we had an accuracy of 0.2328.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">We plan to extend this to a better baseline model in the next few days. We will formulate the problem as an ILP and pass it to an ILP solver for an optimal solution. We will also implement a more sophisticated weighting scheme. One idea is to use some of the labelled data as training data (right now, we don’t train) to build a weight matrix for common words -- we can build this matrix with a logistic regression, using n-gram (probably unigram) similarity as the loss function.This will hopefully give us a more reasonable baseline model.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Evaluation Framework:</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">For now, we’re using a simple accuracy metric. We plan to switch to ROUGE, which counts n-gram similarity (ROUGE measures recall, not precision). We will work with the ROUGE-2.0 Java package or pyrouge, depending on which language we are working with. </span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">So to summarize our goals for the next week, we will improve this baseline model by formulating the problem as an ILP and we may implement a weighting scheme (if that’s too complicated, we’ll save it for the advanced model). We will also build a baseline neural model. Then, we’ll flesh out our evaluation framework using ROUGE metrics, train/test using more of the corpus, and have detailed error analysis.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">References:</span></div><div dir="ltr"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Khuller, S., Moss, A., &amp; Naor, J. (Seffi). (1999). The Budgeted Maximum Coverage Problem. </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: italic; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Inf. Process. Lett.</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">, </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: italic; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">70</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">(1), 39–45. https://doi.org/10.1016/S0020-0190(99)00031-9</span></div></div>
+    </summary>
+    <updated>2018-04-18T06:25:00Z</updated>
+    <author>
+      <name>Ron &amp;amp; Aditya</name>
+      <email>noreply@blogger.com</email>
+    </author>
+    <source>
+      <id>tag:blogger.com,1999:blog-3753031463594823927</id>
+      <author>
+        <name>Ron &amp;amp; Aditya</name>
+        <email>noreply@blogger.com</email>
+      </author>
+      <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
+      <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
+      <title>PrimeapeNLP</title>
+      <updated>2018-04-18T06:30:09Z</updated>
+    </source>
+  </entry>
 
   <entry>
     <id>https://medium.com/p/15357a82fe06</id>
@@ -33,7 +57,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-18T06:00:08Z</updated>
+      <updated>2018-04-18T06:30:07Z</updated>
     </source>
   </entry>
 
@@ -101,7 +125,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-18T06:00:11Z</updated>
+      <updated>2018-04-18T06:30:10Z</updated>
     </source>
   </entry>
 
@@ -125,7 +149,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-18T06:00:10Z</updated>
+      <updated>2018-04-18T06:30:10Z</updated>
     </source>
   </entry>
 
@@ -451,7 +475,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-18T06:00:07Z</updated>
+      <updated>2018-04-18T06:30:05Z</updated>
     </source>
   </entry>
 
@@ -474,7 +498,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-18T06:00:06Z</updated>
+      <updated>2018-04-18T06:30:04Z</updated>
     </source>
   </entry>
 
@@ -499,7 +523,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-18T06:00:07Z</updated>
+      <updated>2018-04-18T06:30:06Z</updated>
     </source>
   </entry>
 
@@ -522,7 +546,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-18T06:00:05Z</updated>
+      <updated>2018-04-18T06:30:04Z</updated>
     </source>
   </entry>
 
@@ -549,7 +573,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-18T06:00:10Z</updated>
+      <updated>2018-04-18T06:30:09Z</updated>
     </source>
   </entry>
 
@@ -572,7 +596,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-18T06:00:06Z</updated>
+      <updated>2018-04-18T06:30:04Z</updated>
     </source>
   </entry>
 
@@ -649,7 +673,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-18T06:00:09Z</updated>
+      <updated>2018-04-18T06:30:08Z</updated>
     </source>
   </entry>
 
@@ -672,7 +696,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-18T06:00:09Z</updated>
+      <updated>2018-04-18T06:30:08Z</updated>
     </source>
   </entry>
 
@@ -697,7 +721,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-18T06:00:07Z</updated>
+      <updated>2018-04-18T06:30:06Z</updated>
     </source>
   </entry>
 
@@ -770,7 +794,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-18T06:00:11Z</updated>
+      <updated>2018-04-18T06:30:10Z</updated>
     </source>
   </entry>
 
@@ -794,7 +818,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-18T06:00:09Z</updated>
+      <updated>2018-04-18T06:30:09Z</updated>
     </source>
   </entry>
 
@@ -818,7 +842,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-18T06:00:11Z</updated>
+      <updated>2018-04-18T06:30:10Z</updated>
     </source>
   </entry>
 
@@ -842,7 +866,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-18T06:00:08Z</updated>
+      <updated>2018-04-18T06:30:07Z</updated>
     </source>
   </entry>
 
@@ -896,7 +920,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-18T06:00:06Z</updated>
+      <updated>2018-04-18T06:30:05Z</updated>
     </source>
   </entry>
 
@@ -919,7 +943,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-18T06:00:05Z</updated>
+      <updated>2018-04-18T06:30:04Z</updated>
     </source>
   </entry>
 
@@ -943,7 +967,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-18T06:00:04Z</updated>
+      <updated>2018-04-18T06:30:04Z</updated>
     </source>
   </entry>
 
@@ -966,7 +990,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-18T06:00:06Z</updated>
+      <updated>2018-04-18T06:30:04Z</updated>
     </source>
   </entry>
 
@@ -994,7 +1018,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-18T06:00:09Z</updated>
+      <updated>2018-04-18T06:30:08Z</updated>
     </source>
   </entry>
 
@@ -1021,7 +1045,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-18T06:00:10Z</updated>
+      <updated>2018-04-18T06:30:09Z</updated>
     </source>
   </entry>
 
@@ -1044,7 +1068,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-18T06:00:09Z</updated>
+      <updated>2018-04-18T06:30:08Z</updated>
     </source>
   </entry>
 
@@ -1068,7 +1092,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-18T06:00:09Z</updated>
+      <updated>2018-04-18T06:30:09Z</updated>
     </source>
   </entry>
 
@@ -1117,7 +1141,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-18T06:00:11Z</updated>
+      <updated>2018-04-18T06:30:10Z</updated>
     </source>
   </entry>
 
@@ -1143,7 +1167,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-18T06:00:08Z</updated>
+      <updated>2018-04-18T06:30:07Z</updated>
     </source>
   </entry>
 
@@ -1167,7 +1191,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-18T06:00:11Z</updated>
+      <updated>2018-04-18T06:30:10Z</updated>
     </source>
   </entry>
 
@@ -1190,7 +1214,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-18T06:00:05Z</updated>
+      <updated>2018-04-18T06:30:04Z</updated>
     </source>
   </entry>
 
@@ -1237,7 +1261,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-18T06:00:07Z</updated>
+      <updated>2018-04-18T06:30:06Z</updated>
     </source>
   </entry>
 
@@ -1268,7 +1292,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-18T06:00:06Z</updated>
+      <updated>2018-04-18T06:30:05Z</updated>
     </source>
   </entry>
 
@@ -1291,7 +1315,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-18T06:00:09Z</updated>
+      <updated>2018-04-18T06:30:08Z</updated>
     </source>
   </entry>
 
@@ -1349,7 +1373,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-18T06:00:11Z</updated>
+      <updated>2018-04-18T06:30:10Z</updated>
     </source>
   </entry>
 
@@ -1376,7 +1400,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-18T06:00:10Z</updated>
+      <updated>2018-04-18T06:30:09Z</updated>
     </source>
   </entry>
 
@@ -1400,7 +1424,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-18T06:00:11Z</updated>
+      <updated>2018-04-18T06:30:10Z</updated>
     </source>
   </entry>
 
@@ -1432,7 +1456,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-18T06:00:09Z</updated>
+      <updated>2018-04-18T06:30:08Z</updated>
     </source>
   </entry>
 
@@ -1459,7 +1483,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-18T06:00:08Z</updated>
+      <updated>2018-04-18T06:30:07Z</updated>
     </source>
   </entry>
 
@@ -1484,7 +1508,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-18T06:00:07Z</updated>
+      <updated>2018-04-18T06:30:06Z</updated>
     </source>
   </entry>
 
@@ -1507,7 +1531,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-18T06:00:04Z</updated>
+      <updated>2018-04-18T06:30:03Z</updated>
     </source>
   </entry>
 
@@ -1552,7 +1576,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-18T06:00:06Z</updated>
+      <updated>2018-04-18T06:30:04Z</updated>
     </source>
   </entry>
 
@@ -1575,7 +1599,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-18T06:00:05Z</updated>
+      <updated>2018-04-18T06:30:04Z</updated>
     </source>
   </entry>
 
@@ -1613,7 +1637,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-18T06:00:06Z</updated>
+      <updated>2018-04-18T06:30:05Z</updated>
     </source>
   </entry>
 
@@ -1637,7 +1661,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-18T06:00:09Z</updated>
+      <updated>2018-04-18T06:30:09Z</updated>
     </source>
   </entry>
 
@@ -1661,7 +1685,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-18T06:00:04Z</updated>
+      <updated>2018-04-18T06:30:03Z</updated>
     </source>
   </entry>
 </feed>
