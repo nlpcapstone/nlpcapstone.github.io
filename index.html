@@ -33,6 +33,38 @@
 
 
 
+<h3><a href="https://nlpcapstonesemparse.blogspot.com/" title="NlpCapstone">Rajas Agashe <br/> Team Han Flying Solo</a></h3>
+
+
+<div class="entrygroup" id="tag:blogger.com,1999:blog-5600014144802012716.post-2741407940361589303">
+<h4><a href="https://nlpcapstonesemparse.blogspot.com/2018/04/blog-4-strawman-i.html">Blog 4: Strawman I</a></h4>
+<div class="entry">
+<div class="content">
+I'm implementing the parser within the the wikitables semantic parser(Neural Semantic parsing with type constraints by Krishnamurthy et al) since both are solving similar tasks and it'd be a cool result if the same architecture worked for both tasks. The similarity is that both tasks need to generate the logical form which incorporates elements of a context. For wikitables its cell and column names and for this task its variable and method names.<br /><br />Results:<br /><br /><ul><li>Wikitables framework - 4% accuracy.</li><li>Wikitables framework + parent states - 12% accuracy.</li></ul><div><br /></div><div>The wikitables baseline performs poorly and integrating the parent production rule used as input to the decoder cell in the java paper but not the wikitables paper results in a eight percent improvement. This is since the java production rule sequences are much longer and cannot just rely on the previous rule.</div><div> </div><br />These results demonstrate that while that tasks are similar there are some key differences in the datasets that won't allow the exact same architecture to be used. Nonetheless, I will still be implementing the java parser within the wikitables framework incorporating necessary elements to boost performance.<br /><br />My code is here:<br /><b>https://github.com/rajasagashe/allennlp/tree/enviro-linking</b></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://nlpcapstonesemparse.blogspot.com/2018/04/blog-4-strawman-i.html">by nlpcapstone (noreply@blogger.com) at April 19, 2018 07:13 PM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
 <h3><a href="https://medium.com/@halden.lin?source=rss-2759d54493c0------2" title="Stories by Halden Lin on Medium">Halden Lin <br/> Team undef.</a></h3>
 
 
@@ -2237,7 +2269,7 @@ I'm working on my project in my fork of Allennlp. I got the dataset and have wri
 
 <p>
 <strong>Last updated:</strong><br>
-April 19, 2018 07:00 PM<br>
+April 19, 2018 07:30 PM<br>
 <em>All times are UTC.</em><br>
 
 <!--

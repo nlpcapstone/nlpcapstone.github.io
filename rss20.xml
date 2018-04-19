@@ -9,6 +9,14 @@
 	<atom:link rel="self" href="https://nlpcapstone.github.io/rss20.xml" type="application/rss+xml"/>
 
 <item>
+	<title>Rajas Agashe &lt;br/&gt; Team Han Flying Solo: Blog 4: Strawman I</title>
+	<guid isPermaLink="false">tag:blogger.com,1999:blog-5600014144802012716.post-2741407940361589303</guid>
+	<link>https://nlpcapstonesemparse.blogspot.com/2018/04/blog-4-strawman-i.html</link>
+	<description>I'm implementing the parser within the the wikitables semantic parser(Neural Semantic parsing with type constraints by Krishnamurthy et al) since both are solving similar tasks and it'd be a cool result if the same architecture worked for both tasks. The similarity is that both tasks need to generate the logical form which incorporates elements of a context. For wikitables its cell and column names and for this task its variable and method names.&lt;br /&gt;&lt;br /&gt;Results:&lt;br /&gt;&lt;br /&gt;&lt;ul&gt;&lt;li&gt;Wikitables framework - 4% accuracy.&lt;/li&gt;&lt;li&gt;Wikitables framework + parent states - 12% accuracy.&lt;/li&gt;&lt;/ul&gt;&lt;div&gt;&lt;br /&gt;&lt;/div&gt;&lt;div&gt;The wikitables baseline performs poorly and integrating the parent production rule used as input to the decoder cell in the java paper but not the wikitables paper results in a eight percent improvement. This is since the java production rule sequences are much longer and cannot just rely on the previous rule.&lt;/div&gt;&lt;div&gt; &lt;/div&gt;&lt;br /&gt;These results demonstrate that while that tasks are similar there are some key differences in the datasets that won't allow the exact same architecture to be used. Nonetheless, I will still be implementing the java parser within the wikitables framework incorporating necessary elements to boost performance.&lt;br /&gt;&lt;br /&gt;My code is here:&lt;br /&gt;&lt;b&gt;https://github.com/rajasagashe/allennlp/tree/enviro-linking&lt;/b&gt;</description>
+	<pubDate>Thu, 19 Apr 2018 19:13:00 +0000</pubDate>
+	<author>noreply@blogger.com (nlpcapstone)</author>
+</item>
+<item>
 	<title>Halden Lin &lt;br/&gt; Team undef.: NLP Capstone | 04: First Steps</title>
 	<guid isPermaLink="false">https://medium.com/p/be87c31976b7</guid>
 	<link>https://medium.com/@halden.lin/nlp-capstone-04-first-steps-be87c31976b7?source=rss-2759d54493c0------2</link>
