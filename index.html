@@ -23,6 +23,45 @@
 <h1>NLP Capstone Spring 2018</h1>
 
 <div class="daygroup">
+<h2>April 20, 2018</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://deeplearningturingtest.wordpress.com" title="NLP Capstone Project Updates – Ananth">Ananth Gottumukkala <br/> Team Turing Test</a></h3>
+
+
+<div class="entrygroup" id="http://deeplearningturingtest.wordpress.com/?p=16">
+<h4 lang="en"><a href="https://deeplearningturingtest.wordpress.com/2018/04/20/strawman-baseline-1-deep-recurrent-q-network/">Strawman/Baseline 1: Deep Recurrent Q Network</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<p>For this week, I decided to first develop the RL model for asking questions. I chose to try a Deep Recurrent Q Network (DRQN) first (and the policy gradient method later) using the following repository as a starting point:</p>
+<p><a href="https://github.com/awjuliani/DeepRL-Agents/blob/master/Deep-Recurrent-Q-Network.ipynb" rel="nofollow">https://github.com/awjuliani/DeepRL-Agents/blob/master/Deep-Recurrent-Q-Network.ipynb</a></p>
+<p>This repository implements the DRQN for games by using LSTM cells to encode sequential information as successive frames are passed in for each time step. These frames are then passed through a CNN, then the LSTM cell, and then output the Q values. In the code I replaced where the input image (frame) is passed into the DRQN with the 2D word embedding matrix (GloVe vector for each word in sentence) and passed it straight into the CNN. I also gave a default reward of 0 to the model and managed to run the model without errors.</p>
+<p>My goal for next week is to change the reward allocation to be user input, hardcode all the question templates, and begin training the model.</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://deeplearningturingtest.wordpress.com/2018/04/20/strawman-baseline-1-deep-recurrent-q-network/">by ananthgo at April 20, 2018 06:47 AM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
+<div class="daygroup">
 <h2>April 19, 2018</h2>
 
 <div class="channelgroup">
@@ -2269,7 +2308,7 @@ I'm working on my project in my fork of Allennlp. I got the dataset and have wri
 
 <p>
 <strong>Last updated:</strong><br>
-April 20, 2018 06:30 AM<br>
+April 20, 2018 07:00 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--

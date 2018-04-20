@@ -9,6 +9,16 @@
 	<atom:link rel="self" href="https://nlpcapstone.github.io/rss20.xml" type="application/rss+xml"/>
 
 <item>
+	<title>Ananth Gottumukkala &lt;br/&gt; Team Turing Test: Strawman/Baseline 1: Deep Recurrent Q Network</title>
+	<guid isPermaLink="false">http://deeplearningturingtest.wordpress.com/?p=16</guid>
+	<link>https://deeplearningturingtest.wordpress.com/2018/04/20/strawman-baseline-1-deep-recurrent-q-network/</link>
+	<description>&lt;p&gt;For this week, I decided to first develop the RL model for asking questions. I chose to try a Deep Recurrent Q Network (DRQN) first (and the policy gradient method later) using the following repository as a starting point:&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/awjuliani/DeepRL-Agents/blob/master/Deep-Recurrent-Q-Network.ipynb&quot; rel=&quot;nofollow&quot;&gt;https://github.com/awjuliani/DeepRL-Agents/blob/master/Deep-Recurrent-Q-Network.ipynb&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;This repository implements the DRQN for games by using LSTM cells to encode sequential information as successive frames are passed in for each time step. These frames are then passed through a CNN, then the LSTM cell, and then output the Q values. In the code I replaced where the input image (frame) is passed into the DRQN with the 2D word embedding matrix (GloVe vector for each word in sentence) and passed it straight into the CNN. I also gave a default reward of 0 to the model and managed to run the model without errors.&lt;/p&gt;
+&lt;p&gt;My goal for next week is to change the reward allocation to be user input, hardcode all the question templates, and begin training the model.&lt;/p&gt;</description>
+	<pubDate>Fri, 20 Apr 2018 06:47:18 +0000</pubDate>
+</item>
+<item>
 	<title>Rajas Agashe &lt;br/&gt; Team Han Flying Solo: Blog 4: Strawman I</title>
 	<guid isPermaLink="false">tag:blogger.com,1999:blog-5600014144802012716.post-2741407940361589303</guid>
 	<link>https://nlpcapstonesemparse.blogspot.com/2018/04/blog-4-strawman-i.html</link>
