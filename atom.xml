@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:planet="http://planet.intertwingly.net/" xmlns:indexing="urn:atom-extension:indexing" indexing:index="no"><access:restriction xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" relationship="deny"/>
   <title>NLP Capstone Spring 2018</title>
-  <updated>2018-04-24T14:31:23Z</updated>
+  <updated>2018-04-24T15:00:22Z</updated>
   <generator uri="http://intertwingly.net/code/venus/">Venus</generator>
   <author>
     <name>Nelson Liu</name>
@@ -10,6 +10,29 @@
   <id>https://nlpcapstone.github.io/atom.xml</id>
   <link href="https://nlpcapstone.github.io/atom.xml" rel="self" type="application/atom+xml"/>
   <link href="https://nlpcapstone.github.io/" rel="alternate"/>
+
+  <entry>
+    <id>https://medium.com/p/79ba10bbc70c</id>
+    <link href="https://medium.com/@ryanp97/baseline-evaluation-and-ideas-for-evaluating-fully-featured-graphs-79ba10bbc70c?source=rss-6378d85d3a9b------2" rel="alternate" type="text/html"/>
+    <title>Baseline Evaluation and Ideas for Evaluating Fully-featured Graphs</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>Since the last week, I’ve been working on cleaning the model’s predictions in order to be able to evaluate it using SMATCH (note the following sections focus on the model trained on and predicting featureless graphs). There were a couple of cases in which the model was unable to produce a well formed graph, but those were few and far between.</p><h4>Dealing with Ill-formed Graphs</h4><p>I decided to deal with ill-formed graphs in a harsh way until Jan any I can decide on a better heuristic for dealing with them. Though, for now, whenever I encounter an invalid graph, I immediately replace it with (999999999 / invalid). I’ve verified that this graph does not appear in the development set and works as a dummy graph. Whenever SMATCH encounters this graph, it will output an F1 score of 0.0 for that prediction, label pair since there are no matched triples.</p><p>Ideally, we would like to be more generous with partially correct graphs, but dealing with that is non-trivial and is probably something I will explore more after training and evaluating a model that is able to predict features.</p><h4>Example of Ill-formed Graphs</h4><p>Below is an example of an ill-formed graph that the model predicted. Though the parenthesis structure is well-formed (i.e. none are missing or mismatched), the model predicted that the node _hito_n was a re-entrancy, despite it not appearing anywhere else in the graph</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/482/1*YlYEDUelqNqShF1bnjc5RA.png"/>An example of the model predicting a re-entrancy that has not yet occurred in the graph.</figure><figure><img alt="" src="https://cdn-images-1.medium.com/max/439/1*2QvzOMoTdU_BhDB8Zhj-ig.png"/>The target graph for the above example. The model’s prediction is pretty far off, but it’s interesting to see that it is able to have fairly high precision on the nodes that it is able to generate.</figure><p>The model that was trained on the featureless data was able to learn the parenthesis structure and there were no cases, that I could find, where the model predicted mismatched or missing parenthesis.’</p><h4>Baseline Evaluation Results</h4><p>Even with the harsh treatment of ill-formed graphs, the model was able to achieve a F1 score of 0.65 on the development dataset. This was much higher than I was expecting and seems to be promising for further exploration. I suspect that once I begin to train the model on data that includes features, the model will have a harder time making completely accurate predictions (though the F1 score will likely be inflated as explained in the next section)</p><h4>Ideas for Evaluating the Feature-full Model</h4><p>Though it’s nice to have the model correctly predict the mood, tense, etc. of a sentence, these may not be entirely helpful when evaluating the model. By including these features, we increase the number of triples that SMATCH looks for. There are a couple different ideas that Jan, Michael, and I discussed when it comes to evaluating the predicted graphs:</p><p>The first option is to leave the features squashed. This is probably the simplest approach, but is not ideal since it does not allow for partial credit. If the model misses a single feature (i.e. predicts the mood as tensed rather than untensed, the entire triple would be wrong even though other features are correct).</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*iQNyCAiGWw0w5YIXND8THw.png"/>Example of squashed features. Note this is the same example from last week’s post.</figure><p>The second option is to uncompress the features. In the case of the previous picture, it would be removing the equals signs and splitting the “super feature” based on the colons. This approach is a bit nicer in terms of giving partial credit, but is still not ideal since in increases the number of triples. We believe that this would inflate the SMATCH score to something that is not entirely useful and most of the score would be based on the feature triples and not the actual semantic meaning.</p><p>The third and final option we discussed was to selectively include features during evaluation. During training and prediction, the model would take in the entire squashed feature as input and output squashed features during prediction. However, we would uncompress the features and then choose a couple (or none at all) to keep when we post-process the graphs. With this, we can evaluate using a couple different combinations of features and see how those affect the model’s performance.</p><p>Some of the features the model predicts are: tense, mood, pass, etc. We can choose to keep only mood and tense if we believe that these are the most useful features for semantic transfer and see how that affects performance vs. a featureless model or some other combination of features.</p><h4>Training a Fully-featured Model</h4><p>Currently I’m training a model on data that includes the squashed features, though it will not be evaluated in time for this post or for the presentation. The model is the same exact model as the featureless model, so I expect that it may have a more noticeable issue matching parentheses and generating well-formed graphs in general until I have some time to experiment with the hyperparameters.</p><p>For reference, the models (both featureless and feature-full) are trained with the following architecture and hyperparameters:</p><pre>Encoder:<br/>    RNN Type       :  LSTM    <br/>    Embedding Dim  :  500</pre><pre>Decoder:<br/>    RNN Type       : Stacked LSTM<br/>    Layers         : 2<br/>    Embedding Dim  : 500<br/>    Dropout        : 0.3</pre><pre>Attention:<br/>    Type           : Global (<a href="https://github.com/spro/practical-pytorch/blob/master/seq2seq-translation/seq2seq-translation.ipynb">general [Luong]</a>)</pre><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=79ba10bbc70c" width="1"/></div>
+    </content>
+    <updated>2018-04-24T06:17:52Z</updated>
+    <category term="machine-learning"/>
+    <author>
+      <name>Ryan Pham</name>
+    </author>
+    <source>
+      <id>https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2</id>
+      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*83KfTWByl5pPq7A8_E8ApA.gif</logo>
+      <link href="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2" rel="alternate" type="text/html"/>
+      <link href="https://medium.com/feed/@ryanp97" rel="self" type="application/rss+xml"/>
+      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
+      <subtitle>Stories by Ryan Pham on Medium</subtitle>
+      <title>Stories by Ryan Pham on Medium</title>
+      <updated>2018-04-24T15:00:04Z</updated>
+    </source>
+  </entry>
 
   <entry xml:lang="en">
     <id>http://deeplearningturingtest.wordpress.com/?p=16</id>
@@ -35,7 +58,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-24T14:31:20Z</updated>
+      <updated>2018-04-24T15:00:20Z</updated>
     </source>
   </entry>
 
@@ -59,7 +82,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-24T14:30:03Z</updated>
+      <updated>2018-04-24T15:00:03Z</updated>
     </source>
   </entry>
 
@@ -86,7 +109,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-24T14:31:22Z</updated>
+      <updated>2018-04-24T15:00:21Z</updated>
     </source>
   </entry>
 
@@ -109,7 +132,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-24T14:31:20Z</updated>
+      <updated>2018-04-24T15:00:19Z</updated>
     </source>
   </entry>
 
@@ -133,7 +156,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-24T14:31:21Z</updated>
+      <updated>2018-04-24T15:00:20Z</updated>
     </source>
   </entry>
 
@@ -159,7 +182,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-24T14:31:19Z</updated>
+      <updated>2018-04-24T15:00:19Z</updated>
     </source>
   </entry>
 
@@ -227,7 +250,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-24T14:31:23Z</updated>
+      <updated>2018-04-24T15:00:22Z</updated>
     </source>
   </entry>
 
@@ -251,7 +274,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-24T14:31:22Z</updated>
+      <updated>2018-04-24T15:00:22Z</updated>
     </source>
   </entry>
 
@@ -577,7 +600,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-24T14:31:18Z</updated>
+      <updated>2018-04-24T15:00:17Z</updated>
     </source>
   </entry>
 
@@ -600,7 +623,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-24T14:31:04Z</updated>
+      <updated>2018-04-24T15:00:04Z</updated>
     </source>
   </entry>
 
@@ -625,7 +648,30 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-24T14:31:18Z</updated>
+      <updated>2018-04-24T15:00:17Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>https://medium.com/p/613328b9a85e</id>
+    <link href="https://medium.com/@ryanp97/further-data-simplification-and-baseline-exploration-613328b9a85e?source=rss-6378d85d3a9b------2" rel="alternate" type="text/html"/>
+    <title>Further Data Simplification and Baseline Exploration</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>As a side note, after meeting with Michael (the linguistics grad student mentioned in the first post), it seems that the “final” check of the Kyoto corpus is the most semantically accurate translation despite not being the most fluent. So it’s now feasible, and makes sense to, to get the Kyoto corpus incorporated into training at some point. He also suggested that I could use the top 5 statistically “best” parses from ERG/Jacy rather than just the best to increase the size of my dataset. These are both things that I will look into later down the line.</p><h3>Data Simplifications</h3><p>Jan and I decided to make a couple extra modifications to the input data in hopes of simplifying the model’s output. Ideally, these changes should allow the model to have a smaller output vocabulary size, and hopefully reduce the number of errors when generating a target tree.</p><h4>Simplifying Parentheses</h4><p>The first basic change was to separate closing parens from each other such that ) is the only way token that contains a closing paren. Originally, the parser would give spit out the closing parens as a single token, which most likely would confuse the model and result in non-wellformed output graphs.</p><p>The second step was to move the opening paren from the node label and attach it to the argument. Since the opening paren should only ever occur with an argument, this simplification removes the responsibility of having to figure out when to output an opening paren. We believe that this should not cause any sparsity issues since there is not very many different types of arguments.</p><h4>Simplifying Features</h4><p>Next, we concatenate argument features into a single token. The statistical parser is deterministic in its output, so the ordering of the features is always the same. Since there are only a few values each feature take on, the number of possible combinations is reasonable.</p><p>This is less than ideal since the model may never output sparse feature combinations. However, this is just a simplification to see the viability of the concept. Once we get a model that performs reasonably well, we can use the normal feature format as input and output.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*cFt-96vfvxtMvURKdfNttw.png"/>Simplified Japanese DMRS graph with squashed features.</figure><h4>Removing Features</h4><p>As a sanity check dataset, we created a dataset that has no features. This way, the model only has to predict arguments and argument labels. Though the features provide a lot of context, we are just using this dataset for preliminary testing and exploration.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*O5_KxoX1_gH9YURuqOu4nQ.png"/>Simplified, featureless, Japanese DMRS graph. Note that this is the featureless version of the above graph.</figure><h4>Removing `cargs`</h4><p>When parsing the graph, cargs shows up as one of the features of certain nodes. These represent the proper noun that the argument represents. In our scenario, we remove these carg features from the nodes since this should not affect semantic meaning and simplifies the model’s tasks and reduces sparsity issues (especially when we factor in squashing the features into a single token).</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/576/1*mIhOrdHdlF_R2_QCeXyxFQ.png"/>Example of English DMRS before simplification, with `carg` feature.</figure><h3>Baseline Exploration</h3><p>I’ve taken a look at both AllenNLP and OpenNMT for starting points of my code, but I haven’t quite made a full decision yet. AllenNLP seems much easier to extend and better documented, while OpenNMT is significantly faster but has a much less intuitive interface and codebase. For now, I’ve tested some models using AllenNLP, but I’m still considering OpenNMT. This week, I focused on experimenting on just the simplified, featureless dataset.</p><p>As for the AllenNLP model, it was trained with negative log likelihood as the objective function, 3 layer, BiLSTM with (very) small embedding and hidden sizes for 12 epochs. I wanted to see how much a small model could learn, and it learned how to match parens by epoch 5. It didn’t seem to learn much between the semantic structures, however. I assume this is caused mainly by two things: 1) the model was not trained for long enough or 2) the default attention is not particularly helpful for learning semantic structure. For changing the default attention, the structured attention presented in <a href="https://arxiv.org/pdf/1705.09207.pdf"><em>Learning Structured Text Representations</em></a><em> </em>by<em> </em>Liu et al. seems like an interesting and potentially useful change to the seq2seq model.</p><p>While I take a look at implementing the above attention, I’m going to train a similar model with 256 embedding and hidden sizes for 20 epochs, and see how that affects the ability of learning semantic representations. Ideally, I would like to get an implementation of the described attention in AllenNLP by next week, but depending on the difficult and how the next model goes, I may switch over to using OpenNMT as they already have it <a href="https://github.com/OpenNMT/OpenNMT-py/blob/master/onmt/modules/StructuredAttention.py">implemented</a>.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=613328b9a85e" width="1"/></div>
+    </content>
+    <updated>2018-04-17T05:49:19Z</updated>
+    <category term="machine-learning"/>
+    <author>
+      <name>Ryan Pham</name>
+    </author>
+    <source>
+      <id>https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2</id>
+      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*83KfTWByl5pPq7A8_E8ApA.gif</logo>
+      <link href="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2" rel="alternate" type="text/html"/>
+      <link href="https://medium.com/feed/@ryanp97" rel="self" type="application/rss+xml"/>
+      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
+      <subtitle>Stories by Ryan Pham on Medium</subtitle>
+      <title>Stories by Ryan Pham on Medium</title>
+      <updated>2018-04-24T15:00:04Z</updated>
     </source>
   </entry>
 
@@ -652,7 +698,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-24T14:31:22Z</updated>
+      <updated>2018-04-24T15:00:21Z</updated>
     </source>
   </entry>
 
@@ -675,7 +721,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-24T14:31:04Z</updated>
+      <updated>2018-04-24T15:00:04Z</updated>
     </source>
   </entry>
 
@@ -752,7 +798,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-24T14:31:20Z</updated>
+      <updated>2018-04-24T15:00:20Z</updated>
     </source>
   </entry>
 
@@ -775,7 +821,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-24T14:31:20Z</updated>
+      <updated>2018-04-24T15:00:19Z</updated>
     </source>
   </entry>
 
@@ -800,7 +846,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-24T14:31:18Z</updated>
+      <updated>2018-04-24T15:00:17Z</updated>
     </source>
   </entry>
 
@@ -873,7 +919,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-24T14:31:23Z</updated>
+      <updated>2018-04-24T15:00:22Z</updated>
     </source>
   </entry>
 
@@ -897,7 +943,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-24T14:31:21Z</updated>
+      <updated>2018-04-24T15:00:20Z</updated>
     </source>
   </entry>
 
@@ -921,7 +967,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-24T14:31:22Z</updated>
+      <updated>2018-04-24T15:00:22Z</updated>
     </source>
   </entry>
 
@@ -945,7 +991,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-24T14:31:19Z</updated>
+      <updated>2018-04-24T15:00:19Z</updated>
     </source>
   </entry>
 
@@ -999,7 +1045,30 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-24T14:31:18Z</updated>
+      <updated>2018-04-24T15:00:17Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>https://medium.com/p/a1903faeadb7</id>
+    <link href="https://medium.com/@ryanp97/project-proposal-neural-machine-translation-with-semantic-transfer-a1903faeadb7?source=rss-6378d85d3a9b------2" rel="alternate" type="text/html"/>
+    <title>Project Proposal — Neural Machine Translation with Semantic Transfer</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>State-of-the-art neural machine translation does not currently utilize much, if any, semantic information, meaning it misses out on a large amount of potentially useful information indirectly embedded in the sentence. This project aims to explore the benefits that semantic transfer could offer to neural machine translation.</p><p>In particular, this project will focus on Dependency Minimal Recursion Semantics and translation between English DMRS and Japanese DMRS. Currently, I’m working on this project alone under the supervision of Jan Buys.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*AlAZF1O2uYt4b12hCu7ajA.png"/>An example of English and Japanese DMRS graphs for the above sentence. Note the sentences have the same meaning.</figure><h4>Minimal Viable Action Plan</h4><ol><li>Obtain a parallel corpus.</li><li>Parse DMRS graphs from the parallel corpus</li><li>Simplify graphs (and be able to recover them in a robust manner to handle the model’s output)</li><li>Train a seq2seq model to predict a Japanese DMRS graph given an English DMRS graph as well as the required embeddings</li></ol><p>I’ve chosen the <a href="http://www.edrdg.org/wiki/index.php/Tanaka_Corpus">Tanaka Corpus</a> as my parallel corpus and cleaned it such that the only remaining sentences are English and Japanese sentences which belong to a translation pair. From there, I’ve parsed the corresponding DMRS graphs. For further details on how I cleaned the corpus and parsed the graphs, refer to my <a href="https://medium.com/@ryanp97/project-logistics-and-package-exploration-3d3651220219">last</a> blog post.</p><p>Currently, I’m working on how to simplify and recover the graphs robustly. Simplifying the graph seems fairly easy; however, I made some incorrect assumptions about the graphs, so recovery is currently a work in progress. Furthermore, I have yet to handle the robustness aspect. In general, I need to handle the cases where the model does not output a valid “simplified” graph. This includes, but is not limited to: handling mismatched/missing parentheses.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*LdgExRT9YoJ-UwxYxwJfsA.png"/>On the left is the English DMRS and on the right is the Japanese DMRS. Each example is labeled with a sentence ID and the original sentence (prefixed with `#` which Smatch ignores). The model will not have to predict these comments. However, in the future, we’d like to extend the model such that it would be able to recover the original sentence after generating a DMRS graph in the target language.</figure><p>From then, the last step in the minimal viable action plan is to train and evaluate model. Ideally, we would train the embeddings for the tokens in the graphs and the seq2seq model end-to-end with <a href="https://amr.isi.edu/eval/smatch/tutorial.html">Smatch</a> as the objective function, though I am still working with Jan on how I should piece this model together.</p><h4>Stretch Goals</h4><ol><li>Explore alternatives to standard seq2seq models (i.e. TreeLSTMs, custom architecture, etc.)</li><li>Expand/supplement dataset with <a href="https://alaginrc.nict.go.jp/WikiCorpus/index_E.html">Kyoto Corpus</a></li></ol><p>Since we are expecting the model to learn and generate graphs, it would be ideal if we were able to use a tree-like structure that would more accurately represent the data. If I am able to finish the minimal viable action plan with enough time left over, I would like to experiment and test out different architectures and see how that affects the model’s performance. There are a couple different packages for TreeLSTMs (such as <a href="https://github.com/dasguptar/treelstm.pytorch">this</a> one) that would potentially make this task not too difficult. Though, eventually I would like to customize an architecture for this task.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/496/1*omSJj6AYg7TDPUW0XPY6ew.png"/>A figure of a TreeLSTM grabbed from the <a href="https://arxiv.org/pdf/1503.00075.pdf">original</a> paper on TreeLSTMs.</figure><p>Each example in the Tanaka Corpus is a single sentence, making it easy to work with in terms of development and debugging. However, if I have extra time, I would like to supplement the Tanaka Corpus with the Kyoto Corpus which is comprised of translated Wikipedia articles. The corpus has much longer examples and provides a much more complex and realistic setting. An issue is that the documentation is in Japanese, and it is not entirely clear which of the different translations is “correct” as each example has a “primary,” “secondary,” and “check” translation. You can read more about it on the Kyoto Corpus website, hyperlinked above.</p><h4>Evaluation Plan</h4><p>There is not really a good statistical model, nor are there results that are very comparable due to the scope of the project. Since the scope of the project does not include recovering the sentence from a generated DMRS graph, comparisons between this project and papers that do tree-to-tree machine translations don’t really make much sense.</p><p>I expect to have some time leftover to explore different architectures, so I hope to make the seq2seq results the baseline for comparison for other architectures I have time to try.</p><h4>Related Work</h4><p><a href="https://arxiv.org/pdf/1704.08381.pdf">Neural AMR: Sequence-to-Sequence Models for Parsing and Generation</a> is fairly relevant to this project in the sense that it has similar motivations for working with semantics in NLP. The paper covers how they overcame a lack of labeled data, achieved competitive results for both parsing AMR graphs and generating text from AMR graphs, as well as extensive ablation studies and analysis. Their graph preprocessing steps are extremely relevant to this project, and I will likely be referencing their paper and <a href="https://github.com/sinantie/NeuralAmr">codebase</a> often as I work on cleaning and preprocessing the Tanaka Corpus.</p><p><a href="https://arxiv.org/pdf/1503.00075.pdf">Improved Semantic Representations From Tree-Structured LSTMs</a> provides a good basis for my stretch goals. The Child-Sum TreeLSTM units seem like a good option to test for representing the DMRS graph as any given node can take any number of children. These children can be used to represent dependencies as outlined in the paper, but it seems it might be possible to have the properties of a head word as children of the corresponding node as well. There’s a couple other useful ideas that come from the paper, but for the sake of brevity, we’ll leave it at this.</p><p><a href="https://arxiv.org/pdf/1603.06075.pdf">Tree-to-Sequence Attention Neural Machine Translation</a> is a slight glimpse at the future of this project. If this project is successfully able to transfer semantic information between languages, the next step would make the model complete the entire cycle, sequence-to-graph-to-graph-to-sequence, in hopes of achieving better results than statistical machine translation.</p><p>Additionally, here is a short list of other relevant papers:</p><ul><li><a href="https://arxiv.org/pdf/1409.0473.pdf">Neural Machine Translation by Jointly Learning to Align and Translate</a></li><li><a href="https://arxiv.org/pdf/1704.07092.pdf">Robust Incremental Neural Semantic Graph Parsing</a></li><li><a href="http://www.aclweb.org/anthology/P13-2131">Smatch: an Evaluation Metric for Semantic Feature Structures</a></li></ul><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=a1903faeadb7" width="1"/></div>
+    </content>
+    <updated>2018-04-10T05:31:27Z</updated>
+    <category term="machine-learning"/>
+    <author>
+      <name>Ryan Pham</name>
+    </author>
+    <source>
+      <id>https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2</id>
+      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*83KfTWByl5pPq7A8_E8ApA.gif</logo>
+      <link href="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2" rel="alternate" type="text/html"/>
+      <link href="https://medium.com/feed/@ryanp97" rel="self" type="application/rss+xml"/>
+      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
+      <subtitle>Stories by Ryan Pham on Medium</subtitle>
+      <title>Stories by Ryan Pham on Medium</title>
+      <updated>2018-04-24T15:00:04Z</updated>
     </source>
   </entry>
 
@@ -1023,7 +1092,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-24T14:30:03Z</updated>
+      <updated>2018-04-24T15:00:03Z</updated>
     </source>
   </entry>
 
@@ -1046,7 +1115,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-24T14:31:04Z</updated>
+      <updated>2018-04-24T15:00:04Z</updated>
     </source>
   </entry>
 
@@ -1074,7 +1143,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-24T14:31:20Z</updated>
+      <updated>2018-04-24T15:00:20Z</updated>
     </source>
   </entry>
 
@@ -1101,7 +1170,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-24T14:31:22Z</updated>
+      <updated>2018-04-24T15:00:21Z</updated>
     </source>
   </entry>
 
@@ -1124,7 +1193,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-24T14:31:20Z</updated>
+      <updated>2018-04-24T15:00:19Z</updated>
     </source>
   </entry>
 
@@ -1148,7 +1217,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-24T14:31:21Z</updated>
+      <updated>2018-04-24T15:00:20Z</updated>
     </source>
   </entry>
 
@@ -1197,7 +1266,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-24T14:31:23Z</updated>
+      <updated>2018-04-24T15:00:22Z</updated>
     </source>
   </entry>
 
@@ -1223,7 +1292,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-24T14:31:19Z</updated>
+      <updated>2018-04-24T15:00:19Z</updated>
     </source>
   </entry>
 
@@ -1247,7 +1316,30 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-24T14:31:22Z</updated>
+      <updated>2018-04-24T15:00:22Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>https://medium.com/p/3d3651220219</id>
+    <link href="https://medium.com/@ryanp97/project-logistics-and-package-exploration-3d3651220219?source=rss-6378d85d3a9b------2" rel="alternate" type="text/html"/>
+    <title>Project Logistics and Package Exploration</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>Jan Buys has agreed to advise me while I pursue Neural Machine Translation with Semantic Transfer, so this post will mainly focus on the packages and resources available for completing and exploring the minimal viable action plan as described <a href="https://medium.com/@ryanp97/project-ideas-ab3d796c422e">previously</a>.</p><h4>Dataset</h4><p>I’m currently working on cleaning the <a href="http://www.edrdg.org/wiki/index.php/Tanaka_Corpus">Tanaka Corpus</a> so that I can segment the sentences and then parse the graphs. This corpus is small and the sentences are short, so it seems like a good option for development. I’ve cleaned the corpus by removing any sentences that are not in English or Japanese as well as removing any sentences that do not belong to a pair of translations. Each sentence has at least one translation; note that some sentences have more than one translation.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/753/1*vajUkTbO551F3mjGQjyHQA.png"/>The Japanese sentence can be translated into the two English sentences. Note that the first translation is more direct, while the second translation seems to be drawing on the author’s bias or some other context.</figure><p>Also, in the Tanaka corpus, I noticed some things of interest. The first thing is that some hard to read Kanji are annotated with pronunciations in Katakana. The next were a couple typos in the translation (i.e. the proper noun “Tatoeba” was spelled “Tatoeb” in the translation). Also, on one line (the only one that I could find), the Japanese sentence had the romanization in parentheses following the translation. For the sake of consistency, I’ve removed this from the dataset for the sake of consistency. Aside from this single change, everything else was left untouched.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/838/1*xhYvt3b5aClaW0-pDdK8Cw.png"/>Example of a translation pair from the Tanaka corpus. Note the translated smiley face!</figure><p>There is also the <a href="https://alaginrc.nict.go.jp/WikiCorpus/index_E.html">Kyoto Corpus</a> which is larger, more diverse, and has a more accurate representation of ‘real’ sentences. However, this dataset is formatted in a slightly more complex way, so I’m still figuring out how to tackle cleaning this corpus. This corpus also provides at least one translation.</p><h4>Word Segmentation</h4><p>There were 3 main programs that I considered and experimented with: <a href="https://github.com/neubig/kytea">KyTea</a> (pronounced “cutie”), <a href="http://www.atilika.org/">Kuromoji</a>, and <a href="http://taku910.github.io/mecab/">MeCab</a>.</p><p>After comparing the segmentation outputs on some small samples, it seemed that KyTea’s outputs often had significant differences between the outputs from Kuromoji and MeCab. After asking a lecturer from the UW Japanese department for their opinion, it seemed that the outputs from Kuromoji and MeCab were closer to the gold standard than the KyTea’s. As implied by the previous sentiment: the data that I will be working with is NOT gold standard, but it is the best available.</p><p>I decided on using MeCab as it had a very easy to use Python interface while Kuromoji did not have a easily accessible Python interface. Following <a href="http://www.robfahey.co.uk/blog/japanese-text-analysis-in-python/">this</a> blog post, I’ve setup MeCab to be able to handle more robust input such as slang and neologisms, though I’m unsure if this will work well with the Jacy grammar mentioned in the Graph Parsing section.</p><p><a href="https://arxiv.org/pdf/1410.0291.pdf">Here</a> is a paper on the accuracy of MeCab when performing segmentation. The paper also gives a nice, brief overview on the differences between English and Japanese. Note the size of the Tanaka corpus is smaller than the current version as translations are added semi-regularly.</p><h4>Graph Parsing</h4><p>For parsing the MRS graphs and converting MRS to DMRS, I used the <a href="https://github.com/goodmami/mrs-to-penman">mrs-to-penmen</a>. It uses the <a href="https://github.com/delph-in/pydelphin">PyDelphin</a> interface which provides a wrapper for the <a href="http://sweaglesw.org/linguistics/ace/">ACE</a> parser. The ACE parser parses the MRS graph, and then mrs-to-penmen should convert the parsed MRS graph to penmen format.</p><p>As for the grammar that ACE uses to parse, I’m using the <a href="http://www.delph-in.net/erg/">English Resource Grammar</a> and <a href="http://moin.delph-in.net/JacyTop">Jacy</a> for English and Japanese respectively.</p><p>After getting the parsed penman format, there is still some cleaning that I have to do and some simplification of the penman format to simplify what the seq2seq model is expected to output.</p><h4>Deep Learning Packages</h4><p>Additionally, since this project will rely on Deep Learning, I’ve installed AllenNLP and PyTorch in anticipation of the seq2seq model that will be trained after linearizing the DMRS graph as well as the TreeLSTM model (stretch goal).</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=3d3651220219" width="1"/></div>
+    </content>
+    <updated>2018-04-06T01:20:18Z</updated>
+    <category term="machine-learning"/>
+    <author>
+      <name>Ryan Pham</name>
+    </author>
+    <source>
+      <id>https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2</id>
+      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*83KfTWByl5pPq7A8_E8ApA.gif</logo>
+      <link href="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2" rel="alternate" type="text/html"/>
+      <link href="https://medium.com/feed/@ryanp97" rel="self" type="application/rss+xml"/>
+      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
+      <subtitle>Stories by Ryan Pham on Medium</subtitle>
+      <title>Stories by Ryan Pham on Medium</title>
+      <updated>2018-04-24T15:00:04Z</updated>
     </source>
   </entry>
 
@@ -1294,7 +1386,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-24T14:31:18Z</updated>
+      <updated>2018-04-24T15:00:17Z</updated>
     </source>
   </entry>
 
@@ -1325,7 +1417,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-24T14:31:18Z</updated>
+      <updated>2018-04-24T15:00:17Z</updated>
     </source>
   </entry>
 
@@ -1348,7 +1440,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-24T14:31:20Z</updated>
+      <updated>2018-04-24T15:00:19Z</updated>
     </source>
   </entry>
 
@@ -1406,7 +1498,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-24T14:31:23Z</updated>
+      <updated>2018-04-24T15:00:22Z</updated>
     </source>
   </entry>
 
@@ -1433,7 +1525,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-24T14:31:22Z</updated>
+      <updated>2018-04-24T15:00:21Z</updated>
     </source>
   </entry>
 
@@ -1457,7 +1549,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-24T14:31:22Z</updated>
+      <updated>2018-04-24T15:00:22Z</updated>
     </source>
   </entry>
 
@@ -1489,7 +1581,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-24T14:31:20Z</updated>
+      <updated>2018-04-24T15:00:20Z</updated>
     </source>
   </entry>
 
@@ -1516,7 +1608,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-24T14:31:19Z</updated>
+      <updated>2018-04-24T15:00:19Z</updated>
     </source>
   </entry>
 
@@ -1541,7 +1633,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-24T14:31:18Z</updated>
+      <updated>2018-04-24T15:00:17Z</updated>
     </source>
   </entry>
 
@@ -1564,7 +1656,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-24T14:30:03Z</updated>
+      <updated>2018-04-24T15:00:03Z</updated>
     </source>
   </entry>
 
@@ -1609,7 +1701,30 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-24T14:31:04Z</updated>
+      <updated>2018-04-24T15:00:04Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>https://medium.com/p/ab3d796c422e</id>
+    <link href="https://medium.com/@ryanp97/project-ideas-ab3d796c422e?source=rss-6378d85d3a9b------2" rel="alternate" type="text/html"/>
+    <title>Capstone Ideas</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>I plan on following a research track and hope to pursue one of the following ideas:</p><h4><strong>Neural Machine Translation with Semantic Transfer</strong> (as outlined by Jan Buys)</h4><p><em>Minimal Viable Action Plan:</em> <br/>1) Use statistical parser (<a href="http://sweaglesw.org/linguistics/ace/">ACE</a>) to get MRS graphs of English/Japanese sentences and convert to DMRS graph (using <a href="https://github.com/delph-in/pydelphin">PyDelphin</a> interface to do parsing and conversion)<br/>2) Linearize DMRS graph<br/>3) Train a seq2seq that takes linearized English DMRS graph and outputs linearized Japanese DMRS graph</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*J3l_TjWr3A-jOAcrCznqvA.png"/>Example of penmen format that DMRS can be represented with (non-linearized). Note that the representation shown is an AMR graph, not a DMRS graph. Figure taken from this <a href="https://arxiv.org/pdf/1704.08381.pdf">paper</a>.</figure><p><em>Stretch Goals:<br/></em>1) Explore different architectures for semantic transfer (e.g. TreeLSTM as opposed to seq2seq)<br/>2) Explore ways to learn correspondences between semantic concepts in the two languages</p><h4>DMRS to Text Generation (as outlined by Jan Buys)</h4><p><em>Minimal Viable Action Plan:<br/></em>1) Generate DMRS graph serialization similar to what was outlined above<br/>2) Train seq2seq model to generate text directly from graph serialization</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*Bndfdhs3ixwG6-JUQPC72A.png"/>Example of different graph representations. Figure taken from this <a href="http://www.lrec-conf.org/proceedings/lrec2016/pdf/634_Paper.pdf">paper</a>.</figure><p><em>Stretch Goals:</em><br/>1) Experiment with different seq2seq architectures<br/>2) Attempt semi-supervised training using a high-precision grammar-based parser</p><h4>Reproduce results / expand on a Paper</h4><p>In this option, I would be attempting to expand on this <a href="https://arxiv.org/pdf/1704.04859.pdf">paper</a> regarding hybrid models. The paper attempts to alleviate and/or solve the issue of out-of-vocabulary words and characters, specifically in Chinese and Japanese. It describes using a CNN in conjunction with an RNN to do so; the CNN learns the radicals of characters and attempts to choose characters with similar radicals since the meaning of radicals remains constant between characters.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/822/1*5GyInYVxc8ifP_YRCHiHHA.png"/>Image taken from the linked paper.</figure><p><em>Minimal Viable Action Plan:<br/></em>1) Obtain/create a visual dataset of the characters in order to train the CNN<br/>2) Design and explore different methods for joining the two models such as described in the paper<br/>3) Train the model end-to-end</p><p><em>Stretch Goals:<br/></em>1) Error analysis on different methods for joining and potential points of error<br/>2) Exploration of model variations and architecture (incremental changes similar to this <a href="https://arxiv.org/pdf/1708.04755.pdf">paper</a>)</p><p>For current progress, visit the <a href="https://github.com/ryanp97/NeuralEmpty">repo</a>.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=ab3d796c422e" width="1"/></div>
+    </content>
+    <updated>2018-04-03T00:55:49Z</updated>
+    <category term="machine-learning"/>
+    <author>
+      <name>Ryan Pham</name>
+    </author>
+    <source>
+      <id>https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2</id>
+      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*83KfTWByl5pPq7A8_E8ApA.gif</logo>
+      <link href="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2" rel="alternate" type="text/html"/>
+      <link href="https://medium.com/feed/@ryanp97" rel="self" type="application/rss+xml"/>
+      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
+      <subtitle>Stories by Ryan Pham on Medium</subtitle>
+      <title>Stories by Ryan Pham on Medium</title>
+      <updated>2018-04-24T15:00:04Z</updated>
     </source>
   </entry>
 
@@ -1647,7 +1762,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-24T14:31:18Z</updated>
+      <updated>2018-04-24T15:00:17Z</updated>
     </source>
   </entry>
 
@@ -1671,7 +1786,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-24T14:31:21Z</updated>
+      <updated>2018-04-24T15:00:20Z</updated>
     </source>
   </entry>
 
@@ -1695,7 +1810,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-24T14:30:03Z</updated>
+      <updated>2018-04-24T15:00:03Z</updated>
     </source>
   </entry>
 </feed>
