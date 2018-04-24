@@ -18,19 +18,6 @@
     </foaf:member>
     <foaf:member>
       <foaf:Agent>
-        <foaf:name>Ryan Pham &lt;br/&gt; Team NeuralEmpty</foaf:name>
-        <foaf:weblog>
-          <foaf:Document rdf:about="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2">
-            <dc:title>Stories by Ryan Pham on Medium</dc:title>
-            <rdfs:seeAlso>
-              <rss:channel rdf:about="https://medium.com/feed/@ryanp97"/>
-            </rdfs:seeAlso>
-          </foaf:Document>
-        </foaf:weblog>
-      </foaf:Agent>
-    </foaf:member>
-    <foaf:member>
-      <foaf:Agent>
         <foaf:name>Zichun Liu, Ning Hong, Sujie Zhou &lt;br/&gt; Team The Bugless</foaf:name>
         <foaf:weblog>
           <foaf:Document rdf:about="https://medium.com/@hongnin1?source=rss-c450eb982161------2">
