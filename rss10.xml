@@ -15,6 +15,8 @@
 
 	<items>
 		<rdf:Seq>
+			<rdf:li rdf:resource="tag:blogger.com,1999:blog-9203775015655831448.post-597849658553454254" />
+			<rdf:li rdf:resource="http://cse481n-capstone.azurewebsites.net/?p=51" />
 			<rdf:li rdf:resource="http://mathstoc.wordpress.com/?p=323" />
 			<rdf:li rdf:resource="tag:blogger.com,1999:blog-5600014144802012716.post-1597347106413431292" />
 			<rdf:li rdf:resource="https://medium.com/p/79ba10bbc70c" />
@@ -74,6 +76,145 @@
 	</items>
 </channel>
 
+<item rdf:about="tag:blogger.com,1999:blog-9203775015655831448.post-597849658553454254">
+	<title>Pinyi Wang, Dawei Shen, Xukai Liu &lt;br/&gt; Team Overfit: #5 Milestone: Strawman/Baseline II</title>
+	<link>https://teamoverfit.blogspot.com/2018/04/5-milestone-strawmanbaseline-ii.html</link>
+	<content:encoded>&lt;h2 style=&quot;height: 0px;&quot;&gt;&lt;span&gt;Team Overfit&lt;/span&gt;&lt;/h2&gt;&lt;h3&gt;&lt;span&gt;&lt;br /&gt;&lt;/span&gt;&lt;/h3&gt;&lt;h3&gt;&lt;span&gt;Project repo: &lt;span style=&quot;font-size: 18.72px;&quot;&gt;&lt;a href=&quot;https://github.com/pinyiw/nlpcapstone-teamoverfit&quot;&gt;https://github.com/pinyiw/nlpcapstone-teamoverfit&lt;/a&gt;&lt;/span&gt;&lt;/span&gt;&lt;/h3&gt;&lt;h4&gt;&lt;span&gt;Team members: Dawei Shen, Pinyi Wang, Xukai Liu&lt;/span&gt;&lt;/h4&gt;&lt;div style=&quot;text-align: start; text-indent: 0px;&quot;&gt;&lt;div style=&quot;margin: 0px;&quot;&gt;&lt;div&gt;&lt;span&gt;&lt;b&gt;Blog Post: #4: 04/17/2018&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;&lt;span&gt;&lt;b&gt;&lt;br /&gt;&lt;/b&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span&gt;Social Media Predicts Stock Price (StartUp Mode)&lt;/span&gt;&lt;br /&gt;&lt;span&gt;&lt;br /&gt;&lt;/span&gt;&lt;span&gt;&lt;span id=&quot;docs-internal-guid-8a395488-fb3a-d9a7-cec2-8d3cb31f0a59&quot;&gt;&lt;span&gt;This week, we tried to use tf-idf and seq2vec to process news headlines as input to our LSTM &lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span&gt;model to predict UP/DOWN for APPLE stock price.&lt;/span&gt;&lt;br /&gt;&lt;span&gt;&lt;br /&gt;&lt;/span&gt;&lt;br /&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span&gt;Data Preprocessing&lt;/span&gt;&lt;ul&gt;&lt;li&gt;&lt;span&gt;Crawling historical news headlines from twitter&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;Categorize tweets with date and correlated stock price&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;Cleanup unrelated data&lt;/span&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;Map vocabulary to index with removing words that appear less than 3 times in the tweet news corpus.&lt;/span&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;ul style=&quot;margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;/ul&gt;&lt;b id=&quot;docs-internal-guid-8a395488-fb3b-6d45-fdea-c8bfa2539c59&quot; style=&quot;font-weight: normal;&quot;&gt;&lt;br /&gt;&lt;/b&gt;&lt;br /&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span&gt;Seq2One with TF-IDF&lt;/span&gt;&lt;/div&gt;&lt;ul style=&quot;margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;li dir=&quot;ltr&quot; style=&quot;background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;&quot;&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span&gt;TF-IDF&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;&lt;ul style=&quot;margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;li dir=&quot;ltr&quot; style=&quot;background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;&quot;&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span&gt;Correlate word frequencies with price changes (convert words into normalized frequency count vector)&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;&lt;/ul&gt;&lt;li dir=&quot;ltr&quot; style=&quot;background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;&quot;&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span&gt;Seq2One&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;&lt;ul style=&quot;margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;li dir=&quot;ltr&quot; style=&quot;background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;&quot;&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span&gt;Correlate average word embeddings with price changes (convert words into normalized embedding vector)&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;&lt;/ul&gt;&lt;li dir=&quot;ltr&quot; style=&quot;background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;&quot;&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span&gt;Bidirectional RNN&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;&lt;ul style=&quot;margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;li dir=&quot;ltr&quot; style=&quot;background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;&quot;&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span&gt;Enhance the performance by knowing before and after prices&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/ul&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span&gt;Evaluation&lt;/span&gt;&lt;/div&gt;&lt;ul style=&quot;margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;li dir=&quot;ltr&quot; style=&quot;background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;&quot;&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span&gt;Accuracy on predicting Up or Down&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;&lt;li dir=&quot;ltr&quot; style=&quot;background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;&quot;&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span&gt;Accuracy on predicting Stock Price (To Do)&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;&lt;/ul&gt;&lt;b style=&quot;font-weight: normal;&quot;&gt;&lt;br /&gt;&lt;/b&gt;&lt;br /&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span&gt;Result&lt;/span&gt;&lt;/div&gt;&lt;br /&gt;&lt;ul style=&quot;margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;li dir=&quot;ltr&quot; style=&quot;background-color: transparent; color: black; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;&quot;&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: black; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;&quot;&gt;&lt;span&gt;TF-IDF: 60.7% accuracy predicting UP/DOWN on test set with 273 total data points and 9/1 train-test split&lt;/span&gt;&lt;/span&gt;&lt;span&gt;&lt;span&gt;&lt;img height=&quot;111&quot; src=&quot;https://lh6.googleusercontent.com/9WFnXNdIX3lzI0l_jlrB6QFF7_fVfQQO7XKraIADR4-19-3mR9lhcpkAR_IVq_tunm2mmqjupoGuwUAadvSxV7BDucjBdPbzGHPAZStg0RmLSBVpklLRwFI8-sBek34Bm_Hbbmdi&quot; width=&quot;624&quot; /&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;&lt;li dir=&quot;ltr&quot; style=&quot;background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;&quot;&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span&gt;&lt;span id=&quot;docs-internal-guid-8a395488-fb3b-b254-5b6a-6afbd96b452b&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;&lt;li&gt;&lt;span&gt;Seq2Vec: 53.6% accuracy predicting UP/DOWN on test set with 273 total data points and 9/1 train-test split&lt;/span&gt;&lt;img height=&quot;125&quot; src=&quot;https://lh3.googleusercontent.com/mg9KE0u04yWMEzPWH3kHqeSKysI29GbvgDsGX9jCL4cyT3DNuIMuJ0DAACiUvLTCLqW4u5jSdC1oSp-u3OdYEyOatI9Sd-vXmt7LZe6ZxV1zYdmZWsvYN5hqKToCJcmcfqKrlfSk&quot; width=&quot;624&quot; /&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/div&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span id=&quot;docs-internal-guid-8a395488-fb3c-6f01-c575-279c6f3d6421&quot;&gt;&lt;/span&gt;&lt;br /&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span id=&quot;docs-internal-guid-8a395488-fb3c-6f01-c575-279c6f3d6421&quot;&gt;&lt;span&gt;Error Analysis:&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;span id=&quot;docs-internal-guid-8a395488-fb3c-6f01-c575-279c6f3d6421&quot;&gt;&lt;/span&gt;&lt;br /&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-left: 36pt; margin-top: 0pt;&quot;&gt;&lt;span id=&quot;docs-internal-guid-8a395488-fb3c-6f01-c575-279c6f3d6421&quot;&gt;&lt;span&gt;Things that may impair the precision of prediction&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;span id=&quot;docs-internal-guid-8a395488-fb3c-6f01-c575-279c6f3d6421&quot;&gt;&lt;/span&gt;&lt;br /&gt;&lt;ul style=&quot;margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span id=&quot;docs-internal-guid-8a395488-fb3c-6f01-c575-279c6f3d6421&quot;&gt;&lt;li dir=&quot;ltr&quot; style=&quot;font-family: Arial; font-size: 11pt; margin-left: 36pt; vertical-align: baseline; white-space: pre;&quot;&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span style=&quot;font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;&quot;&gt;Words with high frequency but have low affect on stock prices:&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;&lt;ul style=&quot;margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;li dir=&quot;ltr&quot; style=&quot;font-family: Arial; font-size: 11pt; margin-left: 36pt; vertical-align: baseline; white-space: pre;&quot;&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span style=&quot;font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;&quot;&gt;A, is, of, for, the&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;&lt;li dir=&quot;ltr&quot; style=&quot;font-family: Arial; font-size: 11pt; margin-left: 36pt; vertical-align: baseline; white-space: pre;&quot;&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span style=&quot;font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;&quot;&gt;Tweets talking about fruit &lt;/span&gt;&lt;span style=&quot;font-size: 11pt; font-style: italic; vertical-align: baseline; white-space: pre-wrap;&quot;&gt;apple&lt;/span&gt;&lt;span style=&quot;font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;&quot;&gt; instead of the company&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;&lt;/ul&gt;&lt;li dir=&quot;ltr&quot; style=&quot;font-family: Arial; font-size: 11pt; margin-left: 36pt; vertical-align: baseline; white-space: pre;&quot;&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span style=&quot;font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;&quot;&gt;Tweets news that have high frequency but low affect on stock prices and news that may have high affect on stock prices but with low frequencies.&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;&lt;li dir=&quot;ltr&quot; style=&quot;font-family: Arial; font-size: 11pt; margin-left: 36pt; vertical-align: baseline; white-space: pre;&quot;&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span style=&quot;font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;&quot;&gt;Losing information of each single tweet as we have combined all tweets in a day together to form a word frequency vector and do the prediction.&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;&lt;/span&gt;&lt;/ul&gt;&lt;span id=&quot;docs-internal-guid-8a395488-fb3c-6f01-c575-279c6f3d6421&quot;&gt;&lt;/span&gt;&lt;br /&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-left: 36pt; margin-top: 0pt;&quot;&gt;&lt;span id=&quot;docs-internal-guid-8a395488-fb3c-6f01-c575-279c6f3d6421&quot;&gt;&lt;span&gt;Things that could be done to improve the performance&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;span id=&quot;docs-internal-guid-8a395488-fb3c-6f01-c575-279c6f3d6421&quot;&gt;&lt;/span&gt;&lt;br /&gt;&lt;ul style=&quot;margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span id=&quot;docs-internal-guid-8a395488-fb3c-6f01-c575-279c6f3d6421&quot;&gt;&lt;li dir=&quot;ltr&quot; style=&quot;font-family: Arial; font-size: 11pt; margin-left: 36pt; vertical-align: baseline; white-space: pre;&quot;&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span style=&quot;font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;&quot;&gt;Add the overall market stock price as part of the input because it usually also has big impact on a single companies stock price.&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;&lt;li dir=&quot;ltr&quot; style=&quot;font-family: Arial; font-size: 11pt; margin-left: 36pt; vertical-align: baseline; white-space: pre;&quot;&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span style=&quot;font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;&quot;&gt;Crawl more data for more companies and longer duration&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;&lt;li dir=&quot;ltr&quot; style=&quot;font-family: Arial; font-size: 11pt; margin-left: 36pt; vertical-align: baseline; white-space: pre;&quot;&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span style=&quot;font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;&quot;&gt;Add financial &lt;/span&gt;&lt;/div&gt;&lt;/li&gt;&lt;li dir=&quot;ltr&quot; style=&quot;font-family: Arial; font-size: 11pt; margin-left: 36pt; vertical-align: baseline; white-space: pre;&quot;&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span style=&quot;font-size: 11pt; vertical-align: baseline; white-space: pre-wrap;&quot;&gt;Add the competitor companies stock prices and tweets news as part of the input&lt;/span&gt;&lt;/div&gt;&lt;/li&gt;&lt;/span&gt;&lt;/ul&gt;&lt;span id=&quot;docs-internal-guid-8a395488-fb3c-6f01-c575-279c6f3d6421&quot;&gt;&lt;/span&gt;&lt;br /&gt;&lt;div&gt;&lt;span id=&quot;docs-internal-guid-8a395488-fb3c-6f01-c575-279c6f3d6421&quot;&gt;&lt;span&gt;&lt;span style=&quot;font-size: 14.6667px; white-space: pre-wrap;&quot;&gt;&lt;br /&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;span id=&quot;docs-internal-guid-8a395488-fb3c-6f01-c575-279c6f3d6421&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</content:encoded>
+	<dc:date>2018-04-25T05:20:00+00:00</dc:date>
+	<dc:creator>Team Overfit</dc:creator>
+</item>
+<item rdf:about="http://cse481n-capstone.azurewebsites.net/?p=51">
+	<title>Boyan Li, Dennis Orzikh, Lanhao Wu &lt;br/&gt; Team Watch Your Language!: More Data Collection and Baseline</title>
+	<link>http://cse481n-capstone.azurewebsites.net/2018/04/24/more-data-collection-and-baseline/</link>
+	<content:encoded>&lt;h3&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Data Collection: &lt;/span&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;In the last blog we discussed the challenges of trying to find general Reddit posts that were similar to the collected MeanJokes posts. Even limiting to posts with Jaccard Similarity &amp;gt; .3 a lot of the data looked like the following:&lt;/span&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;MeanJokes Post: “Don’t be offended but Fuck you”
+    Similar Post: “fuck Foligno”
+    Similar Post: “fuck narek”
+    Similar Post: “fuck&quot;
+    Similar Post: “Fuck me?”
+    Similar Post: “Fuck me”
+    Similar Post: “fuck me”
+&lt;/span&gt;    Similar Post: “Fuck it”
+    Similar Post: “Fuck”
+    Similar Post: “Who the fuck are you?”&lt;/pre&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;These wouldn’t be very interesting examples to eventually train a model on. We also noticed that because of the nature of Jaccard Similarity and the sparsity of language in our collected Reddit posts, most of the posts that matched our MeanJokes posts would be very short, containing one or two key phrases from the MJ post. Posts made to Reddit are typically either very long or very short, so to make use of those long posts we decided to split them up by sentence and consider every sentence individually. We would also filter out sentences that are below a certain number of tokens, so that we avoid examples like the above.&lt;/span&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;MeanJokes Post: “How is ScizorSci like Hoss McDank? They’re both faggots!”
+&lt;/span&gt;    Similar Post: “How long was he like that?”
+    Similar Post: “More like CRAPitalism (this but unironically)
+    Similar Post: “Volcanoes are like earth pimples”
+    Similar Post: “I cried like a bitch”
+    Similar Post: “She doesn’t like jewelry”
+    Similar Post: “Everyone was like daaaaayum”
+    Similar Post: “Don’t speak to me like that”
+    Similar Post: “Don’t like the smell of this at all”
+    Similar Post: “A few others I like are”
+    Similar Post: “It’s like I’m on fire”&lt;/pre&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;These are better than the previous examples but still the similarities are very shallow. Most of the matches are just because there were one or two content phrases that matched between them. This could be expected from having a Jaccard Index cutoff as low as .3, since usually you want one that is somewhere above .7, but the language used in these posts is too sparse to be this picky and still have enough data to train a neural network. &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;We could possibly try similarity on word embeddings or sentence embeddings, but we liked using Jaccard Index because we actually care about the specific words used and not just the semantic meaning. &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Our main issue ended up being that we assumed most posts would be conversationally structured with short-ish text, when in reality we found that posts are either really short, some collection of tags for indexing or trading, really long posts with at least a paragraph of text about some abstract subject, or requests for sexual favors. Overall this makes general reddit posts quite different from r/meanjokes, so at the surface level jaccard index won’t really do much, and furthermore general reddit posts won’t be conversational in structure the way r/meanjokes posts are. For these reasons we will have to move on to looking at comments instead, since we believe that they will be more conversational than posts. We originally wanted to use posts instead of comments since posts are contextually self-containing while comments are typically responses to multi-person conversations. However, we ended up splitting posts into independent sentences anyway, so this reasoning for avoiding comments became moot.&lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;&lt;b&gt;Baseline Model:&lt;/b&gt;&lt;/h3&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;This week, we developed a baseline Neural Network model using allennlp. The model architecture is simple. We used pretrained &lt;/span&gt;&lt;a href=&quot;https://nlp.stanford.edu/projects/glove/&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;glove twitter word embeddings&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;, encode each tweet with a recurrent neural network (e.g. RNN, LSTM, GRU) sequence to vector encoder, and finally feed the vector into a feed-forward network with softmax at the end. We experimented with glove twitter word embeddings with 50 dimensions. We also tried different flavors of 1 layer recurrent neural network sequence to vector encoders, more specifically, GRU, LSTM, BiLSTM, and RNN. By the time this blog is written, we have yet performed extensive hyperparameter tuning. &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Among the 4 different model setups that we tried, one of the models got the highest accuracy, precision, and f1 score on test data, while another model got the highest recall on test data. Below are their performances on dev and test dataset. &lt;/span&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Model1 — embedding: 50 dimensional glove twitter embeddings, encoder: 1 layer GRU, epoch chosen: 19&lt;/span&gt;&lt;br /&gt;
+&lt;table&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;Dev&lt;/td&gt;
+&lt;td&gt;Test&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Accuracy&lt;/td&gt;
+&lt;td&gt;0.8184&lt;/td&gt;
+&lt;td&gt;0.8106&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Precision&lt;/td&gt;
+&lt;td&gt;0.7876&lt;/td&gt;
+&lt;td&gt;0.7834&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Recall&lt;/td&gt;
+&lt;td&gt;0.8020&lt;/td&gt;
+&lt;td&gt;0.7807&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;F1&lt;/td&gt;
+&lt;td&gt;0.7947&lt;/td&gt;
+&lt;td&gt;0.7821&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Model2: — embedding: 50 dimensional glove twitter embeddings, encoder: 1 layer LSTM, epoch chosen: 5&lt;/span&gt;&lt;br /&gt;
+&lt;table&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td&gt;Dev&lt;/td&gt;
+&lt;td&gt;Test&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Accuracy&lt;/td&gt;
+&lt;td&gt;0.8146&lt;/td&gt;
+&lt;td&gt;0.8171&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Precision&lt;/td&gt;
+&lt;td&gt;0.7868&lt;/td&gt;
+&lt;td&gt;0.7966&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Recall&lt;/td&gt;
+&lt;td&gt;0.7714&lt;/td&gt;
+&lt;td&gt;0.7723&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;F1&lt;/td&gt;
+&lt;td&gt;0.7790&lt;/td&gt;
+&lt;td&gt;0.7842&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;These two models’ setups are almost the same except for model1 uses a GRU encoder while model2 uses an LSTM encoder. Surprisingly, these models end up having better performance on test data than the ones with more complex encoders like BiLSTM. &lt;/span&gt;&lt;/p&gt;
+&lt;h4&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Error Analysis:&lt;/span&gt;&lt;/h4&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;We will use the Model2’s errors in our error analysis:&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;First we will look into sentences that are hateful but our model classified as none:&lt;/span&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;if you have a vagina dont try and be funny. &lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;people fill “the void and emptiness” with all kinds of imaginary nonsense including allah.&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;i dont think women can make tough military decisions. notice hilarys face during the bin laden raid h&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;yes men are never dramatic on twitter. only suspects are white early 20s females.&lt;/span&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Here are some other sentences that are not hateful but our model classified then as hateful:&lt;/span&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;the murder of jews by muslims in europe is attitude that the israelis have to defend against every day. and yet people blame the israelis.&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;here is the truth about slavery.&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;… in any majority muslim country.&lt;/span&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;From the above examples, we found that our model is not good at understanding the underlying meaning of a sentence. For example, the 3rd one says women cannot make tough military decisions, which is a prejudice and is offensive for females. However, since this sentence does not have any words that are very sensitive, our model considered it as OK instead of hateful.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;On the other hand, we found a trend that sentences including words like “muslims”, “allah” are classified as hateful disregarding what exactly the topic is. For a concrete example, the 3rd sentence is not saying anything hateful but our model considered it as hateful. We suspect that because “muslim” appeared in that sentence and in our training data, a lot of sentences with such word is hateful, our model picked up such pattern and made a wrong decision.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Why we end up have a pretty bad result? We have two possible reasons:&lt;/span&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Our dataset used is really small (15k sentences in total) and dataset itself is really noisy. For example, “oh well…” is somehow labeled as hateful as true label in original dataset.&lt;/span&gt;&lt;/li&gt;
+&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Our model is not expressive enough to recognize more complicated patterns. This also has something to do with the dataset. With such a small dataset, we cannot really train a deep or more complicated model.&lt;/span&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h4&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Next Steps: &lt;/span&gt;&lt;/h4&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;What we are seeing in training is is this general pattern. We suspect it is because the dataset we have (around 15k tweets) is too small for a neural network model. We would want to try combine another &lt;/span&gt;&lt;a href=&quot;https://github.com/t-davidson/hate-speech-and-offensive-language&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;twitter hate speech dataset (by Thomas Davidson et. al.)&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; and Waseem’s twitter dataset and train different neural net models on the combined dataset. &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&lt;br /&gt;
+&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&quot;&quot; class=&quot;alignnone wp-image-54&quot; height=&quot;192&quot; src=&quot;http://cse481n-capstone.azurewebsites.net/wp-content/uploads/2018/04/P3-300x138.png&quot; width=&quot;417&quot; /&gt;&lt;/p&gt;
+&lt;h4&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Data Sources: &lt;/span&gt;&lt;/h4&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.semanticscholar.org/paper/Hateful-Symbols-or-Hateful-People%3F-Predictive-for-Waseem-Hovy/df704cca917666dace4e42b4d3a50f65597b8f06&quot;&gt;Waseem, Zeerak and Dirk Hovy. “Hateful Symbols or Hateful People? Predictive Features for Hate Speech Detection on Twitter.” SRW@HLT-NAACL (2016).&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.semanticscholar.org/paper/Automated-Hate-Speech-Detection-and-the-Problem-of-Davidson-Warmsley/6ccfff0d7a10bf7046fbfd109b301323293b67da&quot;&gt;Davidson, Thomas J et al. “Automated Hate Speech Detection and the Problem of Offensive Language.” ICWSM (2017).&lt;/a&gt;&lt;/p&gt;</content:encoded>
+	<dc:date>2018-04-25T05:00:21+00:00</dc:date>
+	<dc:creator>Team Watch Your Language!</dc:creator>
+</item>
 <item rdf:about="http://mathstoc.wordpress.com/?p=323">
 	<title>Kuikui Liu, Nicholas Ruhland &lt;br/&gt; Team INLP: NLP Capstone Post #5: A New Hope</title>
 	<link>https://mathstoc.wordpress.com/2018/04/25/nlp-capstone-post-5-a-new-hope/</link>
