@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:planet="http://planet.intertwingly.net/" xmlns:indexing="urn:atom-extension:indexing" indexing:index="no"><access:restriction xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" relationship="deny"/>
   <title>NLP Capstone Spring 2018</title>
-  <updated>2018-04-25T06:30:24Z</updated>
+  <updated>2018-04-25T07:00:13Z</updated>
   <generator uri="http://intertwingly.net/code/venus/">Venus</generator>
   <author>
     <name>Nelson Liu</name>
@@ -12,10 +12,62 @@
   <link href="https://nlpcapstone.github.io/" rel="alternate"/>
 
   <entry>
+    <id>https://medium.com/p/306dca636d3a</id>
+    <link href="https://medium.com/@halden.lin/nlp-capstone-05-experimenting-306dca636d3a?source=rss-2759d54493c0------2" rel="alternate" type="text/html"/>
+    <title>NLP Capstone | 05: Experimenting</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p><em>previous posts: </em><a href="https://medium.com/@halden.lin/nlp-capstone-01-options-ee873b6885d5"><em>01</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5\"><em>02</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-03-project-proposal-7d8e9ec1a8e3"><em>03</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-04-first-steps-be87c31976b7"><em>04</em></a></p><p>Hi! Here’s what I’ve been up to in the past week.</p><h4>Progress on the TensorBoard Plugin</h4><p>Real data collection and the backend are functioning!</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/800/1*l6M8uMcswVoaEtL0_HGt0w.png"/>Architecture of the Attention Plugin.</figure><p>At this point last week, I had implemented the nodes in green above. These were the operators / functions required to produce Summary protobufs that are in turn saved to disk.</p><p>This week, I completed a number of tasks to produce a bare-bones functioning plugin (sans visualizations).</p><p>First, I modified the source code for <a href="https://github.com/abisee/pointer-generator">See et al.’s (2017) attentional models</a> to use the Attention Plugin API to save input text, output text, and attention distributions during evaluation.</p><p>Next, I implemented the Attention Plugin’s back-end, which is used to fulfill requests made by the front-end. This service currently offers two services:</p><ol><li>tags This route returns all tags associated for each run in the log. This should include 3 tags for each run: one for each of the input, output, and attention tensors.</li><li>attention This route returns a list values associated with the given tag (including time and step stamps). This can be used by the front-end to acquire each of the input, output, and attention lists (converted from tensors) by passing the corresponding tag (retrieved using the tags route).</li></ol><p>Finally, as a proof of concept, I modified the front-end provided in the <a href="https://github.com/tensorflow/tensorboard-plugin-example">TensorBoard Plugin Example</a> to consume this back-end, showing it is able to retrieve summaries. Now we just need some visualizations to consume the data!</p><h4>Visualization Prototyping Begins</h4><p>While data collection and back-end development has been wrapping up, I’ve begun to prototype static visualizations for the plugin. To do this, I used data produced by <a href="https://github.com/abisee/pointer-generator">See et al.’s (2017) pre-trained attentional models</a> (produced only at decode time without the Attention Plugin). Through this process, I hope to gain two things in particular.</p><ol><li>A idea of what will/won’t work as visualizations for summarization tasks.</li><li><strong>A better understanding of the behavior of attentive models</strong>, and through that a better idea of how static and/or interactive visualizations can further interpretability and understanding.</li></ol><p>The first idea I decided to pursue was that of a <strong>condensed heat-map</strong>. You may recall the conventional heat-map used for attention visualizations described in <a href="https://medium.com/@halden.lin/nlp-capstone-01-options-ee873b6885d5">my first blog post</a>.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/612/1*_sq2Vy_Py7hEXp2tWBBXxg.png"/>Rikters et al. (2017). A heat-map with relatively large cells, allowing for display of text along the axes.</figure><p>The issues I noted with this visualization pattern are as follows:</p><ol><li>It is difficult to fit the words (as seen above) on the x-axis, harming readability.</li><li>This does not scale well with large input or output (e.g. summarization)</li><li>We do not read single-tokens at a time (i.e. y-axis), and input and output are generally not in this format either.</li></ol><p>To address the point (2), scalability, I decided to try producing a heat-map with no text labels, and thus each cell could be as small as a single pixel.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*WOlVYgmeZ0DmutTZkDXn2g.png"/>A prototype of a condensed heat-map, where x-axis represents input and y-axis represents output.</figure><p>The color scale is a discrete scale, where each step is determined by the quantiles of the weight distribution. The x-axis represents the input text, and the y-axis represents the output text, with each cell representing the amount of attention paid for that pair (output paid to input). The good news here is that the attention distribution is relatively easy to understand at a quick glance. The downside is that cells that are not part of a larger trend (you may notice a lone red spot near the top of the heat-map, approximately a quarter of the way through the x-axis) are harder to make out, as the cells are so small. Further, the distribution is contextless — we don’t know the structure of the input text or what words these high weights are associated with. In the example above, we understand that the model focused primarily on the beginning of the article, but we can’t tell whether that is good or bad without seeing the text.</p><p>To remedy this, I decided to also display the input text, with the input text highlighted according to the maximum of the weights it received. This also solves concerns (1) and (3) for the conventional heat-map.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*dJXS9s_391dACPuUwAgPmA.png"/>The input text corresponding to the heat-map above, where each token is highlighted according to its max attention weight received.</figure><p>By putting these two together (along with the output text for reference), we can gain a better understanding of how the model arrived at its summary. A viewer can now map the attention distribution shown in the heat-map to text in the input sequence by looking for patches of similar color intensity.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*dMqdcl01Za5U4nYrXpye6g.png"/>A prototype static visualization including both heat-map and highlighted text.</figure><p>To get a better sense of how this visualization pattern would play out, I built a light web-page that allows users to cycle through different input / output examples. The gif below shows several of these.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/800/1*_ACE44hvUSrwfE3F04gslg.gif"/>The described visualization pattern over several input / output sequences.</figure><p>More exploration (inside and outside of this pattern) will need to occur, but this seems promising!</p><h4>What’s Next</h4><p>Lots to get done this next week. Here’s what’s in my plan:</p><ol><li>Continue working on data collection and cleaning up the TensorBoard plug-in. Move beyond the proof-of-concept front-end and show that meaningful visualizations (perhaps extremely basic ones) can be generated using the plugin back-end as a data source.</li><li>Read more into the model provided by See et al. (2017), as well as related work, to gain a better understanding of the architecture and function/behavior of attention. A closer study of the works cited in my <a href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5">second blog post</a> will be a good starting point. The better I understand this mechanism the more equipped I’ll be to create meaningful visualizations.</li><li>Continue prototyping static visualizations, move on to interactive visualizations. Acquire feedback from peers for both.</li></ol><p>Thanks for reading!</p><h4>Works Cited</h4><ul><li><a href="https://arxiv.org/pdf/1704.04368.pdf">See, Abigail et al. “Get To The Point: Summarization with Pointer-Generator Networks.” <em>ACL</em> (2017).</a></li><li><a href="https://ufal.mff.cuni.cz/pbml/109/art-rikters-fishel-bojar.pdf">Rikters, Matīss, Mark Fishel, and Ondřej Bojar. “Visualizing neural machine translation attention and confidence.” <em>The Prague Bulletin of Mathematical Linguistics</em> 109.1 (2017): 39–50.</a></li></ul><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=306dca636d3a" width="1"/></div>
+    </content>
+    <updated>2018-04-25T06:48:23Z</updated>
+    <category term="visualization"/>
+    <category term="machine-learning"/>
+    <category term="data-visualization"/>
+    <category term="nlp"/>
+    <category term="computer-science"/>
+    <author>
+      <name>Halden Lin</name>
+    </author>
+    <source>
+      <id>https://medium.com/@halden.lin?source=rss-2759d54493c0------2</id>
+      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*Hzu2ZqgloT0I1F6Kwg8OPA.jpeg</logo>
+      <link href="https://medium.com/@halden.lin?source=rss-2759d54493c0------2" rel="alternate" type="text/html"/>
+      <link href="https://medium.com/feed/@halden.lin" rel="self" type="application/rss+xml"/>
+      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
+      <subtitle>Stories by Halden Lin on Medium</subtitle>
+      <title>Stories by Halden Lin on Medium</title>
+      <updated>2018-04-25T07:00:12Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>https://medium.com/p/27c90aa3c1aa</id>
+    <link href="https://medium.com/@be.li.nda/nlp-capstone-blog-5-more-baselines-and-error-analysis-27c90aa3c1aa?source=rss-fad49d942bf3------2" rel="alternate" type="text/html"/>
+    <title>NLP Capstone Blog #5: More Baselines and Error Analysis</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>I spent this week implementing other baselines, running last week’s neural baseline on the re-split training dataset, and analyzing results and errors from the run on the new dataset.</p><h3>Baselines</h3><h4>Random Baseline</h4><p>This baseline randomly assigned labels to examples in accordance with the training distribution. If 45% of the training examples were negative, it would assign a negative label to any given example with a 45% probability. I implemented this baseline as a comparison tool to ensure that other model I implemented were actually learning something. The f1 scores are as reported:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/503/1*GhPCrHpMs81djY06j3cFTA.png"/></figure><h4>Sentence-level Neural Baseline</h4><p>In the <a href="https://homes.cs.washington.edu/~eunsol/papers/acl2016.pdf">Choi et al., 2016</a> paper that I’m working on improving, this model is used as a baseline. I decided the report the results here and use them as baseline results for my own project as well.</p><p>This baseline is derived from <a href="https://nlp.stanford.edu/~socherr/EMNLP2013_RNTN.pdf">Socher et al., 2013</a>, in which the authors implemented a sentence-level RNN model for sentiment classification. To adapt this model for the purpose of entity-entity relation extraction, Choi et al. performed four steps:</p><ol><li>Collect all sentences where entities co-occur (appear in the same sentence)</li><li>Run each of the collected sentences through the classifier, and amalgamate the positive/negative sentiment results for each</li><li>Assign positive label to entity pair if at least one collected sentence was classified positively</li><li>Otherwise, assign negative label to entity pair if all sentences classified negatively</li></ol><p>The f1 scores for this model are as reported:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/402/1*H0uAoCZuPsanMJKNYfhebg.png"/></figure><h4>ILP Model Baseline</h4><p>This model is the main model introduced by the <a href="https://homes.cs.washington.edu/~eunsol/papers/acl2016.pdf">Choi et al., 2016</a> paper. It is an ILP model that is basically combines a base SVM model, which predicts entity-entity pairwise sentiment, with soft constraints from social science theories.</p><p>The f1 scores for this model are as reported:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/402/1*tCbKTqxFbNYcuGfbtrlyzA.png"/></figure><h4>Neural Baseline</h4><p>This model and the f1 scores for it are described in my previous post (see <a href="https://medium.com/@be.li.nda/nlp-capstone-blog-4-baseline-model-i-7de5277b5be">here</a>).</p><p>In my last blog post, I mentioned that one of the challenges I was facing was the fact that the train set and the dev/test sets were drastically different. This week, I have brainstormed a few ideas to approach this problem:</p><ol><li>Weak supervision approach: generate more training examples with the “no sentiment” label by assuming all unlabeled entity pairs in the training set express no sentiment to each other. Since the training set has many examples, but is very sparsely annotated (annotates few entities per document), it should be relatively easy to find many unlabeled entity pairs.</li><li>Adjust class weights to have the model pay more attention to minority classes in the training data, such as the “no sentiment” class.</li><li>Adjust the decision threshold of each sentiment class for the model. Given the final LSTM output (a probability score for each of the three classes), rather than just labeling the example by the majority class, perhaps tune the threshold for labeling an example as each of the three sentiments.</li></ol><p>In the meantime, I wanted to see how the model would perform if the datasets were more similar in distribution. I created a new dataset (which I will refer to as train’/dev’/test’) by splitting the train data by document using an 80/10/10 ratio. The results of the neural baseline on this dataset are report below:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*JYd_FY4ZYnUJj5Fnn-kLKg.png"/></figure><p>The performance on the new dev’ set is much better than on the original dev set, although there is still some discrepancy.</p><h3>Error Analysis</h3><p>The final thing I did this week is error analysis. I used the results on the new dev’ of the neural baseline model for this analysis. The main thing I looked for was how each entity within a document was being classified, as I had hypothesized that the target/holder-ness of entities weren’t being encoded well enough.</p><p>The statistics from my error analysis appear to support my hypothesis.</p><ol><li>Of documents that had multiple entity pairs annotated (52% of documents), the model predicted 84.8% of them to have the same sentiment relation for all entity pairs, whereas only 30.3% of them actually classify the same sentiment for all entity pairs.</li><li>Up to 77% of the mistakes on the dev set could have been due to the model focusing on the classifying the central sentiment of the document, rather than classifying sentiments between specific (possibly peripheral) entity pairs in the document.</li></ol><p>For the second statistic, I defined the “central sentiment” of the document as the sentiment dynamic that the document was focused on , expressed by the main entities of the document. As a more concrete example, take an article headlined “<em>Protestors Storm BBC over Far-Right Leader’s TV Slot</em>,” which has a negative central sentiment. I manually went through the misclassified examples and counted how many of them were predicted in line with the central sentiment of the document (i.e. for the above example article, how many of its entity pairs are mistakenly predicted “negative”).</p><p>In terms of possible solutions for this problem, I’m planning to augment the architecture of my neural model to encode target/holder-ness in the architecture itself, rather than just within the input embeddings. Two possible architectures I plan to experiment with are either the <a href="https://homes.cs.washington.edu/~luheng/files/emnlp2017_lhlz.pdf">Lee et al. paper</a> or the <a href="https://arxiv.org/pdf/1802.10569.pdf">Verga et al. paper</a>. I describe both of these architecture, as well as how I’m going to adjust them for the entity-entity sentiment analysis task, in more detail in my project proposal blog post (see <a href="https://medium.com/@be.li.nda/nlp-capstone-blog-3-project-proposal-c8a12d3ae611">here</a>). While I haven’t figured out the exact mechanics of how I’m going to incorporate them, I definitely plan to experiment with some ideas from each paper next time.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=27c90aa3c1aa" width="1"/></div>
+    </content>
+    <updated>2018-04-25T06:30:23Z</updated>
+    <category term="machine-learning"/>
+    <category term="deep-learning"/>
+    <category term="naturallanguageprocessing"/>
+    <author>
+      <name>Belinda Zou Li</name>
+    </author>
+    <source>
+      <id>https://medium.com/@be.li.nda?source=rss-fad49d942bf3------2</id>
+      <logo>https://cdn-images-1.medium.com/fit/c/150/150/0*A16vZtRWBzxYPlmn.</logo>
+      <link href="https://medium.com/@be.li.nda?source=rss-fad49d942bf3------2" rel="alternate" type="text/html"/>
+      <link href="https://medium.com/feed/@be.li.nda" rel="self" type="application/rss+xml"/>
+      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
+      <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
+      <title>Stories by Belinda Zou Li on Medium</title>
+      <updated>2018-04-25T07:00:09Z</updated>
+    </source>
+  </entry>
+
+  <entry>
     <id>https://medium.com/p/a21b51cdd27c</id>
     <link href="https://medium.com/@viterbi.or.not/baseline-model-2-a21b51cdd27c?source=rss-c522ef075bb3------2" rel="alternate" type="text/html"/>
     <title>Baseline Model #2</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*M0h3Wof_sgtxGwgnT2IncQ.png"/>Bassline = Baseline?</figure><p>This week, we completed the baseline portion of our project (see the roadmap below!) by finishing the implementation of our various baseline models and evaluating their performance with the goal of providing context for the rest of the project. In last week’s blog post, we described the process of replicating the findings of a related research paper using a single model, and incorporating only features that apply to text summarization in general. This week, we expanded upon that start by adding an additional simple, single-feature baseline and by evaluating our implementation using other models as well! Finally, we built upon our implementation from last week with various bug fixes and feature additions, such as implementing k-fold cross validation.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*K0NWdjTpiYezkyqh34fdow.png"/>Roadmap of our project — At this point, we’ve completed the first big block, highlighted in orange!</figure><h4>Simple Baseline</h4><p>The simplest baseline we put together used only the sentence length feature, a very basic but often reliable measure of sentence importance, with a Naive Bayes model.</p><h4>More Realistic Baselines</h4><p>The more realistic and comprehensive baseline models that we implemented use the full “basic feature set” described in our <a href="https://medium.com/@viterbi.or.not/baseline-model-1-a6690114c441">last blog post</a> with Naive Bayes, Decision Tree, and Multilayer Perceptron models. The comprehensive Naive Bayes baseline is the same as the baseline model described in our previous post — the main progress on this week’s baselines is the addition of a simple feature to catch email lines that are quoted replies (a problem we found in a lot of the summaries generated by our models) as well as experimentation with the different types of models.</p><h4>Results and Evaluation</h4><p>As expected, the simple Naive Bayes baseline performed pretty poorly. The models using all of the features in the basic set all performed similarly well, with slight fluctuations in which ROUGE metric they did better in (seen in the table below). Overall, we found that our Naive Bayes model performed competitively with the other models in ROUGE-L and the best in ROUGE-1 and ROUGE-2, though most importantly, we thought the summaries generated by Naive Bayes were the most satisfactory when actually reading them.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*Hv_d7fQj-ATlUEaV79Moiw.png"/>Table comparing the performances of the various baseline models we implemented, the best performing in each ROUGE metric highlighted in orange</figure><p>Our best baseline model does better than the corresponding model in <a href="http://web2py.iiit.ac.in/research_centres/publications/download/inproceedings.pdf.8b32440f2dc771c4.323031325f414e445f43616d6572612e706466.pdf">Summarizing Online Conversations: A Machine Learning Approach</a> in the ROUGE-1 and ROUGE-2 metrics<strong>, </strong>but does significantly worse in the ROUGE-L metric. However, it is not clear which of the ROUGE metrics is more “important” to score well in, and it is hard to do a complete comparison between our model and theirs without a sample of the summaries generated by their model (which is not provided in the paper).</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*sFxZT2d-C_jKMnFxTWUHuA.png"/>Table comparing the performance of the our best baseline model with the corresponding model in <a href="http://web2py.iiit.ac.in/research_centres/publications/download/inproceedings.pdf.8b32440f2dc771c4.323031325f414e445f43616d6572612e706466.pdf"><strong>Summarizing Online Conversations: A Machine Learning Approach</strong></a>, the best performing in each ROUGE metric highlighted in orange</figure><p>In an effort to better understand what these automated metrics are measuring, here are descriptions of what ROUGE-L and ROUGE-N (ROUGE-1 and ROUGE-2) measure —</p><p><strong>ROUGE-L: </strong>Based on Longest Common Subsequence statistics, identifies longest co-occurring in sequence n-grams.</p><p><strong>ROUGE-1: </strong>Unigram overlap between system and reference summaries.</p><p><strong>ROUGE-2: </strong>Bigram overlap between system and reference summaries.</p><p>ROUGE-L and ROUGE-N clearly measure summary quality very differently, and rather than increase together, the metrics vary greatly and sometimes change inversely. While performing a mini ablation study with our baselines, we noticed that removing certain features increased ROUGE-L but cause large drops in both ROUGE-1 and ROUGE-2, as well as generated less satisfactory summaries (judged by us reading the generated summaries).</p><p>Because ROUGE does not necessarily reliably measure the quality of a conversation summary, human monitoring of generated summaries and error analysis are crucial to this project.</p><h4>Error Analysis</h4><p>So, although we used the ROUGE metrics for our model in order to compare it to our baseline research paper, we put an emphasis on human evaluation due to the inability of ROUGE to capture all the elements of successful summarization. Namely, although ROUGE is capable of determining whether the words and subsequences used in a summary match the human-annotated reference, it cannot capture critical aspects of the text such as its coverage of the source document’s most important points or whether it makes logical sense when read.</p><p>Upon reading through the summaries produced by our model, we discovered an interesting mix of results. Several sentences that appeared key to establishing the email thread’s topic were included in the summary by the baseline, indicating that its features for topic identification and term similarity were contributing in a positive manner. However, although it is expected that any extractive summary will produce grammatically imperfect results, there were noticeably major issues with the formation of our baseline model’s summaries.</p><p>An excerpt of one fairly representative summary produced by our model appears below, unedited except for truncation and formatting for clarity. This is a summary of an email chain concerning accessible technology from the BC3 corpus:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*JGjecxwGpwd-rxwnf_t_Cw.png"/>Comparison with reference summary</figure><p>As one can see, only the first two sentences (green) of this particular summary match the human-annotated summary; the rest (red) diverge and never again are the same sentences shared. This trend is seen across most of the summaries produced by our baseline model, where early sentences tend to be shared — one hypothesis is that the first email in a thread has clear significance in establishing that thread’s topic, while subsequent emails are less certain, leading to divergence between the model and human understanding.</p><p>Beyond the matching of sentences, there are certain aspects of the summary that, through a human evaluation, can be identified as clearly not belonging in the summary:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*ni7uIemzWgCsW4Yvh0jlwA.png"/>Email-specific formatting leads to summarization mistakes</figure><p>In this example, one can see sequences of text that are directly repeated (orange). This occurs due to emails having quoted text from previous emails in their message bodies, and as the general text summarization features attribute the same likelihood of being relevant to the summary to both versions of the text based solely on content (and not, for instance, sentence position), it makes sense that both would be included. Doing so seems not to vastly impact the ROUGE score, but provides another example of the importance of human evaluation because it seems reasonable that no human would prefer to have those repetitions in a summary. Another example of the baseline model’s errors can be found in the email signature present in the summary (blue), which a human reader would clearly not find meaningful for the summary.</p><p>Both of these mistakes can be attributed to the fact that our baseline model uses general features for text summarization, and does not factor in conversation-specific features such as recognizing an email signature as being unimportant to a summary. Once we being work on our minimum viable product, we expect it to perform much better in this category, because we will have the chance to add these features.</p><p>Finally, the following examples show cases in which our model makes the opposite mistake from above, failing to capture portions of the original conversation that are extremely important to the summary. As expected, both of the common cases of failure we identified seem to stem from the fact that the missed content is formatted in a different way than normal text.</p><p>For the same conversation as above, the following shows just the URLs that were included in a human-annotated summary. Highlighted in green are the URLs which our baseline model also included in its generated summary:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*P9C4OsXf9w3KK4ishqa9Tg.png"/>Almost all important URLs are not captured by the baseline model</figure><p>As one can see, the baseline model had a 10% success rate in identifying URLs from the email thread that the human annotator deemed as important. In a thread that primarily dealt with identifying resources from the internet, having these URLs in a summary would be highly desirable, so we consider this to be a major failing of the baseline model. Because URLs are much different from typical text, using general text summarization features likely led to this absence because there are no features that can ascribe importance to URLs based purely off their general format.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*Wfd7cl-8KZ36YvAWXG4wHw.png"/>Structured data, such as ordered lists, are not captured</figure><p>As another example, the following is a comparison between our baseline model and a human-annotated reference summary for a different conversation that includes discussion of poll results:</p><p>Although the baseline model does relatively well in identifying sentences related to the discussion of the poll results, its summary is noticeably lacking the results themselves. We hypothesize that the general text summarization features are insufficient to detect numerical data or items that are presented in a list, such as the one above, and therefore because the actual text within each poll result item is very generic the baseline model was unable to successfully select them for the summary.</p><p>Ultimately, these few examples are not enough to capture the exact failings of our baseline model, but by analyzing them in conjunction with the other summaries generated for our validation set, we were able to get an impression of the types of improvements that will be needed. In our next step of including conversation-specific features, we plan to make our top priority addressing structured data unique to emails by creating features to target email summaries, quoted text (and repeated text in general), and certain entities such as URLs or lists.</p><h4>Steps Towards an Advanced Model</h4><p>Keeping the weaknesses of our baseline in mind, our next steps towards creating a more advanced conversation summarization model (and approaching our Minimum Viable Product!) include the following:</p><p><strong>Incorporate conversation-specific features</strong></p><ul><li>We would like to explore using topic segmentation to preprocess conversation data and potentially improve model performance.</li><li>We would also like to add features that incorporate detection of<strong> structured data</strong> (URLs, Lists, Numbers), <strong>sentiment scores</strong> of sentences, and <strong>discourse markers</strong> (defining the purpose of a sentence in the text, for example, identifying a sentence as an email signature).</li></ul><p><strong>Train the models on other datasets</strong></p><ul><li>We will need preprocess the other datasets and restructure some of our code to handle input of the other datasets.</li><li>We anticipate some challenges based on the differences of the other datasets — the chatlog data will require much more preprocessing and meeting transcripts will likely have different vocabulary (i.e. no URLs, fewer abbreviations) which may impact our feature engineering process.</li></ul><p>Check back next week to see our progress on the most exciting part — the advanced model!</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=a21b51cdd27c" width="1"/></div>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*M0h3Wof_sgtxGwgnT2IncQ.png"/>Bassline = Baseline?</figure><p>This week, we completed the baseline portion of our project (see the roadmap below!) by finishing the implementation of our various baseline models and evaluating their performance with the goal of providing context for the rest of the project. In last week’s blog post, we described the process of replicating the findings of a related research paper using a single model, and incorporating only features that apply to text summarization in general. This week, we expanded upon that start by adding an additional simple, single-feature baseline and by evaluating our implementation using other models as well! Finally, we built upon our codebase from last week with various bugfixes and feature additions, such as implementing k-fold cross validation for more reliable metrics.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*K0NWdjTpiYezkyqh34fdow.png"/>Roadmap of our project — At this point, we’ve completed the first big block, highlighted in orange!</figure><h4>Simple Baseline</h4><p>The simplest baseline we put together used only the sentence length feature, a very basic but often reliable measure of sentence importance, with a Naive Bayes model.</p><h4>More Realistic Baselines</h4><p>The more realistic and comprehensive baseline models that we implemented use the full “basic feature set” described in our <a href="https://medium.com/@viterbi.or.not/baseline-model-1-a6690114c441">last blog post</a> with Naive Bayes, Decision Tree, and Multilayer Perceptron models. The comprehensive Naive Bayes baseline is the same as the baseline model described in our previous post — the main progress on this week’s baselines is the addition of a simple feature to catch email lines that are quoted replies (a problem we found in a lot of the summaries generated by our models) as well as experimentation with the different types of models.</p><h4>Results and Evaluation</h4><p>As expected, the simple Naive Bayes baseline performed pretty poorly. The models using all of the features in the basic set all performed similarly well, with slight fluctuations in which ROUGE metric they did better in (seen in the table below). Overall, we found that our Naive Bayes model performed competitively with the other models in ROUGE-L and the best in ROUGE-1 and ROUGE-2, though most importantly, we thought the summaries generated by Naive Bayes were the most satisfactory when actually reading them.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*Hv_d7fQj-ATlUEaV79Moiw.png"/>Table comparing the performances of the various baseline models we implemented, the best performing in each ROUGE metric highlighted in orange</figure><p>Our best baseline model does better than the corresponding model in <a href="http://web2py.iiit.ac.in/research_centres/publications/download/inproceedings.pdf.8b32440f2dc771c4.323031325f414e445f43616d6572612e706466.pdf">Summarizing Online Conversations: A Machine Learning Approach</a> in the ROUGE-1 and ROUGE-2 metrics<strong>, </strong>but does significantly worse in the ROUGE-L metric. However, it is not clear which of the ROUGE metrics is more “important” to score well in, and it is hard to do a complete comparison between our model and theirs without a sample of the summaries generated by their model (which is not provided in the paper).</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*sFxZT2d-C_jKMnFxTWUHuA.png"/>Table comparing the performance of the our best baseline model with the corresponding model in <a href="http://web2py.iiit.ac.in/research_centres/publications/download/inproceedings.pdf.8b32440f2dc771c4.323031325f414e445f43616d6572612e706466.pdf"><strong>Summarizing Online Conversations: A Machine Learning Approach</strong></a>, the best performing in each ROUGE metric highlighted in orange</figure><p>In an effort to better understand what these automated metrics are measuring, here are descriptions of what ROUGE-L and ROUGE-N (ROUGE-1 and ROUGE-2) measure —</p><p><strong>ROUGE-L: </strong>Based on Longest Common Subsequence statistics, identifies longest co-occurring in sequence n-grams.</p><p><strong>ROUGE-1: </strong>Unigram overlap between system and reference summaries.</p><p><strong>ROUGE-2: </strong>Bigram overlap between system and reference summaries.</p><p>ROUGE-L and ROUGE-N clearly measure summary quality very differently, and rather than increase together, the metrics vary greatly and sometimes change inversely. While performing a mini ablation study with our baselines, we noticed that removing certain features increased ROUGE-L but cause large drops in both ROUGE-1 and ROUGE-2, as well as generated less satisfactory summaries (judged by us reading the generated summaries).</p><p>Because ROUGE does not necessarily reliably measure the quality of a conversation summary, human monitoring of generated summaries and error analysis are crucial to this project.</p><h4>Error Analysis</h4><p>So, although we used the ROUGE metrics for our model in order to compare it to our baseline research paper, we put an emphasis on human evaluation due to the inability of ROUGE to capture all the elements of successful summarization. Namely, although ROUGE is capable of determining whether the words and subsequences used in a summary match the human-annotated reference, it cannot capture critical aspects of the text such as its coverage of the source document’s most important points or whether it makes logical sense when read.</p><p>Upon reading through the summaries produced by our model, we discovered an interesting mix of results. Several sentences that appeared key to establishing the email thread’s topic were included in the summary by the baseline, indicating that its features for topic identification and term similarity were contributing in a positive manner. However, although it is expected that any extractive summary will produce grammatically imperfect results, there were noticeably major issues with the formation of our baseline model’s summaries.</p><p>An excerpt of one fairly representative summary produced by our model appears below, unedited except for truncation and formatting for clarity. This is a summary of an email chain concerning accessible technology from the BC3 corpus:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*JGjecxwGpwd-rxwnf_t_Cw.png"/>Comparison with reference summary</figure><p>As one can see, only the first two sentences (green) of this particular summary match the human-annotated summary; the rest (red) diverge and never again are the same sentences shared. This trend is seen across most of the summaries produced by our baseline model, where early sentences tend to be shared — one hypothesis is that the first email in a thread has clear significance in establishing that thread’s topic, while subsequent emails are less certain, leading to divergence between the model and human understanding.</p><p>Beyond the matching of sentences, there are certain aspects of the summary that, through a human evaluation, can be identified as clearly not belonging in the summary:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*ni7uIemzWgCsW4Yvh0jlwA.png"/>Email-specific formatting leads to summarization mistakes</figure><p>In this example, there are sequences of text that are directly repeated (orange). This occurs due to emails having quoted text from previous emails in their message bodies, and as the general text summarization features attribute the same likelihood of being relevant to the summary to both versions of the text based solely on content (and not, for instance, sentence position), it makes sense that both would be included. Doing so seems not to vastly impact the ROUGE score, but provides another example of the importance of human evaluation because it seems reasonable that no human would prefer to have those repetitions in a summary. Another example of the baseline model’s errors can be found in the email signature present in the summary (blue), which a human reader would clearly not find meaningful for the summary.</p><p>Both of these mistakes can be attributed to the fact that our baseline model uses general features for text summarization, and does not factor in conversation-specific features such as recognizing an email signature as being irrelevant to the topics being discussed. Once we begin work on our minimum viable product, we expect it to perform much better in this category, because we will have the chance to add these features.</p><p>Finally, the following examples show cases in which our model makes the opposite mistake from above, failing to capture portions of the original conversation that are important to the summary through human eyes. As expected, both of the common cases of failure we identified seem to stem from the fact that the missed content is formatted in a different way than normal text.</p><p>For the same conversation as above, the following shows just the URLs that were included in a human-annotated summary. Highlighted in green are the URLs which our baseline model also included in its generated summary:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*P9C4OsXf9w3KK4ishqa9Tg.png"/>Almost all important URLs are not captured by the baseline model</figure><p>As one can see, the baseline model had a 10% success rate in identifying URLs from the email thread that the human annotator deemed as important. In a thread that primarily dealt with identifying resources from the internet, having these URLs in a summary would be highly desirable, so we consider this to be a major failing of the baseline model. Because URLs are much different from typical text, using general text summarization features likely led to this absence because there are no features that can ascribe importance to URLs based purely off their general format.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*Wfd7cl-8KZ36YvAWXG4wHw.png"/>Structured data, such as ordered lists, are not captured</figure><p>As another example, the following is a comparison between our baseline model and a human-annotated reference summary for a different conversation that includes discussion of poll results:</p><p>Although the baseline model does relatively well in identifying sentences related to the discussion of the poll results, its summary is noticeably lacking the results themselves. We hypothesize that the general text summarization features are insufficient to detect numerical data or items that are presented in a list, such as the one above, and therefore because the actual text within each poll result item is very generic the baseline model was unable to successfully select them for the summary.</p><p>Ultimately, these few examples are not enough to capture the exact failings of our baseline model, but by analyzing them in conjunction with the other summaries generated for our validation set, we were able to get an impression of the types of improvements that will be needed. In our next step of including conversation-specific features, we plan to make our top priority addressing structured data unique to emails by creating features to target email summaries, quoted text (and repeated text in general), and certain entities such as URLs or lists.</p><h4>Steps Towards an Advanced Model</h4><p>Keeping the weaknesses of our baseline in mind, our next steps towards creating a more advanced conversation summarization model (and approaching our Minimum Viable Product!) include the following:</p><p><strong>Incorporate conversation-specific features</strong></p><ul><li>We would like to explore using topic segmentation to preprocess conversation data and potentially improve model performance.</li><li>We would also like to add features that incorporate detection of<strong> structured data</strong> (URLs, Lists, Numbers), <strong>sentiment scores</strong> of sentences, and <strong>discourse markers</strong> (defining the purpose of a sentence in the text, for example, identifying a sentence as an email signature).</li></ul><p><strong>Train the models on other datasets</strong></p><ul><li>We will need preprocess the other datasets and restructure some of our code to handle input of the other datasets.</li><li>We anticipate some challenges based on the differences of the other datasets — the chatlog data will require much more preprocessing and meeting transcripts will likely have different vocabulary (i.e. no URLs, fewer abbreviations) which may impact our feature engineering process.</li></ul><p>Check back next week to see our initial work on the most exciting part — the advanced model!</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=a21b51cdd27c" width="1"/></div>
     </content>
     <updated>2018-04-25T06:29:12Z</updated>
     <category term="nlp"/>
@@ -30,7 +82,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-25T06:30:21Z</updated>
+      <updated>2018-04-25T07:00:10Z</updated>
     </source>
   </entry>
 
@@ -53,7 +105,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-25T06:30:05Z</updated>
+      <updated>2018-04-25T07:00:06Z</updated>
     </source>
   </entry>
 
@@ -76,7 +128,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-25T06:30:21Z</updated>
+      <updated>2018-04-25T07:00:09Z</updated>
     </source>
   </entry>
 
@@ -100,7 +152,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-25T06:30:23Z</updated>
+      <updated>2018-04-25T07:00:12Z</updated>
     </source>
   </entry>
 
@@ -248,7 +300,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-25T06:30:19Z</updated>
+      <updated>2018-04-25T07:00:08Z</updated>
     </source>
   </entry>
 
@@ -294,7 +346,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-25T06:30:24Z</updated>
+      <updated>2018-04-25T07:00:13Z</updated>
     </source>
   </entry>
 
@@ -318,7 +370,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-25T06:30:03Z</updated>
+      <updated>2018-04-25T07:00:05Z</updated>
     </source>
   </entry>
 
@@ -341,7 +393,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-25T06:30:04Z</updated>
+      <updated>2018-04-25T07:00:06Z</updated>
     </source>
   </entry>
 
@@ -369,7 +421,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-25T06:30:22Z</updated>
+      <updated>2018-04-25T07:00:10Z</updated>
     </source>
   </entry>
 
@@ -393,7 +445,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-25T06:30:03Z</updated>
+      <updated>2018-04-25T07:00:05Z</updated>
     </source>
   </entry>
 
@@ -420,7 +472,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-25T06:30:23Z</updated>
+      <updated>2018-04-25T07:00:12Z</updated>
     </source>
   </entry>
 
@@ -443,7 +495,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-25T06:30:21Z</updated>
+      <updated>2018-04-25T07:00:10Z</updated>
     </source>
   </entry>
 
@@ -467,7 +519,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-25T06:30:22Z</updated>
+      <updated>2018-04-25T07:00:11Z</updated>
     </source>
   </entry>
 
@@ -493,7 +545,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-25T06:30:21Z</updated>
+      <updated>2018-04-25T07:00:09Z</updated>
     </source>
   </entry>
 
@@ -561,7 +613,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-25T06:30:24Z</updated>
+      <updated>2018-04-25T07:00:13Z</updated>
     </source>
   </entry>
 
@@ -585,7 +637,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-25T06:30:23Z</updated>
+      <updated>2018-04-25T07:00:12Z</updated>
     </source>
   </entry>
 
@@ -911,7 +963,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-25T06:30:19Z</updated>
+      <updated>2018-04-25T07:00:08Z</updated>
     </source>
   </entry>
 
@@ -934,7 +986,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-25T06:30:05Z</updated>
+      <updated>2018-04-25T07:00:06Z</updated>
     </source>
   </entry>
 
@@ -959,7 +1011,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-25T06:30:20Z</updated>
+      <updated>2018-04-25T07:00:09Z</updated>
     </source>
   </entry>
 
@@ -982,7 +1034,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-25T06:30:04Z</updated>
+      <updated>2018-04-25T07:00:06Z</updated>
     </source>
   </entry>
 
@@ -1009,7 +1061,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-25T06:30:23Z</updated>
+      <updated>2018-04-25T07:00:12Z</updated>
     </source>
   </entry>
 
@@ -1032,7 +1084,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-25T06:30:05Z</updated>
+      <updated>2018-04-25T07:00:06Z</updated>
     </source>
   </entry>
 
@@ -1109,7 +1161,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-25T06:30:22Z</updated>
+      <updated>2018-04-25T07:00:10Z</updated>
     </source>
   </entry>
 
@@ -1132,7 +1184,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-25T06:30:21Z</updated>
+      <updated>2018-04-25T07:00:10Z</updated>
     </source>
   </entry>
 
@@ -1157,7 +1209,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-25T06:30:20Z</updated>
+      <updated>2018-04-25T07:00:09Z</updated>
     </source>
   </entry>
 
@@ -1230,7 +1282,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-25T06:30:24Z</updated>
+      <updated>2018-04-25T07:00:13Z</updated>
     </source>
   </entry>
 
@@ -1254,7 +1306,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-25T06:30:22Z</updated>
+      <updated>2018-04-25T07:00:11Z</updated>
     </source>
   </entry>
 
@@ -1278,7 +1330,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-25T06:30:24Z</updated>
+      <updated>2018-04-25T07:00:12Z</updated>
     </source>
   </entry>
 
@@ -1302,7 +1354,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-25T06:30:21Z</updated>
+      <updated>2018-04-25T07:00:09Z</updated>
     </source>
   </entry>
 
@@ -1356,7 +1408,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-25T06:30:19Z</updated>
+      <updated>2018-04-25T07:00:08Z</updated>
     </source>
   </entry>
 
@@ -1379,7 +1431,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-25T06:30:04Z</updated>
+      <updated>2018-04-25T07:00:06Z</updated>
     </source>
   </entry>
 
@@ -1403,7 +1455,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-25T06:30:04Z</updated>
+      <updated>2018-04-25T07:00:05Z</updated>
     </source>
   </entry>
 
@@ -1426,7 +1478,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-25T06:30:05Z</updated>
+      <updated>2018-04-25T07:00:06Z</updated>
     </source>
   </entry>
 
@@ -1454,7 +1506,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-25T06:30:22Z</updated>
+      <updated>2018-04-25T07:00:10Z</updated>
     </source>
   </entry>
 
@@ -1481,7 +1533,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-25T06:30:23Z</updated>
+      <updated>2018-04-25T07:00:12Z</updated>
     </source>
   </entry>
 
@@ -1504,7 +1556,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-25T06:30:21Z</updated>
+      <updated>2018-04-25T07:00:10Z</updated>
     </source>
   </entry>
 
@@ -1528,7 +1580,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-04-25T06:30:22Z</updated>
+      <updated>2018-04-25T07:00:11Z</updated>
     </source>
   </entry>
 
@@ -1577,7 +1629,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-25T06:30:24Z</updated>
+      <updated>2018-04-25T07:00:13Z</updated>
     </source>
   </entry>
 
@@ -1603,7 +1655,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-25T06:30:21Z</updated>
+      <updated>2018-04-25T07:00:09Z</updated>
     </source>
   </entry>
 
@@ -1627,7 +1679,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-25T06:30:23Z</updated>
+      <updated>2018-04-25T07:00:12Z</updated>
     </source>
   </entry>
 
@@ -1650,7 +1702,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-25T06:30:04Z</updated>
+      <updated>2018-04-25T07:00:06Z</updated>
     </source>
   </entry>
 
@@ -1697,7 +1749,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-25T06:30:20Z</updated>
+      <updated>2018-04-25T07:00:09Z</updated>
     </source>
   </entry>
 
@@ -1728,7 +1780,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-25T06:30:19Z</updated>
+      <updated>2018-04-25T07:00:08Z</updated>
     </source>
   </entry>
 
@@ -1751,7 +1803,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-04-25T06:30:21Z</updated>
+      <updated>2018-04-25T07:00:10Z</updated>
     </source>
   </entry>
 
@@ -1809,7 +1861,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-04-25T06:30:24Z</updated>
+      <updated>2018-04-25T07:00:13Z</updated>
     </source>
   </entry>
 
@@ -1836,7 +1888,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-04-25T06:30:23Z</updated>
+      <updated>2018-04-25T07:00:12Z</updated>
     </source>
   </entry>
 
@@ -1860,7 +1912,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-04-25T06:30:23Z</updated>
+      <updated>2018-04-25T07:00:12Z</updated>
     </source>
   </entry>
 
@@ -1892,7 +1944,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-04-25T06:30:22Z</updated>
+      <updated>2018-04-25T07:00:10Z</updated>
     </source>
   </entry>
 
@@ -1919,7 +1971,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-04-25T06:30:21Z</updated>
+      <updated>2018-04-25T07:00:09Z</updated>
     </source>
   </entry>
 
@@ -1944,7 +1996,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-04-25T06:30:20Z</updated>
+      <updated>2018-04-25T07:00:09Z</updated>
     </source>
   </entry>
 
@@ -1967,7 +2019,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-04-25T06:30:03Z</updated>
+      <updated>2018-04-25T07:00:05Z</updated>
     </source>
   </entry>
 
@@ -2012,7 +2064,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-04-25T06:30:05Z</updated>
+      <updated>2018-04-25T07:00:06Z</updated>
     </source>
   </entry>
 
@@ -2035,7 +2087,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-04-25T06:30:04Z</updated>
+      <updated>2018-04-25T07:00:06Z</updated>
     </source>
   </entry>
 
@@ -2073,55 +2125,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-04-25T06:30:19Z</updated>
-    </source>
-  </entry>
-
-  <entry>
-    <id>tag:blogger.com,1999:blog-3753031463594823927.post-6307882466820480344</id>
-    <link href="https://cse481n.blogspot.com/2018/04/blog-post-1.html" rel="alternate" type="text/html"/>
-    <title>Blog Post #1</title>
-    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div style="font-family: Verdana; text-align: left;">    <div>Temporary GitHub URL: <a href="https://github.com/rococode/primeapeNLP" target="_blank">https://github.com/rococode/primeapeNLP</a></div>    <div>We plan to be in “research mode” for this capstone.</div>    <div style="font-size: 1.1rem;">Three possible ideas:</div>     <div style="font-size: 1.1rem;">1. New evaluation methods for text generation models</div>    <div>There don’t seem to be many good ways to evaluate the output of machine generated text (such as in the problem of creating hotel reviews). We want our models to generate text that’s indistinguishable from human text, but it’s hard to quantify how similar generated text is to human text, so it’s hard to see when progress is being made. However, it feels like the problem of actually generating human-like text should be harder than the problem of just checking if that text seems human. As a baseline approach, we would like to explore building a regression model for the “humanness” of a piece of unfamiliar text.</div>    <div><strong>        M<span style="font-size: 0.7rem; font-weight: normal;">(inimal)</span>        V<span style="font-size: 0.7rem; font-weight: normal;">(iable)</span>        P<span style="font-size: 0.7rem; font-weight: normal;">(lan)</span>    :</strong></div>    <ol>        <li>Build a reasonably large dataset using a combination of web scraping, existing datasets, and existing generative models</li>        <li>Build a regression model with decent performance on training set</li>        <li>Build a regression model with decent performance on development and test sets</li>    </ol>    <div><strong>Stretch goals:</strong></div>    <ol>        <li>Use our model to score various generative models and compare our model’s rankings for these generative models to commonly agreed-upon rankings by researchers</li>        <li>Integrate model scores into a “generate a lot of possibilities, then search for the best one” approach for text generation</li>    </ol>    <div>We would also explore non-neural methods for evaluating Natural Language Generation (NLG). One idea would be to compare the probability distribution of generated sentences to real sentences. A common problem is that generated text repeats the most probable sentences over and over. Thus, the distribution of sentences is front-loaded. We hypothesize that generated text with a sentence distribution that closely mirrors real text would be more difficult to distinguish from real text. However, we first need to investigate what real world sentence distributions look like. It may be likely that individual sentences are not likely to repeat - in that case, the distribution would be more-or-less uniform across all sentences. We may need to come up with a novel method to categorize similar sentences. We would have to decide whether to use semantic similarity or syntactic similarity.</div>    <div><strong>MVP:</strong></div>    <ol>        <li>Gather a data set - perhaps the data set Ari showed us for hotel reviews.</li>        <li>Examine the existing probability distribution at the sentence-level in the corpus. If the distribution is too uniform, design a method to place similar sentences in the same “bucket” and re-compute the probability distribution.</li>        <li>Design metrics to compute the similarity of two distributions; if a model is “good”, the distribution of the generated sentences will match the distribution of the training corpus.</li>        <li>Use our metric to score generated text models found in the literature.</li>    </ol>    <div><strong>Stretch goals:</strong></div>    <ul>        <li>Use insights from our metrics to improve on current approaches to NLG.</li>    </ul>    <div style="font-size: 1.1rem;">2. Single-document summarization</div>    <div>Single document summarization (SDS) models typically label each sentence in the document as in the summary or not in the summary. The problem then becomes a binary classification problem, and many people train a NN with supervised learning. However, there are other non-neural approaches to this problem that have been tried successfully. One paper shows how SDS can be thought of as a tree based Knapsack problem, which is then solved by a Integer Linear Programming (ILP) solver (see: <a href="https://www.semanticscholar.org/paper/Single-Document-Summarization-as-a-Tree-Knapsack-Hirao-Yoshida/ed0c8a7ab911cdb30b7e95edada3a55c01eb22c5">https://www.semanticscholar.org/paper/Single-Document-Summarization-as-a-Tree-Knapsack-Hirao-Yoshida/ed0c8a7ab911cdb30b7e95edada3a55c01eb22c5</a>). We would like to explore both neural models and non-neural approaches to SDS. </div>    <div><strong>MVP:</strong></div>    <ol>        <li>As a baseline approach, build neural models from current papers that solve SDS. Evaluate the performance using F1 as well as ROUGE metrics (see: <a href="https://en.wikipedia.org/wiki/ROUGE_(metric)">https://en.wikipedia.org/wiki/ROUGE_(metric)</a>).</li>        <li>Build neural models from current papers that focus on non-neural approaches, such as the combinatorial approach described above.</li>        <li>Evaluate neural and non-neural approaches: what do these approaches have in common? What key insights are they leveraging? Are there any generalizations of the problem that can be extracted? Hopefully, this study will allow us to either improve the SOTA neural models or fine tune some non-neural approach.</li>    </ol>    <div><strong>Stretch goal:</strong></div>    <ul>        <li>Use insights from our studies to formulate and solve SDS in a unique way. Evaluate our approach using F1 and ROUGE metrics.</li>    </ul>    <div style="font-size: 1.1rem;">3. Multi-span comprehension</div>    <div>Reading comprehension models generally operate by extracting an answer to a question by outputting a start and end index on the original passage. This is not a very human-like way of answering questions, and makes it impossible to generate good answers to some simple factual questions using common sentence structures. We would like to explore ways of answering questions from passages without being limited to a single span from the passage text.</div>    <div><strong>MVP:</strong></div>    <ol>        <li>Implement a baseline model that performs near state of the art levels on the SQuAD dataset.</li>        <li>Build a dataset that requires information from multiple spans to answer the questions well. We will likely create this dataset by hand.</li>        <li>Build a model that answers questions about a passage by generating multiple spans. We envision designing our model to output a sequence of indices such that every pair of indices corresponds to one part of the answer. This model should perform almost as well as the baseline model on SQuAD, since that’s just a specific case (one span) of a multi-span answer.</li>        <li>Build upon the previous model by using the output spans to generate a formal answer through a generative model, using the output spans and the question sentence as inputs.</li>    </ol>    <div><strong>Stretch goal:</strong></div>    <ul>        <li>Optimize model to actually be effective at answering multispan questions. We expect this to be quite difficult, so while building a functioning model is part of the MVP, actually having it perform comparatively well is a stretch goal.</li>    </ul></div></div>
-    </summary>
-    <updated>2018-04-02T04:32:00Z</updated>
-    <author>
-      <name>Ron &amp;amp; Aditya</name>
-      <email>noreply@blogger.com</email>
-    </author>
-    <source>
-      <id>tag:blogger.com,1999:blog-3753031463594823927</id>
-      <author>
-        <name>Ron &amp;amp; Aditya</name>
-        <email>noreply@blogger.com</email>
-      </author>
-      <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
-      <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
-      <title>PrimeapeNLP</title>
-      <updated>2018-04-25T06:30:22Z</updated>
-    </source>
-  </entry>
-
-  <entry>
-    <id>tag:blogger.com,1999:blog-5600014144802012716.post-6768023392170538237</id>
-    <link href="https://nlpcapstonesemparse.blogspot.com/2018/03/blog-post-1.html" rel="alternate" type="text/html"/>
-    <title>Blog Post 1: Project Ideas</title>
-    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span><span style="font-size: 14.6667px; white-space: pre;">I am interested in working in the code generation/semantic parsing space on the research track. My code </span></span><br/><span><span style="font-size: 14.6667px; white-space: pre;">will be in various branches of my fork of allennlp (https://github.com/rajasagashe/allennlp). I will keep you</span></span><br/><span><span style="font-size: 14.6667px; white-space: pre;"> updated on which branch/commits I worked on during each blog post. Also note that project idea 1 has </span></span><br/><span><span style="font-size: 14.6667px; white-space: pre;">the most detail since I have picked it as my project!</span></span></div><h2 dir="ltr" style="line-height: 1.38; margin-bottom: 6pt; margin-top: 18pt;"><span>Project Idea 1</span></h2><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Minimum Viable Plan:</span><span> Implement the model in the recent UW paper which introduces the task of </span><br/><span>generating the code for a java function from a natural language description. To further aid code </span><br/><span>generation, the class in which the generated function is to reside is provided, i.e. the class variables </span><br/><span>and methods. Thus the encoder encodes the class as well as the utterance and the decoder uses a </span><br/><span>two step attention mechanism and decodes through the java grammar production rules. </span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Stretch Goals:</span><span> Reproduce the state of the art results in the paper. I’m putting this in the stretch goals </span><br/><span>since successfully implementing a neural semantic parser with type constraints is pretty challenging. </span><br/><span>In addition, I hope to experiment with other improvements like encoding the entire class method body</span><br/><span> which wasn’t done.</span></div><h2 dir="ltr" style="line-height: 1.38; margin-bottom: 6pt; margin-top: 18pt;"><span>Project Idea 2</span></h2><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Minimum Viable Plan: </span><span>Implement this paper: </span><a href="https://arxiv.org/pdf/1704.01696.pdf" style="text-decoration: none;"><span>https://arxiv.org/pdf/1704.01696.pdf</span></a><span>. The model is </span><br/><span>similar to that of the previous idea, but the datasets are for python and ifttt instead.</span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Stretch Goals: </span><span>Improve the paper’s result.</span></div><h2 dir="ltr" style="line-height: 1.38; margin-bottom: 6pt; margin-top: 18pt;"><span>Project Idea 3</span></h2><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Minimum Viable Plan: </span><span>Perform transfer learning across several code generation tasks by using the </span><br/><span>same encoder for them all. This technique would be similar to what was used in the Cove paper </span><br/><a href="https://arxiv.org/pdf/1708.00107.pdf" style="text-decoration: none;"><span>https://arxiv.org/pdf/1708.00107.pdf</span></a><span>. </span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Stretch Goals: </span><span>Improve the individual paper results with this technique.</span></div><div><span><br/></span></div></div>
-    </summary>
-    <updated>2018-03-30T22:41:00Z</updated>
-    <author>
-      <name>nlpcapstone</name>
-      <email>noreply@blogger.com</email>
-    </author>
-    <source>
-      <id>tag:blogger.com,1999:blog-5600014144802012716</id>
-      <author>
-        <name>nlpcapstone</name>
-        <email>noreply@blogger.com</email>
-      </author>
-      <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
-      <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
-      <title>NlpCapstone</title>
-      <updated>2018-04-25T06:30:03Z</updated>
+      <updated>2018-04-25T07:00:08Z</updated>
     </source>
   </entry>
 </feed>
