@@ -23,6 +23,62 @@
 <h1>NLP Capstone Spring 2018</h1>
 
 <div class="daygroup">
+<h2>April 25, 2018</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://mathstoc.wordpress.com" title="NLP Capstone – Mathematical Distractions">Kuikui Liu, Nicholas Ruhland <br/> Team INLP</a></h3>
+
+
+<div class="entrygroup" id="http://mathstoc.wordpress.com/?p=323">
+<h4 lang="en"><a href="https://mathstoc.wordpress.com/2018/04/25/nlp-capstone-post-5-a-new-hope/">NLP Capstone Post #5: A New Hope</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<h1><span style="font-weight: 400;">Dataset Improvements</span></h1>
+<p><i><span style="font-weight: 400;">Last time, on Music NLP.</span></i><span style="font-weight: 400;"> We ran into many midi data parsing issues. Since then, we have discovered a new dataset called the Lakh MIDI Dataset (</span><a href="http://colinraffel.com/projects/lmd/"><span style="font-weight: 400;">http://colinraffel.com/projects/lmd/</span></a><span style="font-weight: 400;">) that comes with reasonably well-formed midi files. Using the “Clean MIDI Subset”, we found thousands of midi files with their associated song names and songwriters. From these midi files, we extracted all with nonempty “lyric” fields when parsed via the pretty_midi package (which, incidentally, is also developed by Colin Raffel). After this step, we were left with ~1200 midi files that contain lyrics.</span></p>
+<p><span style="font-weight: 400;">We currently clean the lyrical content by removing all unusual symbols and setting all characters to lowercase. We leave all lyrical tokens as is, which typically means syllable. Due to the inconsistent quality of the MIDI annotations, many songs are tokenized instead to characters, words, or even sentences. We will explore other methods for processing data if this is not sufficient for our results.</span></p>
+<p><span style="font-weight: 400;">It is unfortunate we did not find this dataset sooner, because most of our challenges up to this point have been dealing with the poor quality of the gathered data.</span></p>
+<h1><span style="font-weight: 400;">Alignment</span></h1>
+<p><span style="font-weight: 400;">For our task of producing karaoke style output, there are two main tasks we have to solve. The first task is the generation of plausible lyrics, and the second is to align the lyrics to the proper time along the musical data. The alignment task has been studied extensively, but specifically aligning lyrical content to MIDI has not been covered in literature we have found. The most common alignment task is lyrics to audio data, as opposed to MIDI. The other common task is to align audio data to the notes defined in a MIDI file. In [1], they show a method that takes a MIDI file with annotated lyrics and uses this to align the lyrics to the raw audio. Unfortunately this is not our task, because we are trying to generate the annotated MIDI.</span></p>
+<p><span style="font-weight: 400;">This week, we have decided to ignore the alignment task and focus primarily on making a reasonable lyrical model. We will return to alignment next week.</span></p>
+<p><span style="font-weight: 400;">The next step was to align the lyrics with pianoroll. Fortunately, well-formed midi data parsed into PrettyMIDI objects come with a “get_piano_roll” function that takes as input a list of “times” which correspond to where in time pretty_midi will attempt to sample the music. As each syllable in the lyrics comes with a start time for when the singer enunciates it, we can pass in these start times to produce pianoroll that is aligned (up to small error) with the lyrics.</span></p>
+<p><span style="font-weight: 400;">For some implementation reasons that are difficult to explain in English, it is possible for “get_piano_roll” to produce NaN entries, which we have replaced with zeros. Due to this and the potential for other such problems, we have forked the pretty_midi package and will be able to modify the code for our needs. For example, as pointed out in [2], “in a given MIDI file there is no reliable way of determining which instrument is a transcription of the vocals in a song”. As such, there are many choices for how to do alignment; pretty_midi has implemented just one. It is an interesting task to see how different alignment methods help or hurt our models.</span></p>
+<h1><span style="font-weight: 400;">Lyric prediction</span></h1>
+<p><span style="font-weight: 400;">Now that we have aligned pianoroll to lyrics data, we can begin engineering the model. Last time, we used an LSTM to generate lyrics given starting characters. Here, we will again use LSTMs, but instead, work at the syllable level and take as input the pianoroll of a song. As each column of a pianoroll is a time slice, each input vector to the LSTM is a single time slice. Each time slice is a 128-dimensional vector, with each entry representing the activation of an instrument; there are 128 midi recognized “instruments”.</span></p>
+<p> </p>
+<p><span style="font-weight: 400;">All that is left is to play with the architecture. </span></p>
+<p><img alt="RNN model" class="alignnone size-full wp-image-322" src="https://mathstoc.files.wordpress.com/2018/04/rnn-model1.png?w=676" /></p>
+<p><span style="font-weight: 400;">At the moment, our pipeline looks like what is shown in the diagram. At each iteration, we take a song, extract the lyrics and the corresponding pianoroll data. We then feed each time slice of the pianoroll data through an encoder unit, then through an LSTM unit, then through a decoder unit, and finally through a softmax to produce the prediction. Our loss is the negative log-likelihood (negative logarithm of the RNN softmax probability of the true syllable).</span></p>
+<p><span style="font-weight: 400;">We will compare our final model to this baseline with respect to the loss on a held-out validation set. We will also experiment with loss functions other than cross entropy to see how it affects the actual lyrical output.</span></p>
+<h1><span style="font-weight: 400;">Model results</span></h1>
+<p><span style="font-weight: 400;">We have so far only trained our model for a single iteration over the training set. For an empirical evaluation on the current model quality, we ran a single MIDI through the input and computed the argmax word for each output. This produced a result in which every predicted lyric was an empty message, which is the most common string in the training set. We will explore methods to handle this class imbalance as our next task.</span></p>
+<h1>References</h1>
+<p><span style="font-weight: 400;">[1] Müller, Meinard &amp; Kurth, Frank &amp; Damm, David &amp; Fremerey, Christian &amp; Clausen, Michael. (2007). Lyrics-Based Audio Retrieval and Multimodal Navigation in Music Collections. 4675. 112-123. 10.1007/978-3-540-74851-9_10.</span><br />
+<span style="font-weight: 400;">[2] </span><span style="font-weight: 400;">Raffel, Colin and Daniel P. W. Ellis. “Extracting Ground-Truth Information from MIDI Files: A MIDIfesto.” </span><i><span style="font-weight: 400;">ISMIR</span></i><span style="font-weight: 400;"> (2016). </span><span style="font-weight: 400;"> </span></p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://mathstoc.wordpress.com/2018/04/25/nlp-capstone-post-5-a-new-hope/">by Nicholas Ruhland at April 25, 2018 04:44 AM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
+<div class="daygroup">
 <h2>April 24, 2018</h2>
 
 <div class="channelgroup">
@@ -2376,7 +2432,7 @@ I'm working on my project in my fork of Allennlp. I got the dataset and have wri
 
 <p>
 <strong>Last updated:</strong><br>
-April 25, 2018 04:30 AM<br>
+April 25, 2018 05:00 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
