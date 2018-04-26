@@ -23,6 +23,45 @@
 <h1>NLP Capstone Spring 2018</h1>
 
 <div class="daygroup">
+<h2>April 26, 2018</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://deeplearningturingtest.wordpress.com" title="NLP Capstone Project Updates – Ananth">Ananth Gottumukkala <br/> Team Turing Test</a></h3>
+
+
+<div class="entrygroup" id="http://deeplearningturingtest.wordpress.com/?p=18">
+<h4 lang="en"><a href="https://deeplearningturingtest.wordpress.com/2018/04/26/strawman-baseline-2-same-drqn-model-with-a-different-policy/">Strawman/Baseline 2: Same DRQN Model with a Different Policy</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<p>I decided to narrow the scope of my problem by changing the types of questions asked to the user to be only yes/no questions. This simplifies interpreting the user response into a classification task. More specifically, the questions will be about figuring out the attributes of any entities brought up in the text.  Therefore, I will use a relational database to store the accumulated entity-attribute relationships instead of a semantic network since it will be easier to extract quantifiable features by performing specific queries. In addition to asking the user questions, I decided to involve database queries in the training process. This way the model can query the database about any inferences or guesses it has about the attributes of an entity, and the database can return a list of entities that fit the hypothesis. Then, the model is given a reward based on how much it was able to narrow down the list of entities. This allows the model to get frequent reward signals from the database to speed up training.</p>
+<p>Because of this change, my model architecture has also changed. The DRQN will now take as inputs the action from the previous time step (one-hot vector), the user response (word embeddings passed through CNN), and the database response (number of entities the previous query narrowed it down to). In addition, the outputs to the LSTM at each time step will feed into A+1 policy networks where A = number of attributes. The first A policy networks are needed because the model needs to learn how to guess each attribute independently. The last policy network determines which question the model will ask the user. So far I have implemented most of this architecture but still need to add in the policy networks and debug.</p>
+<p>Finally, I will implement a question simulator to randomly pick an entity and have the model guess what it is, similar to 20 questions. During this simulation, rewards will be automatically given every time the model queries the database and whenever the game ends (win or loss). Furthermore, a small penalty is given for a wrong guess. By implementing this simulator, the need for user input to give rewards is eliminated and this should completely automate and greatly speed up training.</p>
+<p>My goal for next week is to finish implementing and debugging the model to start this training simulation.</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://deeplearningturingtest.wordpress.com/2018/04/26/strawman-baseline-2-same-drqn-model-with-a-different-policy/">by ananthgo at April 26, 2018 06:58 AM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
+<div class="daygroup">
 <h2>April 25, 2018</h2>
 
 <div class="channelgroup">
@@ -2609,57 +2648,6 @@ I'm working on my project in my fork of Allennlp. I got the dataset and have wri
 </div>
 
 </div>
-<div class="daygroup">
-<h2>April 02, 2018</h2>
-
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="http://cse481n-capstone.azurewebsites.net" title="Team Watch Your Language!">Boyan Li, Dennis Orzikh, Lanhao Wu <br/> Team Watch Your Language!</a></h3>
-
-
-<div class="entrygroup" id="http://cse481n-capstone.azurewebsites.net/?p=15">
-<h4 lang="en-US"><a href="http://cse481n-capstone.azurewebsites.net/2018/04/02/first-blog-post/">First Blog Post!</a></h4>
-<div class="entry">
-<div class="content" lang="en-US">
-<h3><strong>Team Name: </strong></h3>
-<p><span style="font-weight: 400;">Team Watch Your Language!</span></p>
-<h3><strong>Three Project Ideas:</strong></h3>
-<p><span style="text-decoration: underline;">Offensive Text Recognition</span></p>
-<p><span style="font-weight: 400;">Our minimal viable plan is to create two models, one which determines if text is offensive or not, and another which determines if any particular group is targeted by the text, such as a racial, religious, or political grouping. </span></p>
-<p><span style="font-weight: 400;">Our stretch goal is to use these models to make a third model which can use the first two outputs as assumptions to then provide human-readable explanations as to why that particular text was labeled the way it was. This way we can determine if text is offensive or not and provide reasons for that labeling. This can be used to assist in teaching conversational agents common sense about what to say.</span></p>
-<p><span style="text-decoration: underline;"><span style="font-weight: 400;">Domain-Specific Conversational Agent</span></span></p>
-<p><span style="font-weight: 400;">Our minimal viable plan is to create a conversational agent which can provide information and hold a conversation with a well-intentioned user about a particular domain. </span></p>
-<p><span style="font-weight: 400;">The stretch goal here would be to just continually make it better at conversing, at least in the particular domain it is trained to be good at talking about.</span></p>
-<p><span style="text-decoration: underline;"><span style="font-weight: 400;">Image Description</span></span></p>
-<p><span style="font-weight: 400;">Our minimal viable plan is to create a model that can describe a simple image correctly, like generating a sentence describing the spatial relation between a box and a cylinder.</span></p>
-<p><span style="font-weight: 400;">For the stretch goal, we would like to improve our model that can describe a unique pattern of an image among 3 (or multiple) other images. For example, if we have 3 images A, B, and C, we would like to come up with a model to generate a sentence that describes image A but not image B or C.</span></p>
-<h3><strong>GitLab Repo:</strong></h3>
-<p><span style="font-weight: 400;"> </span><a href="https://gitlab.cs.washington.edu/danielby/nlp-capstone"><span style="font-weight: 400;">https://gitlab.cs.washington.edu/danielby/nlp-capstone</span></a></p>
-<h3><strong>Mode:</strong></h3>
-<p><span style="font-weight: 400;">We will be tackling the Offensive Text Recognition task in</span> <em>research mode</em><span style="font-weight: 400;">!</span></p></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="http://cse481n-capstone.azurewebsites.net/2018/04/02/first-blog-post/">by Team Watch Your Language! at April 02, 2018 06:58 AM</a>
-</p>
-</div>
-</div>
-
-
-</div>
-
-</div>
 
 
 <div class="sidebar">
@@ -2709,7 +2697,7 @@ I'm working on my project in my fork of Allennlp. I got the dataset and have wri
 
 <p>
 <strong>Last updated:</strong><br>
-April 26, 2018 06:30 AM<br>
+April 26, 2018 07:00 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
