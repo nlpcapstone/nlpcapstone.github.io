@@ -261,74 +261,73 @@
 <p><span style="font-weight: 400;">Our main issue ended up being that we assumed most posts would be conversationally structured with short-ish text, when in reality we found that posts are either really short, some collection of tags for indexing or trading, really long posts with at least a paragraph of text about some abstract subject, or requests for sexual favors. Overall this makes general reddit posts quite different from r/meanjokes, so at the surface level jaccard index won’t really do much, and furthermore general reddit posts won’t be conversational in structure the way r/meanjokes posts are. For these reasons we will have to move on to looking at comments instead, since we believe that they will be more conversational than posts. We originally wanted to use posts instead of comments since posts are contextually self-containing while comments are typically responses to multi-person conversations. However, we ended up splitting posts into independent sentences anyway, so this reasoning for avoiding comments became moot.</span></p>
 <h3><b>Baseline Model:</b></h3>
 <p><span style="font-weight: 400;">This week, we developed a baseline Neural Network model using allennlp. The model architecture is simple. We used pretrained </span><a href="https://nlp.stanford.edu/projects/glove/"><span style="font-weight: 400;">glove twitter word embeddings</span></a><span style="font-weight: 400;">, encode each tweet with a recurrent neural network (e.g. RNN, LSTM, GRU) sequence to vector encoder, and finally feed the vector into a feed-forward network with softmax at the end. We experimented with glove twitter word embeddings with 50 dimensions. We also tried different flavors of 1 layer recurrent neural network sequence to vector encoders, more specifically, GRU, LSTM, BiLSTM, and RNN. By the time this blog is written, we have yet performed extensive hyperparameter tuning. </span></p>
-<p><span style="font-weight: 400;">Among the 4 different model setups that we tried, one of the models got the highest accuracy, precision, and f1 score on test data, while another model got the highest recall on test data. Below are their performances on dev and test dataset. </span></p>
+<p><span style="font-weight: 400;">Among the 4 different model setups that we tried, one of the models (Model1) got the highest accuracy, recall, and f1 score on test data, while another model (Model2) got the highest precision on test data. Below are their performances on dev and test dataset. </span></p>
 <ul>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Model1 — embedding: 50 dimensional glove twitter embeddings, encoder: 1 layer GRU, epoch chosen: 19</span><br />
+<li><span style="font-weight: 400;">Model1 — embedding: 50-dimensional glove twitter embeddings, encoder: 1 layer GRU, epoch chosen: 20</span></li>
+</ul>
 <table>
 <tbody>
 <tr>
 <td></td>
-<td>Dev</td>
-<td>Test</td>
+<td><span style="font-weight: 400;">Dev</span></td>
+<td><span style="font-weight: 400;">Test</span></td>
 </tr>
 <tr>
-<td>Accuracy</td>
-<td>0.8184</td>
-<td>0.8106</td>
+<td><span style="font-weight: 400;">Accuracy </span></td>
+<td><span style="font-weight: 400;">0.8245</span></td>
+<td><span style="font-weight: 400;">0.8181</span></td>
 </tr>
 <tr>
-<td>Precision</td>
-<td>0.7876</td>
-<td>0.7834</td>
+<td><span style="font-weight: 400;">Precision</span></td>
+<td><span style="font-weight: 400;">0.7934</span></td>
+<td><span style="font-weight: 400;">0.7896</span></td>
 </tr>
 <tr>
-<td>Recall</td>
-<td>0.8020</td>
-<td>0.7807</td>
+<td><span style="font-weight: 400;">Recall</span></td>
+<td><span style="font-weight: 400;">0.7995</span></td>
+<td><span style="font-weight: 400;">0.7947</span></td>
 </tr>
 <tr>
-<td>F1</td>
-<td>0.7947</td>
-<td>0.7821</td>
+<td><span style="font-weight: 400;">F1</span></td>
+<td><span style="font-weight: 400;">0.7964</span></td>
+<td><span style="font-weight: 400;">0.7921</span></td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><span style="font-weight: 400;">Model2: — embedding: 50 dimensional glove twitter embeddings, encoder: 1 layer BiLSTM, epoch chosen: 5</span><br />
+<table>
+<tbody>
+<tr>
+<td></td>
+<td><span style="font-weight: 400;">Dev</span></td>
+<td><span style="font-weight: 400;">Test</span></td>
+</tr>
+<tr>
+<td><span style="font-weight: 400;">Accuracy </span></td>
+<td><span style="font-weight: 400;">0.8409</span></td>
+<td><span style="font-weight: 400;">0.8175</span></td>
+</tr>
+<tr>
+<td><span style="font-weight: 400;">Precision</span></td>
+<td><span style="font-weight: 400;">0.8239</span></td>
+<td><span style="font-weight: 400;">0.8004</span></td>
+</tr>
+<tr>
+<td><span style="font-weight: 400;">Recall</span></td>
+<td><span style="font-weight: 400;">0.7909</span></td>
+<td><span style="font-weight: 400;">0.7627</span></td>
+</tr>
+<tr>
+<td><span style="font-weight: 400;">F1</span></td>
+<td><span style="font-weight: 400;">0.8070</span></td>
+<td><span style="font-weight: 400;">0.7811</span></td>
 </tr>
 </tbody>
 </table>
 </li>
 </ul>
-<ul>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Model2: — embedding: 50 dimensional glove twitter embeddings, encoder: 1 layer LSTM, epoch chosen: 5</span><br />
-<table>
-<tbody>
-<tr>
-<td></td>
-<td>Dev</td>
-<td>Test</td>
-</tr>
-<tr>
-<td>Accuracy</td>
-<td>0.8146</td>
-<td>0.8171</td>
-</tr>
-<tr>
-<td>Precision</td>
-<td>0.7868</td>
-<td>0.7966</td>
-</tr>
-<tr>
-<td>Recall</td>
-<td>0.7714</td>
-<td>0.7723</td>
-</tr>
-<tr>
-<td>F1</td>
-<td>0.7790</td>
-<td>0.7842</td>
-</tr>
-</tbody>
-</table>
-</li>
-</ul>
-<p><span style="font-weight: 400;">These two models’ setups are almost the same except for model1 uses a GRU encoder while model2 uses an LSTM encoder. Surprisingly, these models end up having better performance on test data than the ones with more complex encoders like BiLSTM. </span></p>
+<p><span style="font-weight: 400;">These two models’ setups are almost the same except for model1 uses a GRU encoder while model2 uses an BiLSTM encoder. Surprisingly, Model1 ends up having better overall performance on test data than the ones with more complex encoders like BiLSTM. </span></p>
 <h4><span style="font-weight: 400;">Error Analysis:</span></h4>
 <p><span style="font-weight: 400;">We will use the Model2’s errors in our error analysis:</span></p>
 <p><span style="font-weight: 400;">First we will look into sentences that are hateful but our model classified as none:</span></p>
@@ -2713,7 +2712,7 @@ I'm working on my project in my fork of Allennlp. I got the dataset and have wri
 
 <p>
 <strong>Last updated:</strong><br>
-April 26, 2018 01:30 AM<br>
+April 26, 2018 02:00 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
