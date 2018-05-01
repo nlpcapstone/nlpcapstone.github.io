@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:planet="http://planet.intertwingly.net/" xmlns:indexing="urn:atom-extension:indexing" indexing:index="no"><access:restriction xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" relationship="deny"/>
   <title>NLP Capstone Spring 2018</title>
-  <updated>2018-05-01T01:00:24Z</updated>
+  <updated>2018-05-01T01:30:27Z</updated>
   <generator uri="http://intertwingly.net/code/venus/">Venus</generator>
   <author>
     <name>Nelson Liu</name>
@@ -35,7 +35,34 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-01T01:00:12Z</updated>
+      <updated>2018-05-01T01:30:24Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>https://medium.com/p/306dca636d3a</id>
+    <link href="https://medium.com/@halden.lin/nlp-capstone-05-experimenting-306dca636d3a?source=rss-2759d54493c0------2" rel="alternate" type="text/html"/>
+    <title>NLP Capstone | 05: Experimenting</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p><em>previous posts: </em><a href="https://medium.com/@halden.lin/nlp-capstone-01-options-ee873b6885d5"><em>01</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5\"><em>02</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-03-project-proposal-7d8e9ec1a8e3"><em>03</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-04-first-steps-be87c31976b7"><em>04</em></a></p><p>Hi! Here’s what I’ve been up to in the past week.</p><h4>Progress on the TensorBoard Plugin</h4><p>Real data collection and the backend are functioning!</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/800/1*l6M8uMcswVoaEtL0_HGt0w.png"/>Architecture of the Attention Plugin.</figure><p>At this point last week, I had implemented the nodes in green above. These were the operators / functions required to produce Summary protobufs that are in turn saved to disk.</p><p>This week, I completed a number of tasks to produce a bare-bones functioning plugin (sans visualizations).</p><p>First, I modified the source code for <a href="https://github.com/abisee/pointer-generator">See et al.’s (2017) attentional models</a> to use the Attention Plugin API to save input text, output text, and attention distributions during evaluation.</p><p>Next, I implemented the Attention Plugin’s back-end, which is used to fulfill requests made by the front-end. This service currently offers two services:</p><ol><li>tags This route returns all tags associated for each run in the log. This should include 3 tags for each run: one for each of the input, output, and attention tensors.</li><li>attention This route returns a list values associated with the given tag (including time and step stamps). This can be used by the front-end to acquire each of the input, output, and attention lists (converted from tensors) by passing the corresponding tag (retrieved using the tags route).</li></ol><p>Finally, as a proof of concept, I modified the front-end provided in the <a href="https://github.com/tensorflow/tensorboard-plugin-example">TensorBoard Plugin Example</a> to consume this back-end, showing it is able to retrieve summaries. Now we just need some visualizations to consume the data!</p><h4>Visualization Prototyping Begins</h4><p>While data collection and back-end development has been wrapping up, I’ve begun to prototype static visualizations for the plugin. To do this, I used data produced by <a href="https://github.com/abisee/pointer-generator">See et al.’s (2017) pre-trained attentional models</a> (produced only at decode time without the Attention Plugin). Through this process, I hope to gain two things in particular.</p><ol><li>A idea of what will/won’t work as visualizations for summarization tasks.</li><li><strong>A better understanding of the behavior of attentive models</strong>, and through that a better idea of how static and/or interactive visualizations can further interpretability and understanding.</li></ol><p>The first idea I decided to pursue was that of a <strong>condensed heat-map</strong>. You may recall the conventional heat-map used for attention visualizations described in <a href="https://medium.com/@halden.lin/nlp-capstone-01-options-ee873b6885d5">my first blog post</a>.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/612/1*_sq2Vy_Py7hEXp2tWBBXxg.png"/>Rikters et al. (2017). A heat-map with relatively large cells, allowing for display of text along the axes.</figure><p>The issues I noted with this visualization pattern are as follows:</p><ol><li>It is difficult to fit the words (as seen above) on the x-axis, harming readability.</li><li>This does not scale well with large input or output (e.g. summarization)</li><li>We do not read single-tokens at a time (i.e. y-axis), and input and output are generally not in this format either.</li></ol><p>To address the point (2), scalability, I decided to try producing a heat-map with no text labels, and thus each cell could be as small as a single pixel.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*WOlVYgmeZ0DmutTZkDXn2g.png"/>A prototype of a condensed heat-map, where x-axis represents input and y-axis represents output.</figure><p>The color scale is a discrete scale, where each step is determined by the quantiles of the weight distribution. The x-axis represents the input text, and the y-axis represents the output text, with each cell representing the amount of attention paid for that pair (output paid to input). The good news here is that the attention distribution is relatively easy to understand at a quick glance. The downside is that cells that are not part of a larger trend (you may notice a lone red spot near the top of the heat-map, approximately a quarter of the way through the x-axis) are harder to make out, as the cells are so small. Further, the distribution is contextless — we don’t know the structure of the input text or what words these high weights are associated with. In the example above, we understand that the model focused primarily on the beginning of the article, but we can’t tell whether that is good or bad without seeing the text.</p><p>To remedy this, I decided to also display the input text, with the input text highlighted according to the maximum of the weights it received. This also solves concerns (1) and (3) for the conventional heat-map.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*dJXS9s_391dACPuUwAgPmA.png"/>The input text corresponding to the heat-map above, where each token is highlighted according to its max attention weight received.</figure><p>By putting these two together (along with the output text for reference), we can gain a better understanding of how the model arrived at its summary. A viewer can now map the attention distribution shown in the heat-map to text in the input sequence by looking for patches of similar color intensity.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*dMqdcl01Za5U4nYrXpye6g.png"/>A prototype static visualization including both heat-map and highlighted text.</figure><p>To get a better sense of how this visualization pattern would play out, I built a light web-page that allows users to cycle through different input / output examples. The gif below shows several of these.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/800/1*_ACE44hvUSrwfE3F04gslg.gif"/>The described visualization pattern over several input / output sequences.</figure><p>More exploration (inside and outside of this pattern) will need to occur, but this seems promising!</p><h4>What’s Next</h4><p>Lots to get done this next week. Here’s what’s in my plan:</p><ol><li>Continue working on data collection and cleaning up the TensorBoard plug-in. Move beyond the proof-of-concept front-end and show that meaningful visualizations (perhaps extremely basic ones) can be generated using the plugin back-end as a data source.</li><li>Read more into the model provided by See et al. (2017), as well as related work, to gain a better understanding of the architecture and function/behavior of attention. A closer study of the works cited in my <a href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5">second blog post</a> will be a good starting point. The better I understand this mechanism the more equipped I’ll be to create meaningful visualizations.</li><li>Continue prototyping static visualizations, move on to interactive visualizations. Acquire feedback from peers for both.</li></ol><p>Thanks for reading!</p><h4>Works Cited</h4><ul><li><a href="https://arxiv.org/pdf/1704.04368.pdf">See, Abigail et al. “Get To The Point: Summarization with Pointer-Generator Networks.” <em>ACL</em> (2017).</a></li><li><a href="https://ufal.mff.cuni.cz/pbml/109/art-rikters-fishel-bojar.pdf">Rikters, Matīss, Mark Fishel, and Ondřej Bojar. “Visualizing neural machine translation attention and confidence.” <em>The Prague Bulletin of Mathematical Linguistics</em> 109.1 (2017): 39–50.</a></li></ul><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=306dca636d3a" width="1"/></div>
+    </content>
+    <updated>2018-04-25T06:48:23Z</updated>
+    <category term="visualization"/>
+    <category term="machine-learning"/>
+    <category term="data-visualization"/>
+    <category term="nlp"/>
+    <category term="computer-science"/>
+    <author>
+      <name>Halden Lin</name>
+    </author>
+    <source>
+      <id>https://medium.com/@halden.lin?source=rss-2759d54493c0------2</id>
+      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*Hzu2ZqgloT0I1F6Kwg8OPA.jpeg</logo>
+      <link href="https://medium.com/@halden.lin?source=rss-2759d54493c0------2" rel="alternate" type="text/html"/>
+      <link href="https://medium.com/feed/@halden.lin" rel="self" type="application/rss+xml"/>
+      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
+      <subtitle>Stories by Halden Lin on Medium</subtitle>
+      <title>Stories by Halden Lin on Medium</title>
+      <updated>2018-05-01T01:30:26Z</updated>
     </source>
   </entry>
 
@@ -60,7 +87,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-01T01:00:10Z</updated>
+      <updated>2018-05-01T01:30:20Z</updated>
     </source>
   </entry>
 
@@ -83,7 +110,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-01T01:00:12Z</updated>
+      <updated>2018-05-01T01:30:24Z</updated>
     </source>
   </entry>
 
@@ -106,7 +133,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-01T01:00:05Z</updated>
+      <updated>2018-05-01T01:30:05Z</updated>
     </source>
   </entry>
 
@@ -129,7 +156,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-01T01:00:11Z</updated>
+      <updated>2018-05-01T01:30:22Z</updated>
     </source>
   </entry>
 
@@ -153,7 +180,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-01T01:00:23Z</updated>
+      <updated>2018-05-01T01:30:26Z</updated>
     </source>
   </entry>
 
@@ -297,7 +324,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-01T01:00:08Z</updated>
+      <updated>2018-05-01T01:30:20Z</updated>
     </source>
   </entry>
 
@@ -343,7 +370,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-01T01:00:24Z</updated>
+      <updated>2018-05-01T01:30:26Z</updated>
     </source>
   </entry>
 
@@ -367,7 +394,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-01T01:00:03Z</updated>
+      <updated>2018-05-01T01:30:03Z</updated>
     </source>
   </entry>
 
@@ -412,7 +439,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-01T01:00:04Z</updated>
+      <updated>2018-05-01T01:30:04Z</updated>
     </source>
   </entry>
 
@@ -440,7 +467,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-01T01:00:12Z</updated>
+      <updated>2018-05-01T01:30:24Z</updated>
     </source>
   </entry>
 
@@ -464,7 +491,34 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-01T01:00:03Z</updated>
+      <updated>2018-05-01T01:30:03Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>https://medium.com/p/be87c31976b7</id>
+    <link href="https://medium.com/@halden.lin/nlp-capstone-04-first-steps-be87c31976b7?source=rss-2759d54493c0------2" rel="alternate" type="text/html"/>
+    <title>NLP Capstone | 04: First Steps</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p><em>previous posts: </em><a href="https://medium.com/@halden.lin/nlp-capstone-01-options-ee873b6885d5"><em>01</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5"><em>02</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-03-project-proposal-7d8e9ec1a8e3"><em>03</em></a></p><p>Nearing 4 weeks in — I’ve finally got a foothold in the development process. Over this past week I’ve been looking through TensorBoard and TensorFlow source-code and documentation in an attempt to develop a foundation for plugin development.</p><p><strong>Notable Resources:</strong></p><ul><li><a href="https://www.tensorflow.org/programmers_guide/summaries_and_tensorboard">TensorBoard Documentation</a></li><li><a href="https://github.com/tensorflow/tensorboard">TensorBoard Source Code</a> and <a href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins">Existing Plugins</a></li><li><a href="https://github.com/tensorflow/tensorboard-plugin-example/blob/master/README.md">Developing a TensorBoard Plugin</a> (a simple example)</li></ul><h4>Completed Milestones:</h4><ol><li>Understand the structure of a TensorBoard Plugin, specifically how the architecture of the Attention Plugin should look like.</li><li>Design and write the data fetching layer.</li></ol><h4>Plugin Architecture</h4><p>In TensorFlow, data from iterations of training / evaluation is stored as a set of <strong>summaries</strong>. These can take the form of any tensor, including text, image, scalars, or time series. These are written to disk as the computation graph is executed. Each ‘summary’ takes the form of a <a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/framework/summary.proto">Summary protocol buffer</a>, which holds, in addition to the data stored, critical identifying information (tags and metadata). A plugin can then read summaries associated with particular tags and sessions from disk to serve to the TensorBoard front-end via a plugin back-end, where a visualization is rendered.</p><p>Following <a href="https://github.com/tensorflow/tensorboard-plugin-example/blob/master/README.md"><em>Developing a TensorBoard plugin</em></a><em>, </em>the Attention Plugin with have three primary components:</p><ol><li>Data API layer. This is what allows users to capture relevant summaries from within their models.</li><li>Plugin backend, which serves said summaries.</li><li>Frontend, where the visualizations are displayed.</li></ol><p>Unlike commonly used plugins such as the <a href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/scalar]">scalar</a> and <a href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/histogram">histogram</a> plugins, the Attention Plugin consumes 3 distinct values: the input text, the decoded output text, and the attention matrix that correlates the two. Initially, I attempted to store these all in a single Summary protobuf, where the first two rows of the encapsulating matrix would contain the text, and the rest would contain the attention weights. This results in a mixing of string and float types in a single Tensor, which is not valid (to my knowledge) in TensorFlow. I then realized I could store these separately, each in their own summary, and retrieve them via an identifying name. The resulting architecture is shown in the diagram below.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*QK7USkxsSC3u6F0LKbKWXQ.png"/>The architecture of the Attention Plugin.</figure><p>I decided to make the output text an optional summary, as models don’t necessarily need to decode (via Viterbi, Beam Search, or otherwise) an output sequence while training. The input text and attention matrix are still valuable, as summary statistics (e.g. coverage, important words, etc) can be gleamed without the decoded text.</p><h4>Data API Layer</h4><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*0m1-fllpNYMP666FhR0nbA.png"/>Data API Layer highlighted in green.</figure><p>As the TensorBoard authors suggest, the data API layer, defined in attention_summary.py, provides two methods for creating Summary protobufs, which can then be written to disk via a FileWriter. The first is via a TensorFlow op, which can be thought of as a node in the computation graph, that produces a Summary when the graph is executed. The second is by directly creating the protobuf, which allows for data to be saved outside the execution of a TensorFlow session. I’ve implemented both of these. There is a separate method for each of the three datum used by the plugin (input text, output text, attention matrix), and each of the three summary datum are tagged differently (e.g. name/attention_input_summary, name/attention_output_summary) in order to allow for distinguishable retrieval later.</p><p>An example of the usage of both methods can be found in attention_demo.py.</p><h4>Next Steps</h4><p>I suspect the work completed this week was the biggest hurdle in terms of time:code ratio. I would not be surprised if I had to revisit the work done here in order to clean things up or fix small bugs. However, with this understanding and architecture nailed down, I expect implementation of the rest of the plugin will come at a faster pace. With that said, three tasks stand as immediate goals for the next week.</p><ol><li>Modify my forked repository of the summarization model created by <a href="https://arxiv.org/pdf/1704.04368.pdf">See et al.</a> (original found <a href="https://github.com/abisee/pointer-generator">here</a>) to produce and save the appropriate summaries for the Attention Plugin. I’ve already started looking into this, and expect to have to fiddle around with the training / evaluation scheme in order to grab an appropriate amount of data.</li><li>Implement the backend of the Attention Plugin.</li><li>Begin prototyping visualizations (pen &amp; paper) and acquire preliminary feedback.</li></ol><p>Until next time.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=be87c31976b7" width="1"/></div>
+    </content>
+    <updated>2018-04-19T06:33:40Z</updated>
+    <category term="nlp"/>
+    <category term="visualization"/>
+    <category term="machine-learning"/>
+    <category term="data-visualization"/>
+    <category term="computer-science"/>
+    <author>
+      <name>Halden Lin</name>
+    </author>
+    <source>
+      <id>https://medium.com/@halden.lin?source=rss-2759d54493c0------2</id>
+      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*Hzu2ZqgloT0I1F6Kwg8OPA.jpeg</logo>
+      <link href="https://medium.com/@halden.lin?source=rss-2759d54493c0------2" rel="alternate" type="text/html"/>
+      <link href="https://medium.com/feed/@halden.lin" rel="self" type="application/rss+xml"/>
+      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
+      <subtitle>Stories by Halden Lin on Medium</subtitle>
+      <title>Stories by Halden Lin on Medium</title>
+      <updated>2018-05-01T01:30:26Z</updated>
     </source>
   </entry>
 
@@ -487,7 +541,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-01T01:00:12Z</updated>
+      <updated>2018-05-01T01:30:24Z</updated>
     </source>
   </entry>
 
@@ -511,7 +565,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-05-01T01:00:13Z</updated>
+      <updated>2018-05-01T01:30:25Z</updated>
     </source>
   </entry>
 
@@ -537,7 +591,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-01T01:00:11Z</updated>
+      <updated>2018-05-01T01:30:22Z</updated>
     </source>
   </entry>
 
@@ -605,7 +659,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-01T01:00:24Z</updated>
+      <updated>2018-05-01T01:30:26Z</updated>
     </source>
   </entry>
 
@@ -629,7 +683,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-01T01:00:23Z</updated>
+      <updated>2018-05-01T01:30:26Z</updated>
     </source>
   </entry>
 
@@ -955,7 +1009,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-01T01:00:09Z</updated>
+      <updated>2018-05-01T01:30:20Z</updated>
     </source>
   </entry>
 
@@ -978,7 +1032,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-01T01:00:05Z</updated>
+      <updated>2018-05-01T01:30:05Z</updated>
     </source>
   </entry>
 
@@ -1003,7 +1057,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-01T01:00:10Z</updated>
+      <updated>2018-05-01T01:30:20Z</updated>
     </source>
   </entry>
 
@@ -1026,7 +1080,34 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-01T01:00:04Z</updated>
+      <updated>2018-05-01T01:30:04Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>https://medium.com/p/7d8e9ec1a8e3</id>
+    <link href="https://medium.com/@halden.lin/nlp-capstone-03-project-proposal-7d8e9ec1a8e3?source=rss-2759d54493c0------2" rel="alternate" type="text/html"/>
+    <title>NLP Capstone | 03: Project Proposal</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p><em>previous posts: </em><a href="https://medium.com/@halden.lin/nlp-capstone-01-options-ee873b6885d5"><em>01</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5"><em>02</em></a></p><h3>Towards a Better Understanding of Neural Networks: Visualizing Attention in Sequence-to-Sequence Models</h3><h4>A brief review of attention</h4><p>The idea of ‘attention’ was first introduced to the sphere of natural language processing by Bahdanau et al. (2014) in <em>Neural machine learning by jointly to align and translate</em>. The idea is fairly straightforward: if we have an encoder-decoder model, at each decoding time-step we generate a vector of attention weights corresponding to each of the encoding units. That is to say, when generating each output token, we pay ‘attention’ to certain parts of the input sequence. Intuitively, this is much how we as humans fixate on parts of text to perform tasks such as summarization or question answering.</p><h4>Why visualization?</h4><p>In Machine Learning, neural networks have always been a sort of black box. We know they work incredibly well in certain contexts, but its often difficult to understand why they work so well. The following quote sums up the need for interpretability quite well.</p><blockquote><strong><em>“I believe the most important direction for future research is interpretability.</em></strong><em> The attention mechanism, by revealing what the network is “looking at”, shines some precious light into the black box of neural networks, helping us to debug problems like repetition and copying. To make further advances, we need greater insight into what RNNs are learning from text and how that knowledge is represented.”</em></blockquote><blockquote>- Abigail See, PhD - Stanford University, <em>‘So, is abstractive summarization solved?’</em> from <a href="http://www.abigailsee.com/2017/04/16/taming-rnns-for-better-summarization.html">Taming Recurrent Neural Networks for Better Summarization</a></blockquote><p>Visualization provides an avenue for interpretability by mapping the behavior of the complex networks to easy-to-understand visual encodings.</p><h4>A survey of related work</h4><p>Although I am not aware of any papers dedicated to the visualization of attention, examples can be readily found in both published literature and online blogposts. For each example below, I’ll point out strengths and weaknesses. Ultimately, I hope to show that there are improvements we can make that can augment the interpretability of the workings of seq2seq attentional models.</p><p><strong>Heat-maps</strong></p><figure><img alt="" src="https://cdn-images-1.medium.com/max/404/0*9FCWt3AO5oGxLxtg."/>Bahdanau et al. (2014). An attention visualization for a seq2seq problem (in this case, translation). Whiter cells represent higher attention.</figure><p>The encoding scheme used by Bahdanau et al. (2014) themselves, heat-maps were the most common encoding of attentional data I found. While making the task of relative correlation lookup efficient, these have a couple of weaknesses.</p><ol><li>Hard to scale. With tasks involving large input or output (e.g. a hundred or more tokens) the size of the heat-map quickly gets out of hand. Scrolling greatly decreases the effectiveness of a visualization with respect to analysis tasks.</li><li>Difficult to read. We generally don’t read in a token-per-line format. Furthermore, source text is rarely in a token-per-line format — we lose insightful information that could be drawn from analyzing the original structure of the text.</li></ol><p><strong>Flow-maps</strong></p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*I3cdFcqDAcdKEwuCpAPHTA.png"/>Rikters et al (2017). The input sequence is seen on top — output on bottom. Thicker lines denote higher attention.</figure><p>Less common, but interesting nonetheless. This kind of flow-map suffers from problems similar to those of heat-maps. One could also argue that the thinness of the lines and their cross-hatch nature hinder interpretability.</p><p><strong>Interaction</strong></p><figure><img alt="" src="https://cdn-images-1.medium.com/max/800/1*3dTXvSI-L3X3M-MKXRraBA.gif"/>See et al. (2017). Interactive visualization of attention</figure><p>Interaction solves many of the issues of the static visualizations surveyed above. We retain the structure of both the input and output text, and lookup is quick and efficient. There is a trade-off, however. We are only able to view the attention of a single word at a time, and as a result it is hard to get a sense of the overall coverage or structure of attention.</p><h4>A case study: Summarization</h4><p>In particular,<strong> abstractive summarization</strong>. Summarization is a particularly interesting use case of attention because of the requirement of the condensing of text. The hypothesis is that good abstractive models will be able to cover the majority of the original document. Here I note the difference between <strong>extractive </strong>and<strong> abstractive </strong>summarizations. The former involves selecting pieces of the original text, verbatim. The latter involves compressive paraphrasing.</p><p>Until recently, most of the work in text summarization has revolved around extractive summarization (See et al. 2017). However, the rising prevalence of recurrent neural networks has allowed for further focus in abstractive summarization. Attention has played an important role in improving results. Below is a brief list of relevant work.</p><p><a href="https://arxiv.org/pdf/1509.00685.pdf">Rush, Alexander M. et al. “A Neural Attention Model for Abstractive Sentence Summarization.” <em>EMNLP</em> (2015).</a></p><p><a href="https://arxiv.org/pdf/1602.06023.pdf">Nallapati, Ramesh et al. “Abstractive Text Summarization using Sequence-to-sequence RNNs and Beyond.” <em>CoNLL</em> (2016).</a></p><p><a href="https://arxiv.org/pdf/1712.06100.pdf">Hasselqvist, Johan et al. “Query-Based Abstractive Summarization Using Neural Networks.” <em>CoRR</em> abs/1712.06100 (2017): n. pag.</a></p><p><a href="https://arxiv.org/pdf/1705.04304.pdf">Paulus, Romain et al. “A Deep Reinforced Model for Abstractive Summarization.” <em>CoRR</em> abs/1705.04304 (2017): n. pag.</a></p><p><a href="https://arxiv.org/pdf/1704.04368.pdf">See, Abigail et al. “Get To The Point: Summarization with Pointer-Generator Networks.” <em>ACL</em> (2017).</a></p><h4>Summarization Specific Challenges</h4><p>While visualizations of attention are helpful in shedding light on the workings of seq2seq models, summarization models in particular have trouble leveraging this window.</p><ol><li>We care about <strong>where</strong> attention falls just as much as what it falls on. We hope to maximize <strong>coverage</strong>. This is not currently addressed in any interactive visualizations I am aware of.</li><li>We have large input sequences. As discussed in <strong>“A survey of related work,”</strong> this is particularly problematic for static visualizations.</li></ol><p>With this in mind, I propose areas for improvement in both interactive and static visualizations.</p><h4>Where to?</h4><p>With interactive visualizations, two things.</p><p><strong>One. Coverage </strong>is the aggregated attention over a sequence of output tokens. An example given by See et al. can be seen in the figure below. Perhaps allowing brushing to visualizing the aggregate attention over a phrase or sentence can help us understand attention in a more global context.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/956/0*vE-iXohphbWY6Nam."/>See et al. (2017). Example of coverage.</figure><p><strong>Two. Extraction vs Abstraction: </strong>Ideally, we want our model to learn how to abstract rather than extract. 1:1 exact match attention is less interesting to see than seeing attention to groups of words. Perhaps emphasizing / de-emphasizing can this in visualizations can help aid understanding of models.</p><p>With static visualizations, there are two analysis tasks that we wish to optimize for.</p><ol><li><strong>Summary. </strong>What is the overall structure of the attention (e.g. coverage).</li><li><strong>Value. </strong>Which input words are attended (i.e. focused on) by each output timestep?</li></ol><p>It is difficult to design an <em>effective</em> static visualization that lends itself well to both of these tasks. Perhaps we need a set of visualizations. For example, one visualization might afford better performance for summary analysis, while another might afford better performance for value analysis. In addition, these static visualizations can incorporate ideas described in previous section.</p><p>Additionally, attention visualizations thus far have been for <strong>specific examples</strong>. Perhaps there a way we can look <strong>across examples</strong> to better understand the behavior of these neural networks. Derived metrics for attention or coverage could be useful in better understanding and diagnosing these models.</p><p>My hope is that addressing these items in both interactive and static visualizations will allow us to better reason about neural networks. In particular, I hope the result can be used as a valuable tool for error analysis, <strong>even</strong> <strong>beyond</strong> hyperparameter tuning. Insights could be gleamed that motivate additions or constraints or mechanisms to optimize coverage (e.g. See et al. (2017)) or abstraction.</p><h4>The Plan</h4><p><strong>Minimum Viable Plan</strong></p><ol><li>Develop a TensorBoard plugin that allows for the static and interactive visualizations described in <strong>Where to?</strong></li><li>Acquire feedback from students / researchers in the Allen School.</li></ol><p>I intend to leverage existing models to retrieve data. For example, that <a href="https://github.com/abisee/pointer-generator">provided publicly</a> by See et al. (2017). The dataset used by them is a <a href="https://github.com/abisee/cnn-dailymail">modified CNN/Daily Mail Dataset</a> [Hermann et al. (2015), See et al. (2017)] — a collection of articles and bullet point summaries.</p><p><strong>Stretch Goals</strong></p><ol><li>Explore and implement aggregate, cross-example visualizations as described in <strong>Where to?</strong></li><li>Release a beta of the TensorBoard plugin on github and acquire feedback there.</li></ol><h4>Works Cited</h4><ul><li><a href="https://arxiv.org/pdf/1704.04368.pdf">See, Abigail et al. “Get To The Point: Summarization with Pointer-Generator Networks.” <em>ACL</em> (2017).</a></li><li><a href="https://arxiv.org/pdf/1506.02078.pdf">Karpathy, Andrej, Justin Johnson, and Li Fei-Fei. “Visualizing and understanding recurrent networks.” <em>arXiv preprint arXiv:1506.02078</em>(2015).</a></li><li><a href="https://arxiv.org/pdf/1712.06100.pdf">Hasselqvist, Johan et al. “Query-Based Abstractive Summarization Using Neural Networks.” <em>CoRR</em> abs/1712.06100 (2017): n. pag.</a></li><li><a href="https://arxiv.org/pdf/1602.06023.pdf">Nallapati, Ramesh et al. “Abstractive Text Summarization using Sequence-to-sequence RNNs and Beyond.” <em>CoNLL</em> (2016).</a></li><li><a href="https://arxiv.org/pdf/1705.04304.pdf">Paulus, Romain et al. “A Deep Reinforced Model for Abstractive Summarization.” <em>CoRR</em> abs/1705.04304 (2017): n. pag.</a></li><li><a href="https://arxiv.org/pdf/1509.00685.pdf">Rush, Alexander M. et al. “A Neural Attention Model for Abstractive Sentence Summarization.” <em>EMNLP</em> (2015).</a></li><li><a href="https://arxiv.org/pdf/1409.0473.pdf">Bahdanau, Dzmitry, Kyunghyun Cho, and Yoshua Bengio. “Neural machine translation by jointly learning to align and translate.” <em>arXiv preprint arXiv:1409.0473</em> (2014).</a></li><li><a href="https://arxiv.org/pdf/1506.03340.pdf">Hermann, Karl Moritz et al. “Teaching Machines to Read and Comprehend.” <em>NIPS</em>(2015).</a></li></ul><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=7d8e9ec1a8e3" width="1"/></div>
+    </content>
+    <updated>2018-04-12T05:46:21Z</updated>
+    <category term="computer-science"/>
+    <category term="machine-learning"/>
+    <category term="data-visualization"/>
+    <category term="nlp"/>
+    <category term="visualization"/>
+    <author>
+      <name>Halden Lin</name>
+    </author>
+    <source>
+      <id>https://medium.com/@halden.lin?source=rss-2759d54493c0------2</id>
+      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*Hzu2ZqgloT0I1F6Kwg8OPA.jpeg</logo>
+      <link href="https://medium.com/@halden.lin?source=rss-2759d54493c0------2" rel="alternate" type="text/html"/>
+      <link href="https://medium.com/feed/@halden.lin" rel="self" type="application/rss+xml"/>
+      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
+      <subtitle>Stories by Halden Lin on Medium</subtitle>
+      <title>Stories by Halden Lin on Medium</title>
+      <updated>2018-05-01T01:30:26Z</updated>
     </source>
   </entry>
 
@@ -1049,7 +1130,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-01T01:00:05Z</updated>
+      <updated>2018-05-01T01:30:05Z</updated>
     </source>
   </entry>
 
@@ -1126,7 +1207,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-01T01:00:12Z</updated>
+      <updated>2018-05-01T01:30:24Z</updated>
     </source>
   </entry>
 
@@ -1149,7 +1230,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-01T01:00:12Z</updated>
+      <updated>2018-05-01T01:30:24Z</updated>
     </source>
   </entry>
 
@@ -1174,7 +1255,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-01T01:00:10Z</updated>
+      <updated>2018-05-01T01:30:20Z</updated>
     </source>
   </entry>
 
@@ -1247,7 +1328,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-01T01:00:24Z</updated>
+      <updated>2018-05-01T01:30:26Z</updated>
     </source>
   </entry>
 
@@ -1271,7 +1352,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-05-01T01:00:13Z</updated>
+      <updated>2018-05-01T01:30:25Z</updated>
     </source>
   </entry>
 
@@ -1295,7 +1376,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-01T01:00:23Z</updated>
+      <updated>2018-05-01T01:30:26Z</updated>
     </source>
   </entry>
 
@@ -1319,7 +1400,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-01T01:00:11Z</updated>
+      <updated>2018-05-01T01:30:22Z</updated>
     </source>
   </entry>
 
@@ -1373,7 +1454,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-01T01:00:08Z</updated>
+      <updated>2018-05-01T01:30:20Z</updated>
     </source>
   </entry>
 
@@ -1396,7 +1477,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-01T01:00:04Z</updated>
+      <updated>2018-05-01T01:30:04Z</updated>
     </source>
   </entry>
 
@@ -1420,7 +1501,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-01T01:00:03Z</updated>
+      <updated>2018-05-01T01:30:03Z</updated>
     </source>
   </entry>
 
@@ -1443,7 +1524,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-01T01:00:05Z</updated>
+      <updated>2018-05-01T01:30:05Z</updated>
     </source>
   </entry>
 
@@ -1471,7 +1552,34 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-01T01:00:12Z</updated>
+      <updated>2018-05-01T01:30:24Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>https://medium.com/p/96fb908765f5</id>
+    <link href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5?source=rss-2759d54493c0------2" rel="alternate" type="text/html"/>
+    <title>NLP Capstone | 02: Getting Started</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p><a href="https://medium.com/@halden.lin/nlp-capstone-01-options-ee873b6885d5">previous post</a></p><p>Alright, it’s been only 2 days since my last entry, so this will be a relatively short post. The direction I proposed in <strong>Option 1 </strong>of that post was towards a more robust, interpretable, and informative visualization of attention, particularly in the context of text summarization. A quick recap:</p><blockquote>Perhaps interaction can be used to create a more insightful and interpretable visualization framework for understanding attention. For example, text heat-maps are already used widely to visualize sentiment analysis.</blockquote><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*lsgeuBXGGBog4YkuQNgJVw.png"/>Lin et al. (2017) [6]. Visualization of sentiment analysis on a token-by-token basis.</figure><blockquote>In a static context, using this method for attention would require repeat of the same input sequence for each word in the output sequence. Using interaction, however, a model creator could brush over single or sequences of words in the output sequence to view corresponding soft-alignment in the input sequence. Aggregate visualizations could be shown to supplement this view (either aggregates over a particular input / output sequence, or aggregates over all input / output sequences).</blockquote><p>I’m currently working on laying out the groundwork for such a project. Task 1: implement a model. Without one, there’s no data to visualize!</p><p>With that in mind, here’s what I’ve been up to:</p><h4>Finding a Text Summarization Dataset</h4><p>A quick survey of recent research papers [1–5] on text summarization points, as well as online forums, points to three commonly used datasets.</p><ol><li><a href="https://cs.nyu.edu/~kcho/DMQA/">CNN/Daily Mail Corpus</a>. A collection of articles and their bullet point summaries, with each bullet split for Q/A purposes. <a href="https://github.com/abisee/cnn-dailymail">A script</a> [1] can be ran over the original dataset to restore the original bullet point summaries, to be used as a summarization corpus.</li><li><a href="https://www-nlpir.nist.gov/projects/duc/data.html">DUC Corpus</a>. In particular, DUC 2003 and DUC 2004. These contain a collection of documents, each accompanied by a short (~10 word) summary. There is also a longer summary for each cluster of documents.</li><li><a href="https://catalog.ldc.upenn.edu/ldc2003t05">Gigaword Corpus</a>. An annotated collection of millions of documents. The summarization task here would be to predict the headline of each [5]</li></ol><p>The accessibility of the <strong>CNN/Daily Mail Corpus</strong> (a process is required for the other two), in addition to the prevalence of projects that used it as a primary dataset [1, 2, 4], made it the most attractive option. The relatively longer summaries (~4 bullet points as opposed a short blurb in the other two datasets) also lends itself conveniently to the case of an interactive visualization with multi-token selection (e.g. select a whole bullet point and see where it attended). For a baseline, this will be my dataset!</p><h4>Identifying a Baseline Model</h4><p>See et al. (2017) [1] lay out a seq2seq attentional model as their baseline (a bidirectional LSTM). I’ll be using this as a baseline model with which to obtain data.</p><h4>Getting Some Code Up</h4><p>I’ll be using <a href="http://pytorch.org/">PyTorch</a> and the <a href="http://allennlp.org/">AllenNLP</a> toolkit [7] to implement my NN models. These are both ready to go on both my machine and Azure. I’m currently in the process of writing a DatasetReader for the dataset described above.</p><h3>Next Steps</h3><ul><li>Finish writing the DatasetReader for the CNN/Daily Mail Corpus.</li><li>Begin work on a baseline seq2seq attentional model, as described in <strong>Identifying a Baseline Model</strong></li></ul><h4>Works Cited</h4><p>[1] <a href="https://arxiv.org/pdf/1704.04368.pdf">See, Abigail et al. “Get To The Point: Summarization with Pointer-Generator Networks.” <em>ACL</em> (2017).</a></p><p>[2] <a href="https://arxiv.org/pdf/1712.06100.pdf">Hasselqvist, Johan et al. “Query-Based Abstractive Summarization Using Neural Networks.” <em>CoRR</em> abs/1712.06100 (2017): n. pag.</a></p><p>[3] <a href="https://arxiv.org/pdf/1602.06023.pdf">Nallapati, Ramesh et al. “Abstractive Text Summarization using Sequence-to-sequence RNNs and Beyond.” <em>CoNLL</em> (2016).</a></p><p>[4] <a href="https://arxiv.org/pdf/1705.04304.pdf">Paulus, Romain et al. “A Deep Reinforced Model for Abstractive Summarization.” <em>CoRR</em> abs/1705.04304 (2017): n. pag.</a></p><p>[5] <a href="https://arxiv.org/pdf/1509.00685.pdf">Rush, Alexander M. et al. “A Neural Attention Model for Abstractive Sentence Summarization.” <em>EMNLP</em> (2015).</a></p><p>[6] <a href="https://arxiv.org/pdf/1703.03130.pdf">Lin, Zhouhan, <em>et al.</em>, “A structured self-attentive sentence embedding.”<em>arXiv preprint arXiv:1703.03130</em> (2017).</a></p><p>[7] <a href="https://pdfs.semanticscholar.org/a550/2187140cdd98d76ae711973dbcdaf1fef46d.pdf?_ga=2.150901366.1370831839.1522970228-1363309632.1522194596">Gardner, Matt et al. “AllenNLP: A Deep Semantic Natural Language Processing Platform.” (2017).</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=96fb908765f5" width="1"/></div>
+    </content>
+    <updated>2018-04-06T06:53:32Z</updated>
+    <category term="computer-science"/>
+    <category term="visualization"/>
+    <category term="machine-learning"/>
+    <category term="data-visualization"/>
+    <category term="nlp"/>
+    <author>
+      <name>Halden Lin</name>
+    </author>
+    <source>
+      <id>https://medium.com/@halden.lin?source=rss-2759d54493c0------2</id>
+      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*Hzu2ZqgloT0I1F6Kwg8OPA.jpeg</logo>
+      <link href="https://medium.com/@halden.lin?source=rss-2759d54493c0------2" rel="alternate" type="text/html"/>
+      <link href="https://medium.com/feed/@halden.lin" rel="self" type="application/rss+xml"/>
+      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
+      <subtitle>Stories by Halden Lin on Medium</subtitle>
+      <title>Stories by Halden Lin on Medium</title>
+      <updated>2018-05-01T01:30:26Z</updated>
     </source>
   </entry>
 
@@ -1494,7 +1602,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-01T01:00:12Z</updated>
+      <updated>2018-05-01T01:30:24Z</updated>
     </source>
   </entry>
 
@@ -1518,7 +1626,7 @@
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-05-01T01:00:13Z</updated>
+      <updated>2018-05-01T01:30:25Z</updated>
     </source>
   </entry>
 
@@ -1567,7 +1675,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-01T01:00:24Z</updated>
+      <updated>2018-05-01T01:30:26Z</updated>
     </source>
   </entry>
 
@@ -1593,7 +1701,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-01T01:00:11Z</updated>
+      <updated>2018-05-01T01:30:22Z</updated>
     </source>
   </entry>
 
@@ -1617,7 +1725,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-01T01:00:23Z</updated>
+      <updated>2018-05-01T01:30:26Z</updated>
     </source>
   </entry>
 
@@ -1640,7 +1748,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-01T01:00:04Z</updated>
+      <updated>2018-05-01T01:30:04Z</updated>
     </source>
   </entry>
 
@@ -1687,7 +1795,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-01T01:00:10Z</updated>
+      <updated>2018-05-01T01:30:20Z</updated>
     </source>
   </entry>
 
@@ -1718,7 +1826,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-01T01:00:08Z</updated>
+      <updated>2018-05-01T01:30:20Z</updated>
     </source>
   </entry>
 
@@ -1741,7 +1849,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-01T01:00:12Z</updated>
+      <updated>2018-05-01T01:30:24Z</updated>
     </source>
   </entry>
 
@@ -1799,7 +1907,34 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-01T01:00:24Z</updated>
+      <updated>2018-05-01T01:30:26Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>https://medium.com/p/ee873b6885d5</id>
+    <link href="https://medium.com/@halden.lin/nlp-capstone-01-options-ee873b6885d5?source=rss-2759d54493c0------2" rel="alternate" type="text/html"/>
+    <title>NLP Capstone | 01: Options</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>Hello! This post is the first in a series that will document my progression through CSE 481n, taught by Prof. Yejin Choi at the University of Washington.</p><p>My github for this project can be found at: <a href="https://github.com/haldenl/nlpcapstone">https://github.com/haldenl/nlpcapstone</a></p><h3>What I hope to explore</h3><p>Over the course of the next 10 weeks, I intend to explore the intersection of V<strong>isualization (Vis) and Natural Language Processing (NLP)</strong>. I am particularly excited to explore the avenues through which Vis can be used to augment the interpretability of Neural Networks (NNs). I’ve spent the past year working around Vis (through classes and research) and am excited to bring what I’ve learned to problems in NLP. I intend to take a <strong>research oriented approach</strong> to this project.</p><h3>Relevant Work (a brief and incomplete list)</h3><ul><li><a href="https://arxiv.org/pdf/1506.02078.pdf">Visualizing and Understanding Recurrent Neural Networks, Karpathy et al. (2015)</a></li><li><a href="http://www.aclweb.org/anthology/N16-1082">Visualizing and Understanding Neural Networks in NLP, Li et al. (2016)</a></li><li><a href="https://distill.pub/2018/building-blocks/">The Building Blocks of Interpretability, Olah et al. (2017)</a></li><li><a href="https://arxiv.org/pdf/1612.08220.pdf">Understanding Neural Networks through Representation Erasure, Li et al. (2017)</a></li><li><a href="https://ufal.mff.cuni.cz/pbml/109/art-rikters-fishel-bojar.pdf">Visualizing Neural Machine Translation Attention and Confidence, Rikters et al. (2017)</a></li></ul><h3>Directions for Exploration</h3><h4>Option 1: Attention</h4><p>Visualizing and understanding <strong>attention</strong>, with a focus on its role in text summarization.</p><p>This is my most realized idea at this time, so I will spend more time here explaining my thoughts.</p><p><strong>Background:</strong></p><p>Visualizations of attention are often used in an effort to understand, and subsequently improve, decisions made by neural networks. To my knowledge, the most common way of visualization attention in seq2seq models is via a 2-dimensional heat-map, wherein the attention each decoding unit gives to each input token can be seen.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/612/1*KvfXxucogv8flZHndSJvHg.png"/>Rikters et al. (2017). An attention visualization for a seq2seq problem (in this case, translation). Whiter cells represent higher attention.</figure><p>There are a few issues with this format: (1) it is difficult to fit the words (as seen above) on the x-axis, harming readability; (2) this does not scale well with large input or output (e.g. summarization); and (3) we do not read single-tokens at a time (i.e. y-axis), and input and output are generally not in this format either.</p><p>As a whole, this format, while simple, is lacking in interpretability. The cognitive work-load of a viewer is less than optimal.</p><p>Alternatives can be found in literature, such as the following from Rikters et al. (2017).</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*jtRrxf5pIB-OCBsoqUjgJQ.png"/>Rikters et al. (2017). The input sequence is seen on top — output on bottom. Thicker lines denote higher attention.</figure><p>However, this also suffers from similar interpretability and scalability issues. Moreover, the thickness of lines as an encoding scheme does not lend itself easily to comparison between words.</p><p><strong>Proposed Exploration:</strong></p><p>Perhaps interaction can be used to create a more insightful and interpretable visualization framework for understanding attention. For example, text heat-maps are already used widely to visualize sentiment analysis.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*lsgeuBXGGBog4YkuQNgJVw.png"/>Lin et al. (2017). Visualization of sentiment analysis on a token-by-token basis.</figure><p>In a static context, using this method for attention would require repeat of the same input sequence for each word in the output sequence. Using interaction, however, a model creator could brush over single or sequences of words in the output sequence to view corresponding soft-alignment in the input sequence. Aggregate visualizations could be shown to supplement this view (either aggregates over a particular input / output sequence, or aggregates over all input / output sequences).</p><p><strong>Baseline: </strong>A user-interface for an interactive visualization of attention for seq2seq models (e.g. text summarization models). Exploration of how this visualization method can be used to either improve an existing models or understand the differences between models. This would, of course, require building a model from which to obtain data.</p><p><strong>Reach: </strong>Integration into an existing platform, e.g. in PyTorch to be viewable in TensorBoard.</p><h4>Option 2: Neural Network Cells</h4><p>Visualizing and understanding the role of cells in a neural network. In particular, the meaning of each cell within a model.</p><p><strong>Background:</strong></p><p>Though more exploration of relevant work will be required if this becomes the path of choice, Kaparthy et al. (2015) present work that serves as the basis for this idea. They show that the role of cells in a neural network can be interpreted by viewing their activations at each point in a given passage. For example, they found in their model a cell that fired at the end of a line (top left).</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*6yoF78PlE5ETNc9-kbya6w.png"/>Kaparthy et al. (2015). Different cells fire in different contexts.</figure><p><strong>Proposed Exploration:</strong></p><p>Perhaps a deeper exploration of the activations of neural network cells could lead to insights for visualizations that may aid the interpretability of neural networks.</p><p><strong>Baseline: </strong>Create a program or UI that generates a visualization (either interactive or static), of the activations of each cell in a neural network. Use this information to posit the meanings of each cell and build further visualizations as needed for exploration. This would require building a model from which to obtain observations.</p><p><strong>Reach:</strong> This is a little loose, as it is unclear how much exploration will be needed to produce results. Perhaps as in Option 1, integration of whatever tool created into an existing framework.</p><h4>Option 3: Gates and Value flow in RNN models.</h4><p>Visualizing and understanding the flow of values through gates in a Recurrent Neural Network (RNN). In particular, allowing for interpretability of gates and the ‘memory’ of cells.</p><p><strong>Background:</strong></p><p>My motivation for this idea is largely anecdotal. I recall while taking the undergraduate NLP course that the concepts of ‘gates’ and ‘memory’ in RNN models (e.g. GRU, LSTM) were difficult for me to wrap my head around. We have these giant networks with variable length ‘memory’ determined by gates that preform well as a result of this mechanism, but how exactly is this mechanism is used, and on what tokens at what points? Kaparthy et al. (2015) present a way of visualizing the ‘memory’ of cells in an LSTM model via plotting of cells and the time spent right or left saturated (right saturated cells remember values for longer periods of time).</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/975/1*Qq9KrefGEl7tM4mPxUi99g.png"/>Kaparthy et al. (2015). Visualizing the cells and their time spent right or left saturated.</figure><p>Data-flow graphs have already been developed for neural networks (e.g. Wongsuphasawat et al. (2017)). An RNN specific model with a focus on interpretability of gates may be valuable for the NLP community.</p><p><strong>Proposed Exploration:</strong></p><p>Perhaps producing visualizations of a network of cells using information similar to above could lead to improvements in interpretability and aid model improvement.</p><p><strong>Baseline: </strong>Create a program or UI to generate a visualization, as described above, of an small RNN models. Use this generate insight into the model’s behavior (e.g. compare between models), and explore further from there.</p><p><strong>Reach: </strong>Support larger-scale networks. Integration into existing frameworks.</p><h3>Works Cited</h3><ul><li><a href="https://arxiv.org/pdf/1506.02078.pdf">Karpathy, Andrej, Justin Johnson, and Li Fei-Fei. “Visualizing and understanding recurrent networks.” <em>arXiv preprint arXiv:1506.02078</em> (2015).</a></li><li><a href="https://arxiv.org/pdf/1506.01066.pdf">Li, Jiwei, <em>et al.</em> “Visualizing and understanding neural models in NLP.” <em>arXiv preprint arXiv:1506.01066</em> (2015).</a></li><li><a href="https://arxiv.org/pdf/1612.08220.pdf">Li, Jiwei, Will Monroe, and Dan Jurafsky. “Understanding neural networks through representation erasure.” <em>arXiv preprint arXiv:1612.08220</em> (2016).</a></li><li><a href="https://ufal.mff.cuni.cz/pbml/109/art-rikters-fishel-bojar.pdf">Rikters, Matīss, Mark Fishel, and Ondřej Bojar. “Visualizing neural machine translation attention and confidence.” <em>The Prague Bulletin of Mathematical Linguistics</em> 109.1 (2017): 39–50.</a></li><li><a href="http://idl.cs.washington.edu/files/2018-TensorFlowGraph-VAST.pdf">K. Wongsuphasawat <em>et al</em>., “Visualizing Dataflow Graphs of Deep Learning Models in TensorFlow,” in <em>IEEE Transactions on Visualization and Computer Graphics</em>, vol. 24, no. 1, pp. 1–12, Jan. 2018.</a></li><li><a href="https://arxiv.org/pdf/1703.03130.pdf">Lin, Zhouhan, <em>et al.</em>, “A structured self-attentive sentence embedding.” <em>arXiv preprint arXiv:1703.03130</em> (2017).</a></li></ul><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=ee873b6885d5" width="1"/></div>
+    </content>
+    <updated>2018-04-04T06:43:21Z</updated>
+    <category term="visualization"/>
+    <category term="data-visualization"/>
+    <category term="machine-learning"/>
+    <category term="nlp"/>
+    <category term="computer-science"/>
+    <author>
+      <name>Halden Lin</name>
+    </author>
+    <source>
+      <id>https://medium.com/@halden.lin?source=rss-2759d54493c0------2</id>
+      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*Hzu2ZqgloT0I1F6Kwg8OPA.jpeg</logo>
+      <link href="https://medium.com/@halden.lin?source=rss-2759d54493c0------2" rel="alternate" type="text/html"/>
+      <link href="https://medium.com/feed/@halden.lin" rel="self" type="application/rss+xml"/>
+      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
+      <subtitle>Stories by Halden Lin on Medium</subtitle>
+      <title>Stories by Halden Lin on Medium</title>
+      <updated>2018-05-01T01:30:26Z</updated>
     </source>
   </entry>
 
@@ -1823,7 +1958,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-01T01:00:23Z</updated>
+      <updated>2018-05-01T01:30:26Z</updated>
     </source>
   </entry>
 
@@ -1855,7 +1990,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-01T01:00:12Z</updated>
+      <updated>2018-05-01T01:30:24Z</updated>
     </source>
   </entry>
 
@@ -1882,7 +2017,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-01T01:00:11Z</updated>
+      <updated>2018-05-01T01:30:22Z</updated>
     </source>
   </entry>
 
@@ -1907,7 +2042,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-01T01:00:10Z</updated>
+      <updated>2018-05-01T01:30:21Z</updated>
     </source>
   </entry>
 
@@ -1930,7 +2065,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-01T01:00:03Z</updated>
+      <updated>2018-05-01T01:30:03Z</updated>
     </source>
   </entry>
 
@@ -1975,116 +2110,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-01T01:00:05Z</updated>
-    </source>
-  </entry>
-
-  <entry>
-    <id>https://medium.com/p/ab3d796c422e</id>
-    <link href="https://medium.com/@ryanp97/project-ideas-ab3d796c422e?source=rss-6378d85d3a9b------2" rel="alternate" type="text/html"/>
-    <title>Capstone Ideas</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>I plan on following a research track and hope to pursue one of the following ideas:</p><h4><strong>Neural Machine Translation with Semantic Transfer</strong> (as outlined by Jan Buys)</h4><p><em>Minimal Viable Action Plan:</em> <br/>1) Use statistical parser (<a href="http://sweaglesw.org/linguistics/ace/">ACE</a>) to get MRS graphs of English/Japanese sentences and convert to DMRS graph (using <a href="https://github.com/delph-in/pydelphin">PyDelphin</a> interface to do parsing and conversion)<br/>2) Linearize DMRS graph<br/>3) Train a seq2seq that takes linearized English DMRS graph and outputs linearized Japanese DMRS graph</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*J3l_TjWr3A-jOAcrCznqvA.png"/>Example of penmen format that DMRS can be represented with (non-linearized). Note that the representation shown is an AMR graph, not a DMRS graph. Figure taken from this <a href="https://arxiv.org/pdf/1704.08381.pdf">paper</a>.</figure><p><em>Stretch Goals:<br/></em>1) Explore different architectures for semantic transfer (e.g. TreeLSTM as opposed to seq2seq)<br/>2) Explore ways to learn correspondences between semantic concepts in the two languages</p><h4>DMRS to Text Generation (as outlined by Jan Buys)</h4><p><em>Minimal Viable Action Plan:<br/></em>1) Generate DMRS graph serialization similar to what was outlined above<br/>2) Train seq2seq model to generate text directly from graph serialization</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*Bndfdhs3ixwG6-JUQPC72A.png"/>Example of different graph representations. Figure taken from this <a href="http://www.lrec-conf.org/proceedings/lrec2016/pdf/634_Paper.pdf">paper</a>.</figure><p><em>Stretch Goals:</em><br/>1) Experiment with different seq2seq architectures<br/>2) Attempt semi-supervised training using a high-precision grammar-based parser</p><h4>Reproduce results / expand on a Paper</h4><p>In this option, I would be attempting to expand on this <a href="https://arxiv.org/pdf/1704.04859.pdf">paper</a> regarding hybrid models. The paper attempts to alleviate and/or solve the issue of out-of-vocabulary words and characters, specifically in Chinese and Japanese. It describes using a CNN in conjunction with an RNN to do so; the CNN learns the radicals of characters and attempts to choose characters with similar radicals since the meaning of radicals remains constant between characters.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/822/1*5GyInYVxc8ifP_YRCHiHHA.png"/>Image taken from the linked paper.</figure><p><em>Minimal Viable Action Plan:<br/></em>1) Obtain/create a visual dataset of the characters in order to train the CNN<br/>2) Design and explore different methods for joining the two models such as described in the paper<br/>3) Train the model end-to-end</p><p><em>Stretch Goals:<br/></em>1) Error analysis on different methods for joining and potential points of error<br/>2) Exploration of model variations and architecture (incremental changes similar to this <a href="https://arxiv.org/pdf/1708.04755.pdf">paper</a>)</p><p>For current progress, visit the <a href="https://github.com/ryanp97/NeuralEmpty">repo</a>.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=ab3d796c422e" width="1"/></div>
-    </content>
-    <updated>2018-04-03T00:55:49Z</updated>
-    <category term="machine-learning"/>
-    <author>
-      <name>Ryan Pham</name>
-    </author>
-    <source>
-      <id>https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2</id>
-      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*83KfTWByl5pPq7A8_E8ApA.gif</logo>
-      <link href="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2" rel="alternate" type="text/html"/>
-      <link href="https://medium.com/feed/@ryanp97" rel="self" type="application/rss+xml"/>
-      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
-      <subtitle>Stories by Ryan Pham on Medium</subtitle>
-      <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-01T01:00:04Z</updated>
-    </source>
-  </entry>
-
-  <entry xml:lang="en-US">
-    <id>http://cse481n-capstone.azurewebsites.net/?p=15</id>
-    <link href="http://cse481n-capstone.azurewebsites.net/2018/04/02/first-blog-post/" rel="alternate" type="text/html"/>
-    <title>First Blog Post!</title>
-    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">Team Name:  Team Watch Your Language! Three Project Ideas: Offensive Text Recognition Our minimal viable plan is to create two models, one which determines if text is offensive or not, and another which determines if any particular group is targeted by the text, such as a racial, religious, or political grouping. Our stretch goal is … <a class="more-link" href="http://cse481n-capstone.azurewebsites.net/2018/04/02/first-blog-post/">Continue reading<span class="screen-reader-text"> "First Blog Post!"</span></a></div>
-    </summary>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><h3><strong>Team Name: </strong></h3>
-<p><span style="font-weight: 400;">Team Watch Your Language!</span></p>
-<h3><strong>Three Project Ideas:</strong></h3>
-<p><span style="text-decoration: underline;">Offensive Text Recognition</span></p>
-<p><span style="font-weight: 400;">Our minimal viable plan is to create two models, one which determines if text is offensive or not, and another which determines if any particular group is targeted by the text, such as a racial, religious, or political grouping. </span></p>
-<p><span style="font-weight: 400;">Our stretch goal is to use these models to make a third model which can use the first two outputs as assumptions to then provide human-readable explanations as to why that particular text was labeled the way it was. This way we can determine if text is offensive or not and provide reasons for that labeling. This can be used to assist in teaching conversational agents common sense about what to say.</span></p>
-<p><span style="text-decoration: underline;"><span style="font-weight: 400;">Domain-Specific Conversational Agent</span></span></p>
-<p><span style="font-weight: 400;">Our minimal viable plan is to create a conversational agent which can provide information and hold a conversation with a well-intentioned user about a particular domain. </span></p>
-<p><span style="font-weight: 400;">The stretch goal here would be to just continually make it better at conversing, at least in the particular domain it is trained to be good at talking about.</span></p>
-<p><span style="text-decoration: underline;"><span style="font-weight: 400;">Image Description</span></span></p>
-<p><span style="font-weight: 400;">Our minimal viable plan is to create a model that can describe a simple image correctly, like generating a sentence describing the spatial relation between a box and a cylinder.</span></p>
-<p><span style="font-weight: 400;">For the stretch goal, we would like to improve our model that can describe a unique pattern of an image among 3 (or multiple) other images. For example, if we have 3 images A, B, and C, we would like to come up with a model to generate a sentence that describes image A but not image B or C.</span></p>
-<h3><strong>GitLab Repo:</strong></h3>
-<p><span style="font-weight: 400;"> </span><a href="https://gitlab.cs.washington.edu/danielby/nlp-capstone"><span style="font-weight: 400;">https://gitlab.cs.washington.edu/danielby/nlp-capstone</span></a></p>
-<h3><strong>Mode:</strong></h3>
-<p><span style="font-weight: 400;">We will be tackling the Offensive Text Recognition task in</span> <em>research mode</em><span style="font-weight: 400;">!</span></p></div>
-    </content>
-    <updated>2018-04-02T06:58:42Z</updated>
-    <category term="Weekly blog"/>
-    <author>
-      <name>Team Watch Your Language!</name>
-    </author>
-    <source>
-      <id>http://cse481n-capstone.azurewebsites.net</id>
-      <link href="http://cse481n-capstone.azurewebsites.net/feed/" rel="self" type="application/rss+xml"/>
-      <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
-      <subtitle>Spring2018 CSE481N Capstone</subtitle>
-      <title>Team Watch Your Language!</title>
-      <updated>2018-05-01T01:00:08Z</updated>
-    </source>
-  </entry>
-
-  <entry>
-    <id>tag:blogger.com,1999:blog-3753031463594823927.post-6307882466820480344</id>
-    <link href="https://cse481n.blogspot.com/2018/04/blog-post-1.html" rel="alternate" type="text/html"/>
-    <title>Blog Post #1</title>
-    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div style="font-family: Verdana; text-align: left;">    <div>Temporary GitHub URL: <a href="https://github.com/rococode/primeapeNLP" target="_blank">https://github.com/rococode/primeapeNLP</a></div>    <div>We plan to be in “research mode” for this capstone.</div>    <div style="font-size: 1.1rem;">Three possible ideas:</div>     <div style="font-size: 1.1rem;">1. New evaluation methods for text generation models</div>    <div>There don’t seem to be many good ways to evaluate the output of machine generated text (such as in the problem of creating hotel reviews). We want our models to generate text that’s indistinguishable from human text, but it’s hard to quantify how similar generated text is to human text, so it’s hard to see when progress is being made. However, it feels like the problem of actually generating human-like text should be harder than the problem of just checking if that text seems human. As a baseline approach, we would like to explore building a regression model for the “humanness” of a piece of unfamiliar text.</div>    <div><strong>        M<span style="font-size: 0.7rem; font-weight: normal;">(inimal)</span>        V<span style="font-size: 0.7rem; font-weight: normal;">(iable)</span>        P<span style="font-size: 0.7rem; font-weight: normal;">(lan)</span>    :</strong></div>    <ol>        <li>Build a reasonably large dataset using a combination of web scraping, existing datasets, and existing generative models</li>        <li>Build a regression model with decent performance on training set</li>        <li>Build a regression model with decent performance on development and test sets</li>    </ol>    <div><strong>Stretch goals:</strong></div>    <ol>        <li>Use our model to score various generative models and compare our model’s rankings for these generative models to commonly agreed-upon rankings by researchers</li>        <li>Integrate model scores into a “generate a lot of possibilities, then search for the best one” approach for text generation</li>    </ol>    <div>We would also explore non-neural methods for evaluating Natural Language Generation (NLG). One idea would be to compare the probability distribution of generated sentences to real sentences. A common problem is that generated text repeats the most probable sentences over and over. Thus, the distribution of sentences is front-loaded. We hypothesize that generated text with a sentence distribution that closely mirrors real text would be more difficult to distinguish from real text. However, we first need to investigate what real world sentence distributions look like. It may be likely that individual sentences are not likely to repeat - in that case, the distribution would be more-or-less uniform across all sentences. We may need to come up with a novel method to categorize similar sentences. We would have to decide whether to use semantic similarity or syntactic similarity.</div>    <div><strong>MVP:</strong></div>    <ol>        <li>Gather a data set - perhaps the data set Ari showed us for hotel reviews.</li>        <li>Examine the existing probability distribution at the sentence-level in the corpus. If the distribution is too uniform, design a method to place similar sentences in the same “bucket” and re-compute the probability distribution.</li>        <li>Design metrics to compute the similarity of two distributions; if a model is “good”, the distribution of the generated sentences will match the distribution of the training corpus.</li>        <li>Use our metric to score generated text models found in the literature.</li>    </ol>    <div><strong>Stretch goals:</strong></div>    <ul>        <li>Use insights from our metrics to improve on current approaches to NLG.</li>    </ul>    <div style="font-size: 1.1rem;">2. Single-document summarization</div>    <div>Single document summarization (SDS) models typically label each sentence in the document as in the summary or not in the summary. The problem then becomes a binary classification problem, and many people train a NN with supervised learning. However, there are other non-neural approaches to this problem that have been tried successfully. One paper shows how SDS can be thought of as a tree based Knapsack problem, which is then solved by a Integer Linear Programming (ILP) solver (see: <a href="https://www.semanticscholar.org/paper/Single-Document-Summarization-as-a-Tree-Knapsack-Hirao-Yoshida/ed0c8a7ab911cdb30b7e95edada3a55c01eb22c5">https://www.semanticscholar.org/paper/Single-Document-Summarization-as-a-Tree-Knapsack-Hirao-Yoshida/ed0c8a7ab911cdb30b7e95edada3a55c01eb22c5</a>). We would like to explore both neural models and non-neural approaches to SDS. </div>    <div><strong>MVP:</strong></div>    <ol>        <li>As a baseline approach, build neural models from current papers that solve SDS. Evaluate the performance using F1 as well as ROUGE metrics (see: <a href="https://en.wikipedia.org/wiki/ROUGE_(metric)">https://en.wikipedia.org/wiki/ROUGE_(metric)</a>).</li>        <li>Build neural models from current papers that focus on non-neural approaches, such as the combinatorial approach described above.</li>        <li>Evaluate neural and non-neural approaches: what do these approaches have in common? What key insights are they leveraging? Are there any generalizations of the problem that can be extracted? Hopefully, this study will allow us to either improve the SOTA neural models or fine tune some non-neural approach.</li>    </ol>    <div><strong>Stretch goal:</strong></div>    <ul>        <li>Use insights from our studies to formulate and solve SDS in a unique way. Evaluate our approach using F1 and ROUGE metrics.</li>    </ul>    <div style="font-size: 1.1rem;">3. Multi-span comprehension</div>    <div>Reading comprehension models generally operate by extracting an answer to a question by outputting a start and end index on the original passage. This is not a very human-like way of answering questions, and makes it impossible to generate good answers to some simple factual questions using common sentence structures. We would like to explore ways of answering questions from passages without being limited to a single span from the passage text.</div>    <div><strong>MVP:</strong></div>    <ol>        <li>Implement a baseline model that performs near state of the art levels on the SQuAD dataset.</li>        <li>Build a dataset that requires information from multiple spans to answer the questions well. We will likely create this dataset by hand.</li>        <li>Build a model that answers questions about a passage by generating multiple spans. We envision designing our model to output a sequence of indices such that every pair of indices corresponds to one part of the answer. This model should perform almost as well as the baseline model on SQuAD, since that’s just a specific case (one span) of a multi-span answer.</li>        <li>Build upon the previous model by using the output spans to generate a formal answer through a generative model, using the output spans and the question sentence as inputs.</li>    </ol>    <div><strong>Stretch goal:</strong></div>    <ul>        <li>Optimize model to actually be effective at answering multispan questions. We expect this to be quite difficult, so while building a functioning model is part of the MVP, actually having it perform comparatively well is a stretch goal.</li>    </ul></div></div>
-    </summary>
-    <updated>2018-04-02T04:32:00Z</updated>
-    <author>
-      <name>Ron &amp;amp; Aditya</name>
-      <email>noreply@blogger.com</email>
-    </author>
-    <source>
-      <id>tag:blogger.com,1999:blog-3753031463594823927</id>
-      <author>
-        <name>Ron &amp;amp; Aditya</name>
-        <email>noreply@blogger.com</email>
-      </author>
-      <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
-      <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
-      <title>PrimeapeNLP</title>
-      <updated>2018-05-01T01:00:13Z</updated>
-    </source>
-  </entry>
-
-  <entry>
-    <id>tag:blogger.com,1999:blog-5600014144802012716.post-6768023392170538237</id>
-    <link href="https://nlpcapstonesemparse.blogspot.com/2018/03/blog-post-1.html" rel="alternate" type="text/html"/>
-    <title>Blog Post 1: Project Ideas</title>
-    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span><span style="font-size: 14.6667px; white-space: pre;">I am interested in working in the code generation/semantic parsing space on the research track. My code </span></span><br/><span><span style="font-size: 14.6667px; white-space: pre;">will be in various branches of my fork of allennlp (https://github.com/rajasagashe/allennlp). I will keep you</span></span><br/><span><span style="font-size: 14.6667px; white-space: pre;"> updated on which branch/commits I worked on during each blog post. Also note that project idea 1 has </span></span><br/><span><span style="font-size: 14.6667px; white-space: pre;">the most detail since I have picked it as my project!</span></span></div><h2 dir="ltr" style="line-height: 1.38; margin-bottom: 6pt; margin-top: 18pt;"><span>Project Idea 1</span></h2><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Minimum Viable Plan:</span><span> Implement the model in the recent UW paper which introduces the task of </span><br/><span>generating the code for a java function from a natural language description. To further aid code </span><br/><span>generation, the class in which the generated function is to reside is provided, i.e. the class variables </span><br/><span>and methods. Thus the encoder encodes the class as well as the utterance and the decoder uses a </span><br/><span>two step attention mechanism and decodes through the java grammar production rules. </span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Stretch Goals:</span><span> Reproduce the state of the art results in the paper. I’m putting this in the stretch goals </span><br/><span>since successfully implementing a neural semantic parser with type constraints is pretty challenging. </span><br/><span>In addition, I hope to experiment with other improvements like encoding the entire class method body</span><br/><span> which wasn’t done.</span></div><h2 dir="ltr" style="line-height: 1.38; margin-bottom: 6pt; margin-top: 18pt;"><span>Project Idea 2</span></h2><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Minimum Viable Plan: </span><span>Implement this paper: </span><a href="https://arxiv.org/pdf/1704.01696.pdf" style="text-decoration: none;"><span>https://arxiv.org/pdf/1704.01696.pdf</span></a><span>. The model is </span><br/><span>similar to that of the previous idea, but the datasets are for python and ifttt instead.</span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Stretch Goals: </span><span>Improve the paper’s result.</span></div><h2 dir="ltr" style="line-height: 1.38; margin-bottom: 6pt; margin-top: 18pt;"><span>Project Idea 3</span></h2><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Minimum Viable Plan: </span><span>Perform transfer learning across several code generation tasks by using the </span><br/><span>same encoder for them all. This technique would be similar to what was used in the Cove paper </span><br/><a href="https://arxiv.org/pdf/1708.00107.pdf" style="text-decoration: none;"><span>https://arxiv.org/pdf/1708.00107.pdf</span></a><span>. </span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Stretch Goals: </span><span>Improve the individual paper results with this technique.</span></div><div><span><br/></span></div></div>
-    </summary>
-    <updated>2018-03-30T22:41:00Z</updated>
-    <author>
-      <name>nlpcapstone</name>
-      <email>noreply@blogger.com</email>
-    </author>
-    <source>
-      <id>tag:blogger.com,1999:blog-5600014144802012716</id>
-      <author>
-        <name>nlpcapstone</name>
-        <email>noreply@blogger.com</email>
-      </author>
-      <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
-      <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
-      <title>NlpCapstone</title>
-      <updated>2018-05-01T01:00:03Z</updated>
+      <updated>2018-05-01T01:30:05Z</updated>
     </source>
   </entry>
 </feed>
