@@ -23,6 +23,42 @@
 <h1>NLP Capstone Spring 2018</h1>
 
 <div class="daygroup">
+<h2>May 02, 2018</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/@hongnin1?source=rss-c450eb982161------2" title="Stories by Ning Hong on Medium">Zichun Liu, Ning Hong, Sujie Zhou <br/> Team The Bugless</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/e05ee9a7eaa8">
+<h4><a href="https://medium.com/@hongnin1/image-captioning-model-advanced-model-attempt-1-e05ee9a7eaa8?source=rss-c450eb982161------2">Image Captioning Model: Advanced model attempt #1</a></h4>
+<div class="entry">
+<div class="content">
+<p>To recap, this is our baseline approach:</p><p><a href="https://medium.com/@hongnin1/image-annotation-model-baseline-dataset-and-evaluation-framework-d1d1b2d1f34c">Image Annotation Model Baseline, Dataset and Evaluation Framework</a></p><p>For the past week, we have been trying to improve our model’s performance from two different aspect: training speed and model accuracy. In order to improve speed, we further investigated in TensorFlow’s API. We realized that the bottleneck of our model’s performance is in extracting and batching our data. After some research, we have decided to try the API tf.record (API: <a href="https://www.tensorflow.org/programmers_guide/datasets#consuming_tfrecord_data">https://www.tensorflow.org/programmers_guide/datasets#consuming_tfrecord_data</a>). We are working on using tf.record and tf.dataset to prepare and feed our data as proposed in the link, and so far we have seen a pretty drastic improvement on our model’s data processing speed.</p><p>In order to improve model accuracy, we mentioned in previous post that we are working towards visualizing our attention weights so that in the examples of mistakes, we can exploit such visualization to get an intuition as to why those mistakes are made, however it has not been an easy task. The current trade off is if we use built in API (<a href="https://www.tensorflow.org/api_docs/python/tf/contrib/seq2seq/BahdanauAttention">https://www.tensorflow.org/api_docs/python/tf/contrib/seq2seq/BahdanauAttention</a> or <a href="https://www.tensorflow.org/programmers_guide/datasets#consuming_tfrecord_data">https://www.tensorflow.org/programmers_guide/datasets#consuming_tfrecord_data</a>), our implementation is easy, but we won’t be able to extract attention weights, on the other hand we could implement our own small neural network to extract attention weights, but it will take a while. Our teammates are currently working on developing our own neural network for this week and see if it will work by the end of the week. It’s a trail and error process so it’s taking a while.</p><p>In terms of the model itself, we have previously implemented InceptionNet as our CNN encoder. However we have been having trouble understanding its structure, it’s layer before the fully-connective layer is not intuitive to use and we can’t quite figure out how the attention comes into play in this network, so we decided to switch to VGG. We are still trying to find a suitable VGG16 (CNN) implementation with checkpoint and this is what we are currently considering: <a href="https://github.com/machrisaa/tensorflow-vgg">https://github.com/machrisaa/tensorflow-vgg</a></p><p>Overall speaking, our baseline model has a lot of problems we have been fixing for the past week in terms of training speed and attention visualization. Also changing our neural network for CNN encoder is taking a large chunk of our time as well. We are hoping to fix these problems by the end of this week and proceed to a more advanced model.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=e05ee9a7eaa8" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@hongnin1/image-captioning-model-advanced-model-attempt-1-e05ee9a7eaa8?source=rss-c450eb982161------2">by Ning Hong at May 02, 2018 04:26 AM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
+<div class="daygroup">
 <h2>May 01, 2018</h2>
 
 <div class="channelgroup">
@@ -2616,42 +2652,6 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 </div>
 
 </div>
-<div class="daygroup">
-<h2>April 03, 2018</h2>
-
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://nlpcapstonesemparse.blogspot.com/" title="NlpCapstone">Rajas Agashe <br/> Team Han Flying Solo</a></h3>
-
-
-<div class="entrygroup" id="tag:blogger.com,1999:blog-5600014144802012716.post-4534461914269998368">
-<h4><a href="https://nlpcapstonesemparse.blogspot.com/2018/04/blog-post-2-warmup.html">Blog Post 2: Warmup</a></h4>
-<div class="entry">
-<div class="content">
-I'm working on my project in my fork of Allennlp. I got the dataset and have written the DatasetReader code to preprocess and index the dataset. I plan to add tests for this, and I need to add further preprocessing code such as splitting variables on camel casing.</div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://nlpcapstonesemparse.blogspot.com/2018/04/blog-post-2-warmup.html">by nlpcapstone (noreply@blogger.com) at April 03, 2018 09:53 PM</a>
-</p>
-</div>
-</div>
-
-
-</div>
-
-</div>
 
 
 <div class="sidebar">
@@ -2701,7 +2701,7 @@ I'm working on my project in my fork of Allennlp. I got the dataset and have wri
 
 <p>
 <strong>Last updated:</strong><br>
-May 02, 2018 04:00 AM<br>
+May 02, 2018 04:30 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
