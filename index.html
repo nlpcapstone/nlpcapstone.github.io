@@ -33,6 +33,70 @@
 
 
 
+<h3><a href="https://medium.com/@halden.lin?source=rss-2759d54493c0------2" title="Stories by Halden Lin on Medium">Halden Lin <br/> Team undef.</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/6f773ae418d0">
+<h4><a href="https://medium.com/@halden.lin/nlp-capstone-06-uncertainty-6f773ae418d0?source=rss-2759d54493c0------2">NLP Capstone | 06: Uncertainty</a></h4>
+<div class="entry">
+<div class="content">
+<p>previous posts: <a href="https://medium.com/@halden.lin/nlp-capstone-01-options-ee873b6885d5">01</a> <a href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5">02</a> <a href="https://medium.com/@halden.lin/nlp-capstone-03-project-proposal-7d8e9ec1a8e3">03</a> <a href="https://medium.com/@halden.lin/nlp-capstone-04-first-steps-be87c31976b7">04</a> <a href="https://medium.com/@halden.lin/nlp-capstone-05-experimenting-306dca636d3a">05</a></p><p>I’ve begun to realize I may not be getting as much out of the project I chose I had hoped. My initial motivation for my project was a hope of expanding my knowledge and developing insights on the NLP front by leveraging the familiarity of Visualization. While I am certainly learning a lot by reading papers on Attention and Neural Networks as a whole (especially through my in-class paper presentation), I feel the work I am doing in building a tool for visualizing and debugging attention models may not be providing me the space to explore NLP that I had hoped for. While the tool will certainly <strong>enable </strong>exploration, my concern is that this exploration will not occur until after the tool is completed at the end of the quarter.</p><p>The good news is that there have been two recent developments that, while increasing my uncertainty, offer potential for greater depth in exploration along the NLP front.</p><h4>1. Potential Pivot</h4><p>I voiced these concerns with Prof. Choi this past week and was given a good amount of valuable advice. Per her suggestion, the beginning of my last cycle began with three tasks.</p><ol><li>Read <a href="https://dl.acm.org/citation.cfm?id=2470718"><em>The Efficacy of Human Post-editing for Language Translation</em></a><em>, </em>authored by<em> </em>Spence Green, Jeff Heer, and Christopher Manning. This paper is unique in that it presents the value of Visualization and HCI within Natural Language Processing, but not as a window into a model. Rather, the authors explore a specific task integral to the Language Translation pipeline and present suggestions for future work in improving Language Translation.</li><li>Do in-depth human error-analysis of existing summarization models. I used examples from See et al.’s paper <em>Get To The Point: Summarization with Pointer-Generator Networks </em>(2017).This was helpful gaining a better intuition as to the problem space and the challenges currently posed by machine summarization.</li><li>Think about how summarization as a task, whether that be the development of models, the model’s task itself, or end-user tasks that use the model, can be re-framed in order to leverage Visualization. This was especially time consuming, as it was difficult for me, but it helped immensely in taking a step back to understand the purpose of these models. This, in turn, helped me understand how my work can fit into this purpose.</li></ol><p>The next few days consisted largely of brainstorming pivots for my project. The most promising direction that came out of these sessions is very briefly outlined below.</p><p><strong>Assisted Cognitive Document Abstraction</strong></p><p>Machine-generated document summaries, even the state-of-the-art, are infrequently used in practice because their summaries are quite poor. Perhaps we can leverage existing models to, rather than produce definite summaries which may be error-prone or difficult to understand, create visualizations over the source text in order to assist humans in comprehension and abstraction.</p><p>For example, instead of treating attention weights as input for an output of text, as we do in summarization models, we can view them as output for human interpretation. Aggregate attention distributions (in summarization) highlight areas of the input text that are salient for the summary produced. Note that this is potentially more valuable than highlighting extractive summaries in the text because attention could potentially point towards different areas of the text that relate to a summary sequence. In this way, generation of summaries becomes a proxy task for creating salient highlights for text. We could then use this as a starting point from which ‘related’ sections in an article may be highlighted for users upon interaction (e.g. mousing over an attended-to sequence).</p><p>The hope is that these visualizations will increase the speed (over no summarization) or accuracy (over machine summarization) at which readers can abstract / understand key ideas in a document.</p><p>Most excitingly, with this re-framing of the task for these models, from sequence output to highlighting, perhaps the models can be modified by adding or removing constraints and mechanisms in order to improve performance for this new task.</p><p>Upon presenting this idea (in longer form) to Prof. Choi, I was encouraged to (1) think more about weaknesses of removing summaries altogether and (2) push for more novelty in the approach — is there any meaningful insight about attention models or summarization as a task that can be gleamed from this pivot, and if not, how can I work towards that. While I do not yet have answers to these concerns, the next development may result in a few.</p><h4>2. Related work, here at the Allen School</h4><p>It was just recently brought to my attention that a Tongshuang (Sherry) Wu, a PhD student in the Interactive Data Lab (in which I am currently working), is also working on visualizations for understanding attention models in NLP. As a part of her project, she and a few of her peers have developed a preliminary visualization tool for an attentive QA model (on the SQuAD dataset).She and my mentor, Kanit (Ham) Wongsuphasawat (whom I have been bouncing ideas off recently), have kindly offered to meet and discuss her work and insights on the problem space. Perhaps collaboration is a possibility — this is exciting! In any case, I suspect talking with Sherry and Ham will provide me the insight and guidance to make a decision on the direction of my project.</p><h4><strong>Future Work</strong></h4><p>I hope to make another blog post in the coming few days as I iron out a future direction. Before this, however, future work is unclear. Until that time!</p><h4>In the meanwhile (supplementary material)</h4><p>I’ve also been playing around with my visualization prototypes, even as I am uncertain as to whether or not they will be relevant to my project after this week. Here’s what I’ve discovered and implemented in that time.</p><ol><li>Interactive heat-maps likely won’t work.</li></ol><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*_bVKvDPn6jBADKwFU9VG3g.gif" />Interactive heat-maps result in a large degree of lag between input and visual update. This is likely due to the extremely large size of the attention matrix in summarization (24,000 individual squares in the heat-map).</figure><p>This is unfortunate, but browser limitations are limitations that must be worked around.</p><p>2. Selection over output text.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/999/1*KfMQd6YnDzdH9dZOyjVEIw.gif" />Mousing over words in the summary results in a view of the attention distribution over the article for that decoder time-step.</figure><p>This is similar to the interactive visualizations presented by See et al. in their <a href="http://www.abigailsee.com/2017/04/16/taming-rnns-for-better-summarization.html">blogpost</a>.</p><p>3. Brushing over output text.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1000/1*nwGIF3VgNDeuFxRml8gGzg.gif" />Brushing over the summary results in an aggregate attention distribution (i.e. coverage) over the article for the selected decoder time-steps.</figure><p>This is an interaction technique I have yet to see in work involving attention analysis, so this is exciting! It looks to be somewhat useful in identifying sections of input text that are salient to an <strong>idea</strong> rather than a <strong>single word</strong> in the output text.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=6f773ae418d0" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@halden.lin/nlp-capstone-06-uncertainty-6f773ae418d0?source=rss-2759d54493c0------2">by Halden Lin at May 02, 2018 06:59 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://deeplearningturingtest.wordpress.com" title="NLP Capstone Project Updates – Ananth">Ananth Gottumukkala <br/> Team Turing Test</a></h3>
+
+
+<div class="entrygroup" id="http://deeplearningturingtest.wordpress.com/?p=21">
+<h4 lang="en"><a href="https://deeplearningturingtest.wordpress.com/2018/05/02/advanced-model-attempt-1-part-1/">Advanced Model Attempt 1 (Part 1)</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<p>This week I created and populated my SQL database with the birth year, birth place, industry, gender, profession, and continent information corresponding to 100 random famous people spanning across all time periods. Furthermore, I created a little over 30 questions that the model can ask as well as the corresponding SQL queries for each question. During each game for the simulation, the user will randomly pick a person for the model to guess and the model picks from a list of these questions to ask. Then, the query corresponding to this question is used to extract the truth value of the question from the database (Yes, No, Unknown). This answer is used as the response to simulate a real person giving that answer through user input. Now that the code has been written to interact with the database, the model can now fully create the observation at any point, which is the input vector to the DRQN. Next, I will hardcode the sample rewards as well as the rules of the game (maximum 20 questions, rewards for winning/losing/wrong guess, terminating game, etc.). This week I will be focusing on getting the simulation to run end-to-end, use tensorflow-gpu, and do hyperparameter tuning.</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://deeplearningturingtest.wordpress.com/2018/05/02/advanced-model-attempt-1-part-1/">by ananthgo at May 02, 2018 06:38 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
 <h3><a href="http://cse481n-capstone.azurewebsites.net" title="Team Watch Your Language!">Boyan Li, Dennis Orzikh, Lanhao Wu <br/> Team Watch Your Language!</a></h3>
 
 
@@ -2987,77 +3051,6 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 </div>
 
 
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://teamoverfit.blogspot.com/" title="NLP Capstone">Pinyi Wang, Dawei Shen, Xukai Liu <br/> Team Overfit</a></h3>
-
-
-<div class="entrygroup" id="tag:blogger.com,1999:blog-9203775015655831448.post-3003438141513431489">
-<h4><a href="https://teamoverfit.blogspot.com/2018/04/1-initial-project-ideas.html">#1 Initial Project Ideas</a></h4>
-<div class="entry">
-<div class="content">
-<h2 style="height: 0px;"><span style="font-family: Arial, Helvetica, sans-serif;">Team Overfit</span></h2><h3><span style="color: #999999; font-family: Arial, Helvetica, sans-serif;"><br /></span></h3><h3><span style="color: #999999; font-family: Arial, Helvetica, sans-serif;">Project repo: <span style="font-size: 18.72px;"><a href="https://github.com/pinyiw/nlpcapstone-teamoverfit">https://github.com/pinyiw/nlpcapstone-teamoverfit</a></span></span></h3><h4><span style="color: #444444; font-family: Arial, Helvetica, sans-serif;">Team members: Dawei Shen, Pinyi Wang, Xukai Liu</span></h4><div><span style="color: #444444; font-family: Arial, Helvetica, sans-serif;"><b>Blog Post: #1: 04/03/2018</b></span></div><div><span style="color: #444444;"><br /></span></div><div><span style="font-family: Arial, Helvetica, sans-serif;">We are likely going to choose the start-up mode and actually build some cool projects! Here's some of our initial project ideas:</span></div><div><ul><li><span style="font-family: Arial, Helvetica, sans-serif;"><b>Twitter Hate Speech Detection</b></span></li><ul><li><span style="font-family: Arial, Helvetica, sans-serif;"><b>Dataset:</b> <a href="https://github.com/zeerakw/hatespeech">https://github.com/zeerakw/hatespeech</a></span></li><ul><li><span style="font-family: Arial, Helvetica, sans-serif;">This dataset contains the tweets ID that are labelled as either Raicist, Sexist or Neither Racist or Sexist.</span></li></ul><li><span style="font-family: Arial, Helvetica, sans-serif;"><b>Minimal viable plan:</b> We could use LSTM sequence to vector encoding to extract critical features of the tweets. Then, we use RNN and attention mechanism to output the label of the speech and the hate score of tweets in each category.</span></li><li><span style="font-family: Arial, Helvetica, sans-serif;"><b>Stretch goals:</b> </span></li><ul><li><span style="font-family: Arial, Helvetica, sans-serif;">We could experiment with different model configurations to improve the performance of the model.</span></li><li><span style="font-family: Arial, Helvetica, sans-serif;">We could build a twitter bot that can collect reports or hateful speech from user, which can be used to train on, so that the model can adapt the model to the latest slangs.</span></li></ul></ul></ul><span style="font-family: Arial, Helvetica, sans-serif;"><br /></span><ul><li><span style="font-family: Arial, Helvetica, sans-serif;"><b>Virtual Date chat bot</b></span></li><ul><li><span style="font-family: Arial, Helvetica, sans-serif;"><b>Description: </b></span><span id="docs-internal-guid-6febb8b7-8f58-f3ab-f461-d5c0a5077f07"><span style="font-family: Arial; vertical-align: baseline; white-space: pre-wrap;">Use conversations between couples to train a chat bot that user can flirt with when they feel lonely.</span></span></li><li><span><span style="font-family: Arial; vertical-align: baseline; white-space: pre-wrap;"><span id="docs-internal-guid-6febb8b7-8f59-3e54-c748-e595571ddaaa"><span style="font-weight: 700; vertical-align: baseline;">Minimal viable plan:</span><span style="vertical-align: baseline;"> Use neural machine translation and attention mechanism to train a generative chat bot. Some training data can be obtained from romantic movies’ dialogue or from Twitter. The challenge would be how to use NLP to classify whether a conversation is flirt or not.</span></span></span></span></li><li><span><span style="font-family: Arial; vertical-align: baseline; white-space: pre-wrap;"><span><span style="vertical-align: baseline;"><span id="docs-internal-guid-6febb8b7-8f5a-50ce-dc63-78e864ac8b2e"><span style="font-weight: 700; vertical-align: baseline;">Stretch goals:</span><span style="vertical-align: baseline;"> Train the chat bot so that it has consistent personality and have long term memory of chat history.</span></span></span></span></span></span></li></ul></ul><span style="font-family: Arial;"><span style="white-space: pre-wrap;"><br /></span></span><ul><li><span id="docs-internal-guid-6febb8b7-8f5a-cf38-76f0-a21179c20dde"><span style="font-family: Arial; vertical-align: baseline; white-space: pre-wrap;"><b>Detect Violations of Laws (Virtual Lawyer)</b></span></span></li><ul><li><span><span style="font-family: Arial; vertical-align: baseline; white-space: pre-wrap;"><b>Description:</b> The project is to try with different models and learn to detect the laws broke given the description of behaviors or given the sworn testimonies in the court.</span></span></li><li><span><span style="font-family: Arial; vertical-align: baseline; white-space: pre-wrap;"><span id="docs-internal-guid-6febb8b7-8f5b-2fce-e8fd-4e47759e160c"><span style="vertical-align: baseline;"><b>Minimal viable plan:</b> Experiment with LSTM and attention mechanism</span><span style="background-color: white; color: #757575; vertical-align: baseline;">.</span><span style="vertical-align: baseline;"> Given the testimony, detects whether the law is broken.</span></span></span></span></li><li><span style="font-family: Arial, Helvetica, sans-serif;"><b>Stretch goals:</b></span></li><ul><li><span style="font-family: Arial, Helvetica, sans-serif;">Given the testimony, detects and return the list of laws have been broken.</span></li><li><span style="font-family: Arial, Helvetica, sans-serif;">Generate texts to offend the testimony.</span></li><li><span style="font-family: Arial, Helvetica, sans-serif;">Generate texts to defend the testimony.</span></li></ul></ul></ul><span style="font-family: Arial, Helvetica, sans-serif;"><br /></span></div></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://teamoverfit.blogspot.com/2018/04/1-initial-project-ideas.html">by Team Overfit (noreply@blogger.com) at April 04, 2018 06:36 AM</a>
-</p>
-</div>
-</div>
-
-
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://deeplearningturingtest.wordpress.com" title="NLP Capstone Project Updates – Ananth">Ananth Gottumukkala <br/> Team Turing Test</a></h3>
-
-
-<div class="entrygroup" id="http://deeplearningturingtest.wordpress.com/?p=3">
-<h4 lang="en"><a href="https://deeplearningturingtest.wordpress.com/2018/04/04/the-journey-begins/">Top 3 Project Ideas I’m Excited For</a></h4>
-<div class="entry">
-<div class="content" lang="en">
-<ol>
-<li><strong>Visualizing a text-based description:</strong> Train a model to learn a language to image mapping with simple descriptions. The minimum plan would be to feed the model short text descriptions like “white hat” and “black cat” with their corresponding visual outputs. Then, if the text “white cat” is input at test time, the model should output the cat with the same shade of white as the hat. Stretch goals include visualizing multiple objects in the same picture and/or visualizing them in different spatial orientations with respect to each other (e.g. on top of, inside, underneath, next to, etc.).</li>
-<li><strong>Generating Multimodal Word Embeddings:</strong> The goal is to create word embeddings that describe a word more holistically from multiple modalities like audio and visual inputs. One possible approach is to concatenate pre-trained word embeddings (e.g. GloVe vector) with additional features based on what context the word is in the present sentence. Then, concatenate this with features generated from a deep fully connected layer of a ConvNet where the input is an image of the actual word (e.g. car). Stretch goals include using these augmented embeddings to enhance performance in applications like sentiment analysis or further augmenting these embeddings with audio features of the word being pronounced (which can help distinguish different meanings of the word).</li>
-<li><strong>Dialogue and Information State Tracking:</strong> The goal is to create a model that can either receive contextual information as text or probe the environment with questions and receive an answer as text. This text can either be input into a linear or tree LSTM for entity extraction, coreference resolution, parsing, and/or other algorithms which can extract valuable contextual information. Then, this text can be used to update the current dialogue and/or information state using deep reinforcement learning. The policy then uses the updated state to choose the next action and hopefully keep repeating this until the text is satisfactorily understood. Stretch goals include using this model to answer test questions about the reading material using a machine comprehension model like the ReasoNet architecture.</li>
-</ol>
-<p> </p>
-<p>Git Repo URL: <a href="https://gitlab.cs.washington.edu/ananthgo/cse481n-capstone" rel="nofollow">https://gitlab.cs.washington.edu/ananthgo/cse481n-capstone</a></p>
-<p>This project is in research mode with a heavy focus on making improvements in keeping track of the meaning behind lines of input text.</p></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://deeplearningturingtest.wordpress.com/2018/04/04/the-journey-begins/">by ananthgo at April 04, 2018 05:42 AM</a>
-</p>
-</div>
-</div>
-
-
 </div>
 
 </div>
@@ -3110,7 +3103,7 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 
 <p>
 <strong>Last updated:</strong><br>
-May 02, 2018 06:30 AM<br>
+May 02, 2018 07:00 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
