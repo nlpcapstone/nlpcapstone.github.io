@@ -23,6 +23,42 @@
 <h1>NLP Capstone Spring 2018</h1>
 
 <div class="daygroup">
+<h2>May 03, 2018</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/nlp-capstone-blog?source=rss----9ba3897b6688---4" title="NLP Capstone Blog - Medium">Tam Dang, Karishma Mandyam <br/> Team Illimitatum</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/d01e84c5e1da">
+<h4><a href="https://medium.com/nlp-capstone-blog/advanced-model-attempt-1-neural-based-definition-extraction-d01e84c5e1da?source=rss----9ba3897b6688---4">Advanced Model Attempt #1: Neural-Based Definition Extraction</a></h4>
+<div class="entry">
+<div class="content">
+<p>We last left off on the idea of using an FSA with a restricted vocabulary; restricted in the sense that we extract sentences coupled with a neural language model to assure semantic quality while allowing a generative RNN model a reasonable amount of improvisation to produce abstractive definitions.</p><p>Here, we discuss our approach for the extractive component of this model, and consider it our first attempt at an advanced model for the task.</p><h3>Introducing Extractive Summarization</h3><p>Recall that extractive summarization is the idea of reducing text down to a subset of its sentences that still preserves its semantic integrity. In particular, we intend to build on the work of a successful nerual-based extractive summarizer and tailor it to solve our task.</p><p><a href="https://arxiv.org/abs/1611.04230">SummaRuNNer</a> is an RNN-based extractive summarization algorithm developed by Nallapati et al. that encodes documents from the word level up to and across the sentence level before making inference. Essentially, the model is a binary classifier on sentences within a document on whether it should be included in a summary. Its decisions are conditioned on</p><ul><li>Averaged-pooled word-level hidden states of the sentence</li><li>Average-pooled sentence-level hidden states of the document</li><li>An abstract representation of the summary built so far (average-pooling of the word-level pooled hidden states of sentences selected thus far)</li></ul><p>After which, there are several affine transformations conducive to selecting and filtering sentences:</p><ul><li>Content: affine on the abstract sentence representation that measures semantic richness</li><li>Salience: bilinear affine on the abstract sentence representation and the document representation to measure cohesiveness</li><li>Novelty: bilinear affine on the abstract sentence representation and the running summary representation to address redundancy</li><li>Absolute and Relative Positioning: two separate affines on the embedded index of the sentence to allow how far we are into the document to influence inference</li></ul><p>As of now, we have built from scratch our own <a href="https://github.com/NLP-Capstone-Project/machine-dictionary/blob/development-tam/machine_dictionary_rc/models/SummaRuNNer.py">unofficial implementation of this model</a> with inspiration from another <a href="https://github.com/hpzhao/SummaRuNNer">unofficial implementation</a> and is capable of summarizing documents the way we’ve formatted them. What’s left is for us to tailor this model to fit the task.</p><h3>A Slight Twist on an Established Task</h3><p>As of now, the model summarizes documents. We’d like it so that it instead zeroes in on query terms we give it given a research paper, to intelligently extract only sentences from that paper conducive to defining that term.</p><p>Our approach for augmenting SummaRuNNer to be a definition extractor involves</p><ul><li>Encoding the query term with a character-level RNN and using its concatenated hidden states as its representation</li><li>Introducing this new query-term abstract representation when constructing the document representation through a bilinear affine</li><li>Further introducing this query term by converting many of the non-bilinear affines (content, positioning, and possibly new ones for the task) to further condition inference on the query term.</li></ul><p>Essentially, the sentences we extract from the document are being conditioned on the term we’re trying to define. Encoding technical terms using a character level RNN allows similar technical terms to have similar hidden representations. For example, if we see the term “Chronic Lymphocytic Leukemia” in the training data and encounter “Chronic Myelogenous Leukemia” in the testing data, we would have more of an idea of how to approach this new term because of its character level similarities to the term we have already seen during training time. This might help us break down more complicated novel technical terms at testing time.</p><p>Experiments have yet to be conducted on the effectiveness of this approach but will be discussed later in <strong>Advanced Model Attempt #1 (cont.):</strong> another post later in this series discussing the results of the groundwork we’ve laid out here.</p><h3>Training Methods</h3><h4>Collection Training Data with UMLS and ROUGE:</h4><p>Recall that SummaRuNNer is a model that aims to extract the sentences in a document that summarize it best. It does so by training on examples that teach the model which sentences to extract from the document.</p><p>SummaRuNNeR uses a <em>distant supervision</em> method that relies on ROUGE in order to produce training examples for the model. This portion of the architecture, which we refer to as the “extractor”, extracts the sentences out of each document which maximize the ROUGE score when compared against the gold standard definition for the term in question. The extractor in a summarization context can use a greedy approach as follows:</p><ul><li>Look at each sentence in the document one at a time and consider appending it to the extracted sentences that we have already chosen.</li><li>Calculate the ROUGE score of the old extracted sentences + this new sentence in comparison to the gold standard summarization for the document.</li><li>If the ROUGE score increases from the previous ROUGE score, keep the new sentence.</li><li>Otherwise, we don’t keep the new sentence and move on.</li></ul><p>Although this method may not produce the most optimal and compact set of sentences that are relevant, this approach will be faster and is reasonable. The output of the extractor for each document is a tensor whose length is the number of sentences in the document, and is 0 if the sentence is tagged with O or 1 if the sentence is tagged with I.</p><p>To tailor this style of data collection to our task however, we optimize on ROUGE with respect to an entity’s gold-standard definition instead of a gold-standard summarization of the document. We collect entity-definition pairs through <a href="https://www.nlm.nih.gov/research/umls/">UMLS</a> and creating training examples of the form</p><ul><li>Entity (the technical term to define)</li><li>Gold-standard definition for the entity</li><li>The target sentence IO tags found via distant supervision with ROUGE on sentences of a research paper with the gold-standard definition being the reference</li><li>A Semantic Scholar research paper in which the sentences came from (provides the sentences in which to perform inference)</li></ul><p>With this data, we can train the definition extraction model discussed earlier; we train using these &lt;entity, IO-tagged sentences, publication&gt; examples to learn a tagger that can extract sentences most relevant to a term given a publication.</p><p>While this may result in an unnecessarily large number of training data points, we can also consider pruning this dataset later on if we have irrelevant entities for a particular document. For example, if we were trying to find a training example that used the entity “dental cavity” for a document that was about blood cancers, we might not want to keep this training example because there wouldn’t be much of a correlation between the two. In order to do this, we can introduce a ROUGE threshold, where we only keep the training example if the ROUGE score of the sentences extracted by the tagger are above a particular threshold. This might be an optimization for the future.</p><p>Our previous approach was unsupervised and it relied only on the semantic scholar dataset to produce definitions. Our current approach is an extension of SummaRuNNer which requires gold standard definitions for entities that we’d like to define in each paper. We chose to focus on medical terms, and one of the most complete datasets for medical terms and their definitions happens to be the UMLS dataset. This dataset contains a <em>Metathesaurus</em> which contains, amongst many other pieces of data, medical terms and their definitions. The technical terms in the dataset serve as references for ROUGE in the tagging phase above.</p><h4>In summary</h4><p>Training is fairly straightforward; loss between predicted and target sentences is computed with log loss (each sentence in a document is IO-tagged where sentences labeled with <em>I </em>are to be included in the definition). Essentially, the definition extractor, much like SummaRuNNer, is trained as a sentence tagger.</p><h4>Attention as a Stretch Goal</h4><p>The first part of our basic SummaRuNNer-based model uses a document representation to predict tags for sentences in a document. The current document representation is constructed by averaging the hidden states from words in each sentence and averaging the hidden states from each sentence in the document. However, we believe that simply averaging the sentences may not be the best approach to constructing the latent document representation. One of our stretch goals for us to optimize the model will be to attend to the most important parts of sentences in each document. We can do this using the method proposed in Hierarchical Attention Networks for Document Classification (Yang et. al 2016).</p><p>This approach introduces a word level context vector and a sentence level context vector which allow us to calculate attention coefficients on the fly for every word in each sentence and every sentence in the document. In this manner, we can take a weighted sum of the hidden states in the sentences and will hopefully produce better document representations overall. The word level and sentence level context vectors can be initialized randomly and learned throughout training.</p><h4>Conclusion</h4><p>We are very excited to have found a supervised approach to this task per the advice of AI2 researchers. It’s a straightforward approach with measurable loss and clearer metrics.</p><p>We also hope to have enough time before the capstone is over to introduce attention!</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=d01e84c5e1da" width="1" /><hr /><p><a href="https://medium.com/nlp-capstone-blog/advanced-model-attempt-1-neural-based-definition-extraction-d01e84c5e1da">Advanced Model Attempt #1: Neural-Based Definition Extraction</a> was originally published in <a href="https://medium.com/nlp-capstone-blog">NLP Capstone Blog</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/nlp-capstone-blog/advanced-model-attempt-1-neural-based-definition-extraction-d01e84c5e1da?source=rss----9ba3897b6688---4">by Tam Dang at May 03, 2018 03:32 AM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
+<div class="daygroup">
 <h2>May 02, 2018</h2>
 
 <div class="channelgroup">
@@ -2988,69 +3024,6 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 </div>
 
 
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://mathstoc.wordpress.com" title="NLP Capstone – Mathematical Distractions">Kuikui Liu, Nicholas Ruhland <br/> Team INLP</a></h3>
-
-
-<div class="entrygroup" id="http://mathstoc.wordpress.com/?p=277">
-<h4 lang="en"><a href="https://mathstoc.wordpress.com/2018/04/04/nlp-capstone-post-1-ideation/">NLP Capstone Post #1: Ideation</a></h4>
-<div class="entry">
-<div class="content" lang="en">
-<p>In this post, I’d like to briefly discuss three different ideas I have for my capstone project.</p>
-<p>UPDATE (04/05/2018): I am fortunate to be joined by a fellow student, Nicholas Ruhland, for this capstone project.</p>
-<h1>A Theoretical Analysis of RNNs (Research Mode):</h1>
-<p> A recent <a href="https://arxiv.org/abs/1703.00810">paper of Professor Naftali Tishby</a> provided some useful observations on the behavior of feedforward neural networks, and proposed a promising approach to understanding their performance. Earlier empirical work done in the vision community showed that when a convolutional neural network is trained, layers closer to the input learn lower level features (such as edges and corners) and layers closer to the output learn higher level features (“this part of the image resembles a nose, and this other part resembles an eye”). One might expect similar behavior to occur with general feedforward neural networks: that earlier layers learn lower level features of the input and later levels learn higher level features of the input. The key insight here was to think of each layer of a neural network as a Markov chain, where each layer <img alt="L_{i}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7Bi%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{i}" /> is a (vector-valued) random variable that is conditionally independent of <img alt="L_{j}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7Bj%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{j}" /> for all <img alt="j &lt; i - 1" class="latex" src="https://s0.wp.com/latex.php?latex=j+%3C+i+-+1&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="j &lt; i - 1" /> given <img alt="L_{i-1}" class="latex" src="https://s0.wp.com/latex.php?latex=L_%7Bi-1%7D&amp;bg=ffffff&amp;fg=000000&amp;s=0" title="L_{i-1}" />. In this way, information flowing forward in the network can be quantified via notions of entropy from traditional information theory.</p>
-<p>The paper contains some empirical work, observing that there are generally two phases to learning artificial neural networks via stochastic gradient descent: the fitting phase, and the compression phase. The fitting phase is the shorter phase, where the model is quickly tuning itself to minimize the empirical loss function. At the end of this phase, we don't necessarily have a model that will generalize to new data. The compression phase is where the model begins to learn the relevant features in the input, with the intuition that there are many irrelevant parts of the input (I don't need to know every atom in an object to identify it). </p>
-<p>The goal of this project would be to perform a similar theoretical analysis and empirical work for RNN architectures (whose "natural" Markov chain isn't as simple, as there are cycles) on some traditional NLP task, such as Machine Translation, with the goal of studying the flow of information in an RNN architecture, rather than performing comparably to state-of-the-art Machine Translation models (although this can be a stretch goal).</p>
-<p>The relevant steps in this project will likely look like the following:<br />
-1. Reading up on the relevant work by Tishby et. al. (and any other theoretical papers on deep learning).<br />
-2. Understand basic and traditional RNN architectures.<br />
-3. Learning PyTorch.<br />
-4. Implementing several of these architectures and testing (for example, to see if learning also comes in two distinct phases: fitting and compression)<br />
-5. Using these empirical observations, and information theory to analyze these architectures.<br />
-6. Time permitted, play around with new RNN architectures.</p>
-<h1>Musical Style Learning from Musical Scores (Research/Start-Up Mode):</h1>
-<p> This idea lies somewhat outside traditional NLP in that it tackles the language of music. While the alphabet of a musical score consist chiefly of the 12 musical notes, there is added challenge in that several notes may be played simultaneously, especially if there are several instruments involved or simply the two hands of a pianist. Furthermore, the exact timing of each note played matters, note merely the ordering of the notes.</p>
-<p>The idea here is simply to, given the score of a musical piece, represented as a sequence of notes at each time, predict the era (Baroque, Classical, Romantic, etc.) or even, the composer of the piece (Bach, Beethoven, Brahms, etc.) There are several problems to be solved step by step for this project.</p>
-<p>1. Data collection from a large library of musical scores (ex: <a href="http://imslp.org/">IMSLP</a>)<br />
-2. Data formatting so as to be usable.<br />
-3. Model selection.<br />
-4. Model implementation (PyTorch).<br />
-5. Model testing.</p>
-<p>There are also several extensions that can be viewed as stretch goals. For these, the first two can be reused.</p>
-<h3>Musical Score Generation:</h3>
-<p> Now, we learn how to compose a piece that “sounds” similar to a given composer. This will involve learning from the pieces written by a given input composer, and outputting a new piece. One core challenge here is ensuring that the output is syntactically correct.</p>
-<h1>Story Illustration (Start-Up Mode):</h1>
-<p> Given a short story and a specific scene (or place in the text), produce an image that is representative of the scene. This project combines aspects of NLP and vision. This project may also explore generative adversarial methods. One well-known challenge here is convergence.</p>
-<p>Here are the general steps for this project:<br />
-1. Data collection (image captioning dataset can be helpful)<br />
-2. Model selection.<br />
-3. Model implementation (PyTorch).<br />
-4. Model testing.</p>
-<p>As an extension, one can also generate several frames to form a short “movie”. Another can be comic book pane generation.</p></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://mathstoc.wordpress.com/2018/04/04/nlp-capstone-post-1-ideation/">by Kuikui Liu at April 04, 2018 06:53 AM</a>
-</p>
-</div>
-</div>
-
-
 </div>
 
 </div>
@@ -3103,7 +3076,7 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 
 <p>
 <strong>Last updated:</strong><br>
-May 03, 2018 03:30 AM<br>
+May 03, 2018 04:00 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
