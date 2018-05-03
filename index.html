@@ -33,6 +33,38 @@
 
 
 
+<h3><a href="https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2" title="Stories by Viterbi Or Not To Be on Medium">Aaron Johnston, Lynsey Liu <br/> Team Viterbi Or Not To Be</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/4626fe37cadb">
+<h4><a href="https://medium.com/@viterbi.or.not/advanced-model-1-part-1-4626fe37cadb?source=rss-c522ef075bb3------2">Advanced Model #1, Part 1</a></h4>
+<div class="entry">
+<div class="content">
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*_Pn2CYQZkoIzZYLwVPV2MA.png" /></figure><p>Work on our advanced model is underway! To recap, we aim to upgrade our baseline model by including other forms of conversational data (chatlogs and meeting transcripts in addition to the email data we have been using) into our training and adding features that target characteristics specific to conversational text.</p><h4>Extensibility and Other Datasets</h4><p>To achieve this, we first worked on restructuring our baseline code to be extensible to allow addition of inputs from other datasets and to allow different methods of feature extraction based on the dataset. We’ve started splitting our baseline code into smaller parts (parser, feature extractor, model) and creating a structure for the new code segments and datasets. We’ve also parsed one additional data type (GNUe chatlogs) and begun the process of integrating the data into the structure. Unfortunately, we have not yet been able to produce summaries using this dataset — while we have the parser working, several of our features and evaluation scripts do not translate easily to the new formatting and we are still working on refactoring our codebase to handle it. As we complete our first advanced model, bringing these new data sources into the fold will be a top priority so that we can begin to compare the differences between the dataset and work toward our stretch goal of training on both datasets in order to improve performance on each.</p><h4>Preprocessing</h4><p>Looking at the generated summaries from our baseline model, we found a few mistakes that could be easily avoided using automated preprocessing. The summaries often included quoted replies, email signatures, and other insignificant lines that could be eliminated by looking at simple characteristics of the sentence (for example, a line or sentence ending in a comma usually indicates that it is a greeting or closing clause). We previously added a feature based on the sentence starting with a ‘&gt;’ character to eliminate sentences that were quotes from previous emails in the thread, which improved performance. We are now moving this to the preprocessing step. The preprocessing will occur during after parsing the dataset, but before feature extraction, and because it is highly specific to the types of data we are parsing it will have to be implemented separately for both email and chat data.</p><p>Another addition we have been looking into has been detection of email signatures. While we have not yet created a very successful system for this, we have some ideas on how to proceed as we finish our first advanced model. We have already tried adding a feature for a sentence’s proximity to the end of an email, but unfortunately it was not very successful in removing signatures. Therefore, we are hoping that preprocessing will fit the task better — for example, we might examine the email for the last contiguous block of non-empty lines, and remove them under the assumption that the email signature will always be at the end and will never be useful in a summary. But this comes with its own challenges, as some emails in the dataset (and in general use) do not have a signature, and thus the last contiguous block might be content or even the entire email in some cases. One idea we have to combat this would be application of a language model to the sentences in a contiguous chunk. If a language model (such as an n-gram model) were trained on the English language and exhibited a high perplexity when looking at a given sentence, it might be safe to say that it is not prose and is instead a collection of names, emails, or organization names as one might expect to see in a signature. Be sure to check back in our Part 2 blog post after we have implemented this preprocessing and reported on the results!</p><h4>Conversation-Specific Features</h4><p>We started our foray into conversation-specific features with the those listed in the complete features set (beyond the basic set in our baseline) in the Sood et. al. paper, before expanding upon this set with our own contributions that target email data specifically. So far, we’ve implemented the following features based on the paper —</p><p><strong>Is Question:</strong> Important issues and concerns are often expressed in the form of questions. To take advantage of this idea, this feature represents whether or not (1 or 0) the sentence is a question. When training using this feature, we found that</p><p><strong>Sentiment Score: </strong>Based on the idea that strong sentiments and opinions are important to a conversation, this feature captures the sentiment of a sentence. The score is determined by taking the difference between the positive and negative and score for each word in the sentence, then adding up the scores of all the words in the sentence and normalizing by the number of words in the sentence.</p><p>In addition to the features in the Sood et. al. paper, we came up with some more feature ideas based on our error analysis of the baseline model —</p><p><strong>Numbers:</strong> Even with the ‘Special Terms’ feature, our baseline model often missed lines containing numbers or statistics that we would want to preserve in a summary because they were short or eliminated by the importance of other features. In order to address this shortcoming, this feature uses a simple regular expression mechanism to determine the occurrences of numeric data in a sentence.</p><p><strong>URLs:</strong> The baseline model also often missed URLs, which are typically important information and usually contained in the summary annotations of the dataset. This feature would address this problem by using a regular expression to determine how many URLs are contained in the sentence.</p><h4>Results</h4><p>At first, we tested the features that were described in the Sood et. al. paper, evaluating them on the Naive Bayes model that we had found to be most generally successful in our previous baseline experimentation. As corroborated by the paper’s findings, we discovered that these features were somewhat impactful in improving the performance of our model, at least as far as ROUGE scores were concerned:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*X9KXUGGowXEptmVn3kv-jg.png" />Results of the model with the conversation-specific features from Sood et. al. compared with the baseline</figure><p>Noticeably, the addition of these conversation features was strictly better for ROUGE evaluation. Both the question feature and sentiment feature were roughly equivalent, although we noticed that when we subjected the summaries to human evaluation it was easier to notice an improvement from the question feature. Many of the important sentences in the reference summaries seem to have been questions, perhaps because asking a question is such a common way to transition to a new topic in an email thread. As a result, we found that this feature helped populate our summaries with many of the questions from the reference summaries, establishing clear boundaries. Even if some of the sentences in our summaries were less impactful, having the questions made a big difference for a human reader because it was possible to get the general idea of the thread from the questions alone. As an example, this is one of our generated summaries, compared with a reference:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*ONLBMtMpzebsdPUa1AzWBQ.png" />Comparison of reference summary (left) to our generated summary (right) using the Is Question feature</figure><p>It is noticeable that the questions add a significant amount of relevance to our summary, although there is still work to be done as far as capturing the shorter, choppier, but still more important non-question sentences.</p><p>However, because another significant goal of our advanced model is to explore other conversation-specific features not addressed in the research paper, we did some additional exploration on our own to find features that could take our model’s performance beyond the results of Sood et. al., even if only for email data. So far, we have found two that improved our ROUGE metrics while also seeming to make more relevant summaries by detecting numbers and detecting URLs in a given sentence. Our results are as follows:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*xiga8kKb3O5cYHYP2sDbTQ.png" />Results of the model with our conversation-specific features compared with the baseline</figure><p>Using the numbers feature in particular, we found that our model was able to outperform the baseline considerably, although upon human examination we had trouble determining exactly why this had happened as the summaries did not capture that many numbers. However, as far as human examination went, we discovered that the URL feature made a clear impact, adding a considerable number of important URLs to our summaries that had originally been passed over by the model even though human annotators had marked them as being especially important.</p><p>Finally, we tried all of these new features together to see how they compared to the baseline:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*l7tr_T6H5jnqWRbSf7NeGA.png" />Results of the model with the all of the additional features discussed compared with the baseline</figure><p>Ultimately, while these features were relatively few in number, their use of conversation-specific data clearly led to a great deal of performance increase for our model.</p><h4>Next Steps</h4><p>For Part 2 of our advanced model, we would like to finish restructuring and incorporating the other datasets into our model input. Because one of our stretch goals is to be able to find a way to incorporate multiple types of data into a single model, we are hoping to do this in a way that allows us to compute the same (or at least similar) features for each type of data.</p><p>Another goal is to implement the preprocessing steps described above as a part of dataset parsing. Significantly, there are some advanced preprocessing techniques described by the Sood et. al. paper that deal with chat data specifically, so we hope to incorporate those once the chat data is working correctly. Finally, we want to continue adding features — although it is certainly unlikely that all of the features we try will be as successful as the ones described above, we hope that this project will culminate in a thorough examination of the impacts that various features can make, so we will continue to explore in this regard as we finish up our first advanced model.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=4626fe37cadb" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@viterbi.or.not/advanced-model-1-part-1-4626fe37cadb?source=rss-c522ef075bb3------2">by Viterbi Or Not To Be at May 03, 2018 06:56 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
 <h3><a href="https://medium.com/@be.li.nda?source=rss-fad49d942bf3------2" title="Stories by Belinda Zou Li on Medium">Belinda Li <br/> Team Sentimentity</a></h3>
 
 
@@ -3023,46 +3055,6 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 </div>
 
 
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="http://cse481n-capstone.azurewebsites.net" title="Team Watch Your Language!">Boyan Li, Dennis Orzikh, Lanhao Wu <br/> Team Watch Your Language!</a></h3>
-
-
-<div class="entrygroup" id="http://cse481n-capstone.azurewebsites.net/?p=31">
-<h4 lang="en-US"><a href="http://cse481n-capstone.azurewebsites.net/2018/04/05/warm-up/">Warm Up!</a></h4>
-<div class="entry">
-<div class="content" lang="en-US">
-<h3><b>Data Collection:</b></h3>
-<p><span style="font-weight: 400;">We have already begun the process of collecting data from Reddit for our project, using the Reddit API. We want to train our first neural-net model, which will be able to tell if some text is offensive or not, on a large amount of data.</span></p>
-<p><span style="font-weight: 400;">Besides using the Reddit API to get posts from r/MeanJokes, we also use the Reddit submission dataset from </span><a href="https://pushshift.io/"><span style="font-weight: 400;">pushshift.io</span></a><span style="font-weight: 400;"> to get more examples from a wider context. We pre-processed data by filtering out non-text submission and deleted posts. </span></p>
-<p><span style="font-weight: 400;">Now that we have the r/meanJokes posts, we want to determine the content phrases of these posts so that we can use them to find similar sentences all over Reddit. We know that the r/meanJokes posts are all offensive, and similar sentences elsewhere in Reddit could give us non-offensive examples. We have found an algorithm for pulling content phrases out of sentences, the </span><span style="font-weight: 400;">Rapid Automatic Keyword Extraction (RAKE) algorithm. We have extracted content phrases from r/meanJokes posts and also want to extract them from the rest of Reddit and the next step is to decide on a way to compare similarity and output the final set of posts we want to train the model on.</span></p>
-<h3><b>Deep Learning Tools Set Up:</b></h3>
-<p><span style="font-weight: 400;">For our modeling purposes, we are exploring PyTorch and AllenNLP. We learned PyTorch basics and went through Nelson’s tutorial in the undergrad NLP course last quarter. PyTorch would be our weapon of choice if we experiment with novel models.</span></p>
-<p><span style="font-weight: 400;">We also installed AllenNLP because it looks like a nice tool to build and evaluate baseline models. We are currently going through AllenNLP’s official tutorial by running some of their existing models and demos.</span></p>
-<p><span style="font-weight: 400;">So far, these tools are working as we expected.</span></p>
-<p> </p></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="http://cse481n-capstone.azurewebsites.net/2018/04/05/warm-up/">by Team Watch Your Language! at April 05, 2018 05:41 PM</a>
-</p>
-</div>
-</div>
-
-
 </div>
 
 </div>
@@ -3115,7 +3107,7 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 
 <p>
 <strong>Last updated:</strong><br>
-May 03, 2018 06:30 AM<br>
+May 03, 2018 07:00 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
