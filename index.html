@@ -340,7 +340,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
 </tbody>
 </table>
 <ul>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Trained on Combined Dataset, epoch chosen: 18</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Trained on Combined Dataset, epoch chosen: 16</span></li>
 </ul>
 <table>
 <tbody>
@@ -350,60 +350,29 @@ Running the filter on 100k posts, we can see that most of the most common subred
 </tr>
 <tr>
 <td><span style="font-weight: 400;">Accuracy </span></td>
-<td><span style="font-weight: 400;">0.8365</span></td>
+<td><span style="font-weight: 400;">0.8152</span></td>
 </tr>
 <tr>
 <td><span style="font-weight: 400;">Precision</span></td>
-<td><span style="font-weight: 400;">0.8180</span></td>
+<td><span style="font-weight: 400;">0.7979</span></td>
 </tr>
 <tr>
 <td><span style="font-weight: 400;">Recall</span></td>
-<td><span style="font-weight: 400;">0.8022</span></td>
+<td><span style="font-weight: 400;">0.7672</span></td>
 </tr>
 <tr>
 <td><span style="font-weight: 400;">F1</span></td>
-<td><span style="font-weight: 400;">0.8100</span></td>
+<td><span style="font-weight: 400;">0.7822</span></td>
 </tr>
 </tbody>
 </table>
-<p><span style="font-weight: 400;">Although the two models had the same setup, the one trained on the combined dataset performed a lot better across all metrics on Waseem dev data despite our concerns about noise. </span></p>
+<p><span style="font-weight: 400;">Although the two models had the same setup, the one trained on the combined dataset got performance close to the one trained on the original Waseem dataset despite the fact that we now have really different class distributions in the two datasets. </span></p>
 <h4><span style="font-weight: 400;">Retrain Some Baseline Models on Combined Dataset:</span></h4>
 <p><span style="font-weight: 400;">Here we retained some baseline models with different set ups on the combined dataset and evaluated them on both Waseem dev data and combined dev data.</span></p>
 <ul>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Model1 — embedding: 50 dimensional glove twitter embeddings, encoder: 1 layer GRU, epoch chosen: 18</span></li>
-</ul>
-<table>
-<tbody>
-<tr>
-<td></td>
-<td><span style="font-weight: 400;">Combined-dev</span></td>
-<td><span style="font-weight: 400;">Waseem-dev</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Accuracy</span></td>
-<td><span style="font-weight: 400;">0.8717</span></td>
-<td><span style="font-weight: 400;">0.8365</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Precision</span></td>
-<td><span style="font-weight: 400;">0.8643</span></td>
-<td><span style="font-weight: 400;">0.8180</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Recall</span></td>
-<td><span style="font-weight: 400;">0.8664</span></td>
-<td><span style="font-weight: 400;">0.8022</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">F1</span></td>
-<td><span style="font-weight: 400;">0.8653</span></td>
-<td><span style="font-weight: 400;">0.8100</span></td>
-</tr>
-</tbody>
-</table>
+<li>
 <ul>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Model2 — embedding: 50 dimensional glove twitter embeddings, encoder: 1 layer LSTM, epoch chosen: 15</span></li>
-</ul>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Model1 — embedding: 50 dimensional glove twitter embeddings, encoder: 1 layer GRU, epoch chosen: 16</span><br />
 <table>
 <tbody>
 <tr>
@@ -413,91 +382,141 @@ Running the filter on 100k posts, we can see that most of the most common subred
 </tr>
 <tr>
 <td><span style="font-weight: 400;">Accuracy</span></td>
-<td><span style="font-weight: 400;">0.8674</span></td>
-<td><span style="font-weight: 400;">0.8386</span></td>
+<td><span style="font-weight: 400;">0.8665</span></td>
+<td><span style="font-weight: 400;">0.8152</span></td>
 </tr>
 <tr>
 <td><span style="font-weight: 400;">Precision</span></td>
-<td><span style="font-weight: 400;">0.8603</span></td>
-<td><span style="font-weight: 400;">0.8222</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Recall</span></td>
-<td><span style="font-weight: 400;">0.8627</span></td>
-<td><span style="font-weight: 400;">0.8015</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">F1</span></td>
-<td><span style="font-weight: 400;">0.8615</span></td>
-<td><span style="font-weight: 400;">0.8117</span></td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li style="font-weight: 400;"><span style="font-weight: 400;"> Model3 — embedding: 50 dimensional glove twitter embeddings, encoder: 1 layer BiGRU, epoch chosen: 5</span></li>
-</ul>
-<table>
-<tbody>
-<tr>
-<td></td>
-<td><span style="font-weight: 400;">Combined-dev</span></td>
-<td><span style="font-weight: 400;">Waseem-dev</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Accuracy</span></td>
-<td><span style="font-weight: 400;">0.8640</span></td>
-<td><span style="font-weight: 400;">0.8234</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Precision</span></td>
-<td><span style="font-weight: 400;">0.8558</span></td>
-<td><span style="font-weight: 400;">0.8141</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Recall</span></td>
-<td><span style="font-weight: 400;">0.8641</span></td>
-<td><span style="font-weight: 400;">0.7695</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">F1</span></td>
-<td><span style="font-weight: 400;">0.8599</span></td>
-<td><span style="font-weight: 400;">0.7911</span></td>
-</tr>
-</tbody>
-</table>
-<p> </p>
-<ul>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Model4 — embedding: 100 dimensional glove twitter embeddings, encoder: 1 layer GRU, epoch chosen: 18</span></li>
-</ul>
-<table>
-<tbody>
-<tr>
-<td></td>
-<td><span style="font-weight: 400;">Combined-dev</span></td>
-<td><span style="font-weight: 400;">Waseem-dev</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Accuracy</span></td>
-<td><span style="font-weight: 400;">0.8701</span></td>
-<td><span style="font-weight: 400;">0.8695</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Precision</span></td>
-<td><span style="font-weight: 400;">0.8650</span></td>
-<td><span style="font-weight: 400;">0.8527</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Recall</span></td>
 <td><span style="font-weight: 400;">0.8614</span></td>
-<td><span style="font-weight: 400;">0.8480</span></td>
+<td><span style="font-weight: 400;">0.7979</span></td>
+</tr>
+<tr>
+<td><span style="font-weight: 400;">Recall</span></td>
+<td><span style="font-weight: 400;">0.8628</span></td>
+<td><span style="font-weight: 400;">0.7672</span></td>
 </tr>
 <tr>
 <td><span style="font-weight: 400;">F1</span></td>
-<td><span style="font-weight: 400;">0.8632</span></td>
-<td><span style="font-weight: 400;">0.8503</span></td>
+<td><span style="font-weight: 400;">0.8621</span></td>
+<td><span style="font-weight: 400;">0.7822</span></td>
 </tr>
 </tbody>
 </table>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<ul>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Model2 — embedding: 50 dimensional glove twitter embeddings, encoder: 1 layer LSTM, epoch chosen: 19</span><br />
+<table>
+<tbody>
+<tr>
+<td></td>
+<td><span style="font-weight: 400;">Combined-dev</span></td>
+<td><span style="font-weight: 400;">Waseem-dev</span></td>
+</tr>
+<tr>
+<td><span style="font-weight: 400;">Accuracy</span></td>
+<td><span style="font-weight: 400;">0.8625</span></td>
+<td><span style="font-weight: 400;">0.8091</span></td>
+</tr>
+<tr>
+<td><span style="font-weight: 400;">Precision</span></td>
+<td><span style="font-weight: 400;">0.8577</span></td>
+<td><span style="font-weight: 400;">0.7875</span></td>
+</tr>
+<tr>
+<td><span style="font-weight: 400;">Recall</span></td>
+<td><span style="font-weight: 400;">0.8578</span></td>
+<td><span style="font-weight: 400;">0.7648</span></td>
+</tr>
+<tr>
+<td><span style="font-weight: 400;">F1</span></td>
+<td><span style="font-weight: 400;">0.8578</span></td>
+<td><span style="font-weight: 400;">0.7760</span></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<ul>
+<li style="font-weight: 400;"><span style="font-weight: 400;"> Model3 — embedding: 50 dimensional glove twitter embeddings, encoder: 1 layer BiGRU, epoch chosen: 16</span><br />
+<table>
+<tbody>
+<tr>
+<td></td>
+<td><span style="font-weight: 400;">Combined-dev</span></td>
+<td><span style="font-weight: 400;">Waseem-dev</span></td>
+</tr>
+<tr>
+<td><span style="font-weight: 400;">Accuracy</span></td>
+<td><span style="font-weight: 400;">0.8618</span></td>
+<td><span style="font-weight: 400;">0.8104</span></td>
+</tr>
+<tr>
+<td><span style="font-weight: 400;">Precision</span></td>
+<td><span style="font-weight: 400;">0.8567</span></td>
+<td><span style="font-weight: 400;">0.7916</span></td>
+</tr>
+<tr>
+<td><span style="font-weight: 400;">Recall</span></td>
+<td><span style="font-weight: 400;">0.8575</span></td>
+<td><span style="font-weight: 400;">0.7620</span></td>
+</tr>
+<tr>
+<td><span style="font-weight: 400;">F1</span></td>
+<td><span style="font-weight: 400;">0.8571</span></td>
+<td><span style="font-weight: 400;">0.7765</span></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<ul>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Model4 — embedding: 100 dimensional glove twitter embeddings, encoder: 1 layer GRU, epoch chosen: 11</span><br />
+<table>
+<tbody>
+<tr>
+<td></td>
+<td><span style="font-weight: 400;">Combined-dev</span></td>
+<td><span style="font-weight: 400;">Waseem-dev</span></td>
+</tr>
+<tr>
+<td><span style="font-weight: 400;">Accuracy</span></td>
+<td><span style="font-weight: 400;">0.8651</span></td>
+<td><span style="font-weight: 400;">0.8194</span></td>
+</tr>
+<tr>
+<td><span style="font-weight: 400;">Precision</span></td>
+<td><span style="font-weight: 400;">0.8605</span></td>
+<td><span style="font-weight: 400;">0.7971</span></td>
+</tr>
+<tr>
+<td><span style="font-weight: 400;">Recall</span></td>
+<td><span style="font-weight: 400;">0.8603</span></td>
+<td><span style="font-weight: 400;">0.7834</span></td>
+</tr>
+<tr>
+<td><span style="font-weight: 400;">F1</span></td>
+<td><span style="font-weight: 400;">0.8604</span></td>
+<td><span style="font-weight: 400;">0.7902</span></td>
+</tr>
+</tbody>
+</table>
+</li>
+</ul>
+</li>
+</ul>
 <h4><span style="font-weight: 400;">Model:</span></h4>
 <p><span style="font-weight: 400;">Our first Advanced model will be a CNN model.</span></p>
 <h5><span style="font-weight: 400;">The intuition of choosing this model:</span></h5>
@@ -505,15 +524,31 @@ Running the filter on 100k posts, we can see that most of the most common subred
 <p><span style="font-weight: 400;">Our model looks like:</span></p>
 <p><img alt="" class="alignnone wp-image-67" height="158" src="http://cse481n-capstone.azurewebsites.net/wp-content/uploads/2018/05/Picture2-300x116.png" width="409" /></p>
 <pre><span style="font-weight: 400;">Image credit:</span><span style="font-weight: 400;">Gambäck, B., &amp; Sikdar, U.K. (2017). Using Convolutional Neural Networks to Classify Hate-Speech.</span></pre>
+<ul>
+<li>
+<ul>
+<li>
 <ol>
 <li style="font-weight: 400;"><span style="font-weight: 400;">Preprocess all words and encode them using pretrained glove embeddings.</span></li>
 <li style="font-weight: 400;"><span style="font-weight: 400;">Feed result into a convolution neural network, taking 2, 3 and 4-grams into consideration. Output dimension is 28, 26 for English alphabets, 1 for digits and 1 for all other symbols. </span></li>
 <li style="font-weight: 400;"><span style="font-weight: 400;">Feed result into a 2-layer feed-forward neural net, with dimension (28, 2)  and dropout (0.5, 0.3)</span></li>
 <li style="font-weight: 400;"><span style="font-weight: 400;">Softmax on the result and pick the major class</span></li>
 </ol>
+</li>
+</ul>
+</li>
+</ul>
 <p><span style="font-weight: 400;">With not much tuning, here’s what our best model looks like:</span></p>
 <ul>
+<li>
+<ul>
+<li>
+<ul>
 <li><span style="font-weight: 400;">200 dimension embedding, filters=100, trained on Waseem twitter dataset</span></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <table>
 <tbody>
@@ -540,7 +575,15 @@ Running the filter on 100k posts, we can see that most of the most common subred
 </tbody>
 </table>
 <ul>
+<li>
+<ul>
+<li>
+<ul>
 <li><span style="font-weight: 400;">200 dimension embedding, filters=100, trained on the combined dataset</span></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 <table>
 <tbody>
@@ -3072,7 +3115,7 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 
 <p>
 <strong>Last updated:</strong><br>
-May 03, 2018 04:30 AM<br>
+May 03, 2018 05:00 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
