@@ -23,6 +23,42 @@
 <h1>NLP Capstone Spring 2018</h1>
 
 <div class="daygroup">
+<h2>May 08, 2018</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://nlpcapstonesemparse.blogspot.com/" title="NlpCapstone">Rajas Agashe <br/> Team Han Flying Solo</a></h3>
+
+
+<div class="entrygroup" id="tag:blogger.com,1999:blog-5600014144802012716.post-8581531123022969204">
+<h4><a href="https://nlpcapstonesemparse.blogspot.com/2018/05/blog-7.html">Blog 7</a></h4>
+<div class="entry">
+<div class="content">
+<div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>I've read through a lot of the data, to understand the data set and view the different types of error </span><br /><span>cases. in general, most(⅔) of the data is just noise, meaning that a programmer won't be able to </span><br /><span>generate the target code from the utterance. </span></div><b id="docs-internal-guid-42510a76-41f6-9607-1678-1da3293c9502" style="font-weight: normal;"><br /></b><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Error breakdown(whats consistently wrong). Rule based fixes.</span></div><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Not understanding functions versus fields</span></div></li><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>return func_debug; or func_x = …</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Fix "Expression--&gt;Expression___(___)", </span></div></li></ul></ul><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Expresion -&gt;identifer</span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>identifier-&gt;classfields variables</span></div><ul style="margin-bottom: 0pt; margin-top: 0pt;"><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>"Expression--&gt;Expression___.___Nt_33"</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>If parent has parenthesis then allow nt_33 to generate functions otherwise fields ok</span></div></li></ul></ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Not able to initialize correctly</span></div></li><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>List y = new File</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>sriniclass_event = new StatisticGenerationEvent()</span></div></li></ul></ul><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-left: 36pt; margin-top: 0pt; text-indent: 36pt;"><span>"Expression--&gt;Expression___Nt_68___Expression",</span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-left: 36pt; margin-top: 0pt;"><span>            "Expression--&gt;Primary",</span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-left: 36pt; margin-top: 0pt;"><span>            "Primary--&gt;IdentifierNT",</span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-left: 36pt; margin-top: 0pt;"><span>            "IdentifierNT--&gt;sriniclass_event",</span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-left: 36pt; margin-top: 0pt;"><span>            "Nt_68--&gt;=",</span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-left: 36pt; margin-top: 0pt;"><span>            "Expression--&gt;new___Creator",</span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-left: 36pt; margin-top: 0pt;"><span>            "Creator--&gt;CreatedName___Nt_37",</span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-left: 36pt; margin-top: 0pt;"><span>            "CreatedName--&gt;IdentifierNT",</span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-left: 36pt; margin-top: 0pt;"><span>            "IdentifierNT--&gt;StatisticGenerationEvent",</span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-left: 36pt; margin-top: 0pt;"><span>            "Nt_37--&gt;ClassCreatorRest",</span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-left: 36pt; margin-top: 0pt;"><span>            "ClassCreatorRest--&gt;Arguments",</span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-left: 36pt; margin-top: 0pt;"><span>            "Arguments--&gt;(___ExpressionList___)"</span></div><b style="font-weight: normal;"><br /></b><br /><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Generics incorrect and missing generics</span></div></li></ul><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span><span class="Apple-tab-span" style="white-space: pre;"> </span></span><span><span class="Apple-tab-span" style="white-space: pre;"> </span></span><span>List&lt;List&gt;  Map&lt;Map, Map&gt;</span></div><span><span class="Apple-tab-span" style="white-space: pre;"> </span></span><span><span class="Apple-tab-span" style="white-space: pre;"> </span></span><span>List x</span><br /><span><br /></span><span>I want pivot now since adding all these rules doesn't seem interesting from a language perspective. I am considering finding a filtering heuristic to run on this dataset to get better quality utterances.</span></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://nlpcapstonesemparse.blogspot.com/2018/05/blog-7.html">by nlpcapstone (noreply@blogger.com) at May 08, 2018 10:55 PM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
+<div class="daygroup">
 <h2>May 03, 2018</h2>
 
 <div class="channelgroup">
@@ -3025,42 +3061,6 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 </div>
 
 </div>
-<div class="daygroup">
-<h2>April 05, 2018</h2>
-
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://medium.com/@be.li.nda?source=rss-fad49d942bf3------2" title="Stories by Belinda Zou Li on Medium">Belinda Li <br/> Team Sentimentity</a></h3>
-
-
-<div class="entrygroup" id="https://medium.com/p/280325a548d1">
-<h4><a href="https://medium.com/@be.li.nda/nlp-capstone-blog-2-learning-pytorch-280325a548d1?source=rss-fad49d942bf3------2">NLP Capstone Blog #2: Learning PyTorch</a></h4>
-<div class="entry">
-<div class="content">
-<p>In order to familiarized myself with PyTorch, I built an attentive LSTM RNN for a benchmark dataset (<a href="http://www.cs.cornell.edu/people/pabo/movie-review-data/">Rotten Tomato movie reviews</a>) frequently used for sentiment analysis. It was able to achieve up to 76–78% accuracy when trained to 10 epochs, with a learning rate of 0.05. With more time, a natural next step would have been adapting the model for GPU, implementing dropout, and performing hyper-parameter tuning, but this can all be done when I implement my actual model for my project.</p><h3>Preprocessing the Data</h3><p><strong>Libraries used</strong>: torchtext, and SpaCy.</p><p>After parsing the data files, I split the dataset into train/dev/test datasets using an 80/10/10 ratio</p><p>For the next steps of preprocessing (tokenization, vocab building, embedding, and batching), I utilized the torchtext library extensively. I first defined a custom dataset by inheriting data.Dataset. I define three data.Fields for my dataset (TEXT for the word embeddings, POLARITY for the polarity embeddings, and LABEL for the label of each example). When I defining the TEXT field, I was able to set the tokenizer to SpaCy’s default english tokenizer.</p><p>One of the benefits of using torchtext is the ease of building the vocab, loading the embeddings, and batching. A few simple lines of code were able to encapsulate these functionalities.</p><pre>TEXT.build_vocab(Xtrain) # 1. generate vocabulary<br />TEXT.vocab.load_vectors(‘glove.6B.’ + str(embedding_dim) + ‘d’) # 2. load GloVe embeddings<br />Xtrain, Xdev, Xtest = data.Iterator.splits(<br />    (Xtrain, Xdev, Xtest),<br />    batch_sizes=(batch_size, len(Xdev), len(Xtest)),<br />    repeat=False,<br />    device = -1 # run on CPU<br />) # 3. build batches</pre><p>One of the troubles I ran into when preprocessing the data was being unable to load two embeddings for each word in a sequence — I couldn’t figure out how to load both the pre-trained GloVe embeddings and the learn-able (untrained) polarity embeddings to encapsulates the prior polarities of words. I eventually resolved this difficulty by adding a Field to the Dataset just for the polarity of each word.</p><pre>POLARITY = data.Field(sequential=True, tokenize=get_polarity)<br />POLARITY.build_vocab(Xtrain)</pre><h3>Building the Model</h3><p><strong>Libraries used</strong>: PyTorch</p><p>I defined my network as follows —</p><pre>class Model(nn.Module):<br />    def __init__(self, num_labels, vocab_size, embeddings_size,<br />                 hidden_dim, word_embeddings, num_features,<br />                 batch_size):<br />        # Code omitted, but basically everything should be <br />        # initialized here, including:<br />        # 1. The embeddings<br />        # 2. The LSTM<br />        # 3. The linear layers, including attention</pre><pre>    def init_hidden(self):<br />        # initialize a single hidden layer to all 0s (code omitted)</pre><pre>    def forward(self, word_vec, feature_vec):<br />        # 1. Apply embeddings &amp; prepare input<br />        word_embeds_vec = self.word_embeds(word_vec)<br />        feature_embeds_vec = self.feature_embeds(feature_vec)<br />        lstm_input = \<br />            torch.cat((word_embeds_vec,feature_embeds_vec),2)</pre><pre>        # 2. Pass through lstm<br />        lstm_out, self.hidden = self.lstm(lstm_input, self.hidden)</pre><pre>        # 3. Compute and apply weights (attention) to each layer<br />        alphas = F.softmax(self.attention(lstm_out), dim=0)<br />        weighted_lstm_out = \<br />            torch.sum(torch.mul(alphas, lstm_out), dim=0)</pre><pre>        # 4. Get final results, passing in weighted lstm output:<br />        tag_space = self.hidden2label(weighted_lstm_out)<br />        log_probs = F.log_softmax(tag_space, dim=1)<br />        return log_probs</pre><p>As can be seen by the forward algorithm, the model first retrieves the embeddings of each word in the sequence, then passes them through an LSTM, applies attention, and finally maps the outputs to the labels.</p><h3>Training the Model</h3><p><strong>Library used</strong>: PyTorch</p><p>I used the NLLLoss function for loss, which I optimized using the SGD optimizer with a learning rate of 0.05. I trained the model for a maximum of 10 epochs. For each epoch, I iterated across the batches, performing 4 steps:</p><ul><li>Clear the accumulated gradients and detach the hidden state from the last instance.</li></ul><pre>model.zero_grad()<br />model.hidden = model.init_hidden()</pre><ul><li>Run the forward pass.</li></ul><pre>log_probs = model(words, polarity)</pre><ul><li>Compute the loss and gradients.</li></ul><pre>loss = loss_function(log_probs, label)<br />loss.backward()</pre><ul><li>Call optimizer.step() to update parameters.</li></ul><h3>Evaluating the Model</h3><p><strong>Library used</strong>: n/a</p><p>To evaluate my model, I simply iterated across the batches of each dataset and counted the number of correctly positive and correctly negative instances in each batch. Then, I put the numbers together for an overall accuracy score. This was a simple process that didn’t depend heavily on utilizing library tools.</p><p>All code I’ve written for this post can be found on Github: <a href="https://github.com/eunsol/document-e2e-sent/tree/master/rt-polarity">https://github.com/eunsol/document-e2e-sent/tree/master/rt-polarity</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=280325a548d1" width="1" /></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://medium.com/@be.li.nda/nlp-capstone-blog-2-learning-pytorch-280325a548d1?source=rss-fad49d942bf3------2">by Belinda Zou Li at April 05, 2018 10:48 PM</a>
-</p>
-</div>
-</div>
-
-
-</div>
-
-</div>
 
 
 <div class="sidebar">
@@ -3110,7 +3110,7 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 
 <p>
 <strong>Last updated:</strong><br>
-May 08, 2018 10:30 PM<br>
+May 08, 2018 11:00 PM<br>
 <em>All times are UTC.</em><br>
 
 <!--
