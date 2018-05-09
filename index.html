@@ -33,6 +33,38 @@
 
 
 
+<h3><a href="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2" title="Stories by Ryan Pham on Medium">Ryan Pham <br/> Team NeuralEmpty</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/82274b3d7f68">
+<h4><a href="https://medium.com/@ryanp97/evaluating-predicates-and-hyper-parameter-tuning-82274b3d7f68?source=rss-6378d85d3a9b------2">Evaluating Predicates and Hyper-Parameter Tuning</a></h4>
+<div class="entry">
+<div class="content">
+<p>The past week, I have been working on stripping the predicates from the graphs to calculate precision and recall over as well as a handful of unsuccessful attempts at hyper-parameter tuning.</p><h4>Predicate Evaluation</h4><p>As mentioned in the last blog post, one of the ideas was to separate the predicates from the graphs and treat them as a bag of words in order to calculate the precision and recall scores over them separately. We can further separate the predicates into two categories: surface predicates and abstract predicates. Surface predicates usually consist of a lemma, a part-of-speech tag, and sense. For more information on surface and abstract predicates, you can read up more on their characteristics <a href="http://moin.delph-in.net/PredicateRfc">here</a>.</p><p>This allows us to get more fine-grained detail on what each model is struggling with. In particular, all the models so far have trouble with predicting surface predicates compared to abstract predicates. For reference, the F1 score differential between Abstract and Surface predicates is nearly 20 points better on the three models I’ve successfully trained so far.</p><pre>Abstract:<br />    Baseline - Featureless:    <br />        Precision   :  0.77<br />        Recall      :  0.73<br />        F1          :  0.75<br />    Baseline - Features Removed:<br />        Precision   :  0.79<br />        Recall      :  0.75<br />        F1          :  0.74<br />    3 Layer, 600 Hidden, 500 Embed - Features Removed:<br />        Precision   :  0.80<br />        Recall      :  0.69<br />        F1          :  0.74</pre><pre>Surface:<br />    Baseline - Featureless:    <br />        Precision   :  0.59<br />        Recall      :  0.53<br />        F1          :  0.56<br />    Baseline - Features Removed:<br />        Precision   :  0.59<br />        Recall      :  0.50<br />        F1          :  0.54<br />    3 Layer, 600 Hidden, 500 Embed - Features Removed:<br />        Precision   :  0.59<br />        Recall      :  0.50<br />        F1          :  0.54</pre><p>After looking into this a little more, there is a large difference in the size of the abstract predicate and surface predicate sets. In the development dataset, there are 7,235 possible surface predicates and only 42 possible abstract predicates to guess from. Furthermore, a small subset of abstract predicates appear much more often than the rest, so it is significantly easier to boost the precision and recall scores for abstract predicates than surface predicates. On the other hand, from eye-balling, surface predicates have a much more even distribution of appearing, so this in combination with the large number of possibilities is likely the cause for the significant difference between the precision and recall scores between abstract and surface predicates.</p><h4>Hyper-parameter Tuning</h4><p>As evidenced from the previous section, there was not a huge difference between the baseline model on fully-featured data and a beefier model on fully-featured data. One of the reasons for this is that the dropout rate was not changed between the two models. So it’s likely that the larger model was able to leverage it’s parameters without overfitting to the data. On top of that, it’s unclear whether or not adding a 3rd layer to the model is beneficial considering the training dataset is fairly small (~95,000 training examples). In this coming week, I plan on performing more error analysis as I continue to tune hyper-parameters. Ideally, I would like to get more information on what surface and abstract predicates the model is able to predict well and which predicates give it the most trouble.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=82274b3d7f68" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@ryanp97/evaluating-predicates-and-hyper-parameter-tuning-82274b3d7f68?source=rss-6378d85d3a9b------2">by Ryan Pham at May 08, 2018 11:41 PM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
 <h3><a href="https://nlpcapstonesemparse.blogspot.com/" title="NlpCapstone">Rajas Agashe <br/> Team Han Flying Solo</a></h3>
 
 
@@ -3026,38 +3058,6 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 </div>
 
 
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="http://sarahyu.weebly.com/cse-481n" title="Sarah yu - CSE 481N">Sarah Yu <br/> Team Jekyll-Hyde</a></h3>
-
-
-<div class="entrygroup" id="http://sarahyu.weebly.com/cse-481n/technical-details-blog-post-2">
-<h4><a href="http://sarahyu.weebly.com/cse-481n/technical-details-blog-post-2">Technical Details (Blog Post #2)</a></h4>
-<div class="entry">
-<div class="content">
-<div class="paragraph"><span style="color: rgb(0, 0, 0);">For my project I am planning to do some deep learning at the end if I have time and if the results up to that point lead to that track. (I have pytorch installed from NLP so that's nice to have). <br /><br />With that said, I've been working with the Reddit API's and Reddit datadumps to get started on gathering the necessary data for pursuing the Language Accommodation project. I've been trying to figure out if the best approach is to work with the limited requests, the direct json files, or if some of the data dumps will suffice. I hope to have most of that and some basic data visualizations ready in the next couple of days to inform some of the choices I should make regarding the data (i.e. what time period to gather data from, what subreddits to pull from, etc.)</span><br /></div></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="http://sarahyu.weebly.com/cse-481n/technical-details-blog-post-2">April 06, 2018 12:10 AM</a>
-</p>
-</div>
-</div>
-
-
 </div>
 
 </div>
@@ -3110,7 +3110,7 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 
 <p>
 <strong>Last updated:</strong><br>
-May 08, 2018 11:30 PM<br>
+May 09, 2018 12:00 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
