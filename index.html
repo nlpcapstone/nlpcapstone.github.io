@@ -33,6 +33,172 @@
 
 
 
+<h3><a href="https://deeplearningturingtest.wordpress.com" title="NLP Capstone Project Updates – Ananth">Ananth Gottumukkala <br/> Team Turing Test</a></h3>
+
+
+<div class="entrygroup" id="http://deeplearningturingtest.wordpress.com/?p=23">
+<h4 lang="en"><a href="https://deeplearningturingtest.wordpress.com/2018/05/09/advanced-model-attempt-1-part-2/">Advanced Model Attempt 1 (Part 2)</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<p>This week I completely finished the model end-to-end and programmed the rules of the dialogue/game. The input to the model is created as follows: the user response is broken up into individual words and converted into a matrix of word embeddings. That matrix is run through a CNN before being fed into the LSTM and finally the policy networks to compute the Q values for user actions (questions to the user) and hypothesis actions (updates to the database). The model I created closely follows the one in this paper: <a href="https://arxiv.org/abs/1606.02560" rel="nofollow">https://arxiv.org/abs/1606.02560</a></p>
+<p>I was able to run the simulation on my computer and debug a few issues with the model before starting the actual training session. Furthermore, I moved the model to Azure, set up the SQL database on the remote computer, and am currently running the simulation on tensorflow-gpu.</p>
+<p>The initial results are not too great but somewhat promising. The model assigns +30 reward for winning, -30 for losing, -5 for bad guesses and +1 if it correctly understands the user response and performs the right action on the database. My model started out with an average of -30 reward for an entire game (it almost never took the same action that the user said and then abruptly lost) and after about 100,000 time steps that average has decreased to -23. This tells me the model is eventually learning how to understand the user responses but the convergence is still a lot slower than I expected.</p>
+<p>As a side note, while it seems silly to try classifying user responses into buckets like ‘Yes’, ‘No’, ‘Unknown’ instead of training a separate classifier, the goal is to build a model that can be generalized to more complex dialogue types where there are more nuanced actions that heavily depend on dialogue state, not just the current user response.</p>
+<p>The main difference between my model and the model in the paper (barring any bugs I am unaware of) is how the user response is represented. In both models, the model tries to combine NLU and dialog state tracking into one end-to-end model and the user response sentence representation is crucial in determining the dialogue state at any given time step. The paper creates a very short bag of bigrams feature vector (of about 30 features) from the sentence whereas I create glove vectors (embedding dimension = 50) for each word and run them through a CNN to get an output of 250-300 features.</p>
+<p>The paper made it sound like they got the model to converge and play the game well after about 120000 time steps. To play the game well, the model needs to correctly understand what action should be done on the database based on the user response. My guess is their model converges much faster and can learn to make the right action much faster than mine because of their simpler state representation. Once the model learns how to correctly interpret the user response, it becomes much easier to learn how to win from any given dialogue state. This allows the model to generalize to people it hasn’t seen because the model only learns what actions to take based on the dialogue state, not on the attributes of any given person.</p>
+<p>My goal for next week is to try tuning my model to converge faster. My main plan will be to shorten and simplify the state representation to be more like the paper’s (although it will still be different since the paper used utterance embeddings for speech, not word embeddings). If the model somehow works well after tuning, I will look into trying to train the model on more complex user responses where the set of actions to take are more qualitative than yes and no.</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://deeplearningturingtest.wordpress.com/2018/05/09/advanced-model-attempt-1-part-2/">by ananthgo at May 09, 2018 06:58 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://teamoverfit.blogspot.com/" title="NLP Capstone">Pinyi Wang, Dawei Shen, Xukai Liu <br/> Team Overfit</a></h3>
+
+
+<div class="entrygroup" id="tag:blogger.com,1999:blog-9203775015655831448.post-6866691098285474093">
+<h4><a href="https://teamoverfit.blogspot.com/2018/05/7-milestone-advanced-model-attempt-1.html">#7 Milestone: Advanced model attempt #1 (continued)</a></h4>
+<div class="entry">
+<div class="content">
+</div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://teamoverfit.blogspot.com/2018/05/7-milestone-advanced-model-attempt-1.html">by Team Overfit (noreply@blogger.com) at May 09, 2018 06:54 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/@halden.lin?source=rss-2759d54493c0------2" title="Stories by Halden Lin on Medium">Halden Lin <br/> Team undef.</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/a2d837ecf66b">
+<h4><a href="https://medium.com/@halden.lin/nlp-capstone-07-formalizing-a2d837ecf66b?source=rss-2759d54493c0------2">NLP Capstone | 07: Formalizing</a></h4>
+<div class="entry">
+<div class="content">
+<p><em>previous posts: </em><a href="https://medium.com/@halden.lin/nlp-capstone-01-options-ee873b6885d5"><em>01</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5"><em>02</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-03-project-proposal-7d8e9ec1a8e3"><em>03</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-04-first-steps-be87c31976b7"><em>04</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-05-experimenting-306dca636d3a"><em>05</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-06-uncertainty-6f773ae418d0"><em>06</em></a></p><p>A couple of developments since I last posted:</p><ol><li>I’m now more formally receiving guidance from Kanit (Ham) Wongsuphasawat and Tongshuang (Sherry) Wu of the Interactive Data Lab. Special thanks to them for helping me thus far!</li><li><a href="https://medium.com/@halden.lin/nlp-capstone-06-uncertainty-6f773ae418d0">Last week</a> I was uncertain as to the future direction of this project. After much deliberation and several conversations, I’ve decided to remain on the tool-based approach originally conceived. There are a couple reasons for this. First, the user study I proposed has, at least from an NLP perspective, limited novelty. What’s more, learning from the study by modifying the underlying model would require time that would likely fall outside of the quarter. Second, carrying out this study would involve significant logistical work (again, a time constraint). Finally, in beginning to formalize this visualization tool, I’ve become more excited in its potential as a useful part of a researcher’s debugging pipeline. In any case, any model modifications I may make as part of the user study would difficult without a similar tool.</li><li>As mentioned, I’ve been formalizing this tool in a React application, iterating on the exploration I’ve done with prototypes in the weeks previous. The rest of this post will describe my work here.</li></ol><h4>Starting with Text</h4><p>First things first: text brushing is critical in understanding the attention each output token, or a series of output tokens, pays to the source text. In the gif below, the left side holds the source text (along with a mini-map to prevent the need of scrolling to understand the overall distribution of attention), while the right holds the summary. Selection and brushing have been implemented, as in the prototypes of last week, albeit cleaned up.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/999/1*LKOEMB1cwvp2qXRy58_-4w.gif" />Cleaned up selection and brushing, in addition to a minimap for long input sequences.</figure><h4><strong>Challenges with Text (Future Work):</strong></h4><ol><li>Sentence / paragraph level structure is lost via tokenizing. This is an artifact of the tokenization process performed prior to feeding text into models.</li><li>Lowercase and always-on spacing between tokens makes text difficult to read. For now, I’ve been dealing this with a few hand-coded rules. For example, removing spaces before punctuation, and capitalizing the first word after end of sentence punctuation.</li></ol><p>I’ll need to keep brainstorming to find methods for addressing these issues.</p><h4>How do we enable identification of patterns?</h4><p>While selection and brushing over the text is valuable in allowing users to understand attention for specific words or phrases, it falls short in enabling big-picture identification of patterns. Without brushing over each token and / or sentence (and memorizing coverage along the way), the closest users may get is the aggregate view (when nothing is selected) in which <strong>what</strong> is being attended to is apparent, but not <strong>how.</strong> That is to say, it is not apparent which tokens / phrases in the summary attend to which tokens / phrases in the source text. In particular, below is a growing list of goals for this visualization.</p><ol><li><strong>Enable identification of coverage</strong>. For words / phrases / sentences, where is the attention being paid, and by what?</li><li><strong>Enable identification of missing coverage</strong>. What is being unattended to that should be?</li><li><strong>Enable identification of extraction vs abstraction</strong>. Where is copying occuring? Where is true abstraction occuring?</li></ol><p>If this tool can accomplish these items, I believe it will be a good start in proving its value.</p><p>With this in mind, we need some sort of visualization to accompany the two blocks of text. As previously mentioned, heat-maps may not be the best solution.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*Kd4lr3ZZmOZ6ffMdp82PJg.gif" />Interactive heat-map, as prototyped previously.</figure><p>Lag is apparent (likely a result of the large number of elements drawn), and even ignoring this, the tiles become extremely small as the input / output sequences grow, making it difficult to pick out even high attention weights. More visual weight is needed for significant attention weights, which is difficult to accomplish as x and y space is already taken by the input / output token position.</p><p><strong>So where else can we look?</strong></p><h4>Flowmaps</h4><p>Looking back at my project proposal, I saw this visualization made by Rikters et al. (2017).</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*uP_-gGiPkv6YMFYz." />An example of a flow-map from machine translation [Rikters et al. 2017].</figure><p>I thought this might be worth exploring, so I attempted to create something similar.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*SxZUaHFYssV5JtXo." />A flowmap displaying all edges is problematic. This doesn’t scale either.</figure><p>Unsurprisingly, there are far too many edges to display without significant overlap and occlusion. Summarization rears its head again as a challenge with its large input sequences.</p><p><strong>How do we remedy this?</strong></p><p>One observation is that high attention weights are fairly sparse (as evident by the aggregate on the source text above). What if we filtered out these insignificant weights? A naive approach is to take the top <em>k </em>percent of weights and display only those.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*I4jiiM98R88ZfMKz." />A flowmap showing only the top 1% of weights.</figure><p>The above example is displaying only the top 1% of attention weights. Edges have both their width and opacity scaled by their weight within this 1% domain. Significant (wide) weights are clearly identifiable. Thinner lines, faint (or nearly invisible) lines can also be seen, indicating that the much more significant weights have been preserved. Four distinct ‘rays’ can be seen, seemingly corresponding to the four sentence of the summary.</p><p>Selection and brushing seemed like intuitive follow-ups for interaction to enable more detailed / accurate pattern identification.</p><p><strong>Selection</strong></p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1000/1*U8_42zGX24nN8iB7Wo-zPw.gif" />Selection over the flowmap, both over the output nodes as well as the output text.</figure><p>Selection allows users to orient themselves in the flowmap, picking out which edges correspond to which input / output tokens.</p><p><strong>Brushing</strong></p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1000/1*1t7BRJX9g2k80B67IFQ4lw.gif" />Brushing over the flowmap allows for windowed pattern identification.</figure><p>Brushing enables accurate pattern identification. In the example above, brushing over the distinct rays allows us to see the almost entirely extractive nature of the summary — there is a clear 1:1 mapping from input to output that is implied by the clean structure of the rays, and confirmed upon inspecting the corresponding input / output tokens for these rays.</p><h4><strong>Challenges with Flowmaps (Future Work):</strong></h4><ol><li><strong>Selecting a top k% is not ideal — it does not generalize well.</strong> In the pathological case, where attention is evenly distributed for all tokens, we lose a lot of valuable information. A potential band-aid to this is to allow users to select the percentage of weights displayed, but this may be dangerous as high percentages can crash the browser. Perhaps a more elegant solution would be to perform clustering on the weights. I’ll need to do more research here.</li><li><strong>Overlapping paths can make reading the flowmap difficult.</strong> The example shown above is fairly clean, direction flows, for the most part, in a single direction. You could imagine, however that if a summary is extremely abstractive, pulling from all over the source, there might be significant overlap in edges, decreasing legibility. A potential solution to this is edge bundling, where edges going in similar directions are pulled together to preserve pattern recognition.</li></ol><p>A good starting point for exploration here is the paper <a href="http://vis.stanford.edu/files/2011-DividedEdgeBundling-InfoVis.pdf"><em>Divided Edge Bundling for Directional Network Data</em></a> by Selassie, Heller, &amp; Heer (2011). In this, the authors describe a method for bundling, divided edge bundling, that holds characteristics I believe are important for my own visualization.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*Ma6OlxvATqGNHbyu." />Different techniques applied to a network of GitHub contributions along the west coast of the United States [Selassie, Heller, &amp; Heer 2011].</figure><p>In the coming weeks I hope to dive into these techniques and explore their impact on the flowmap I’ve developed thus far.</p><h4>In Summary</h4><p>Still a lot of work to do! Here are my goals for the next week.</p><ol><li>Improve flowmap visualization.</li><li>Find examples that cover the problem space (e.g. low coverage, abstraction, extraction).</li><li>Keep brainstorming.</li><li>Optimize code.</li></ol><p>Things are getting interesting!</p><h4>References</h4><ol><li><a href="https://ufal.mff.cuni.cz/pbml/109/art-rikters-fishel-bojar.pdf">Rikters, Matīss, Mark Fishel, and Ondřej Bojar. “Visualizing neural machine translation attention and confidence.” <em>The Prague Bulletin of Mathematical Linguistics</em> 109.1 (2017): 39–50.</a></li><li><a href="http://vis.stanford.edu/files/2011-DividedEdgeBundling-InfoVis.pdf">Selassie, David et al. “Divided Edge Bundling for Directional Network Data.” <em>IEEE Transactions on Visualization and Computer Graphics</em> 17 (2011): 2354–2363.</a></li></ol><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=a2d837ecf66b" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@halden.lin/nlp-capstone-07-formalizing-a2d837ecf66b?source=rss-2759d54493c0------2">by Halden Lin at May 09, 2018 06:48 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/@be.li.nda?source=rss-fad49d942bf3------2" title="Stories by Belinda Zou Li on Medium">Belinda Li <br/> Team Sentimentity</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/d9145c25606a">
+<h4><a href="https://medium.com/@be.li.nda/nlp-capstone-blog-7-advanced-model-i-part-2-d9145c25606a?source=rss-fad49d942bf3------2">NLP Capstone Blog #7: Advanced Model I Part 2</a></h4>
+<div class="entry">
+<div class="content">
+<p>Note for all of the analysis below, I’m focusing on performance on the positive/negative sentiments. Performance on “no sentiment” seems to naturally better due to “no sentiment” being the majority class in the data.</p><h3>Datasets</h3><p>This week I created a few more datasets to experiment with in an attempt to improve my models’ performance on the developments set. I used a combination of two approaches to create the datasets:</p><ol><li>Adding new weakly labelled “no sentiment” examples to the training data. To do this, we took the existing documents in the training data, found all the un-labelled entities in the document, and labelled pairs of these entities as “no sentiment.” We thought it would be a reasonable assumption to make in assuming all un-labelled entities are “no sentiment,” because usually documents are focused on interactions/sentiments between a particular set of entity pairs, which the annotators would consider important enough to label. Thus, usually the rest of the peripheral entity pairs should not express or be the target of any significant sentiment. Of course, this is not always the case. I took a look into examples generated through this approach, and there are quite a few inaccurate labels. Some of the inaccuracies came from bad co-reference resolution from the initial dataset, which propagated and created inaccuracies on this new dataset. For example, if a mention of the original holder entity wasn’t found the first time around, it might have been labelled as a new entity in the new dataset, and thus an inaccurately labelled “no sentiment” pair is added between that mention of the holder and the target entity. Other times, the assumption was simply incorrect: peripheral entities still expressed positive/negative sentiment towards other entities, or were the recipients of positive/negative sentiment.</li><li>Adding samples from “dev_tune.” As I explained in the previous blog post, <a href="https://homes.cs.washington.edu/~eunsol/papers/acl2016.pdf">Choi et al.</a> had split the development set into two subsets: “eval” and “tune.” I used samples from “tune” to train and used “eval” for all the rest of the functions of a development set. Since “dev_tune” should follow to a similar distribution as my development and test data, this could help performance, by bringing the distribution of the training dataset closer to the distribution of the development and test datasets. For some of datasets I created, I also tried oversampling this set to try and get even closer to the distribution of my development/test set.</li></ol><p>In total I generated 6 datasets:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/587/1*-Oaiiq1AEgT2lu9g9UUiJg.png" /></figure><p>The F1 scores of the baseline model on these datasets look as follows:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/690/1*G6FwBUjDx3bI9-ULwvDiCw.png" />F1 scores of baseline on each dataset.</figure><p>Note that when I added “dev_tune” samples, F1 scores seems to decrease slightly, whereas when I added the weakly generated “no sentiment” training data, F1 scores actually seems to increase slightly. I looked into this and I noticed that adding “dev_tune” samples seems to <em>improve recall</em> and <em>decrease precision</em> on pos/neg data, whereas adding weakly labelled “no sentiment” samples <em>improves precision</em> and <em>decreases recall</em> on pos/neg data. Since the original dataset already had higher recall than precision, adding dev_tune exacerbated the difference between precision/recall whereas adding weakly labelled data made the two metrics more similar. Thus the results make sense as F1 scores tend prefer when precision/recall are closer. See examples below:</p><h4><strong>Scores on Dataset 1 (Original)</strong></h4><p>Note recall is higher than precision on positive and negative sentiments.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/532/1*ADWr0nmp6dSL2Y6GkIE_eA.png" /></figure><h4>Scores on Dataset 4 (+ Weakly Generated Training Data)</h4><p>Note precision and recall are closer, resulting in higher overall F1 score.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/532/1*9VTXI1ZBfD8yvzd9utVZKw.png" /></figure><h4>Scores on Dataset 3 (+ Dev_tune Samples)</h4><p>Note precision and recall are farther, resulting in lower overall F1 score.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/532/1*iKtmGfzu9WP4YbqX5cF_5Q.png" /></figure><h3>Advanced Model</h3><p>I also made a few changes to the advanced model. First, since all my datasets had imbalanced classes, I tried using class weights to mitigate the effect. Specifically, if there were 10x more “no sentiment” examples than “positive sentiment” examples, then “no sentiment” would be weighted by 0.1.</p><p>I also simplified the advanced model’s architecture a little to try and reduce the number of parameters the model needs to learn. Previously, after I encoded the tokens with the biLSTM, I extracted spans representing holder/target entities and fed them through two separated FFNNs. This time, I simply concatenated the holder/target span representations and fed them through a single FFNN which predicted their sentiment.</p><p>The F1 scores of this model on the datasets 1 (original), 4 and 6 (datasets that baseline performed best on) are reported below:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/697/1*sNaYsByqW5kdX7H_NKMa3w.png" />F1 scores of baseline vs. advanced model on datasets 1, 4, and 6.</figure><p>While there is some slight improvement in F1 scores (especially on dataset 4), unfortunately, none of these results approach the state of the art reported by the previous Choi et al. paper. For next time, I plan to do more focused error analysis to isolate the issue. I may also take Yejin and Ari’s advice in experimenting with encoding transitivity and other relations within the model through various means (which hopefully I’ll have the time to do).</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=d9145c25606a" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@be.li.nda/nlp-capstone-blog-7-advanced-model-i-part-2-d9145c25606a?source=rss-fad49d942bf3------2">by Belinda Zou Li at May 09, 2018 06:45 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2" title="Stories by Viterbi Or Not To Be on Medium">Aaron Johnston, Lynsey Liu <br/> Team Viterbi Or Not To Be</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/d7a06e892cdd">
+<h4><a href="https://medium.com/@viterbi.or.not/advanced-model-1-part-2-d7a06e892cdd?source=rss-c522ef075bb3------2">Advanced Model #1, Part 2</a></h4>
+<div class="entry">
+<div class="content">
+<p>Welcome back to Advanced Model #1 and thanks for sticking with us! This week, we’ve gotten some promising results in our first advanced model attempt and made a lot of progress with the incorporation of a second data source, although there is still work to be done toward fully integrating the chatlog data into a single model. In this post, we’ll go over what we’ve done since last week and give some numbers as well as example summaries from this model, then start laying out what we would like to achieve for Advanced Model #2.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*AsUzi76WPSKaMji6." />Our project roadmap and where we are at now, highlighted in orange</figure><h4><strong>Preprocessing</strong></h4><p>We decided to use preprocessing instead of features for some of the attributes of our data after discovering that our feature sets failed to focus solely on the conversation in some data types and instead gave false importance to format-specific patterns such as quoted text in emails. We eventually settled on the following distinction:</p><ul><li>Attributes of the data that existed at the conversation-level should be features: that is, anything universally applicable to textual conversations in general was implemented as a feature for the model</li><li>Attributes of the data at the data source-level should be preprocessed. This allowed us to share features across different data types (for example, using tf-idf across both emails and chatlogs) while minimizing the number of “dead” features (for example, simply assigning a constant value to a feature for detecting email signatures when vectorizing the chatlog data).</li></ul><p>The preprocessing we decided to do falls under the following categories:</p><p><strong>Identifying format-specific content:</strong> Quirks of the data format can sometimes present problems for our model, for example, we noticed separator lines composed of all dashes or symbols as well as email signatures (left example below) were making it into the summaries.</p><p><strong>Removing quoted email text:</strong> The email dataset contains quoted text of previous emails in the thread when there is an email reply, causing duplication of sentences in the summaries because the model seems to want to include the important sentence as much as possible. An example of a generated summary with the problem is in the right example below.</p><p>After initially parsing the data, we do this preprocessing step to identify such sentences using simple regular expression rules and remove them before computing feature vectors.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*vUpBdbFjg5Exfd-8." />An email signature (left) and quoted text (right) in generated summaries before adding preprocessing</figure><h4><strong>Adding the Chatlog Dataset — New Pipeline</strong></h4><p>One of our major goals for the advanced model was to incorporate the chatlog dataset we identified early on in the project. Of course, having the capability to automatically generate summaries for chat conversations expands the usefulness and possible applications of our model: although email threads are incredibly common in today’s world, chat communication is also experiencing an incredible rise in popularity. Furthermore, as chat communications tend toward a large number of participants and a model of very frequent responses, our analysis is that chat data summaries have the potential to be even more useful than their email counterparts.</p><p>However, our goal with incorporating the chatlog data is ultimately to combine it with the email data in order to be able to train our model on both data types at once. To do this, we saw the need to create a common list of features that can be applied to any data input, allowing the model to train on both sources of data indiscriminately. As the Sood et. al. paper suggests, training on both sets of data has the potential to improve the resulting summaries of the model for each type of data separately, although the paper in question does not specify their results beyond the notion that they were promising in a preliminary examination.</p><p>The end goal for our system is illustrated below:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*YodqfIjCDfX5xJLfNG_JFQ.png" />Pipeline for integrating different datasets with a common feature set into our model</figure><p>The blended colors represent the notion of common features, achieved through separate pre-processing and vectorizing of each data source but used in a single shared model.</p><p>To achieve this, we needed to do a major restructuring of our codebase, and it is unfortunately the case that a huge portion of our time this week was spent improving old code to make it more modular and compatible with these new requirements. What was once a single script to parse, process, vectorize, and train on a single dataset had to be broken apart into different modules for each of those tasks that could implement a common interface. In addition, with the growing number of options and tasks that had to be supported, we discovered it was necessary to entirely separate the concerns of processing text and handling configuration: to that end, we created a new, much more robust command-line interface and broke all other components into individual directories with as much code factoring as possible.</p><p>As a result of our design process and refactor, we currently have almost all of the infrastructure necessary for incorporating the chatlog data and training our model on all of the available data before evaluating on a single source. As we mentioned above, however, there were several challenges with parsing the chatlog data, namely the messy nature of the chats and the number of possible edge cases present in such a large dataset. Therefore, we are still in the process of finishing the parser component, but once it is complete we should be able to use both types of data in Advanced Model #2 and report on the impact that it makes. See our progress so far with this pipeline structure on our <a href="https://github.com/viterbi-or-not-to-be/viterbi-or-not-to-be/tree/master/conversation">GitHub repository</a>!</p><h4><strong>Results</strong></h4><p>Through the addition of the preprocessing step, we have greatly improved our ROUGE scores and become competitive with the advanced model in the Sood et. al. paper. Here are the results of our advanced models, using all of the features we have discussed so far and with the preprocessing step:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*iDsZaXOhuHshbaFWXFlPvQ.png" />Results of the three advanced model types</figure><p>These results are significantly better than our baseline, and we believe our model is generally pretty good at picking up on which sentences are important to keep! To more directly see the impact of preprocessing, we compared the results of the Naive Bayes model with and without preprocessing:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*BBrr-Z2ilFTbK8xi-t2SPg.png" />Comparison between our advanced model with preprocessing and without preprocessing</figure><p>The model without preprocessing does decently, but the preprocessing definitely contributes significantly to our advanced model performance. To show our progress since the baseline model, this compares the results of the Naive Bayes baseline models with those of our current Naive Bayes model:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*M_zctk4dPmVbmVHeHmRYYQ.png" />Comparison between our advanced model and our baselines</figure><p>Both ROUGE-1 and ROUGE-2 have stepped up by several percentage points, but the most significant increase is seen in the ROUGE-L improvement. Finally, our model compared with the model in the Sood et. al. paper:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*Ty7sqP2swRfdf1UGw7wb_g.png" />Comparison between our advanced model and the Sood et. al. model</figure><p>As you can see, our ROUGE-L score is slightly lower but our ROUGE-1 and ROUGE-2 scores are higher! We’ve previously discussed the drawbacks of ROUGE―there is no definitively better type of ROUGE metric and ROUGE in general is not necessarily a reliable indicator of how good the generated summaries really are, so we are wary about quantifying our model’s performance in comparison to the Sood et. al. model’s performance based just on ROUGE scores. However, we haven’t been able to find any examples of the summaries generated by their model so this is all we have to go off of for now.</p><h4><strong>Example Summary and Analysis</strong></h4><p>Because ROUGE provides relatively unreliable metrics for evaluation of our model’s summaries, we have also turned to human evaluation. One of the summaries that our model was able to generate based off an input email thread, using all of the preprocessing and extra features that we have built, is reproduced below in its original condition except for display-motivated truncation:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*BMVwYccbvULdQcwp." />Comparison between human annotated reference summary (left) and summary generated by our advanced model (right)</figure><p>This summary is fairly representative of the summaries that are being generated, and compared to the results we saw from our baseline models it is clearly doing better in terms of human evaluation. The sentences highlighted in green are those that are shared between the reference annotation and our system’s generated summary — interestingly, all but one of the sentences in the reference summary were successfully captured by our system. Therefore, reading through the summary generated by our system gives a strong impression of the topics that were discussed in the thread, and seemingly gives a human reader all the information that is needed.</p><p>However, there are certainly aspects of the current summaries produced by the model that are lacking. In the summary given above, all 6 sentences that were truncated for display purposes at the ellipsis and the four additional non-green sentences displayed were not included in the reference summary. This summary comes from a thread with only 31 sentences after preprocessing, meaning that while our model successfully captured all of the sentences marked as important by a human, it did so at the cost of incorporating an enormous percentage of unnecessary extra text that serves to make the summary less of a “summary” while adding relatively little content. To address this, we will need to figure out how to reward the model for producing more concise summaries, or to incorporate a “compression factor” that allows producing a summary with the k most relevant sentences for some value of the hyperparameter k. Another issue is highlighted in red above — while we added preprocessing to remove email signatures based on a set of heuristics, to avoid deleting important content we made the preprocessor act conservatively when uncertain, and as a result some signatures like in the example above made their way into the summaries. Although other features would ideally prevent these signatures from appearing in many cases, we will need to improve our preprocessing heuristics in order to target these kinds of medium-specific text examples before moving on to incorporate additional types of data.</p><h4><strong>Next Steps</strong></h4><p>To entirely finish Advanced Model #1, we would like to complete the process of incorporating chatlog data and then transition into work on Advanced Model #2 by continuing to explore and add conversation-specific features. We also want to address the excessive lengthiness problem we found in the generated summaries by doing something to limit the number of sentences the model is allowed to select for the extractive summary.</p><p>Beyond these immediate steps, we would love to be able to take a stab at abstractive summarization! It’s a really challenging but rewarding conversation summarization problem that we will need to put some more thought into to attempt. We’ve preliminarily determined that we can make an attempt using the extractive output from our current model along with some other contextual metadata from the conversation data (for example, authors of the chosen sentences), to get a start on an abstractive summary. In general, we think this will require more modeling of entity relationships and text generation.</p><p>Overall, we’re excited with what our model has been able to do so far and optimistic about what we’ll be able to achieve with Advanced Model #2, so stay tuned!</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=d7a06e892cdd" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@viterbi.or.not/advanced-model-1-part-2-d7a06e892cdd?source=rss-c522ef075bb3------2">by Viterbi Or Not To Be at May 09, 2018 06:33 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
 <h3><a href="http://cse481n-capstone.azurewebsites.net" title="Team Watch Your Language!">Boyan Li, Dennis Orzikh, Lanhao Wu <br/> Team Watch Your Language!</a></h3>
 
 
@@ -59,12 +225,12 @@
 <li style="font-weight: 400;"><span style="font-weight: 400;">Matched by hate lexicon: “I denied it, would say “I can’t believe that pathetic faggot would make something like that up”.” labeled hate with 99% certainty (model doesn’t understand what quotes are)</span></li>
 <li style="font-weight: 400;"><span style="font-weight: 400;">From r/MeanJokes: “What do you call a 5 year old with no friends? A sandy hook survivor.” labeled none with 83% accuracy (model doesn’t know current events)</span></li>
 </ul>
-<p><span style="font-weight: 400;">Our next steps for Data Collection are going to be to get the posts formatted for Mechanical Turk and begin the process of getting our Reddit data labeled.</span></p>
 <p><span style="font-weight: 400;">Here are some more examples of issues:</span></p>
 <p><span style="font-weight: 400;">We did use December after all:</span></p>
-<p><img alt="" class="alignnone size-medium wp-image-85" height="242" src="http://cse481n-capstone.azurewebsites.net/wp-content/uploads/2018/05/b4-p1-300x242.png" width="300" /></p>
+<p><img alt="" class="alignnone size-full wp-image-85" height="835" src="http://cse481n-capstone.azurewebsites.net/wp-content/uploads/2018/05/b4-p1.png" width="1033" /></p>
 <p><span style="font-weight: 400;">People like to repost mean jokes with variations:</span></p>
-<p><img alt="" class="alignnone size-medium wp-image-86" height="39" src="http://cse481n-capstone.azurewebsites.net/wp-content/uploads/2018/05/b4-p2-300x39.png" width="300" /></p>
+<p><img alt="" class="alignnone size-full wp-image-86" height="127" src="http://cse481n-capstone.azurewebsites.net/wp-content/uploads/2018/05/b4-p2.png" width="974" /></p>
+<p> </p>
 <h3>Advanced Model Attempt 2:</h3>
 <p><span style="font-weight: 400;">Last week we explored a new model that uses CNN as encoder, however, we had little luck on making it work better. This week we tried to take contextual information into account using ELMo provided by Allennlp.</span></p>
 <p><span style="font-weight: 400;">In short, ELMo enables us to adjust our word/character embedding based on words/characters nearing it. Comparing to the pure Glove embedding we used before, ELMo enables us to take context into consideration which is meaningful as illustrated in our results.</span></p>
@@ -248,7 +414,42 @@
 </table>
 <p><span style="font-weight: 400;">From the aboving results, we can see that with ELMo, our model does a better job on classifying things that means bad while has nothing really bad. From the class probabilities, we can tell our model is pretty confident about its prediction.</span></p>
 <p><span style="font-weight: 400;">Since we still misclassified those two non-hateful sentences, this may introduce a concern that our model may have a tendency to predict everything as hateful. However, we didn’t observe a noticeable drop in precision or accuracy as they remains about the same. We think it is safe to conclude that by using ELMo embeddings, our model makes some improvements.</span></p>
-<p><span style="font-weight: 400;">Next we will did some error analysis on our new model. However, after reading through the error sentence files, we discovered a lot of them looks like to the noise of the original dataset. For example, “islam must be outlawed.” is labeled as none as gold label in original dataset and actually our model did a great job on classifying it as hateful.</span></p></div>
+<p><span style="font-weight: 400;">Next we will did some error analysis on our new model. However, after reading through the error sentence files, we discovered a lot of them looks like to the noise of the original dataset. For example, “islam must be outlawed.” is labeled as none as gold label in original dataset and actually our model did a great job on classifying it as hateful.</span></p>
+<p><span style="font-weight: 400;">Finally, we also tried ELMo on our preliminary CNN model:</span></p>
+<p><span style="font-weight: 400;">With the same setting as previous, we do observe some improvement on our CNN model, however, comparing to other gru models we have, CNN one shows no improvement but the training time is way much longer.</span></p>
+<table>
+<tbody>
+<tr>
+<td></td>
+<td><span style="font-weight: 400;">Without ELMo</span></td>
+<td><span style="font-weight: 400;">With ELMo</span></td>
+</tr>
+<tr>
+<td><span style="font-weight: 400;">F1</span></td>
+<td><span style="font-weight: 400;">0.7745</span></td>
+<td><span style="font-weight: 400;">0.7987</span></td>
+</tr>
+<tr>
+<td><span style="font-weight: 400;">Precision</span></td>
+<td><span style="font-weight: 400;">0.7616</span></td>
+<td><span style="font-weight: 400;">0.8014</span></td>
+</tr>
+<tr>
+<td><span style="font-weight: 400;">Recall</span></td>
+<td><span style="font-weight: 400;">0.7879</span></td>
+<td><span style="font-weight: 400;">0.7963</span></td>
+</tr>
+<tr>
+<td><span style="font-weight: 400;">Accuracy</span></td>
+<td><span style="font-weight: 400;">0.8084</span></td>
+<td><span style="font-weight: 400;">0.8248</span></td>
+</tr>
+</tbody>
+</table>
+<h3>Next Step:</h3>
+<p><span style="font-weight: 400;">Our next steps for Data Collection are going to be to get the posts formatted for Mechanical Turk and begin the process of getting our Reddit data labeled.</span></p>
+<p>For Modeling, we want to try and incorporate attention into our model and see if that improves our model’s performance.</p>
+<h6 style="text-align: left;"><em><strong><span style="color: #000000;">We have a running demo available on our blog in the RUNNING DEMO section of the sidebar.</span></strong></em></h6></div>
 
 
 
@@ -3087,189 +3288,6 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 </div>
 
 
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://medium.com/@halden.lin?source=rss-2759d54493c0------2" title="Stories by Halden Lin on Medium">Halden Lin <br/> Team undef.</a></h3>
-
-
-<div class="entrygroup" id="https://medium.com/p/96fb908765f5">
-<h4><a href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5?source=rss-2759d54493c0------2">NLP Capstone | 02: Getting Started</a></h4>
-<div class="entry">
-<div class="content">
-<p><a href="https://medium.com/@halden.lin/nlp-capstone-01-options-ee873b6885d5">previous post</a></p><p>Alright, it’s been only 2 days since my last entry, so this will be a relatively short post. The direction I proposed in <strong>Option 1 </strong>of that post was towards a more robust, interpretable, and informative visualization of attention, particularly in the context of text summarization. A quick recap:</p><blockquote>Perhaps interaction can be used to create a more insightful and interpretable visualization framework for understanding attention. For example, text heat-maps are already used widely to visualize sentiment analysis.</blockquote><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*lsgeuBXGGBog4YkuQNgJVw.png" />Lin et al. (2017) [6]. Visualization of sentiment analysis on a token-by-token basis.</figure><blockquote>In a static context, using this method for attention would require repeat of the same input sequence for each word in the output sequence. Using interaction, however, a model creator could brush over single or sequences of words in the output sequence to view corresponding soft-alignment in the input sequence. Aggregate visualizations could be shown to supplement this view (either aggregates over a particular input / output sequence, or aggregates over all input / output sequences).</blockquote><p>I’m currently working on laying out the groundwork for such a project. Task 1: implement a model. Without one, there’s no data to visualize!</p><p>With that in mind, here’s what I’ve been up to:</p><h4>Finding a Text Summarization Dataset</h4><p>A quick survey of recent research papers [1–5] on text summarization points, as well as online forums, points to three commonly used datasets.</p><ol><li><a href="https://cs.nyu.edu/~kcho/DMQA/">CNN/Daily Mail Corpus</a>. A collection of articles and their bullet point summaries, with each bullet split for Q/A purposes. <a href="https://github.com/abisee/cnn-dailymail">A script</a> [1] can be ran over the original dataset to restore the original bullet point summaries, to be used as a summarization corpus.</li><li><a href="https://www-nlpir.nist.gov/projects/duc/data.html">DUC Corpus</a>. In particular, DUC 2003 and DUC 2004. These contain a collection of documents, each accompanied by a short (~10 word) summary. There is also a longer summary for each cluster of documents.</li><li><a href="https://catalog.ldc.upenn.edu/ldc2003t05">Gigaword Corpus</a>. An annotated collection of millions of documents. The summarization task here would be to predict the headline of each [5]</li></ol><p>The accessibility of the <strong>CNN/Daily Mail Corpus</strong> (a process is required for the other two), in addition to the prevalence of projects that used it as a primary dataset [1, 2, 4], made it the most attractive option. The relatively longer summaries (~4 bullet points as opposed a short blurb in the other two datasets) also lends itself conveniently to the case of an interactive visualization with multi-token selection (e.g. select a whole bullet point and see where it attended). For a baseline, this will be my dataset!</p><h4>Identifying a Baseline Model</h4><p>See et al. (2017) [1] lay out a seq2seq attentional model as their baseline (a bidirectional LSTM). I’ll be using this as a baseline model with which to obtain data.</p><h4>Getting Some Code Up</h4><p>I’ll be using <a href="http://pytorch.org/">PyTorch</a> and the <a href="http://allennlp.org/">AllenNLP</a> toolkit [7] to implement my NN models. These are both ready to go on both my machine and Azure. I’m currently in the process of writing a DatasetReader for the dataset described above.</p><h3>Next Steps</h3><ul><li>Finish writing the DatasetReader for the CNN/Daily Mail Corpus.</li><li>Begin work on a baseline seq2seq attentional model, as described in <strong>Identifying a Baseline Model</strong></li></ul><h4>Works Cited</h4><p>[1] <a href="https://arxiv.org/pdf/1704.04368.pdf">See, Abigail et al. “Get To The Point: Summarization with Pointer-Generator Networks.” <em>ACL</em> (2017).</a></p><p>[2] <a href="https://arxiv.org/pdf/1712.06100.pdf">Hasselqvist, Johan et al. “Query-Based Abstractive Summarization Using Neural Networks.” <em>CoRR</em> abs/1712.06100 (2017): n. pag.</a></p><p>[3] <a href="https://arxiv.org/pdf/1602.06023.pdf">Nallapati, Ramesh et al. “Abstractive Text Summarization using Sequence-to-sequence RNNs and Beyond.” <em>CoNLL</em> (2016).</a></p><p>[4] <a href="https://arxiv.org/pdf/1705.04304.pdf">Paulus, Romain et al. “A Deep Reinforced Model for Abstractive Summarization.” <em>CoRR</em> abs/1705.04304 (2017): n. pag.</a></p><p>[5] <a href="https://arxiv.org/pdf/1509.00685.pdf">Rush, Alexander M. et al. “A Neural Attention Model for Abstractive Sentence Summarization.” <em>EMNLP</em> (2015).</a></p><p>[6] <a href="https://arxiv.org/pdf/1703.03130.pdf">Lin, Zhouhan, <em>et al.</em>, “A structured self-attentive sentence embedding.”<em>arXiv preprint arXiv:1703.03130</em> (2017).</a></p><p>[7] <a href="https://pdfs.semanticscholar.org/a550/2187140cdd98d76ae711973dbcdaf1fef46d.pdf?_ga=2.150901366.1370831839.1522970228-1363309632.1522194596">Gardner, Matt et al. “AllenNLP: A Deep Semantic Natural Language Processing Platform.” (2017).</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=96fb908765f5" width="1" /></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5?source=rss-2759d54493c0------2">by Halden Lin at April 06, 2018 06:53 AM</a>
-</p>
-</div>
-</div>
-
-
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2" title="Stories by Viterbi Or Not To Be on Medium">Aaron Johnston, Lynsey Liu <br/> Team Viterbi Or Not To Be</a></h3>
-
-
-<div class="entrygroup" id="https://medium.com/p/278789e4d04a">
-<h4><a href="https://medium.com/@viterbi.or.not/warming-up-278789e4d04a?source=rss-c522ef075bb3------2">Warming Up</a></h4>
-<div class="entry">
-<div class="content">
-<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*qc9b3NkzkWe1kNnqmlHukA.png" /></figure><p>In order to begin implementing our baseline model, for which we intend to duplicate the results presented in another research paper covering discussion summarization, we began by identifying software that was referenced by other papers as being useful for their implementations.</p><p>Using these leads, we decided to “warm up” by installing the software and gaining some familiarity with it. The main libraries that we identified are listed here:</p><h4><a href="https://www.nltk.org/"><strong>Natural Language Toolkit (nltk)</strong></a></h4><p>Perhaps it is no surprise that this resource ended up first on our list, but it was a clear choice to familiarize ourselves with because of the sheer variety of tools it provides. While performing an initial survey of conversation summarization papers, we discovered a reference to the TextTiling algorithm, described in <a href="http://www.aclweb.org/anthology/J97-1003">this paper</a> and referenced as a technique used in <a href="http://www.aclweb.org/anthology/D08-1081">another paper</a> about summarization. Broadly, the algorithm detects boundaries between topics in text, so it was used by this summarization paper as part of a pipeline before assigning scores to those topics representing their importance. For our baseline model, one possibility is to implement a similar pipeline, so having access to an implementation of the TextTiling algorithm would allow us to quickly implement that component and spend more time on other design decisions and implementation details. The nltk library provides a <a href="https://www.nltk.org/api/nltk.tokenize.html#module-nltk.tokenize.texttiling">TextTiling module</a> with this functionality.</p><h4><a href="http://scikit-learn.org/stable/"><strong>SciKit-Learn</strong></a></h4><p><a href="http://www.aclweb.org/anthology/P05-1037">Another research paper</a> we found concerning the topic of conversation summarization had several sections dedicated to the task of identifying portions of a chatlog with direct relevance to one another — for example, a question asked by one contributor and answered by another contributor several messages down would be considered a pair of directly relevant sections. As part of their technique for identifying these pairs, the researchers used <a href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html">Support Vector Machines</a> and <a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">Maximum Entropy</a> models in order to determine the sections that most likely directly respond to previous portions of the conversation. SciKit-Learn provides these functionalities, and in order to familiarize ourselves with additional existing tools that might be useful in building a baseline model we have installed this tool and begun experimenting with it.</p><h4><a href="https://www.cs.waikato.ac.nz/ml/weka/"><strong>Weka Toolkit</strong></a></h4><p>Another less commonly seen method for chat summarization can be found in a more recent (in comparison to the others we have referenced) <a href="http://web2py.iiit.ac.in/research_centres/publications/download/inproceedings.pdf.8b32440f2dc771c4.323031325f414e445f43616d6572612e706466.pdf">research paper</a> which explores the usage of Multilayer Perceptrons (MLP) for the task, among several other approaches. The MLP approach in the paper is broadly composed of a feedforward neural network with more layers between the input and output layers using backpropagation to train the network and built with the Weka toolkit, a collection of machine learning algorithms that can applied to a dataset and which contains tools for developing a variety of schemes for processing data. Although the paper finds an approach using Naive Bayes to be the most effective on the GNUe archives, their MLP implementation comes in relatively close second and we think the idea is worth pursuing further. For a baseline model, we could start by working on a similar MLP system to the one in the paper using the same Weka toolkit implementation and strive to improve from there.</p><h4><a href="http://pytorch.org/"><strong>PyTorch</strong></a></h4><p>Though not referenced by any of the papers we have encountered so far, PyTorch would be a really helpful tool for us to further the explore the usage of neural network models in chat summarization, which we can use for the aforementioned MLP approach as well as apply to our stretch goal of working on a less commonly used deep learning based model.</p><p>In addition to researching libraries and tools that we might use in our project, we have begun the process of finding and enumerating datasets that might be useful for our project ideas — more to come on the datasets and other resources in our next blog post!</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=278789e4d04a" width="1" /></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://medium.com/@viterbi.or.not/warming-up-278789e4d04a?source=rss-c522ef075bb3------2">by Viterbi Or Not To Be at April 06, 2018 06:41 AM</a>
-</p>
-</div>
-</div>
-
-
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://cse481n.blogspot.com/" title="PrimeapeNLP">Ron Fan, Aditya Saraf <br/> Team PrimeapeNLP</a></h3>
-
-
-<div class="entrygroup" id="tag:blogger.com,1999:blog-3753031463594823927.post-2253300890173394060">
-<h4><a href="https://cse481n.blogspot.com/2018/04/blog-post-2.html">Blog Post #2</a></h4>
-<div class="entry">
-<div class="content">
-<div>We’ve mostly settled on working on a single document summarization task. We want to pick a type of document to work on summarizing, although we haven’t decided on one specific category yet. </div><br /> <div>While we narrow down the details of the project, we have been reading a number of papers and other resources to become more familiar with the subject. We have setup PyTorch on our machines, which we are both familiar with, as well as Tensorflow, which we are still playing around with. We’ve found some interesting repositories on GitHub related to SDS that we are trying out: </div> <br /> <div><a href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss">https://github.com/tensorflow/models/tree/master/research/textsum</a><br /> <a href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss">https://github.com/gregdurrett/berkeley-doc-summarizer</a><br /> <a href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss">https://github.com/chakki-works/sumeval</a><br /> <a href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss">https://github.com/ceteri/pytextrank</a><br /> <a href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss">https://github.com/adamfabish/Reduction</a><br /></div> <br /><div>Not all of these tools use machine learning - many seem to be heuristic-based sentence extractors. Nonetheless, it is interesting to consider their ideas in the context of neural network approaches. </div><br /> <div>One of the reasons we chose to attack this problem is that there is a rich literature to consult; this problem has been worked on in one form or another since 1958 [1]. As one would imagine, this means that there have been many different approaches to this problem, to varying degrees of success. But unlike other problems, where all current approaches are based on deep learning, there is active research into non-neural solutions to SDS. </div><br /> <div>Many researchers have tried to solve SDS with combinatorial optimization, reducing it to the Knapsack problem, the Maximum Coverage problem, or the Budgeted Median problem. For example, the Maximum Coverage problem is: given a number k and a collection S, of m sets, choose less than k sets in S that maximize the number of covered elements. To frame SDS as a Maximum Coverage problem, you break the document into “conceptual units”. Conceptual units are supposed to represent a single concept - for example, “the man bought a book” and the “the man read a book”. But it’s not clear at what granularity these conceptual units should be defined. One easy (but not especially effective) solution is to simply make each word a conceptual unit. Then, the document = S, and each sentence is a set of words inside S. The problem is now to pick k sentences from the document that maximize the word coverage in the document [2]. </div><br /> <div>One example of a recent non-neural approach is from a paper published 5 years ago [3]. The paper solves SDS by reducing it to the so-called Tree Knapsack Problem. We’ve haven’t fully wrapped our heads around the Tree Knapsack problem (it’s actually not that easy to quickly state), but the researchers’ basically involved representing a document as a Rhetorical Structure Theory-based discourse tree (RST-DT) by “select[ing] textual units according to a preference ranking”. The researchers’ first transform the RST-DT into a dependency-based discourse tree (DEP-DT) in order to get a tree that contains textual units on all nodes (RST-DT only have textual units as leaves), and then trim the DEP-DT using the Tree Knapsack problem.  </div><br /> <div>We aim to find a suitable corpus, and implement multiple models directly from these papers as our baseline models. Hopefully, that will give us insight that’ll help us formulate the problem differently. We also want to explore some neural architectures for single document summarization.  </div><br /> <div>We also have to consider whether we want to build an extractive or abstractive text summarization - the former collects a set of sentences or phrases that summarize the document while the latter tries to “learn the internal language representation to generate more human-like summaries, paraphrasing the intent of the original text” [4]. We’re leaning towards an extractive model, although we may try both. </div><br /> <div>[1] = <a target="">https://onlinelibrary.wiley.com/doi/pdf/10.1002/9781119004752.ch3</a> <br />[2] = <a target="">http://www.anthology.aclweb.org/E/E09/E09-1089.pdf</a> <br /> [3] = <a target="">https://www.semanticscholar.org/paper/Single-Document-Summarization-as-a-Tree-Knapsack-Hirao-Yoshida/ed0c8a7ab911cdb30b7e95edada3a55c01eb22c5</a><br /> [4] = <a target="">https://rare-technologies.com/text-summarization-in-python-extractive-vs-abstractive-techniques-revisited/</a></div></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://cse481n.blogspot.com/2018/04/blog-post-2.html">by Ron &amp;amp; Aditya (noreply@blogger.com) at April 06, 2018 06:31 AM</a>
-</p>
-</div>
-</div>
-
-
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://mathstoc.wordpress.com" title="NLP Capstone – Mathematical Distractions">Kuikui Liu, Nicholas Ruhland <br/> Team INLP</a></h3>
-
-
-<div class="entrygroup" id="http://mathstoc.wordpress.com/?p=304">
-<h4 lang="en"><a href="https://mathstoc.wordpress.com/2018/04/06/milestone-2-music-as-a-natural-language-task/">Milestone #2: Music as a Natural Language Task</a></h4>
-<div class="entry">
-<div class="content" lang="en">
-<h3>Framing the problem</h3>
-<p>The focus of Natural Language Processing relies on patterns in the structure of language and models that find ways to encode the complexities of these structures. Many forms of music also have large amounts of structure which could potentially be discovered using similar models as a standard natural language.</p>
-<p>Music datasets for machine learning purposes have recently become available through projects like MusicNet in 2016 [1]. This music is primarily classical, and provided as both audio and MIDI.</p>
-<h3>Project ideas</h3>
-<p>For our project we are interested in music with lyrical content – both for the potential to create a creative demo and for the interest of making this a language task. The current direction we are most interested in is the generation of lyrics for a song, given its nonlyrical content. This will be broken up into subtasks depending on the feasible scale of the project. Not all of the following points will necessarily be parts of our project, but we will use them as as starting point as we see the success of our models.</p>
-<ul>
-<li>Creating a machine learning model for MIDI music</li>
-<li>Translating MIDI into specific artists or styles</li>
-<li>Creating models for the lyrical content of specific artists or styles of music</li>
-<li>Generating lyrics given an artist or style</li>
-<li>Seq2seq conversion of MIDI into lyrical content</li>
-<li>GANs for either side of the conversion – MIDI encoding or lyrical generating</li>
-</ul>
-<h3>Using MIDIs in RNNs</h3>
-<p>Work by Pakhomov [2] has already used RNNs to create models for lyrics. In his <a href="http://warmspringwinds.github.io/pytorch/rnns/2018/01/27/learning-to-generate-lyrics-and-music-with-recurrent-neural-networks/">blog post</a> he additionally discusses a method for forming any MIDI into piano roll format. This is essentially a matrix where each column represents a different time step, and each row represents a different note. Having a 1 corresponds to that note sounding at that time. The individual time vectors can be used as the inputs to an RNN at each time step to create a model representing the various songs.</p>
-<p>One possible data source for our project is karaoke data available from various sources online. If available in large enough quantities this could be extremely convenient because it already contains many pairings of MIDI music to their lyrics.</p>
-<h3>Azure</h3>
-<p>We intend to use PyTorch to train our models, and have begun setting up an instance on Microsoft Azure.</p>
-<h3>Relevant work</h3>
-<p>[1] <a href="https://homes.cs.washington.edu/~thickstn/musicnet.html" rel="nofollow">https://homes.cs.washington.edu/~thickstn/musicnet.html</a></p>
-<p>[2] <a href="http://warmspringwinds.github.io/pytorch/rnns/2018/01/27/learning-to-generate-lyrics-and-music-with-recurrent-neural-networks/" rel="nofollow">http://warmspringwinds.github.io/pytorch/rnns/2018/01/27/learning-to-generate-lyrics-and-music-with-recurrent-neural-networks/</a></p>
-<p>[3] Dong, Hao-Wen. 2017. MuseGAN: Multi-track Sequential Generative Adversarial Networks for Symbolic Music Generation and Accompaniment. <a href="https://arxiv.org/pdf/1709.06298" rel="nofollow">https://arxiv.org/pdf/1709.06298</a></p>
-<p>[4] Yu, Lantao. 2016. SeqGAN: Sequence Generative Adversarial Nets with Policy Gradient. <a href="https://arxiv.org/abs/1609.05473" rel="nofollow">https://arxiv.org/abs/1609.05473</a></p>
-<p>[5] Lee, Sang-gil. 2017. A SeqGAN for Polyphonic Music Generation. <a href="https://arxiv.org/abs/1710.11418" rel="nofollow">https://arxiv.org/abs/1710.11418</a></p></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://mathstoc.wordpress.com/2018/04/06/milestone-2-music-as-a-natural-language-task/">by Nicholas Ruhland at April 06, 2018 06:30 AM</a>
-</p>
-</div>
-</div>
-
-
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://medium.com/nlp-capstone-blog?source=rss----9ba3897b6688---4" title="NLP Capstone Blog - Medium">Tam Dang, Karishma Mandyam <br/> Team Illimitatum</a></h3>
-
-
-<div class="entrygroup" id="https://medium.com/p/3a2f40b355a5">
-<h4><a href="https://medium.com/nlp-capstone-blog/getting-started-for-the-capstone-software-installation-pipeline-brainstorming-3a2f40b355a5?source=rss----9ba3897b6688---4">Getting Started for the Capstone: Software Installation &amp; Pipeline Brainstorming</a></h4>
-<div class="entry">
-<div class="content">
-<p>Currently, our top two choices for the capstone is</p><ol><li><strong>Machine Dictionary: </strong>learning definitions of technical terms whose semantics are averaged over all places it is mentioned in training (in this case, research publications in the given field of study)</li><li><strong>Visual Reasoning: </strong>Given three windows, each of which containing a random arrangement of colored, geometric shapes, and a statement about the image, predict whether the statement is true or false.</li></ol><p>Despite being problems with very different needs and challenges, the bulk of the tools and frameworks we’ll be using overlap for both tasks. Here, we discuss those tools and frameworks, followed by things we need specific to <strong>Machine Dictionary </strong>and <strong>Visual Reasoning </strong>separately.</p><h3>Resources Used for Both Tasks</h3><h4>PyTorch</h4><p>Given the limited time that we have, a neural-based approach using an established framework is preferred over implementing all of the model architecture from scratch, and to help avoid complications that can accompany other methods such as deriving parameter updates for bayesian models. PyTorch is an excellent framework that abstracts away differentiation and tensor arithmetic while still allowing a healthy amount of flexibility with it’s ability to dynamically produce computation graphs.</p><h4>AllenNLP</h4><p>After the crash course on the framework provided by AI2 in class, along with our experience from using it in the undergraduate NLP class, we’re convinced that the integration of AllenNLP with PyTorch is the best way to be as productive as possible. We plan to use the libraries it provides to make training more streamline and organized.</p><p>Since we’ve taken the undergraduate NLP class, we’ve already installed PyTorch and AllenNLP. We installed PyTorch through conda and AllenNLP through pip. Deep Learning projects also tend to involve complicated models which might require more computing resources, so we will also utilize the Azure credits available through the capstone. This process involved installing PyTorch and AllenNLP on Ubuntu VMs on Azure configured into include NVIDIA GPUs so that we can take advantage of PyTorch’s .</p><h3>Resources Specific to Machine Dictionary</h3><h4>Semantic Scholar Open Research Corpus</h4><p>The best dataset we’ve seen so far for this task is the <a href="http://labs.semanticscholar.org/corpus/">Semantic Scholar Open Research Corpus</a> provided by <a href="http://allenai.org/">AI2</a>. The dataset specifically consists of JSON files with metadata for each publication. The most relevant files will be <em>title, pdfUrls, </em>and <em>year</em>. Given all of the content besides the paper abstract (which is included as a field called <em>paperAbstract</em>), we resort to using the <em>pdfUrls</em> and extracting the text from each.</p><h4>Textract</h4><p><a href="https://github.com/deanmalmgren/textract">Textract</a> is a Python package that allows the extraction of text from PDFs. We plan to rely on this package given that it’s robust to both compiled and scanned PDFs.</p><p>We downloaded Textract to the Azure Linux VM using the Ubuntu installation directions:</p><pre>apt-get install python-dev libxml2-dev libxslt1-dev antiword unrtf poppler-utils pstotext tesseract-ocr \<br />flac ffmpeg lame libmad0 libsox-fmt-mp3 sox libjpeg-dev swig<br />pip install textract</pre><p>but ran into an issue that the developers haven’t dealt with yet. In the first line, they are missing a dependency to the libpulse-dev package, which causes the build to fail when downloading Textract. Doing a pip install libpulse-dev takes care of it.</p><p>Grabbing the text from a PDF file is then fairly convenient. We tested this on a <a href="https://www.semanticscholar.org/paper/Effects-of-anthocyanins-on-the-prevention-and-of-Lin-Gong/1bcf9ae84d4ec5c0aba7918e6784dbfd0e8514b6">cancer research paper</a> taken from the Semantic Scholar dataset:</p><pre><strong>import</strong> textract<br />text = textract.process("path-to-doc.pdf", encoding="ascii")</pre><p>which produced an excellent parse of the PDF.</p><blockquote>b’BJP\n\nBritish Journal of\nPharmacology\n\nBritish Journal of Pharmacology (2016) \n\n1\n\nREVIEW ARTICLE THEMED ISSUE\nEffects of anthocyanins on the prevention and\ntreatment of cancer\nCorrespondence Ying-Yu Cui, Department of Regenerative Medicine, Tongji University School of Medicine, Shanghai 200092,\nChina. E-mail: yycui@tongji.edu.cn\n\nReceived 13 June 2016; Revised 17 August 2016; Accepted 13 September 2016\n\nBo-Wen Lin1, Cheng-Chen Gong1, Hai-Fei Song1 and Ying-Yu Cui1,2,3\n1\n\nDepartment of Regenerative Medicine, Tongji University School of Medicine, Shanghai, China, 2Key Laboratory of Arrhythmias, Ministry of\n\nEducation (Tongji University), Shanghai, China, and 3Institute of Medical Genetics, Tongji University School of Medicine, Shanghai, China\n\nAnthocyanins are a class of water-soluble avonoids, which show a range of pharmacological effects, such as prevention of\ncardiovascular disease, obesity control and antitumour activity.</blockquote><h3>Resources Specific to Visual Reasoning</h3><h4>Cornell NLVR Dataset</h4><p>The dataset for the Visual Reasoning task is easily available through <a href="https://github.com/clic-lab/nlvr">github</a>. This dataset was also very conveniently organized into three folders: testing data, development data, and training data. Each folder contains the actual images which are provided for us to train on.</p><p>In addition to the images, each folder also includes a JSON file which contains basic JSON representations of each image and the sentence that needs to be validated in each data point. This JSON representation is very useful because we do not need to parse the image to retrieve the raw elements (shape, color, location).</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=3a2f40b355a5" width="1" /><hr /><p><a href="https://medium.com/nlp-capstone-blog/getting-started-for-the-capstone-software-installation-pipeline-brainstorming-3a2f40b355a5">Getting Started for the Capstone: Software Installation &amp; Pipeline Brainstorming</a> was originally published in <a href="https://medium.com/nlp-capstone-blog">NLP Capstone Blog</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://medium.com/nlp-capstone-blog/getting-started-for-the-capstone-software-installation-pipeline-brainstorming-3a2f40b355a5?source=rss----9ba3897b6688---4">by Tam Dang at April 06, 2018 06:06 AM</a>
-</p>
-</div>
-</div>
-
-
 </div>
 
 </div>
@@ -3322,7 +3340,7 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 
 <p>
 <strong>Last updated:</strong><br>
-May 09, 2018 06:30 AM<br>
+May 09, 2018 07:00 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
