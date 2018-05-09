@@ -23,6 +23,42 @@
 <h1>NLP Capstone Spring 2018</h1>
 
 <div class="daygroup">
+<h2>May 09, 2018</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/@hongnin1?source=rss-c450eb982161------2" title="Stories by Ning Hong on Medium">Zichun Liu, Ning Hong, Sujie Zhou <br/> Team The Bugless</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/b3b687dd74ae">
+<h4><a href="https://medium.com/@hongnin1/advanced-model-attempt-1-continued-b3b687dd74ae?source=rss-c450eb982161------2">Advanced model attempt #1 (continued)</a></h4>
+<div class="entry">
+<div class="content">
+<p>To recap, this is our baseline approach:</p><p><a href="https://medium.com/@hongnin1/image-annotation-model-baseline-dataset-and-evaluation-framework-d1d1b2d1f34c">Image Annotation Model Baseline, Dataset and Evaluation Framework</a></p><p>Our previous model involves InceptionNet as our CNN encoder and we feed the image vector into LSTM to generate caption. This model we used was heavily based on <a href="https://github.com/tensorflow/models/tree/master/research/im2txt">this model</a>. However we have since then fixed several bugs, improved model’s training speed performance and reduced the training time significantly, at the same time we incorporated more models into our overall model to improve the accuracy.</p><p>First of all, we realized what hindered our training speed is the logging we are doing. We had previously logged every training batch onto TensorBot; our training speed increase by 60% once we started to only update logs on TensorBot every 20 batches.</p><p>In addition to the training speed, we added a single layer neuronetwork to calculate attention weights: We first project input image feature (output from VGG encoder) to the same dimension as the original dimension, then we projected previous hidden state to the same dimension as input feature. Then we added the feature projection and hidden state projection together. We used Relu function as activation function and lastly we reduced the output from Relu function to a one dimensional vector to generate output. In addition to this, we also take one step further on attention by also putting attention on different data points in a single batch, so that the model can learn more from a more important data point. After getting the context matrix from previous steps in attention, we also apply a Beta scale to the matrix, which means that we multiply the matrix by beta vector to get a new context matrix and then generate our final output.</p><p>Coding up our own attention network reduced our training error. In addition to adding attention NN to our model, we also coded a new VGG network for encoding our images, this also significantly improved our model’s accuracy. We have found resources for VGG <a href="http://www.vlfeat.org/matconvnet/pretrained/">here</a>.</p><p>Lastly, we also tried to keep track of the training process by keeping checkpoints during training. Our current rate is one checkpoint every ~50 minutes (800 batches). We are planning on keeping at most 50 checkpoints around to monitor the process in the past 2 days and detect any issue (like overfitting) early.</p><p>For the first couple of months, we have been studying the <a href="https://arxiv.org/pdf/1502.03044.pdf">paper</a> and our baseline model is heavily based on this model <a href="https://github.com/tensorflow/models/tree/master/research/im2txt">here</a>. Now that we have learned all the necessary tool we have coded up most of the model ourselves with some added touch that improved the model’s accuracy. Our git repository: <a href="https://gitlab.cs.washington.edu/sujiez/NLP-481">https://gitlab.cs.washington.edu/sujiez/NLP-481</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=b3b687dd74ae" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@hongnin1/advanced-model-attempt-1-continued-b3b687dd74ae?source=rss-c450eb982161------2">by Ning Hong at May 09, 2018 03:10 AM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
+<div class="daygroup">
 <h2>May 08, 2018</h2>
 
 <div class="channelgroup">
@@ -3026,38 +3062,6 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 </div>
 
 
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2" title="Stories by Ryan Pham on Medium">Ryan Pham <br/> Team NeuralEmpty</a></h3>
-
-
-<div class="entrygroup" id="https://medium.com/p/3d3651220219">
-<h4><a href="https://medium.com/@ryanp97/project-logistics-and-package-exploration-3d3651220219?source=rss-6378d85d3a9b------2">Project Logistics and Package Exploration</a></h4>
-<div class="entry">
-<div class="content">
-<p>Jan Buys has agreed to advise me while I pursue Neural Machine Translation with Semantic Transfer, so this post will mainly focus on the packages and resources available for completing and exploring the minimal viable action plan as described <a href="https://medium.com/@ryanp97/project-ideas-ab3d796c422e">previously</a>.</p><h4>Dataset</h4><p>I’m currently working on cleaning the <a href="http://www.edrdg.org/wiki/index.php/Tanaka_Corpus">Tanaka Corpus</a> so that I can segment the sentences and then parse the graphs. This corpus is small and the sentences are short, so it seems like a good option for development. I’ve cleaned the corpus by removing any sentences that are not in English or Japanese as well as removing any sentences that do not belong to a pair of translations. Each sentence has at least one translation; note that some sentences have more than one translation.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/753/1*vajUkTbO551F3mjGQjyHQA.png" />The Japanese sentence can be translated into the two English sentences. Note that the first translation is more direct, while the second translation seems to be drawing on the author’s bias or some other context.</figure><p>Also, in the Tanaka corpus, I noticed some things of interest. The first thing is that some hard to read Kanji are annotated with pronunciations in Katakana. The next were a couple typos in the translation (i.e. the proper noun “Tatoeba” was spelled “Tatoeb” in the translation). Also, on one line (the only one that I could find), the Japanese sentence had the romanization in parentheses following the translation. For the sake of consistency, I’ve removed this from the dataset for the sake of consistency. Aside from this single change, everything else was left untouched.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/838/1*xhYvt3b5aClaW0-pDdK8Cw.png" />Example of a translation pair from the Tanaka corpus. Note the translated smiley face!</figure><p>There is also the <a href="https://alaginrc.nict.go.jp/WikiCorpus/index_E.html">Kyoto Corpus</a> which is larger, more diverse, and has a more accurate representation of ‘real’ sentences. However, this dataset is formatted in a slightly more complex way, so I’m still figuring out how to tackle cleaning this corpus. This corpus also provides at least one translation.</p><h4>Word Segmentation</h4><p>There were 3 main programs that I considered and experimented with: <a href="https://github.com/neubig/kytea">KyTea</a> (pronounced “cutie”), <a href="http://www.atilika.org/">Kuromoji</a>, and <a href="http://taku910.github.io/mecab/">MeCab</a>.</p><p>After comparing the segmentation outputs on some small samples, it seemed that KyTea’s outputs often had significant differences between the outputs from Kuromoji and MeCab. After asking a lecturer from the UW Japanese department for their opinion, it seemed that the outputs from Kuromoji and MeCab were closer to the gold standard than the KyTea’s. As implied by the previous sentiment: the data that I will be working with is NOT gold standard, but it is the best available.</p><p>I decided on using MeCab as it had a very easy to use Python interface while Kuromoji did not have a easily accessible Python interface. Following <a href="http://www.robfahey.co.uk/blog/japanese-text-analysis-in-python/">this</a> blog post, I’ve setup MeCab to be able to handle more robust input such as slang and neologisms, though I’m unsure if this will work well with the Jacy grammar mentioned in the Graph Parsing section.</p><p><a href="https://arxiv.org/pdf/1410.0291.pdf">Here</a> is a paper on the accuracy of MeCab when performing segmentation. The paper also gives a nice, brief overview on the differences between English and Japanese. Note the size of the Tanaka corpus is smaller than the current version as translations are added semi-regularly.</p><h4>Graph Parsing</h4><p>For parsing the MRS graphs and converting MRS to DMRS, I used the <a href="https://github.com/goodmami/mrs-to-penman">mrs-to-penmen</a>. It uses the <a href="https://github.com/delph-in/pydelphin">PyDelphin</a> interface which provides a wrapper for the <a href="http://sweaglesw.org/linguistics/ace/">ACE</a> parser. The ACE parser parses the MRS graph, and then mrs-to-penmen should convert the parsed MRS graph to penmen format.</p><p>As for the grammar that ACE uses to parse, I’m using the <a href="http://www.delph-in.net/erg/">English Resource Grammar</a> and <a href="http://moin.delph-in.net/JacyTop">Jacy</a> for English and Japanese respectively.</p><p>After getting the parsed penman format, there is still some cleaning that I have to do and some simplification of the penman format to simplify what the seq2seq model is expected to output.</p><h4>Deep Learning Packages</h4><p>Additionally, since this project will rely on Deep Learning, I’ve installed AllenNLP and PyTorch in anticipation of the seq2seq model that will be trained after linearizing the DMRS graph as well as the TreeLSTM model (stretch goal).</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=3d3651220219" width="1" /></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://medium.com/@ryanp97/project-logistics-and-package-exploration-3d3651220219?source=rss-6378d85d3a9b------2">by Ryan Pham at April 06, 2018 01:20 AM</a>
-</p>
-</div>
-</div>
-
-
 </div>
 
 </div>
@@ -3110,7 +3114,7 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 
 <p>
 <strong>Last updated:</strong><br>
-May 09, 2018 03:00 AM<br>
+May 09, 2018 03:30 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
