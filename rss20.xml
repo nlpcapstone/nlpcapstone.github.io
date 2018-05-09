@@ -221,10 +221,8 @@
 &lt;p&gt; &lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;False Positives:&lt;/span&gt;&lt;/p&gt;
-&lt;ol&gt;
-&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;@Strubbestition Name one thing that is not an opinion but is still sexist. I will wait.&lt;/span&gt;&lt;/li&gt;
-&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;@Bipartisanism @AllooCharas Terrorism involves a political or religious objective to the terror.Most mass murderers have personal objectives&lt;/span&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;3. @Strubbestition Name one thing that is not an opinion but is still sexist. I will wait.&lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;4. @Bipartisanism @AllooCharas Terrorism involves a political or religious objective to the terror. Most mass murderers have personal objectives&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;In our new model with ELMo, we now correctly classifies 1 and 2. However, We still think 3 and 4 to be hateful while they aren’t.&lt;/span&gt;&lt;/p&gt;
 &lt;table&gt;
 &lt;tbody&gt;
