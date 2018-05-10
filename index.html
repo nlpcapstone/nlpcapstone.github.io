@@ -23,6 +23,93 @@
 <h1>NLP Capstone Spring 2018</h1>
 
 <div class="daygroup">
+<h2>May 10, 2018</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://mathstoc.wordpress.com" title="NLP Capstone – Mathematical Distractions">Kuikui Liu, Nicholas Ruhland <br/> Team INLP</a></h3>
+
+
+<div class="entrygroup" id="http://mathstoc.wordpress.com/?p=335">
+<h4 lang="en"><a href="https://mathstoc.wordpress.com/2018/05/10/nlp-capstone-post-7-tsl-pipeline/">NLP Capstone Post #7: TSL Pipeline</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<p> </p>
+<h2><span style="font-weight: 400;">Modeling issues</span></h2>
+<p><span style="font-weight: 400;">As seen in our results last week, the RNN architecture we have been training has not been able to produce any coherent series of tokens based on the music data provided in the clean Lakh dataset. To analyze the poor results of this model, we have considered various features of the quality of the data. To simplify the issue of timing the lyric tokens, this model attempts to predict a lyric token at every timestep. Between each token we have summed all the musical data, producing a piano roll that looks approximately like the following image.</span></p>
+<p><img alt="Screen Shot 2018-05-09 at 4.31.53 PM" class="  wp-image-331 aligncenter" height="303" src="https://mathstoc.files.wordpress.com/2018/05/screen-shot-2018-05-09-at-4-31-53-pm.png?w=501&amp;h=303" width="501" /></p>
+<p><span style="font-weight: 400;">In the event that two lyrics occur at exactly the same time step, we end up with a gap in the notes, here highlighted in red.</span></p>
+<p><img alt="Screen Shot 2018-05-09 at 4.31.53 PM" class="  wp-image-334 aligncenter" height="302" src="https://mathstoc.files.wordpress.com/2018/05/screen-shot-2018-05-09-at-4-31-53-pm1.png?w=500&amp;h=302" width="500" /></p>
+<p><span style="font-weight: 400;">At first we expected this problem to occur in only a small number of cases, but it is often the result of the newline character appearing in a message simultaneously with the first lyric of the next sentence. This processing poses several problems to the task of learning the lyrical content based on the structure of the music. First, the large number of musical gaps may be confounding the model due to the large number of lyrics that will be seen at those time steps. Additionally, we lose all information about the song timing since all regions without lyrics are compressed into a single time step. In theory, gaps in lyrics could hint to the model that the next section should start a new verse or chorus.</span></p>
+<h2><span style="font-weight: 400;">The TSL Pipeline</span></h2>
+<p><span style="font-weight: 400;">As suggested in the previous blogpost, we would like to be able to augment the results of the musical model with a higher quality lyrical dataset. The Kaggle lyrics dataset has shown promising results in previous blogposts at the quality of the lyric sequences it has been able to produce.</span></p>
+<p><span style="font-weight: 400;">The TSL Pipeline is a combination of three models: Timing, Seed, and Lyrics. The architecture may look something like the following diagram:</span></p>
+<p><img alt="Training" class="  wp-image-333 aligncenter" height="221" src="https://mathstoc.files.wordpress.com/2018/05/training.png?w=531&amp;h=221" width="531" /></p>
+<p><span style="font-weight: 400;">During training, each pianoroll will be separated into data representing the timing, notes and lyrics. These get passed into respective models to learn timing and “seed” information. Additional lyrics information from the Kaggle dataset is used to train a lyrical model.</span></p>
+<p><img alt="Evaluation" class="  wp-image-332 aligncenter" height="220" src="https://mathstoc.files.wordpress.com/2018/05/evaluation.png?w=538&amp;h=220" width="538" /></p>
+<p><span style="font-weight: 400;">At evaluation time, the lyrics from the original pianoroll are not passed into the Seed model. Instead, the Seed model attempts to predict some seed based on the musical content, and will pass its result into the lyrics model. The combination of these lyrics and timing information constitute the complete description of our karaoke output.</span></p>
+<h2><span style="font-weight: 400;">Timing Model</span></h2>
+<p><span style="font-weight: 400;">In all previous posts we ignored the issue of lyrics timing in the interest of creating a reasonable lyrical model. Our current timing model is similar to our previous model attempt, but the data is generated differently. Instead of computing a pianoroll sample at each lyrical timestep, we us a constant sampling frequency of 10 timesteps per second. We then annotate each timestep with a 1 or 0 based on if a lyric was annotated at that step. The model will then attempt to predict for each step of a given pianoroll the probability there should be a lyric at that time.</span></p>
+<h2><span style="font-weight: 400;">Seed Model</span></h2>
+<p><span style="font-weight: 400;">The seed model will be a simplified version of the poorly performing model from before. Instead of predicting all lyrics, it will attempt to predict a small subset of the initial lyrics. This would also allow us to create a dataset with more training examples by splitting each song into smaller samples.</span></p>
+<h2><span style="font-weight: 400;">Lyrics Model</span></h2>
+<p><span style="font-weight: 400;">The lyrics model will be similar to the one described in the second blog post, which is a character level RNN for generating lyrics. This will take the first few words predicted by the seed model and generate the remainder of the lyrics. Since it’s trained on the large Kaggle dataset the quality seems to be much higher than what our MIDI training has produced.</span></p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://mathstoc.wordpress.com/2018/05/10/nlp-capstone-post-7-tsl-pipeline/">by Nicholas Ruhland at May 10, 2018 06:56 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/nlp-capstone-blog?source=rss----9ba3897b6688---4" title="NLP Capstone Blog - Medium">Tam Dang, Karishma Mandyam <br/> Team Illimitatum</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/2ac19f7510f9">
+<h4><a href="https://medium.com/nlp-capstone-blog/advanced-model-attempt-1-continued-2ac19f7510f9?source=rss----9ba3897b6688---4">Advanced Model Attempt #1 (Continued)</a></h4>
+<div class="entry">
+<div class="content">
+<p>This week we continued work on the advanced version of the model which incorporates the SummaRuNNer architecture from (Nallapati et al.) and adds in a character level RNN for parsing UMLS terms. The models are complete but we ran into several challenges along the way, namely constructing our final training dataset from Semantic Scholar and UMLS terms. Without the dataset, we have not been able to train our model. In this blog post, we dissect our current challenges and our plans looking forward.</p><h4>Building the Model</h4><p>The original SummaRuNNer model fit our requirements pretty well. However, we ran into several challenges when implementing the model. First, there were no existing implementations of the architecture, so we had to implement the model from scratch. Furthermore, the time we spent building the model detracted from time that we could have spent working on gathering the data. The model used by Nallapati et al. also did not condition on a particular term in the paper. Our approach requires that we somehow incorporate the term so we spent additional time figuring out a character level RNN which encodes the term and includes it in the many affine transformations described in the SummaRuNNer paper.</p><p>Moreover, we had to consider how to optimize the model when it came to large amounts of data. One of the approaches we worked on was batching, essentially evaluating many sentences at once. This allowed us to speed up training by a significant amount. Finally, we spent time integrating our model into the existing architecture. Ultimately, the model was difficult, but completed.</p><h4>Collecting the Data</h4><p>There are no current datasets that we can use to train our model. To quickly recap the requirements for the data, each training example must comprise of one document, one entity or technical term, and a target representing the ideal summary of the document. In order to build this dataset, we had to individually collect each of these aspects and combine them.</p><p>In order to gather technical terms, we used the UMLS dataset, which contains over 150,000 medical terms. Obtaining the license to download UMLS and the actual process of downloading the data through the UMLS specialized data downloader took several days. Parsing the data was fairly straightforward however.</p><p>In order to gather documents, we are using the AI2 Semantic Scholar dataset, which contains over 7 million research papers. While the downloading process for Semantic Scholar was incredibly slow, we realized that we couldn’t simply download all the documents because some of them were not medical papers. Handling Computer Science papers becomes an issue because our entities are medical terms and we do not expect a computer science paper to have any relation to medical terms.</p><p>This brings us to the process of combining Semantic Scholar documents with UMLS terms. We use a distant supervision method which essentially applies a greedy approach to extract a group of sentences from each document with the highest ROUGE score while using the UMLS definitions as reference summaries. This is precisely where we are currently struggling. Computing ROUGE takes a very long time, considering the fact that we compute ROUGE as many times as there are sentences in each document. Though we filter out document-term pairs based on whether the term appears in the document, it seems that the ROUGE metric may not yield the best target sentences for us because our reference summaries tend to be fairly short while our documents tend to be fairly long. Currently, we have all the scripts running for this data collection process but aim to develop a better heuristic to collect data.</p><h4>Next Steps</h4><p>At this point, we have not been able to test our data because we are still building the dataset. In order to speed up this process, our immediate goal will be to develop a faster and more accurate heuristic to gather target sentences from each document. We will also explore filtering out the Semantic Scholar papers to only retain medical papers, which are more likely to correlate to the terms in UMLS. Once we build our dataset, we can test our completed models, tune hyper-parameters, and potentially utilize attention mechanisms while constructing the document level representation used by SummaRuNNer.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=2ac19f7510f9" width="1" /><hr /><p><a href="https://medium.com/nlp-capstone-blog/advanced-model-attempt-1-continued-2ac19f7510f9">Advanced Model Attempt #1 (Continued)</a> was originally published in <a href="https://medium.com/nlp-capstone-blog">NLP Capstone Blog</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/nlp-capstone-blog/advanced-model-attempt-1-continued-2ac19f7510f9?source=rss----9ba3897b6688---4">by Karishma Mandyam at May 10, 2018 06:40 AM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
+<div class="daygroup">
 <h2>May 09, 2018</h2>
 
 <div class="channelgroup">
@@ -3215,70 +3302,6 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 </div>
 
 
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://nlpcapstonesemparse.blogspot.com/" title="NlpCapstone">Rajas Agashe <br/> Team Han Flying Solo</a></h3>
-
-
-<div class="entrygroup" id="tag:blogger.com,1999:blog-5600014144802012716.post-8898628104121215850">
-<h4><a href="https://nlpcapstonesemparse.blogspot.com/2018/04/blog-3-formal-proposal.html">Blog 3: Formal Proposal</a></h4>
-<div class="entry">
-<div class="content">
-<b style="font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;">Minimal viable action plan </b><br /><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">Implement the model from the java paper mentioned in the previous blog posts. This includes the variable and method camel case encoding, the two step attention, the type constrained decoding, and many other tasks such as preprocessing, evaluation metrics etc.</span></span><br /><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;"><br /></span></span><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>Stretch goals</b></span><br /><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;">This depends on my error analysis on the mvp, but here are a couple ideas.</span><br /><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>1. </b>Incorporate implementation specific encoding. The encoder just uses the method names, but it'd be interesting to also include the method implementations.</span><br /><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;"><b>2. </b>More type constraints on the decoder. Currently if the decoder wants to generate a variable, there's nothing to check that the variable was previously declared.</span></span><br /><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><br /></span><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>Project objectives</b></span><br /><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">Reproduce the strong paper baseline. </span></span><br /><br /><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>Proposed methodologies</b> </span><br /><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">Implement the model from the paper. Potentially experiment with other semantic parsing task architectures and see if they also perform competitively with the baseline, for example seq2seq.</span></span><br /><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;"><br /></span></span><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>Available resources</b></span><br /><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">The dataset and allennlp.</span></span><br /><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b><br /></b></span><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>Evaluation plan</b></span><br /><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;">Test on the test set and measure bleu and exact match metrics.</span><br /><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">Test if this is useful by coming up with a couple of real classes that I've written and see if it generates the method.</span></span><br /><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">Perhaps come up with a new metric, such as a binary executability metric (stretch goal).</span></span><br /><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b><br /></b></span><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>Literature survey</b></span><br /><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">The type constrained architecture was used in a number of recent papers such as "</span><span style="font-size: 14.44px;">A syntactic neural model for parsing natural language to executable code". The dataset is novel in that previous ones haven't used programmatic contexts and have focused on nl2code pairs.</span></span></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://nlpcapstonesemparse.blogspot.com/2018/04/blog-3-formal-proposal.html">by nlpcapstone (noreply@blogger.com) at April 10, 2018 03:21 AM</a>
-</p>
-</div>
-</div>
-
-
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://medium.com/@hongnin1?source=rss-c450eb982161------2" title="Stories by Ning Hong on Medium">Zichun Liu, Ning Hong, Sujie Zhou <br/> Team The Bugless</a></h3>
-
-
-<div class="entrygroup" id="https://medium.com/p/45c89bec2c2e">
-<h4><a href="https://medium.com/@hongnin1/movie-sentiment-summarization-project-proposal-45c89bec2c2e?source=rss-c450eb982161------2">Movie Sentiment Summarization — Project Proposal</a></h4>
-<div class="entry">
-<div class="content">
-<p>Team: Ning Hong, Zhuchun Liu, Sujie Zhou</p><p>Overview: our model will be able to summarize the reviews for the input movies. The summarization of the movie include how the audience feel about the movie and what is the overall rating for the movie, for example, given a movie title, our model should be able to produce something like this: &lt;movie title&gt; is violet but good, most people think this movie is 6/10.</p><p>If time permits, we would like to improve our model such that it can also output a more detailed overall review for the movie instead of simple sentences, for example, given a movie title as input, our model should output: “&lt;movie title&gt; got my full attention from beginning to end. I couldn’t turn away. I didn’t want to turn away. For me, that’s extremely rare, I would give it 8/10.”</p><p>Another stretch goal for our model is to be able to detect sentiment not only in the US market, but also in China market by using data from DouBan (one of the largest movie review site for China), and compare the sentiment between US and China for a certain movie, for example, given an input movie title, our model can output something like: &lt;movie title&gt; was generally perceived more positively in the US than in China, the Chinese audience mostly felt uncomfortable about its violent and explicit content whereas more American audience appreciated the bloodiness of the film.</p><p>Model: we are going to use basic encoder- decoder RNN that serves as our baseline and then propose several novel models for summarization, each addressing a specific weakness in the base- line such as encoder-decoder RNN with attention and large vocabulary trick, capturing keywords using feature-rich encoder, modeling rare/unseen words using switching generator-pointer, and capturing hierarchical document structure with hierarchical attention.</p><p>This project has a lot of potential uses. Not only can we use movie dataset to output movie sentiment summarization, if given restaurant review dataset (Yelp), we can also output summarization about how customers feel about a restaurant.</p><p>On the other hand, there might be some difficulties we will be facing: we are planning to use sequence2sequence model to generate summarization, it is hard to determine how good is the output we are generating; more research needs to be done for this problem.</p><p>Resources:</p><p>Data scraping blogpost:</p><p><a href="https://www.dataquest.io/blog/web-scraping-beautifulsoup/">An intermediate tutorial</a></p><p>Possible IMDb training data:</p><p><a href="https://github.com/SrinidhiRaghavan/AI-Sentiment-Analysis-on-IMDB-Dataset">SrinidhiRaghavan/AI-Sentiment-Analysis-on-IMDB-Dataset</a></p><p>Model paper:</p><a href="https://medium.com/media/1ff2a893f361e9bda813a32d4e89c5f6/href">https://medium.com/media/1ff2a893f361e9bda813a32d4e89c5f6/href</a><p>Model github:</p><p><a href="https://github.com/thunlp/TensorFlow-Summarization">thunlp/TensorFlow-Summarization</a></p><p>Movie sentiment paper:</p><p><a href="https://ieeexplore.ieee.org/document/8076790/">Movie review summarization and sentiment analysis using rapidminer - IEEE Conference Publication</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=45c89bec2c2e" width="1" /></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://medium.com/@hongnin1/movie-sentiment-summarization-project-proposal-45c89bec2c2e?source=rss-c450eb982161------2">by Ning Hong at April 10, 2018 02:54 AM</a>
-</p>
-</div>
-</div>
-
-
 </div>
 
 </div>
@@ -3331,7 +3354,7 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 
 <p>
 <strong>Last updated:</strong><br>
-May 10, 2018 06:30 AM<br>
+May 10, 2018 07:00 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
