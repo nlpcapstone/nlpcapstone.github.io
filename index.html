@@ -46,7 +46,7 @@
 <p><img alt="Screen Shot 2018-05-09 at 4.31.53 PM" class="  wp-image-331 aligncenter" height="303" src="https://mathstoc.files.wordpress.com/2018/05/screen-shot-2018-05-09-at-4-31-53-pm.png?w=501&amp;h=303" width="501" /></p>
 <p><span style="font-weight: 400;">In the event that two lyrics occur at exactly the same time step, we end up with a gap in the notes, here highlighted in red.</span></p>
 <p><img alt="Screen Shot 2018-05-09 at 4.31.53 PM" class="  wp-image-334 aligncenter" height="302" src="https://mathstoc.files.wordpress.com/2018/05/screen-shot-2018-05-09-at-4-31-53-pm1.png?w=500&amp;h=302" width="500" /></p>
-<p><span style="font-weight: 400;">At first we expected this problem to occur in only a small number of cases, but it is often the result of the newline character appearing in a message simultaneously with the first lyric of the next sentence. This processing poses several problems to the task of learning the lyrical content based on the structure of the music. First, the large number of musical gaps may be confounding the model due to the large number of lyrics that will be seen at those time steps. Additionally, we lose all information about the song timing since all regions without lyrics are compressed into a single time step. In theory, gaps in lyrics could hint to the model that the next section should start a new verse or chorus.</span></p>
+<p><span style="font-weight: 400;">At first we expected this problem to occur in only a small number of cases, but it is often the result of the newline character appearing in a message simultaneously with the first lyric of the next sentence. This processing poses several problems to the task of learning the lyrical content based on the structure of the music. First, the large number of musical gaps may be confounding the model due to the large variety in lyrics that will be seen at those time steps. Additionally, we lose all information about the song timing since all regions without lyrics are compressed into a single time step. In theory, gaps in lyrics could hint to the model that the next section should start a new verse or chorus.</span></p>
 <h2><span style="font-weight: 400;">The TSL Pipeline</span></h2>
 <p><span style="font-weight: 400;">As suggested in the previous blogpost, we would like to be able to augment the results of the musical model with a higher quality lyrical dataset. The Kaggle lyrics dataset has shown promising results in previous blogposts at the quality of the lyric sequences it has been able to produce.</span></p>
 <p><span style="font-weight: 400;">The TSL Pipeline is a combination of three models: Timing, Seed, and Lyrics. The architecture may look something like the following diagram:</span></p>
@@ -59,7 +59,9 @@
 <h2><span style="font-weight: 400;">Seed Model</span></h2>
 <p><span style="font-weight: 400;">The seed model will be a simplified version of the poorly performing model from before. Instead of predicting all lyrics, it will attempt to predict a small subset of the initial lyrics. This would also allow us to create a dataset with more training examples by splitting each song into smaller samples.</span></p>
 <h2><span style="font-weight: 400;">Lyrics Model</span></h2>
-<p><span style="font-weight: 400;">The lyrics model will be similar to the one described in the second blog post, which is a character level RNN for generating lyrics. This will take the first few words predicted by the seed model and generate the remainder of the lyrics. Since it’s trained on the large Kaggle dataset the quality seems to be much higher than what our MIDI training has produced.</span></p></div>
+<p><span style="font-weight: 400;">The lyrics model will be similar to the one described in the second blog post, which is a character level RNN for generating lyrics. This will take the first few words predicted by the seed model and generate the remainder of the lyrics. Since it’s trained on the large Kaggle dataset the quality seems to be much higher than what our MIDI training has produced.</span></p>
+<h2>Results</h2>
+<p>As of this blog post, we are still testing various hyperparameters and waiting for models to converge.  Additional results will follow once we can examine the various output.</p></div>
 
 
 
@@ -3354,7 +3356,7 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 
 <p>
 <strong>Last updated:</strong><br>
-May 10, 2018 07:00 AM<br>
+May 10, 2018 07:30 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
