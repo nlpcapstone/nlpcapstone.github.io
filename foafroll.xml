@@ -33,10 +33,10 @@
       <foaf:Agent>
         <foaf:name>Zichun Liu, Ning Hong, Sujie Zhou &lt;br/&gt; Team The Bugless</foaf:name>
         <foaf:weblog>
-          <foaf:Document rdf:about="">
-            <dc:title/>
+          <foaf:Document rdf:about="https://medium.com/@hongnin1?source=rss-c450eb982161------2">
+            <dc:title>Stories by Ning Hong on Medium</dc:title>
             <rdfs:seeAlso>
-              <rss:channel rdf:about=""/>
+              <rss:channel rdf:about="https://medium.com/feed/@hongnin1"/>
             </rdfs:seeAlso>
           </foaf:Document>
         </foaf:weblog>
@@ -72,10 +72,10 @@
       <foaf:Agent>
         <foaf:name>Tam Dang, Karishma Mandyam &lt;br/&gt; Team Illimitatum</foaf:name>
         <foaf:weblog>
-          <foaf:Document rdf:about="">
-            <dc:title/>
+          <foaf:Document rdf:about="https://medium.com/nlp-capstone-blog?source=rss----9ba3897b6688---4">
+            <dc:title>NLP Capstone Blog - Medium</dc:title>
             <rdfs:seeAlso>
-              <rss:channel rdf:about=""/>
+              <rss:channel rdf:about="https://medium.com/feed/nlp-capstone-blog"/>
             </rdfs:seeAlso>
           </foaf:Document>
         </foaf:weblog>
