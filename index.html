@@ -76,38 +76,6 @@
 </div>
 
 
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://medium.com/nlp-capstone-blog?source=rss----9ba3897b6688---4" title="NLP Capstone Blog - Medium">Tam Dang, Karishma Mandyam <br/> Team Illimitatum</a></h3>
-
-
-<div class="entrygroup" id="https://medium.com/p/2ac19f7510f9">
-<h4><a href="https://medium.com/nlp-capstone-blog/advanced-model-attempt-1-continued-2ac19f7510f9?source=rss----9ba3897b6688---4">Advanced Model Attempt #1 (Continued)</a></h4>
-<div class="entry">
-<div class="content">
-<p>This week we continued work on the advanced version of the model which incorporates the SummaRuNNer architecture from (Nallapati et al.) and adds in a character level RNN for parsing UMLS terms. The models are complete but we ran into several challenges along the way, namely constructing our final training dataset from Semantic Scholar and UMLS terms. Without the dataset, we have not been able to train our model. In this blog post, we dissect our current challenges and our plans looking forward.</p><h4>Building the Model</h4><p>The original SummaRuNNer model fit our requirements pretty well. However, we ran into several challenges when implementing the model. First, there were no existing implementations of the architecture, so we had to implement the model from scratch. Furthermore, the time we spent building the model detracted from time that we could have spent working on gathering the data. The model used by Nallapati et al. also did not condition on a particular term in the paper. Our approach requires that we somehow incorporate the term so we spent additional time figuring out a character level RNN which encodes the term and includes it in the many affine transformations described in the SummaRuNNer paper.</p><p>Moreover, we had to consider how to optimize the model when it came to large amounts of data. One of the approaches we worked on was batching, essentially evaluating many sentences at once. This allowed us to speed up training by a significant amount. Finally, we spent time integrating our model into the existing architecture. Ultimately, the model was difficult, but completed.</p><h4>Collecting the Data</h4><p>There are no current datasets that we can use to train our model. To quickly recap the requirements for the data, each training example must comprise of one document, one entity or technical term, and a target representing the ideal summary of the document. In order to build this dataset, we had to individually collect each of these aspects and combine them.</p><p>In order to gather technical terms, we used the UMLS dataset, which contains over 150,000 medical terms. Obtaining the license to download UMLS and the actual process of downloading the data through the UMLS specialized data downloader took several days. Parsing the data was fairly straightforward however.</p><p>In order to gather documents, we are using the AI2 Semantic Scholar dataset, which contains over 7 million research papers. While the downloading process for Semantic Scholar was incredibly slow, we realized that we couldn’t simply download all the documents because some of them were not medical papers. Handling Computer Science papers becomes an issue because our entities are medical terms and we do not expect a computer science paper to have any relation to medical terms.</p><p>This brings us to the process of combining Semantic Scholar documents with UMLS terms. We use a distant supervision method which essentially applies a greedy approach to extract a group of sentences from each document with the highest ROUGE score while using the UMLS definitions as reference summaries. This is precisely where we are currently struggling. Computing ROUGE takes a very long time, considering the fact that we compute ROUGE as many times as there are sentences in each document. Though we filter out document-term pairs based on whether the term appears in the document, it seems that the ROUGE metric may not yield the best target sentences for us because our reference summaries tend to be fairly short while our documents tend to be fairly long. Currently, we have all the scripts running for this data collection process but aim to develop a better heuristic to collect data.</p><h4>Next Steps</h4><p>At this point, we have not been able to test our data because we are still building the dataset. In order to speed up this process, our immediate goal will be to develop a faster and more accurate heuristic to gather target sentences from each document. We will also explore filtering out the Semantic Scholar papers to only retain medical papers, which are more likely to correlate to the terms in UMLS. Once we build our dataset, we can test our completed models, tune hyper-parameters, and potentially utilize attention mechanisms while constructing the document level representation used by SummaRuNNer.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=2ac19f7510f9" width="1" /><hr /><p><a href="https://medium.com/nlp-capstone-blog/advanced-model-attempt-1-continued-2ac19f7510f9">Advanced Model Attempt #1 (Continued)</a> was originally published in <a href="https://medium.com/nlp-capstone-blog">NLP Capstone Blog</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://medium.com/nlp-capstone-blog/advanced-model-attempt-1-continued-2ac19f7510f9?source=rss----9ba3897b6688---4">by Karishma Mandyam at May 10, 2018 06:40 AM</a>
-</p>
-</div>
-</div>
-
-
 </div>
 
 </div>
@@ -551,38 +519,6 @@
 </div>
 
 
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://medium.com/@hongnin1?source=rss-c450eb982161------2" title="Stories by Ning Hong on Medium">Zichun Liu, Ning Hong, Sujie Zhou <br/> Team The Bugless</a></h3>
-
-
-<div class="entrygroup" id="https://medium.com/p/b3b687dd74ae">
-<h4><a href="https://medium.com/@hongnin1/advanced-model-attempt-1-continued-b3b687dd74ae?source=rss-c450eb982161------2">Advanced model attempt #1 (continued)</a></h4>
-<div class="entry">
-<div class="content">
-<p>To recap, this is our baseline approach:</p><p><a href="https://medium.com/@hongnin1/image-annotation-model-baseline-dataset-and-evaluation-framework-d1d1b2d1f34c">Image Annotation Model Baseline, Dataset and Evaluation Framework</a></p><p>Our previous model involves InceptionNet as our CNN encoder and we feed the image vector into LSTM to generate caption. This model we used was heavily based on <a href="https://github.com/tensorflow/models/tree/master/research/im2txt">this model</a>. However we have since then fixed several bugs, improved model’s training speed performance and reduced the training time significantly, at the same time we incorporated more models into our overall model to improve the accuracy.</p><p>First of all, we realized what hindered our training speed is the logging we are doing. We had previously logged every training batch onto TensorBot; our training speed increase by 60% once we started to only update logs on TensorBot every 20 batches.</p><p>In addition to the training speed, we added a single layer neuronetwork to calculate attention weights: We first project input image feature (output from VGG encoder) to the same dimension as the original dimension, then we projected previous hidden state to the same dimension as input feature. Then we added the feature projection and hidden state projection together. We used Relu function as activation function and lastly we reduced the output from Relu function to a one dimensional vector to generate output. In addition to this, we also take one step further on attention by also putting attention on different data points in a single batch, so that the model can learn more from a more important data point. After getting the context matrix from previous steps in attention, we also apply a Beta scale to the matrix, which means that we multiply the matrix by beta vector to get a new context matrix and then generate our final output.</p><p>Coding up our own attention network reduced our training error. In addition to adding attention NN to our model, we also coded a new VGG network for encoding our images, this also significantly improved our model’s accuracy. We have found resources for VGG <a href="http://www.vlfeat.org/matconvnet/pretrained/">here</a>.</p><p>Lastly, we also tried to keep track of the training process by keeping checkpoints during training. Our current rate is one checkpoint every ~50 minutes (800 batches). We are planning on keeping at most 50 checkpoints around to monitor the process in the past 2 days and detect any issue (like overfitting) early.</p><p>For the first couple of months, we have been studying the <a href="https://arxiv.org/pdf/1502.03044.pdf">paper</a> and our baseline model is heavily based on this model <a href="https://github.com/tensorflow/models/tree/master/research/im2txt">here</a>. Now that we have learned all the necessary tool we have coded up most of the model ourselves with some added touch that improved the model’s accuracy. Our git repository: <a href="https://gitlab.cs.washington.edu/sujiez/NLP-481">https://gitlab.cs.washington.edu/sujiez/NLP-481</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=b3b687dd74ae" width="1" /></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://medium.com/@hongnin1/advanced-model-attempt-1-continued-b3b687dd74ae?source=rss-c450eb982161------2">by Ning Hong at May 09, 2018 03:10 AM</a>
-</p>
-</div>
-</div>
-
-
 </div>
 
 </div>
@@ -746,38 +682,6 @@
 
 <p class="date">
 <a href="https://medium.com/@be.li.nda/nlp-capstone-blog-6-overfitting-of-neural-baseline-and-advanced-model-d73810e0c390?source=rss-fad49d942bf3------2">by Belinda Zou Li at May 03, 2018 04:25 AM</a>
-</p>
-</div>
-</div>
-
-
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://medium.com/nlp-capstone-blog?source=rss----9ba3897b6688---4" title="NLP Capstone Blog - Medium">Tam Dang, Karishma Mandyam <br/> Team Illimitatum</a></h3>
-
-
-<div class="entrygroup" id="https://medium.com/p/d01e84c5e1da">
-<h4><a href="https://medium.com/nlp-capstone-blog/advanced-model-attempt-1-neural-based-definition-extraction-d01e84c5e1da?source=rss----9ba3897b6688---4">Advanced Model Attempt #1: Neural-Based Definition Extraction</a></h4>
-<div class="entry">
-<div class="content">
-<p>We last left off on the idea of using an FSA with a restricted vocabulary; restricted in the sense that we extract sentences coupled with a neural language model to assure semantic quality while allowing a generative RNN model a reasonable amount of improvisation to produce abstractive definitions.</p><p>Here, we discuss our approach for the extractive component of this model, and consider it our first attempt at an advanced model for the task.</p><h3>Introducing Extractive Summarization</h3><p>Recall that extractive summarization is the idea of reducing text down to a subset of its sentences that still preserves its semantic integrity. In particular, we intend to build on the work of a successful nerual-based extractive summarizer and tailor it to solve our task.</p><p><a href="https://arxiv.org/abs/1611.04230">SummaRuNNer</a> is an RNN-based extractive summarization algorithm developed by Nallapati et al. that encodes documents from the word level up to and across the sentence level before making inference. Essentially, the model is a binary classifier on sentences within a document on whether it should be included in a summary. Its decisions are conditioned on</p><ul><li>Averaged-pooled word-level hidden states of the sentence</li><li>Average-pooled sentence-level hidden states of the document</li><li>An abstract representation of the summary built so far (average-pooling of the word-level pooled hidden states of sentences selected thus far)</li></ul><p>After which, there are several affine transformations conducive to selecting and filtering sentences:</p><ul><li>Content: affine on the abstract sentence representation that measures semantic richness</li><li>Salience: bilinear affine on the abstract sentence representation and the document representation to measure cohesiveness</li><li>Novelty: bilinear affine on the abstract sentence representation and the running summary representation to address redundancy</li><li>Absolute and Relative Positioning: two separate affines on the embedded index of the sentence to allow how far we are into the document to influence inference</li></ul><p>As of now, we have built from scratch our own <a href="https://github.com/NLP-Capstone-Project/machine-dictionary/blob/development-tam/machine_dictionary_rc/models/SummaRuNNer.py">unofficial implementation of this model</a> with inspiration from another <a href="https://github.com/hpzhao/SummaRuNNer">unofficial implementation</a> and is capable of summarizing documents the way we’ve formatted them. What’s left is for us to tailor this model to fit the task.</p><h3>A Slight Twist on an Established Task</h3><p>As of now, the model summarizes documents. We’d like it so that it instead zeroes in on query terms we give it given a research paper, to intelligently extract only sentences from that paper conducive to defining that term.</p><p>Our approach for augmenting SummaRuNNer to be a definition extractor involves</p><ul><li>Encoding the query term with a character-level RNN and using its concatenated hidden states as its representation</li><li>Introducing this new query-term abstract representation when constructing the document representation through a bilinear affine</li><li>Further introducing this query term by converting many of the non-bilinear affines (content, positioning, and possibly new ones for the task) to further condition inference on the query term.</li></ul><p>Essentially, the sentences we extract from the document are being conditioned on the term we’re trying to define. Encoding technical terms using a character level RNN allows similar technical terms to have similar hidden representations. For example, if we see the term “Chronic Lymphocytic Leukemia” in the training data and encounter “Chronic Myelogenous Leukemia” in the testing data, we would have more of an idea of how to approach this new term because of its character level similarities to the term we have already seen during training time. This might help us break down more complicated novel technical terms at testing time.</p><p>Experiments have yet to be conducted on the effectiveness of this approach but will be discussed later in <strong>Advanced Model Attempt #1 (cont.):</strong> another post later in this series discussing the results of the groundwork we’ve laid out here.</p><h3>Training Methods</h3><h4>Collection Training Data with UMLS and ROUGE:</h4><p>Recall that SummaRuNNer is a model that aims to extract the sentences in a document that summarize it best. It does so by training on examples that teach the model which sentences to extract from the document.</p><p>SummaRuNNeR uses a <em>distant supervision</em> method that relies on ROUGE in order to produce training examples for the model. This portion of the architecture, which we refer to as the “extractor”, extracts the sentences out of each document which maximize the ROUGE score when compared against the gold standard definition for the term in question. The extractor in a summarization context can use a greedy approach as follows:</p><ul><li>Look at each sentence in the document one at a time and consider appending it to the extracted sentences that we have already chosen.</li><li>Calculate the ROUGE score of the old extracted sentences + this new sentence in comparison to the gold standard summarization for the document.</li><li>If the ROUGE score increases from the previous ROUGE score, keep the new sentence.</li><li>Otherwise, we don’t keep the new sentence and move on.</li></ul><p>Although this method may not produce the most optimal and compact set of sentences that are relevant, this approach will be faster and is reasonable. The output of the extractor for each document is a tensor whose length is the number of sentences in the document, and is 0 if the sentence is tagged with O or 1 if the sentence is tagged with I.</p><p>To tailor this style of data collection to our task however, we optimize on ROUGE with respect to an entity’s gold-standard definition instead of a gold-standard summarization of the document. We collect entity-definition pairs through <a href="https://www.nlm.nih.gov/research/umls/">UMLS</a> and creating training examples of the form</p><ul><li>Entity (the technical term to define)</li><li>Gold-standard definition for the entity</li><li>The target sentence IO tags found via distant supervision with ROUGE on sentences of a research paper with the gold-standard definition being the reference</li><li>A Semantic Scholar research paper in which the sentences came from (provides the sentences in which to perform inference)</li></ul><p>With this data, we can train the definition extraction model discussed earlier; we train using these &lt;entity, IO-tagged sentences, publication&gt; examples to learn a tagger that can extract sentences most relevant to a term given a publication.</p><p>While this may result in an unnecessarily large number of training data points, we can also consider pruning this dataset later on if we have irrelevant entities for a particular document. For example, if we were trying to find a training example that used the entity “dental cavity” for a document that was about blood cancers, we might not want to keep this training example because there wouldn’t be much of a correlation between the two. In order to do this, we can introduce a ROUGE threshold, where we only keep the training example if the ROUGE score of the sentences extracted by the tagger are above a particular threshold. This might be an optimization for the future.</p><p>Our previous approach was unsupervised and it relied only on the semantic scholar dataset to produce definitions. Our current approach is an extension of SummaRuNNer which requires gold standard definitions for entities that we’d like to define in each paper. We chose to focus on medical terms, and one of the most complete datasets for medical terms and their definitions happens to be the UMLS dataset. This dataset contains a <em>Metathesaurus</em> which contains, amongst many other pieces of data, medical terms and their definitions. The technical terms in the dataset serve as references for ROUGE in the tagging phase above.</p><h4>In summary</h4><p>Training is fairly straightforward; loss between predicted and target sentences is computed with log loss (each sentence in a document is IO-tagged where sentences labeled with <em>I </em>are to be included in the definition). Essentially, the definition extractor, much like SummaRuNNer, is trained as a sentence tagger.</p><h4>Attention as a Stretch Goal</h4><p>The first part of our basic SummaRuNNer-based model uses a document representation to predict tags for sentences in a document. The current document representation is constructed by averaging the hidden states from words in each sentence and averaging the hidden states from each sentence in the document. However, we believe that simply averaging the sentences may not be the best approach to constructing the latent document representation. One of our stretch goals for us to optimize the model will be to attend to the most important parts of sentences in each document. We can do this using the method proposed in Hierarchical Attention Networks for Document Classification (Yang et. al 2016).</p><p>This approach introduces a word level context vector and a sentence level context vector which allow us to calculate attention coefficients on the fly for every word in each sentence and every sentence in the document. In this manner, we can take a weighted sum of the hidden states in the sentences and will hopefully produce better document representations overall. The word level and sentence level context vectors can be initialized randomly and learned throughout training.</p><h4>Conclusion</h4><p>We are very excited to have found a supervised approach to this task per the advice of AI2 researchers. It’s a straightforward approach with measurable loss and clearer metrics.</p><p>We also hope to have enough time before the capstone is over to introduce attention!</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=d01e84c5e1da" width="1" /><hr /><p><a href="https://medium.com/nlp-capstone-blog/advanced-model-attempt-1-neural-based-definition-extraction-d01e84c5e1da">Advanced Model Attempt #1: Neural-Based Definition Extraction</a> was originally published in <a href="https://medium.com/nlp-capstone-blog">NLP Capstone Blog</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://medium.com/nlp-capstone-blog/advanced-model-attempt-1-neural-based-definition-extraction-d01e84c5e1da?source=rss----9ba3897b6688---4">by Tam Dang at May 03, 2018 03:32 AM</a>
 </p>
 </div>
 </div>
@@ -1370,38 +1274,6 @@ Running the filter on 100k posts, we can see that most of the most common subred
 </div>
 
 
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://medium.com/@hongnin1?source=rss-c450eb982161------2" title="Stories by Ning Hong on Medium">Zichun Liu, Ning Hong, Sujie Zhou <br/> Team The Bugless</a></h3>
-
-
-<div class="entrygroup" id="https://medium.com/p/e05ee9a7eaa8">
-<h4><a href="https://medium.com/@hongnin1/image-captioning-model-advanced-model-attempt-1-e05ee9a7eaa8?source=rss-c450eb982161------2">Image Captioning Model: Advanced model attempt #1</a></h4>
-<div class="entry">
-<div class="content">
-<p>To recap, this is our baseline approach:</p><p><a href="https://medium.com/@hongnin1/image-annotation-model-baseline-dataset-and-evaluation-framework-d1d1b2d1f34c">Image Annotation Model Baseline, Dataset and Evaluation Framework</a></p><p>For the past week, we have been trying to improve our model’s performance from two different aspect: training speed and model accuracy. In order to improve speed, we further investigated in TensorFlow’s API. We realized that the bottleneck of our model’s performance is in extracting and batching our data. After some research, we have decided to try tf.record (API: <a href="https://www.tensorflow.org/programmers_guide/datasets#consuming_tfrecord_data">https://www.tensorflow.org/programmers_guide/datasets#consuming_tfrecord_data</a>). We are working on using tf.record and tf.dataset to prepare and feed our data as proposed in the link, and we are hoping to see a performance increase (fingers crossed).</p><p>In order to improve model accuracy, we mentioned in previous post that we are working towards finding the right way to calculate attention weights. The APIs we have tried are: <a href="https://www.tensorflow.org/api_docs/python/tf/contrib/seq2seq/BahdanauAttention">https://www.tensorflow.org/api_docs/python/tf/contrib/seq2seq/BahdanauAttention</a> and <a href="https://www.tensorflow.org/programmers_guide/datasets#consuming_tfrecord_data">https://www.tensorflow.org/programmers_guide/datasets#consuming_tfrecord_data</a>, however the way they are calculating attention weights do not align with what the paper did, so we are considering implementing our own small neural network to extract attention weights, but it will take a while. Our teammates are currently working on developing our own neural network for this week and see if it will work. It’s a trail and error process so it might take some time.</p><p>In terms of the model itself, we have previously implemented InceptionNet as our CNN encoder. However we encountered the same problem as we had for calculating attention weights, this InceptionNet is a different implementation from the paper we are basing our model on, so we decided to switch to VGG. We are still trying to find a suitable VGG16 (CNN) implementation with checkpoint and this is what we are currently considering: <a href="https://github.com/machrisaa/tensorflow-vgg">https://github.com/machrisaa/tensorflow-vgg</a></p><p>Overall speaking, our baseline model has a lot of problems we have been fixing for the past week in terms of training speed and attention visualization. Also changing our neural network for CNN encoder is taking a large chunk of our time as well. We are hoping to fix these problems but it might take a while for us to figure out the best approach. We are trying our best and hopefully come up with an even more advanced model sometime soon.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=e05ee9a7eaa8" width="1" /></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://medium.com/@hongnin1/image-captioning-model-advanced-model-attempt-1-e05ee9a7eaa8?source=rss-c450eb982161------2">by Ning Hong at May 02, 2018 04:26 AM</a>
-</p>
-</div>
-</div>
-
-
 </div>
 
 </div>
@@ -1636,70 +1508,6 @@ I fixed the performance issues, and I have been working on adding enhancements t
 
 <p class="date">
 <a href="https://medium.com/@viterbi.or.not/baseline-model-2-a21b51cdd27c?source=rss-c522ef075bb3------2">by Viterbi Or Not To Be at April 25, 2018 06:29 AM</a>
-</p>
-</div>
-</div>
-
-
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://medium.com/@hongnin1?source=rss-c450eb982161------2" title="Stories by Ning Hong on Medium">Zichun Liu, Ning Hong, Sujie Zhou <br/> Team The Bugless</a></h3>
-
-
-<div class="entrygroup" id="https://medium.com/p/fd61ae20a2f1">
-<h4><a href="https://medium.com/@hongnin1/image-annotation-model-improved-baseline-fd61ae20a2f1?source=rss-c450eb982161------2">Image Annotation Model Improved Baseline</a></h4>
-<div class="entry">
-<div class="content">
-<p>Our original baseline can be found here:</p><p><a href="https://medium.com/@hongnin1/image-annotation-model-baseline-dataset-and-evaluation-framework-d1d1b2d1f34c">Image Annotation Model Baseline, Dataset and Evaluation Framework</a></p><p>There are several major improve we have done to our baseline:</p><ol><li>We added Attention to our deep learning network to improve our decoding scheme: as can be seen in the snapshot below, we decided to change LSTM (previous baseline) to GRU due to performance reasons. We discovered that because our training corpus is extremely large, it takes way to long to train our model using LSTM, hence the switch to GRU.</li></ol><figure><img alt="" src="https://cdn-images-1.medium.com/max/838/0*mAvISRtQGogv4cQ-." />code block we added for adding attention/GRU</figure><p>2. Now that we are more familiar with TensorFlow (we have been watching tutorials online), we improved our APIs and incorporated better TensorFlow code to make our code base more organized and efficient. More specifically, we added “tf.contrib.seq2seq.GreedyEmbeddingHelper” to help feed data into the network, as well as adding “tf.contrib.seq2seq.BasicDecoder” and “tf.contrib.seq2seq.dynamic_decode” to perform dynamic unroll of RNN when doing decoding.</p><p>3. We had some bugs with our data parsing, and we have spent a large chunk of time debugging and eventually fixed the problem.</p><p>As for evaluation, we dived deep into the code base we found online for evaluation (for more detail see our previous post for baseline) and have decided to use the same evaluation method as the baseline approach because it is pretty established and work pretty well in determining whether an annotation is valid or not by using BLEU score).</p><p>4. We kept trying different attention weights and visualized the attention weight on input graphs.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=fd61ae20a2f1" width="1" /></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://medium.com/@hongnin1/image-annotation-model-improved-baseline-fd61ae20a2f1?source=rss-c450eb982161------2">by Ning Hong at April 25, 2018 05:48 AM</a>
-</p>
-</div>
-</div>
-
-
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://medium.com/nlp-capstone-blog?source=rss----9ba3897b6688---4" title="NLP Capstone Blog - Medium">Tam Dang, Karishma Mandyam <br/> Team Illimitatum</a></h3>
-
-
-<div class="entrygroup" id="https://medium.com/p/79ed786e5c74">
-<h4><a href="https://medium.com/nlp-capstone-blog/baseline-ii-and-updates-79ed786e5c74?source=rss----9ba3897b6688---4">Baseline II and Updates</a></h4>
-<div class="entry">
-<div class="content">
-<p>This week, our focus was to improve the original baseline model with an approach more tailored to the task of generating definitions. There were a few key challenges that the original baseline approach did not address. This included generating grammatically sound English sentences, and incorporating keywords. Over the past few weeks, we also explored text generation techniques used in poetry (Ghazvininejad et. al). Our new approach is inspired by the techniques used in this paper and aims to address the two major problems with our first baseline.</p><h4>Revised Approach</h4><p>One of the biggest issues with the first baseline models, which were neural language models, was that the sentence outputs were not coherent or grammatical. Ghazvininejad et. al addressed a similar structural issue by creating a large Finite State Machine of all possible paths one could take while generating a sonnet. Each path is grounded in the filtered vocabulary developed in earlier steps and technically would have produced a structurally sound sonnet. Though all of these paths were not great, the FSM provided a foundation for generating the best sonnet. We use a similar approach, where we create an FSM of all possible paths through the training corpus. For example, if we encountered the following sentence in the corpus, it’s corresponding FSM would look like this:</p><blockquote>Osteoporosis is a bone disease.</blockquote><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*uWBb5Vc4EerUU9hEvzHDuQ.png" />Example FSM</figure><p>In this manner, we construct an FSM for the entire corpus.</p><h4>Extraction</h4><p>Another challenge of the original baseline was that it did not focus on the topic we provided to start with. Even though we provided the seed word, it tended to stray off topic very quickly. In order to fix this, we chose to use some techniques from extractive summarization and the keyword identification process from the poetry generation paper. To start, we have to identify some common words associated with the term we’re defining. In Generating Topical Poetry, the authors use distance between word vectors as a metric for similarity, which we also do in our model. This allows us to determine the top few keywords associated with the term.</p><p>Now, we can proceed to look through the corpus and extract all sentences that contain a keyword or the term itself. This allows us to capture the context in which a term is mentioned. In the future, we can capture more sentences than this, especially if we use a window larger than one sentence for capturing context. Once we have our extracted sentences, we can proceed to modify the FSM.</p><p>Our modified FSM will only contain words that are included in the extracted sentences and a set of pre-selected connective words required to generate grammatical sentences. We hope that this will narrow down the search space in our decoding phase.</p><h4>Definition Generation via Beam Search</h4><p>The FSM mentioned previously needs a scoring mechanism with which to extract likely paths. We plan on using an RNN language model (LSTM, GRU, etc.) to decode the FSM and produce the generated definition one sentence at a time. Although it is asking a bit much to trust the neural language model to produce coherent, semantically rich sentences, we trust that the amount of structure we’re introducing before inference nudges the model to connect the dots in the most sensible way.</p><p>An issue we’re left with is the actual beam search itself. Beam search is a useful alternative to exhaustive search for fixed sized sequences in that we only continue paths that are one of the top K likely paths at every step. The difficulty lies in the fact that beam search is best used for deriving most likely paths of a fixed length. When we’re at the stage of generating definitions, we’ll have to figure out how exactly sentence length will be enforced or relaxed. It’ll be especially difficult to enforce grammar, in particular, how to terminate sentences. In the most cases this can be mitigated by generating the sentences backwards and appending punctuation.</p><p>Difficulties also lie in what seed to use per generated sentence. It may make sense for semantically relevant terms to appear at the end of each sentence but that isn’t necessarily how all of these words are used in practice. Regardless, an FSA using a restricted vocabulary from extracted sentences coupled with a neural language model, we believe, will be the best of both worlds. We gain assurance in semantic quality uses aspects of extractive summarization and structure we introduce while allowing the generation a reasonable amount of improvisation.</p><h4>BIO-Tagging Approach for Sentence Extraction</h4><p>For what could be a part of the FSM-style definition generation, or even a standalone definition extractor, we plan on labeling sentences throughout the corpus using BIO tags. This approach proposed by AI2 researchers involves the use of distant supervision to label sentences conducive to definition structure and semantics by picking sentences that meet a ROUGE threshold w.r.t to gold standard definitions. We would then collect triples of terms, their gold standard definitions, and their BIO-tagged sentences. We could then train a sequence tagger to recognize what sentences in a paper are conducive to definitions and which ones aren’t.</p><p>Possible sources of gold standards to use for ROUGE are include WordNet, which has a large breadth of glosses but each gloss tends to be very short. We are also exploring the idea of using UMLS which would provide technical medical terms along the lines of what we’d like the model to be able to define, and another data set composed of NELL and Freebase which can be found <a href="http://rtw.ml.cmu.edu/wk/WebSets/glossFinding_wsdm_2015_online/index.html">here</a>. With “Automatic Gloss Finding for a Knowledge Base using Ontological Constraints”, Dalvi et al. set out to simplify KBs the same way we are, and they were kind enough to make this dataset of ~500k glosses available to the research community for continuing this work.</p><p>A supervised aspect of this project has been lacking until now, and we believe that incorporating this sequence-tagging or other intelligent forms of extracting rich, definition-like sentences will mean the language model and beam search won’t have to work as hard. The added assurance of a restricted search space to only what is relevant is better both for inference and training.</p><h4>Progress</h4><p>So far, the most difficult part of our project has been determining a more advanced approach to start with. Though the initial baseline model was easy to come up with, this model took several days to design. Most of the work we accomplished over the past few weeks involved talking with Waleed Ammar from AI2 and reading several research papers in order to define the architecture we have proposed above. As such, we have not made enough progress on this approach to evaluate it thoroughly. In this section, we list a breakdown of all the tasks we have.</p><ul><li>The infrastructure and interface for constructing the FSM is complete</li><li>The system used to determine keywords given a term is in progress. We are currently debating whether or not to use pre-trained word vectors and are working on finishing the code</li><li>The extraction phase of the model (after retrieving the keywords) is not complete as it relies on the keywords. However, this part should be fairly straightforward and should be complete by the end of the week</li><li>Beam search decoding is in progress and the functionality to find the next beam is complete but the infrastructure for deciding when to terminate the search is in progress.</li><li>Although the RNN for beam search through the FSM is already written (we can use the same RNN from the original baseline), it needs to be trained on a corpus, preferably the Semantic Scholar corpus</li></ul><p>Another challenge we are currently facing involves organizing the data. In our original baseline model, the loss would steadily decrease as we trained on a single document but would then suddenly spike upward when we switched to a new document. The AI2 Semantic Scholar dataset consists of many different types of research papers including Computer Science, Medical, and various other domains. As such, the language in each domain differs drastically, so organizing the papers into linguistically similar groups has remained a challenge. Currently, the API provides no such tools for categorizing the papers.</p><h4>Conclusion</h4><p>Overall, we hope that this approach is a step closer to defining an architecture specific to the definition generation task. That said, there are several ways to improve the individual pieces of this architecture. We can change the hyper parameters of models in every phase, change the way they are trained, and introduce new concepts such as sequence tagging to improve the quality of the text generated by the model. This current architecture gives us a baseline on which we can continually improve.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=79ed786e5c74" width="1" /><hr /><p><a href="https://medium.com/nlp-capstone-blog/baseline-ii-and-updates-79ed786e5c74">Baseline II and Updates</a> was originally published in <a href="https://medium.com/nlp-capstone-blog">NLP Capstone Blog</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://medium.com/nlp-capstone-blog/baseline-ii-and-updates-79ed786e5c74?source=rss----9ba3897b6688---4">by Karishma Mandyam at April 25, 2018 05:43 AM</a>
 </p>
 </div>
 </div>
@@ -2227,38 +2035,6 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 
 
 
-<h3><a href="https://medium.com/nlp-capstone-blog?source=rss----9ba3897b6688---4" title="NLP Capstone Blog - Medium">Tam Dang, Karishma Mandyam <br/> Team Illimitatum</a></h3>
-
-
-<div class="entrygroup" id="https://medium.com/p/15357a82fe06">
-<h4><a href="https://medium.com/nlp-capstone-blog/first-impressions-baselines-and-the-evaluation-framework-15357a82fe06?source=rss----9ba3897b6688---4">First Impressions: Baselines and the Evaluation Framework</a></h4>
-<div class="entry">
-<div class="content">
-<p>Ultimately, our goal is to go beyond basic language modeling and create a new text generation architecture conducive to producing technical definitions. To get a feel for the data though, we approach it with familiar, simple baselines that give us a foundation in which we can improve from.</p><p>The baselines that we’ve experimented with are</p><ul><li><strong>Vanilla RNN:</strong> Hidden states as a function of the input and the previous hidden state, with Tanh activation (in particular, we’re using the <a href="https://medium.com/@tamdangnadmat/first-impressions-baselines-and-the-evaluation-framework-15357a82fe06">Elman Network</a>).</li><li><strong>GRU:</strong> An RNN architecture that learns to throttle the influence and usage of particular parameters on inference using a gating mechanism.</li><li><strong>LSTM: </strong>Another RNN architecture that specializes in intelligently remembering relevant details and forgetting irrelevant details through several gating mechanisms and a “cell state” in addition to the conventional hidden states. <a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/">Here’s more detail</a> about this particular kind of RNN.</li></ul><p>All baselines were trained as language models with cross entropy loss and were used to get a sense of how learnable the language of the Semantic Scholar dataset is. The metrics we are focusing on now are</p><ul><li><strong>Perplexity: </strong>A measure of how “confused” the model is at any point it’s attempting to predict the next word.</li><li><strong>Feature extraction through hidden states:</strong> Can the hidden states be used as features for a classification task?</li></ul><p>Our first metric is fairly straightforward; we calculate the aggregate sum of log probabilities for every word in the corpus and normalize by the size of the corpus.</p><p>Our second metric however, is inspired by Dieng et al.’s method for sentiment analysis in <a href="https://www.semanticscholar.org/paper/TopicRNN%3A-A-Recurrent-Neural-Network-with-Semantic-Dieng-Wang/412068c7e8e77b73add471789d58df3d2f3e08d8">TopicRNN</a>, in which the final hidden states after a forward pass of the model on a movie review were used to predict positive or negative sentiment using a single-layer neural network. We aim to adopt this metric from a multi-class classification perspective in which the passages we use are excerpts of research documents with an omitted, technical term. The question we aim to answer with this metric is “is the model capable of representing semantics in a latent space?”</p><p>Our labels will then be a defined set of these omitted, technical terms, and our goal will then be to predict them given the hidden states of the passage via a two-layer neural network. The framework for this evaluation metric can be found in <a href="https://github.com/NLP-Capstone-Project/machine-dictionary/tree/evaluation">this branch</a> of our codebase.</p><h4>Why we chose these metrics</h4><p>Our task is fairly novel given the way we’re approaching it, so currently no dataset exists that pairs domain-specific words with definitions that are to the caliber of research technicality. Because of this, metrics that depend on gold standards such as ROUGE and BLEU are currently out of reach at this time.</p><p>There’s a chance we’ll experiment with these metrics if we can find a labeled dataset to supplement Semantic Scholar’s Open Research Corpus. We are also considering using the publications themselves as the gold standards, which may be helpful since a desirable trait of our model would be its ability to produce language similar to that of the corpus.</p><h3>Challenges Encountered while Baselining</h3><p>In establishing our baselines and metrics, there were several issues we ran into, both in training.</p><h4>Dealing with a larger corpus</h4><p>Given that our baselines are language models, and that our later prototype models will most likely contain an LM component, we have to deal with efficient learning given there are several million documents to process.</p><p>For efficient backpropagation, we opted to introduce a “backpropagation through time” as a hyperparameter defaulted at 50, which specifies the number of words we allow the model to see before updating our parameters.</p><p>Currently, batching is supported by our codebase but was not used in our initial experiments. Given that it takes roughly one minute for the GPUs on the cloud to process a single publication, we plan to concatenate document vectors and reshape into batch-by-length tensors in the future.</p><h4>Sorting By Domain</h4><p>We’d like our model to be trained on a single domain/field of study for our future case studies comparing dictionaries built on one domain versus others. This is further motivated by some of our experiment results discussed later, how loss tends to spike between documents.</p><p>Currently, the Semantic Scholar Open Research Corpus doesn’t include anything in the set of JSON fields that we could find for filtering the data. However, we’ve been assured by AllenNLP researchers that its possible to sort the data by research domain. We may performing another round of baseline experiments once we’ve sorted the data, but for now the results below are on publications of mixed domains.</p><h3>Experimental Results</h3><p>The Semantic Scholar Open Research Corpus provides a sample subset of its dataset: a JSON file containing 4000 entries. Within each entry, the URL of the publication’s online PDF is provided. We use a GET request to <a href="https://github.com/allenai/science-parse">AI2’s Science Parse</a> service to extract the PDF contents.</p><p>From there, we run our experiments on 121 of the 4000 extracted documents, stopping training early at 15 documents and calculated perplexity on a validation set of 30 documents. The total vocabulary used was 11,330 words. Words outside of this vocabulary are replaced with an unknown token at training and test time.</p><p>Loss is calculated and normalized on the last 50 words the model is trained on.</p><ul><li><strong>Elman RNN:</strong> Perplexity of 250.25 with an average loss of 7.908 over the last 50 words.</li><li><strong>GRU:</strong> Perplexity of 265.50 with an average loss of 7.085 over the last 50 words</li><li><strong>LSTM:</strong> Perplexity of 261.95 with an average loss of 6.588 over the last 50 words</li></ul><p>Perplexities calculated using untrained models (with randomized parameters) were several orders of magnitude larger than the ones listed above, so it’s good to know that our baseline models can learn a significant amount of surface-level patterns with such a small subset of the corpus.</p><p>In terms of feature extraction and classification, the framework has been implemented but the data for this has not been created yet. We plan on evaluating our baselines along with our final model on this metric using publications from Semantic Scholar after establishing a vocabulary of semantically significant technical terms and creating the dataset using those terms. This will involve iterating over documents and replacing occurrences of these technical terms with a specialized, unknown token that won’t aid in inference.</p><h3>Conclusion</h3><p>Our methods helped us familiarize ourselves with the data as well as handle significant amounts of overhead in terms of processing the data, toggling between different models, and integration of our evaluation metrics in an organized fashion.</p><p>We are excited to see how novel architectures tailored to the task perform on these metrics!</p><p>To keep up to date with our progress in baselining, evaluation, and other things, you can watch <a href="https://github.com/NLP-Capstone-Project/">this repository</a>.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=15357a82fe06" width="1" /><hr /><p><a href="https://medium.com/nlp-capstone-blog/first-impressions-baselines-and-the-evaluation-framework-15357a82fe06">First Impressions: Baselines and the Evaluation Framework</a> was originally published in <a href="https://medium.com/nlp-capstone-blog">NLP Capstone Blog</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://medium.com/nlp-capstone-blog/first-impressions-baselines-and-the-evaluation-framework-15357a82fe06?source=rss----9ba3897b6688---4">by Tam Dang at April 18, 2018 05:40 AM</a>
-</p>
-</div>
-</div>
-
-
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
 <h3><a href="https://mathstoc.wordpress.com" title="NLP Capstone – Mathematical Distractions">Kuikui Liu, Nicholas Ruhland <br/> Team INLP</a></h3>
 
 
@@ -2714,38 +2490,6 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 
 
 
-<h3><a href="https://medium.com/@hongnin1?source=rss-c450eb982161------2" title="Stories by Ning Hong on Medium">Zichun Liu, Ning Hong, Sujie Zhou <br/> Team The Bugless</a></h3>
-
-
-<div class="entrygroup" id="https://medium.com/p/d1d1b2d1f34c">
-<h4><a href="https://medium.com/@hongnin1/image-annotation-model-baseline-dataset-and-evaluation-framework-d1d1b2d1f34c?source=rss-c450eb982161------2">Image Annotation Model Baseline, Dataset and Evaluation Framework</a></h4>
-<div class="entry">
-<div class="content">
-<h3>Baseline approach:</h3><h4>Overview:</h4><p>We are using a deep neural network that learns how to output the description of a general image. Example:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*RWtQGi8MpUzCsQTmWpR0Og.png" />Image from paper <a href="https://arxiv.org/pdf/1412.6632.pdf">https://arxiv.org/pdf/1412.6632.pdf</a></figure><p>Our baseline model is an encoder-decoder neural network. First it encodes a image into a vector using a deep convolutional neural network (CNN), our baseline choice of network is <a href="https://arxiv.org/abs/1512.00567">Inception v3</a> image recognition model pre-trained on the <a href="http://www.image-net.org/challenges/LSVRC/2012/">ILSVRC-2012-CLS</a> image classification dataset. Then decode the vector into a paragraph of description using a long short-term memory network (LSTM). Words in the output description are represented with an embedding model with each word in the dictionary represented by a fixed-length vector (learned during training).</p><h4>Architecture:</h4><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*na7zdPNZQG66QVCJK1Kqmg.png" />Baseline Model Architecture</figure><p>Above architecture outputs the log likelihoods of the correct words at each step (logp1(S1)); later we use beam search to generate the description for given image.</p><h4>Running the model/Experiment:</h4><ol><li>we downloaded Cuda, Bazel, TensorFlow, Numpy, Natural Language ToolKit(NLTK).</li></ol><p>2. Download necessary data from Microsoft COCO:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*Ap25lgpLRu8lkr0omWUdqQ.png" />Bash screenshot of downloading MSCOCO data.</figure><p>3. Prepare all the necessary data we just downloaded for training:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*KBg_dBwZX6w3gIw2XzJDeA.png" />Last few lines of bash logs for preparing data.</figure><p>4. Run training scripts and require: We only trained for about ~3 minutes.</p><p>5. After acquiring the model, we tried it out by input following images:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*a7WVZZT-k0fYKq82WUFLhA.png" />input image: Surfer Guy</figure><figure><img alt="" src="https://cdn-images-1.medium.com/max/623/1*H89koub2tfhDoxN4WPCYQA.png" />input image 2: Rowing</figure><p>Our model’s output is not idea, for “Surfer Guy” image, our output is:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/784/1*Wl_AHUOJ8inu91LYEIKVZw.png" /></figure><p>For “Rowing” image, our output is:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/780/1*mHCnFYULsaI80jZWjfav5Q.png" /></figure><p>6. Then by using TensorBoard, we plotted the log loss for our model in training:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*kLU6ytNXYM9ytsKUS9bUrQ.png" />TensorBoard Log Loss Graph</figure><p>As well as our model’s architecture:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*Coh87C_W_jfo4Pg4aObPwA.png" />Image Captioning Baseline Model Architecture on TensorBoard.</figure><h3>Evaluation Framework:</h3><p>The model we are referencing on <a href="https://github.com/tensorflow/models/tree/master/research/im2txt#prepare-the-training-data">git</a> hub has a built in evaluation framework, so we were using their evaluation script. It logs evaluation metrics to TensorBoard which allows training progress to be monitored in real-time (refer to the image “TensorBoard Log Loss Graph”).</p><h3>Resources:</h3><p>paper referenced: <a href="https://arxiv.org/pdf/1411.4555.pdf">https://arxiv.org/pdf/1411.4555.pdf</a></p><p>RMSProp referenced: <a href="https://www.coursera.org/learn/deep-neural-network/lecture/BhJlm/rmsprop">https://www.coursera.org/learn/deep-neural-network/lecture/BhJlm/rmsprop</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=d1d1b2d1f34c" width="1" /></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://medium.com/@hongnin1/image-annotation-model-baseline-dataset-and-evaluation-framework-d1d1b2d1f34c?source=rss-c450eb982161------2">by Ning Hong at April 17, 2018 07:30 AM</a>
-</p>
-</div>
-</div>
-
-
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
 <h3><a href="https://medium.com/@be.li.nda?source=rss-fad49d942bf3------2" title="Stories by Belinda Zou Li on Medium">Belinda Li <br/> Team Sentimentity</a></h3>
 
 
@@ -2831,38 +2575,6 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 
 <p class="date">
 <a href="https://medium.com/@halden.lin/nlp-capstone-03-project-proposal-7d8e9ec1a8e3?source=rss-2759d54493c0------2">by Halden Lin at April 12, 2018 05:46 AM</a>
-</p>
-</div>
-</div>
-
-
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://medium.com/@hongnin1?source=rss-c450eb982161------2" title="Stories by Ning Hong on Medium">Zichun Liu, Ning Hong, Sujie Zhou <br/> Team The Bugless</a></h3>
-
-
-<div class="entrygroup" id="https://medium.com/p/b951950ad9a5">
-<h4><a href="https://medium.com/@hongnin1/image-summarization-b951950ad9a5?source=rss-c450eb982161------2">Image Annotation Papers</a></h4>
-<div class="entry">
-<div class="content">
-<p><a href="https://github.com/tensorflow/models/tree/master/research/im2txt#prepare-the-training-data">https://github.com/tensorflow/models/tree/master/research/im2txt#prepare-the-training-data</a></p><ul><li><a href="https://arxiv.org/abs/1412.6632">[1412.6632] Deep Captioning with Multimodal Recurrent Neural Networks (m-RNN)</a></li><li><a href="https://arxiv.org/abs/1411.4555">[1411.4555] Show and Tell: A Neural Image Caption Generator</a></li></ul><a href="https://medium.com/media/3d1f87b3acd58d4b818d676b6a67c63a/href">https://medium.com/media/3d1f87b3acd58d4b818d676b6a67c63a/href</a><p><a href="https://arxiv.org/abs/1502.03044">[1502.03044] Show, Attend and Tell: Neural Image Caption Generation with Visual Attention</a></p><p>Image Annotation for medical use:</p><p><a href="https://arxiv.org/pdf/1603.08486.pdf">https://arxiv.org/pdf/1603.08486.pdf</a></p><p>Image Annotation for visually impaired:</p><p><a href="https://cs224d.stanford.edu/reports/mcelamri.pdf">https://cs224d.stanford.edu/reports/mcelamri.pdf</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=b951950ad9a5" width="1" /></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://medium.com/@hongnin1/image-summarization-b951950ad9a5?source=rss-c450eb982161------2">by Ning Hong at April 12, 2018 04:21 AM</a>
 </p>
 </div>
 </div>
@@ -3173,38 +2885,6 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 </div>
 
 
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://medium.com/nlp-capstone-blog?source=rss----9ba3897b6688---4" title="NLP Capstone Blog - Medium">Tam Dang, Karishma Mandyam <br/> Team Illimitatum</a></h3>
-
-
-<div class="entrygroup" id="https://medium.com/p/43368563cf97">
-<h4><a href="https://medium.com/nlp-capstone-blog/machine-dictionary-43368563cf97?source=rss----9ba3897b6688---4">Machine Dictionary</a></h4>
-<div class="entry">
-<div class="content">
-<p>We have decided to call our project, the Machine Dictionary. Formally, the goal of this project is to use a large corpus of data to generate definitions for technical terms that are consistent with how those terms are explored in the corpus.</p><h4>Motivation</h4><p>Our aim is to explore novel text generation approaches and apply them to the specific task of generating definitions. One of these techniques includes a specific approach we have termed “Connecting the Dots”. This approach will allow us to loosely structure the definitions such that they contain meaningful content but also keep the model general enough to generate appropriate context. We will discuss this approach further down. Another large motivation is the amount of research paper data we have from the AI2 Semantic Scholar corpus. This will allow us to use domain specific corpora to support definitions.</p><h4>Prior Work</h4><p>Although text generation has been a hot topic in NLP research for a while, we did not discover any prior attempts to generate definitions for technical terms. That said, the text generation task has itself been explored in great detail by many others.</p><p>In <a href="https://arxiv.org/pdf/1707.05501.pdf"><strong>this paper</strong> (Jain et al., 2017)</a>, the authors explore the task of generating short stories given a sequence of independent short descriptions. They approach the problem by using an Encoder-Decoder model to connect the descriptions and the short stories. This method might help us generate short text, but in our case, the input would be a large amount of data in the domain.</p><p>In this <a href="https://pdfs.semanticscholar.org/9dad/f5bb0a2182b1509c5ea60d434bb35d4701c1.pdf?_ga=2.15851958.1083977791.1523309085-1136887644.1523309085">other paper (Ghazvininejad et. al, 2016)</a>, the authors explore generating poetry based on topics. This paper is relevant to our project for several reasons. For instance, the paper generates poems based on a given topic, much like our goal which is to generate definitions based on a given term. In addition, the authors generate poetry by taking advantage of the structure of Shakespearean sonnets such as the unique rhyme scheme and the iambic pentameter cadence. We can use the techniques proposed in the paper to selectively choose information from the training corpus, based on the term we are asked to define and how we believe definitions should be structured.</p><h4>Minimum Viable Plan</h4><p>To reiterate, our model should be able to generate definitions that are based on context received from a large corpus. In this MVP, we can make the simplification that our model should generate definitions of a fixed length (for example, 5 sentences). These definitions should be grammatical and technically correct.</p><h4>Baseline Approach and Evaluation</h4><p>Andrej Karpathy, a former PhD student at Stanford, explores the incredible effectiveness of RNNs in in his blog. The article, <a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/">The Unreasonable Effectiveness of RNNs</a>, essentially claims that RNNs have an uncanny ability to learn the structure of training data, such as Wikipedia Articles, Shakespeare, and even code. In our baseline approach, we take advantage of this ability by training an RNN language model on the training data. At testing time, we can provide the term we seek to define as a seed to the RNN, which can then generate text until we hit a word limit or the RNN generates the &lt;STOP&gt; character. We can evaluate this approach by using perplexity, to ensure that we have a good language model. We can also cross-check definitions with other sources like Wikipedia articles. Finally, it might also be prudent to have humans evaluate the definitions.</p><h4>Target Approach I and Evaluation</h4><p>We propose two different target approaches to this model. In this first approach, we utilize techniques from work done previously in abstractive summarization. Given a term, we could filter the input data on all sentences associated with that term. We could obtain all the sentences that contain the data and a few sentences in the nearby surroundings, which could capture the context for the data. We would then use these sentences to generate a summary, which we would call the definition of the term. In this approach, we might use an attention mechanism to focus on the most important parts of the input. In terms of evaluation, we would use the cross referencing method from above, where we take the produced definition and the “correct definition” as determined by an external source and compare the number of common words.</p><h4>Target Approach II and Evaluation</h4><p>In this second approach, we explore a concept we have chosen to call “Connecting the Dots”. In this approach, we structure the definition generation by using key words. To elaborate, each term might be closely connected to a certain number of other words which could influence the definition of the term greatly. Consider the term <strong>osteoporosis</strong>. This term might be closely associated with the words <strong>bones, degrade, bone degradation, fractures, </strong>and <strong>women. </strong>We could use these words to structure a definition for <strong>osteoporosis </strong>as a fill in the blank task.</p><p><strong>Osteoporosis is … bones … degrade … bone degradation … fractures … women.</strong></p><p>In the above structure, we would rely on the model to appropriately and grammatically fill in the context between each keyword. As a result, we might generate the following definition:</p><p><strong>Osteoporosis </strong>is a disease that cause <strong>bones </strong>to <strong>degrade.</strong> <strong>Bone degradation </strong>often leads to <strong>fractures.</strong> <strong>Osteoporosis </strong>most commonly affects <strong>women.</strong></p><p>It’s important to note that when we fill in the context between keywords, we must condition on the original term that we are defining. For example, between the words <strong>fracture </strong>and <strong>women</strong>, there might be several sentences we could generate, but we must keep in mind how the keywords are related given that they are about <strong>osteoporosis.</strong></p><p>In this approach, we will build on the neural network model and add task-specific architecture to capture relationships between words. We hope that the model can learn how to define keywords associated with terms and use those terms to structure a definition.</p><p>In terms of evaluation, we introduce another technique. In this evaluation method we take a paragraph in which the technical term appears and omit the term. If we rephrase the problem as a classification task and ask the model to predict the omitted term, we would be able to conclude whether the model has a contextual understanding of the technical term. This evaluation technique would be a good supplement to the human evaluation method where we request users to rank how correct and readable the definitions are.</p><h4>Stretch Goals</h4><p>The ideal goal would be to generate text without any constraints on length, order, or keyword usage. This would be a more “hands-off” approach to text generation and could also allow us to train on different domain based corpora. We might be able to achieve this stretch goal if we perform well on the goals outlined in the Minimum Viable Plan.</p><p>Another stretch goal has to do with ontology matching, whereby we compare two definitions to determine whether they describe the same concept. We could extend this example to generate definitions for all technical terms across a body of research papers, determine which terms are defined similarly in different papers, and unify the terminology across all papers. This goal is definitely a stretch goal, but if we can perfect the architecture for generating definitions, we see this as a future application of our project.</p><h4>Data</h4><p>We plan to use the Semantic Scholar Open Research Corpus for this project. This corpus consists of over 20 million research papers classified into two domains (Computer Science and Medicine). Depending on the approach we take to solve this task, we would filter the data and train accordingly.</p><h4>Resources and Literature Survey</h4><p>We have mentioned several resources above that were the most useful for formulating the project proposal. Here are those resources and a few other resources that we think might be useful in the future.</p><p><strong>Text Generation Techniques</strong></p><p><a href="https://pdfs.semanticscholar.org/797d/7d968b88d5b5dd7c3271d08acd7296950d41.pdf?_ga=2.73597202.1083977791.1523309085-1136887644.1523309085">Using Lexical Chains for Text Summarization (Barzilay et. al, 1997)<br /></a><a href="https://pdfs.semanticscholar.org/9dad/f5bb0a2182b1509c5ea60d434bb35d4701c1.pdf?_ga=2.15851958.1083977791.1523309085-1136887644.1523309085">Generating Topical Poetry (Ghazvininejad et. al, 2016)</a></p><p><a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/">The Unreasonable Effectiveness of RNNs</a></p><p><a href="https://arxiv.org/pdf/1707.05501.pdf">Story Generation from Sequence of Independent Short Descriptions (Jain et al., 2017)</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=43368563cf97" width="1" /><hr /><p><a href="https://medium.com/nlp-capstone-blog/machine-dictionary-43368563cf97">Machine Dictionary</a> was originally published in <a href="https://medium.com/nlp-capstone-blog">NLP Capstone Blog</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://medium.com/nlp-capstone-blog/machine-dictionary-43368563cf97?source=rss----9ba3897b6688---4">by Karishma Mandyam at April 11, 2018 06:03 AM</a>
-</p>
-</div>
-</div>
-
-
 </div>
 
 </div>
@@ -3304,6 +2984,360 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 </div>
 
 
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://nlpcapstonesemparse.blogspot.com/" title="NlpCapstone">Rajas Agashe <br/> Team Han Flying Solo</a></h3>
+
+
+<div class="entrygroup" id="tag:blogger.com,1999:blog-5600014144802012716.post-8898628104121215850">
+<h4><a href="https://nlpcapstonesemparse.blogspot.com/2018/04/blog-3-formal-proposal.html">Blog 3: Formal Proposal</a></h4>
+<div class="entry">
+<div class="content">
+<b style="font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;">Minimal viable action plan </b><br /><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">Implement the model from the java paper mentioned in the previous blog posts. This includes the variable and method camel case encoding, the two step attention, the type constrained decoding, and many other tasks such as preprocessing, evaluation metrics etc.</span></span><br /><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;"><br /></span></span><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>Stretch goals</b></span><br /><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;">This depends on my error analysis on the mvp, but here are a couple ideas.</span><br /><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>1. </b>Incorporate implementation specific encoding. The encoder just uses the method names, but it'd be interesting to also include the method implementations.</span><br /><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;"><b>2. </b>More type constraints on the decoder. Currently if the decoder wants to generate a variable, there's nothing to check that the variable was previously declared.</span></span><br /><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><br /></span><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>Project objectives</b></span><br /><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">Reproduce the strong paper baseline. </span></span><br /><br /><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>Proposed methodologies</b> </span><br /><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">Implement the model from the paper. Potentially experiment with other semantic parsing task architectures and see if they also perform competitively with the baseline, for example seq2seq.</span></span><br /><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;"><br /></span></span><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>Available resources</b></span><br /><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">The dataset and allennlp.</span></span><br /><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b><br /></b></span><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>Evaluation plan</b></span><br /><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;">Test on the test set and measure bleu and exact match metrics.</span><br /><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">Test if this is useful by coming up with a couple of real classes that I've written and see if it generates the method.</span></span><br /><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">Perhaps come up with a new metric, such as a binary executability metric (stretch goal).</span></span><br /><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b><br /></b></span><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>Literature survey</b></span><br /><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">The type constrained architecture was used in a number of recent papers such as "</span><span style="font-size: 14.44px;">A syntactic neural model for parsing natural language to executable code". The dataset is novel in that previous ones haven't used programmatic contexts and have focused on nl2code pairs.</span></span></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://nlpcapstonesemparse.blogspot.com/2018/04/blog-3-formal-proposal.html">by nlpcapstone (noreply@blogger.com) at April 10, 2018 03:21 AM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
+<div class="daygroup">
+<h2>April 06, 2018</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://deeplearningturingtest.wordpress.com" title="NLP Capstone Project Updates – Ananth">Ananth Gottumukkala <br/> Team Turing Test</a></h3>
+
+
+<div class="entrygroup" id="http://deeplearningturingtest.wordpress.com/?p=12">
+<h4 lang="en"><a href="https://deeplearningturingtest.wordpress.com/2018/04/06/warm-up-testing-a-codebase/">Warm Up: Testing a Codebase</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<p>I installed both the Tensorflow and Pytorch API’s since I’m not sure which framework I will use yet. Then, I downloaded the following repository which implemented Hybrid Code Networks for Dialog State tracking in its respective research paper.</p>
+<p>Code base URL: <a href="https://github.com/voicy-ai/DialogStateTracking" rel="nofollow">https://github.com/voicy-ai/DialogStateTracking</a></p>
+<p>Research Paper URL: <a href="https://www.semanticscholar.org/paper/Hybrid-Code-Networks%3A-practical-and-efficient-with-Williams-Asadi/0645905d70caf180433145be09c9af266a85c863" rel="nofollow">https://www.semanticscholar.org/paper/Hybrid-Code-Networks%3A-practical-and-efficient-with-Williams-Asadi/0645905d70caf180433145be09c9af266a85c863</a></p>
+<p>Their implementation uses Keras (built on Tensorflow) to build the network. The model stores a predetermined set of action templates to execute based on what the user requests. By feeding in features like the previous action taken, a bag of words vector, an entity tracking feature vector, etc. their RNN outputs a softmax distribution over the possible action templates. The action taken is the one with the highest probability. Because the conversation is restricted to a particular domain such as searching for a restaurant, the model performed well when I ran and tested it. The model generally recognized the type of request I was making, but its responses were extremely robotic and towards the end, gave me yes or no questions to answer to narrow down what action it should take. My goal is to generalize the type of information the model can store between time steps to be able to provide responses for requests outside of a restricted domain (like searching for a restaurant in this case).</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://deeplearningturingtest.wordpress.com/2018/04/06/warm-up-testing-a-codebase/">by ananthgo at April 06, 2018 06:58 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/@halden.lin?source=rss-2759d54493c0------2" title="Stories by Halden Lin on Medium">Halden Lin <br/> Team undef.</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/96fb908765f5">
+<h4><a href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5?source=rss-2759d54493c0------2">NLP Capstone | 02: Getting Started</a></h4>
+<div class="entry">
+<div class="content">
+<p><a href="https://medium.com/@halden.lin/nlp-capstone-01-options-ee873b6885d5">previous post</a></p><p>Alright, it’s been only 2 days since my last entry, so this will be a relatively short post. The direction I proposed in <strong>Option 1 </strong>of that post was towards a more robust, interpretable, and informative visualization of attention, particularly in the context of text summarization. A quick recap:</p><blockquote>Perhaps interaction can be used to create a more insightful and interpretable visualization framework for understanding attention. For example, text heat-maps are already used widely to visualize sentiment analysis.</blockquote><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*lsgeuBXGGBog4YkuQNgJVw.png" />Lin et al. (2017) [6]. Visualization of sentiment analysis on a token-by-token basis.</figure><blockquote>In a static context, using this method for attention would require repeat of the same input sequence for each word in the output sequence. Using interaction, however, a model creator could brush over single or sequences of words in the output sequence to view corresponding soft-alignment in the input sequence. Aggregate visualizations could be shown to supplement this view (either aggregates over a particular input / output sequence, or aggregates over all input / output sequences).</blockquote><p>I’m currently working on laying out the groundwork for such a project. Task 1: implement a model. Without one, there’s no data to visualize!</p><p>With that in mind, here’s what I’ve been up to:</p><h4>Finding a Text Summarization Dataset</h4><p>A quick survey of recent research papers [1–5] on text summarization points, as well as online forums, points to three commonly used datasets.</p><ol><li><a href="https://cs.nyu.edu/~kcho/DMQA/">CNN/Daily Mail Corpus</a>. A collection of articles and their bullet point summaries, with each bullet split for Q/A purposes. <a href="https://github.com/abisee/cnn-dailymail">A script</a> [1] can be ran over the original dataset to restore the original bullet point summaries, to be used as a summarization corpus.</li><li><a href="https://www-nlpir.nist.gov/projects/duc/data.html">DUC Corpus</a>. In particular, DUC 2003 and DUC 2004. These contain a collection of documents, each accompanied by a short (~10 word) summary. There is also a longer summary for each cluster of documents.</li><li><a href="https://catalog.ldc.upenn.edu/ldc2003t05">Gigaword Corpus</a>. An annotated collection of millions of documents. The summarization task here would be to predict the headline of each [5]</li></ol><p>The accessibility of the <strong>CNN/Daily Mail Corpus</strong> (a process is required for the other two), in addition to the prevalence of projects that used it as a primary dataset [1, 2, 4], made it the most attractive option. The relatively longer summaries (~4 bullet points as opposed a short blurb in the other two datasets) also lends itself conveniently to the case of an interactive visualization with multi-token selection (e.g. select a whole bullet point and see where it attended). For a baseline, this will be my dataset!</p><h4>Identifying a Baseline Model</h4><p>See et al. (2017) [1] lay out a seq2seq attentional model as their baseline (a bidirectional LSTM). I’ll be using this as a baseline model with which to obtain data.</p><h4>Getting Some Code Up</h4><p>I’ll be using <a href="http://pytorch.org/">PyTorch</a> and the <a href="http://allennlp.org/">AllenNLP</a> toolkit [7] to implement my NN models. These are both ready to go on both my machine and Azure. I’m currently in the process of writing a DatasetReader for the dataset described above.</p><h3>Next Steps</h3><ul><li>Finish writing the DatasetReader for the CNN/Daily Mail Corpus.</li><li>Begin work on a baseline seq2seq attentional model, as described in <strong>Identifying a Baseline Model</strong></li></ul><h4>Works Cited</h4><p>[1] <a href="https://arxiv.org/pdf/1704.04368.pdf">See, Abigail et al. “Get To The Point: Summarization with Pointer-Generator Networks.” <em>ACL</em> (2017).</a></p><p>[2] <a href="https://arxiv.org/pdf/1712.06100.pdf">Hasselqvist, Johan et al. “Query-Based Abstractive Summarization Using Neural Networks.” <em>CoRR</em> abs/1712.06100 (2017): n. pag.</a></p><p>[3] <a href="https://arxiv.org/pdf/1602.06023.pdf">Nallapati, Ramesh et al. “Abstractive Text Summarization using Sequence-to-sequence RNNs and Beyond.” <em>CoNLL</em> (2016).</a></p><p>[4] <a href="https://arxiv.org/pdf/1705.04304.pdf">Paulus, Romain et al. “A Deep Reinforced Model for Abstractive Summarization.” <em>CoRR</em> abs/1705.04304 (2017): n. pag.</a></p><p>[5] <a href="https://arxiv.org/pdf/1509.00685.pdf">Rush, Alexander M. et al. “A Neural Attention Model for Abstractive Sentence Summarization.” <em>EMNLP</em> (2015).</a></p><p>[6] <a href="https://arxiv.org/pdf/1703.03130.pdf">Lin, Zhouhan, <em>et al.</em>, “A structured self-attentive sentence embedding.”<em>arXiv preprint arXiv:1703.03130</em> (2017).</a></p><p>[7] <a href="https://pdfs.semanticscholar.org/a550/2187140cdd98d76ae711973dbcdaf1fef46d.pdf?_ga=2.150901366.1370831839.1522970228-1363309632.1522194596">Gardner, Matt et al. “AllenNLP: A Deep Semantic Natural Language Processing Platform.” (2017).</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=96fb908765f5" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5?source=rss-2759d54493c0------2">by Halden Lin at April 06, 2018 06:53 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2" title="Stories by Viterbi Or Not To Be on Medium">Aaron Johnston, Lynsey Liu <br/> Team Viterbi Or Not To Be</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/278789e4d04a">
+<h4><a href="https://medium.com/@viterbi.or.not/warming-up-278789e4d04a?source=rss-c522ef075bb3------2">Warming Up</a></h4>
+<div class="entry">
+<div class="content">
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*qc9b3NkzkWe1kNnqmlHukA.png" /></figure><p>In order to begin implementing our baseline model, for which we intend to duplicate the results presented in another research paper covering discussion summarization, we began by identifying software that was referenced by other papers as being useful for their implementations.</p><p>Using these leads, we decided to “warm up” by installing the software and gaining some familiarity with it. The main libraries that we identified are listed here:</p><h4><a href="https://www.nltk.org/"><strong>Natural Language Toolkit (nltk)</strong></a></h4><p>Perhaps it is no surprise that this resource ended up first on our list, but it was a clear choice to familiarize ourselves with because of the sheer variety of tools it provides. While performing an initial survey of conversation summarization papers, we discovered a reference to the TextTiling algorithm, described in <a href="http://www.aclweb.org/anthology/J97-1003">this paper</a> and referenced as a technique used in <a href="http://www.aclweb.org/anthology/D08-1081">another paper</a> about summarization. Broadly, the algorithm detects boundaries between topics in text, so it was used by this summarization paper as part of a pipeline before assigning scores to those topics representing their importance. For our baseline model, one possibility is to implement a similar pipeline, so having access to an implementation of the TextTiling algorithm would allow us to quickly implement that component and spend more time on other design decisions and implementation details. The nltk library provides a <a href="https://www.nltk.org/api/nltk.tokenize.html#module-nltk.tokenize.texttiling">TextTiling module</a> with this functionality.</p><h4><a href="http://scikit-learn.org/stable/"><strong>SciKit-Learn</strong></a></h4><p><a href="http://www.aclweb.org/anthology/P05-1037">Another research paper</a> we found concerning the topic of conversation summarization had several sections dedicated to the task of identifying portions of a chatlog with direct relevance to one another — for example, a question asked by one contributor and answered by another contributor several messages down would be considered a pair of directly relevant sections. As part of their technique for identifying these pairs, the researchers used <a href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html">Support Vector Machines</a> and <a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">Maximum Entropy</a> models in order to determine the sections that most likely directly respond to previous portions of the conversation. SciKit-Learn provides these functionalities, and in order to familiarize ourselves with additional existing tools that might be useful in building a baseline model we have installed this tool and begun experimenting with it.</p><h4><a href="https://www.cs.waikato.ac.nz/ml/weka/"><strong>Weka Toolkit</strong></a></h4><p>Another less commonly seen method for chat summarization can be found in a more recent (in comparison to the others we have referenced) <a href="http://web2py.iiit.ac.in/research_centres/publications/download/inproceedings.pdf.8b32440f2dc771c4.323031325f414e445f43616d6572612e706466.pdf">research paper</a> which explores the usage of Multilayer Perceptrons (MLP) for the task, among several other approaches. The MLP approach in the paper is broadly composed of a feedforward neural network with more layers between the input and output layers using backpropagation to train the network and built with the Weka toolkit, a collection of machine learning algorithms that can applied to a dataset and which contains tools for developing a variety of schemes for processing data. Although the paper finds an approach using Naive Bayes to be the most effective on the GNUe archives, their MLP implementation comes in relatively close second and we think the idea is worth pursuing further. For a baseline model, we could start by working on a similar MLP system to the one in the paper using the same Weka toolkit implementation and strive to improve from there.</p><h4><a href="http://pytorch.org/"><strong>PyTorch</strong></a></h4><p>Though not referenced by any of the papers we have encountered so far, PyTorch would be a really helpful tool for us to further the explore the usage of neural network models in chat summarization, which we can use for the aforementioned MLP approach as well as apply to our stretch goal of working on a less commonly used deep learning based model.</p><p>In addition to researching libraries and tools that we might use in our project, we have begun the process of finding and enumerating datasets that might be useful for our project ideas — more to come on the datasets and other resources in our next blog post!</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=278789e4d04a" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@viterbi.or.not/warming-up-278789e4d04a?source=rss-c522ef075bb3------2">by Viterbi Or Not To Be at April 06, 2018 06:41 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://cse481n.blogspot.com/" title="PrimeapeNLP">Ron Fan, Aditya Saraf <br/> Team PrimeapeNLP</a></h3>
+
+
+<div class="entrygroup" id="tag:blogger.com,1999:blog-3753031463594823927.post-2253300890173394060">
+<h4><a href="https://cse481n.blogspot.com/2018/04/blog-post-2.html">Blog Post #2</a></h4>
+<div class="entry">
+<div class="content">
+<div>We’ve mostly settled on working on a single document summarization task. We want to pick a type of document to work on summarizing, although we haven’t decided on one specific category yet. </div><br /> <div>While we narrow down the details of the project, we have been reading a number of papers and other resources to become more familiar with the subject. We have setup PyTorch on our machines, which we are both familiar with, as well as Tensorflow, which we are still playing around with. We’ve found some interesting repositories on GitHub related to SDS that we are trying out: </div> <br /> <div><a href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss">https://github.com/tensorflow/models/tree/master/research/textsum</a><br /> <a href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss">https://github.com/gregdurrett/berkeley-doc-summarizer</a><br /> <a href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss">https://github.com/chakki-works/sumeval</a><br /> <a href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss">https://github.com/ceteri/pytextrank</a><br /> <a href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss">https://github.com/adamfabish/Reduction</a><br /></div> <br /><div>Not all of these tools use machine learning - many seem to be heuristic-based sentence extractors. Nonetheless, it is interesting to consider their ideas in the context of neural network approaches. </div><br /> <div>One of the reasons we chose to attack this problem is that there is a rich literature to consult; this problem has been worked on in one form or another since 1958 [1]. As one would imagine, this means that there have been many different approaches to this problem, to varying degrees of success. But unlike other problems, where all current approaches are based on deep learning, there is active research into non-neural solutions to SDS. </div><br /> <div>Many researchers have tried to solve SDS with combinatorial optimization, reducing it to the Knapsack problem, the Maximum Coverage problem, or the Budgeted Median problem. For example, the Maximum Coverage problem is: given a number k and a collection S, of m sets, choose less than k sets in S that maximize the number of covered elements. To frame SDS as a Maximum Coverage problem, you break the document into “conceptual units”. Conceptual units are supposed to represent a single concept - for example, “the man bought a book” and the “the man read a book”. But it’s not clear at what granularity these conceptual units should be defined. One easy (but not especially effective) solution is to simply make each word a conceptual unit. Then, the document = S, and each sentence is a set of words inside S. The problem is now to pick k sentences from the document that maximize the word coverage in the document [2]. </div><br /> <div>One example of a recent non-neural approach is from a paper published 5 years ago [3]. The paper solves SDS by reducing it to the so-called Tree Knapsack Problem. We’ve haven’t fully wrapped our heads around the Tree Knapsack problem (it’s actually not that easy to quickly state), but the researchers’ basically involved representing a document as a Rhetorical Structure Theory-based discourse tree (RST-DT) by “select[ing] textual units according to a preference ranking”. The researchers’ first transform the RST-DT into a dependency-based discourse tree (DEP-DT) in order to get a tree that contains textual units on all nodes (RST-DT only have textual units as leaves), and then trim the DEP-DT using the Tree Knapsack problem.  </div><br /> <div>We aim to find a suitable corpus, and implement multiple models directly from these papers as our baseline models. Hopefully, that will give us insight that’ll help us formulate the problem differently. We also want to explore some neural architectures for single document summarization.  </div><br /> <div>We also have to consider whether we want to build an extractive or abstractive text summarization - the former collects a set of sentences or phrases that summarize the document while the latter tries to “learn the internal language representation to generate more human-like summaries, paraphrasing the intent of the original text” [4]. We’re leaning towards an extractive model, although we may try both. </div><br /> <div>[1] = <a target="">https://onlinelibrary.wiley.com/doi/pdf/10.1002/9781119004752.ch3</a> <br />[2] = <a target="">http://www.anthology.aclweb.org/E/E09/E09-1089.pdf</a> <br /> [3] = <a target="">https://www.semanticscholar.org/paper/Single-Document-Summarization-as-a-Tree-Knapsack-Hirao-Yoshida/ed0c8a7ab911cdb30b7e95edada3a55c01eb22c5</a><br /> [4] = <a target="">https://rare-technologies.com/text-summarization-in-python-extractive-vs-abstractive-techniques-revisited/</a></div></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://cse481n.blogspot.com/2018/04/blog-post-2.html">by Ron &amp;amp; Aditya (noreply@blogger.com) at April 06, 2018 06:31 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://mathstoc.wordpress.com" title="NLP Capstone – Mathematical Distractions">Kuikui Liu, Nicholas Ruhland <br/> Team INLP</a></h3>
+
+
+<div class="entrygroup" id="http://mathstoc.wordpress.com/?p=304">
+<h4 lang="en"><a href="https://mathstoc.wordpress.com/2018/04/06/milestone-2-music-as-a-natural-language-task/">Milestone #2: Music as a Natural Language Task</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<h3>Framing the problem</h3>
+<p>The focus of Natural Language Processing relies on patterns in the structure of language and models that find ways to encode the complexities of these structures. Many forms of music also have large amounts of structure which could potentially be discovered using similar models as a standard natural language.</p>
+<p>Music datasets for machine learning purposes have recently become available through projects like MusicNet in 2016 [1]. This music is primarily classical, and provided as both audio and MIDI.</p>
+<h3>Project ideas</h3>
+<p>For our project we are interested in music with lyrical content – both for the potential to create a creative demo and for the interest of making this a language task. The current direction we are most interested in is the generation of lyrics for a song, given its nonlyrical content. This will be broken up into subtasks depending on the feasible scale of the project. Not all of the following points will necessarily be parts of our project, but we will use them as as starting point as we see the success of our models.</p>
+<ul>
+<li>Creating a machine learning model for MIDI music</li>
+<li>Translating MIDI into specific artists or styles</li>
+<li>Creating models for the lyrical content of specific artists or styles of music</li>
+<li>Generating lyrics given an artist or style</li>
+<li>Seq2seq conversion of MIDI into lyrical content</li>
+<li>GANs for either side of the conversion – MIDI encoding or lyrical generating</li>
+</ul>
+<h3>Using MIDIs in RNNs</h3>
+<p>Work by Pakhomov [2] has already used RNNs to create models for lyrics. In his <a href="http://warmspringwinds.github.io/pytorch/rnns/2018/01/27/learning-to-generate-lyrics-and-music-with-recurrent-neural-networks/">blog post</a> he additionally discusses a method for forming any MIDI into piano roll format. This is essentially a matrix where each column represents a different time step, and each row represents a different note. Having a 1 corresponds to that note sounding at that time. The individual time vectors can be used as the inputs to an RNN at each time step to create a model representing the various songs.</p>
+<p>One possible data source for our project is karaoke data available from various sources online. If available in large enough quantities this could be extremely convenient because it already contains many pairings of MIDI music to their lyrics.</p>
+<h3>Azure</h3>
+<p>We intend to use PyTorch to train our models, and have begun setting up an instance on Microsoft Azure.</p>
+<h3>Relevant work</h3>
+<p>[1] <a href="https://homes.cs.washington.edu/~thickstn/musicnet.html" rel="nofollow">https://homes.cs.washington.edu/~thickstn/musicnet.html</a></p>
+<p>[2] <a href="http://warmspringwinds.github.io/pytorch/rnns/2018/01/27/learning-to-generate-lyrics-and-music-with-recurrent-neural-networks/" rel="nofollow">http://warmspringwinds.github.io/pytorch/rnns/2018/01/27/learning-to-generate-lyrics-and-music-with-recurrent-neural-networks/</a></p>
+<p>[3] Dong, Hao-Wen. 2017. MuseGAN: Multi-track Sequential Generative Adversarial Networks for Symbolic Music Generation and Accompaniment. <a href="https://arxiv.org/pdf/1709.06298" rel="nofollow">https://arxiv.org/pdf/1709.06298</a></p>
+<p>[4] Yu, Lantao. 2016. SeqGAN: Sequence Generative Adversarial Nets with Policy Gradient. <a href="https://arxiv.org/abs/1609.05473" rel="nofollow">https://arxiv.org/abs/1609.05473</a></p>
+<p>[5] Lee, Sang-gil. 2017. A SeqGAN for Polyphonic Music Generation. <a href="https://arxiv.org/abs/1710.11418" rel="nofollow">https://arxiv.org/abs/1710.11418</a></p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://mathstoc.wordpress.com/2018/04/06/milestone-2-music-as-a-natural-language-task/">by Nicholas Ruhland at April 06, 2018 06:30 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://teamoverfit.blogspot.com/" title="NLP Capstone">Pinyi Wang, Dawei Shen, Xukai Liu <br/> Team Overfit</a></h3>
+
+
+<div class="entrygroup" id="tag:blogger.com,1999:blog-9203775015655831448.post-34377626932024049">
+<h4><a href="https://teamoverfit.blogspot.com/2018/04/2-milestone-warm-up.html">#2 Milestone: Warm up</a></h4>
+<div class="entry">
+<div class="content">
+<h2 style="height: 0px;"><span>Team Overfit</span></h2><h3><span><br /></span></h3><h3><span>Project repo: <span style="font-size: 18.72px;"><a href="https://github.com/pinyiw/nlpcapstone-teamoverfit">https://github.com/pinyiw/nlpcapstone-teamoverfit</a></span></span></h3><h4><span>Team members: Dawei Shen, Pinyi Wang, Xukai Liu</span></h4><br /><div></div><br /><div style="text-align: start; text-indent: 0px;"><div><span><b>Blog Post: #2: 04/05/2018</b></span></div><div><span><b><br /></b></span></div><div style="margin: 0px;"></div><br /><ul><li><span>We first installed Pytorch 3.6 and we tried to run small programs on our local machines.</span></li><li><span>We then explored the usage of the RNN and seq2seq APIs, which we are going to use for most of our projects ideas.</span></li><ul><li><span>We looked through the tutorial of RNNs/LSTMs/GRUs from the previous 447 class.</span></li></ul><ul><li><span id="docs-internal-guid-97b5af9d-9943-133b-4f16-5d4414eefd5d"><span><a href="https://colab.research.google.com/drive/11iLtGFDpnIuHj5B0rQDGG5lqq6BQ8FRh">https://colab.research.google.com/drive/11iLtGFDpnIuHj5B0rQDGG5lqq6BQ8FRh</a></span></span></li></ul><li><span><span style="white-space: pre-wrap;">We tried to set up an Azure instance for GPU computation</span></span></li><ul><li><span><span style="white-space: pre-wrap;">We installed cuda support for the Pytorch package and it ran successfully with Tesla K80</span></span></li></ul><li><span><span style="white-space: pre-wrap;">We revisited the Recurrent Neural Networks, Attention and Reading Comprehension projects from the last quarter and experimented with other Pytorch features related to our project.</span></span></li></ul><br /></div></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://teamoverfit.blogspot.com/2018/04/2-milestone-warm-up.html">by Team Overfit (noreply@blogger.com) at April 06, 2018 04:48 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2" title="Stories by Ryan Pham on Medium">Ryan Pham <br/> Team NeuralEmpty</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/3d3651220219">
+<h4><a href="https://medium.com/@ryanp97/project-logistics-and-package-exploration-3d3651220219?source=rss-6378d85d3a9b------2">Project Logistics and Package Exploration</a></h4>
+<div class="entry">
+<div class="content">
+<p>Jan Buys has agreed to advise me while I pursue Neural Machine Translation with Semantic Transfer, so this post will mainly focus on the packages and resources available for completing and exploring the minimal viable action plan as described <a href="https://medium.com/@ryanp97/project-ideas-ab3d796c422e">previously</a>.</p><h4>Dataset</h4><p>I’m currently working on cleaning the <a href="http://www.edrdg.org/wiki/index.php/Tanaka_Corpus">Tanaka Corpus</a> so that I can segment the sentences and then parse the graphs. This corpus is small and the sentences are short, so it seems like a good option for development. I’ve cleaned the corpus by removing any sentences that are not in English or Japanese as well as removing any sentences that do not belong to a pair of translations. Each sentence has at least one translation; note that some sentences have more than one translation.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/753/1*vajUkTbO551F3mjGQjyHQA.png" />The Japanese sentence can be translated into the two English sentences. Note that the first translation is more direct, while the second translation seems to be drawing on the author’s bias or some other context.</figure><p>Also, in the Tanaka corpus, I noticed some things of interest. The first thing is that some hard to read Kanji are annotated with pronunciations in Katakana. The next were a couple typos in the translation (i.e. the proper noun “Tatoeba” was spelled “Tatoeb” in the translation). Also, on one line (the only one that I could find), the Japanese sentence had the romanization in parentheses following the translation. For the sake of consistency, I’ve removed this from the dataset for the sake of consistency. Aside from this single change, everything else was left untouched.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/838/1*xhYvt3b5aClaW0-pDdK8Cw.png" />Example of a translation pair from the Tanaka corpus. Note the translated smiley face!</figure><p>There is also the <a href="https://alaginrc.nict.go.jp/WikiCorpus/index_E.html">Kyoto Corpus</a> which is larger, more diverse, and has a more accurate representation of ‘real’ sentences. However, this dataset is formatted in a slightly more complex way, so I’m still figuring out how to tackle cleaning this corpus. This corpus also provides at least one translation.</p><h4>Word Segmentation</h4><p>There were 3 main programs that I considered and experimented with: <a href="https://github.com/neubig/kytea">KyTea</a> (pronounced “cutie”), <a href="http://www.atilika.org/">Kuromoji</a>, and <a href="http://taku910.github.io/mecab/">MeCab</a>.</p><p>After comparing the segmentation outputs on some small samples, it seemed that KyTea’s outputs often had significant differences between the outputs from Kuromoji and MeCab. After asking a lecturer from the UW Japanese department for their opinion, it seemed that the outputs from Kuromoji and MeCab were closer to the gold standard than the KyTea’s. As implied by the previous sentiment: the data that I will be working with is NOT gold standard, but it is the best available.</p><p>I decided on using MeCab as it had a very easy to use Python interface while Kuromoji did not have a easily accessible Python interface. Following <a href="http://www.robfahey.co.uk/blog/japanese-text-analysis-in-python/">this</a> blog post, I’ve setup MeCab to be able to handle more robust input such as slang and neologisms, though I’m unsure if this will work well with the Jacy grammar mentioned in the Graph Parsing section.</p><p><a href="https://arxiv.org/pdf/1410.0291.pdf">Here</a> is a paper on the accuracy of MeCab when performing segmentation. The paper also gives a nice, brief overview on the differences between English and Japanese. Note the size of the Tanaka corpus is smaller than the current version as translations are added semi-regularly.</p><h4>Graph Parsing</h4><p>For parsing the MRS graphs and converting MRS to DMRS, I used the <a href="https://github.com/goodmami/mrs-to-penman">mrs-to-penmen</a>. It uses the <a href="https://github.com/delph-in/pydelphin">PyDelphin</a> interface which provides a wrapper for the <a href="http://sweaglesw.org/linguistics/ace/">ACE</a> parser. The ACE parser parses the MRS graph, and then mrs-to-penmen should convert the parsed MRS graph to penmen format.</p><p>As for the grammar that ACE uses to parse, I’m using the <a href="http://www.delph-in.net/erg/">English Resource Grammar</a> and <a href="http://moin.delph-in.net/JacyTop">Jacy</a> for English and Japanese respectively.</p><p>After getting the parsed penman format, there is still some cleaning that I have to do and some simplification of the penman format to simplify what the seq2seq model is expected to output.</p><h4>Deep Learning Packages</h4><p>Additionally, since this project will rely on Deep Learning, I’ve installed AllenNLP and PyTorch in anticipation of the seq2seq model that will be trained after linearizing the DMRS graph as well as the TreeLSTM model (stretch goal).</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=3d3651220219" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@ryanp97/project-logistics-and-package-exploration-3d3651220219?source=rss-6378d85d3a9b------2">by Ryan Pham at April 06, 2018 01:20 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="http://sarahyu.weebly.com/cse-481n" title="Sarah yu - CSE 481N">Sarah Yu <br/> Team Jekyll-Hyde</a></h3>
+
+
+<div class="entrygroup" id="http://sarahyu.weebly.com/cse-481n/technical-details-blog-post-2">
+<h4><a href="http://sarahyu.weebly.com/cse-481n/technical-details-blog-post-2">Technical Details (Blog Post #2)</a></h4>
+<div class="entry">
+<div class="content">
+<div class="paragraph"><span style="color: rgb(0, 0, 0);">For my project I am planning to do some deep learning at the end if I have time and if the results up to that point lead to that track. (I have pytorch installed from NLP so that's nice to have). <br /><br />With that said, I've been working with the Reddit API's and Reddit datadumps to get started on gathering the necessary data for pursuing the Language Accommodation project. I've been trying to figure out if the best approach is to work with the limited requests, the direct json files, or if some of the data dumps will suffice. I hope to have most of that and some basic data visualizations ready in the next couple of days to inform some of the choices I should make regarding the data (i.e. what time period to gather data from, what subreddits to pull from, etc.)</span><br /></div></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="http://sarahyu.weebly.com/cse-481n/technical-details-blog-post-2">April 06, 2018 12:10 AM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
+<div class="daygroup">
+<h2>April 05, 2018</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/@be.li.nda?source=rss-fad49d942bf3------2" title="Stories by Belinda Zou Li on Medium">Belinda Li <br/> Team Sentimentity</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/280325a548d1">
+<h4><a href="https://medium.com/@be.li.nda/nlp-capstone-blog-2-learning-pytorch-280325a548d1?source=rss-fad49d942bf3------2">NLP Capstone Blog #2: Learning PyTorch</a></h4>
+<div class="entry">
+<div class="content">
+<p>In order to familiarized myself with PyTorch, I built an attentive LSTM RNN for a benchmark dataset (<a href="http://www.cs.cornell.edu/people/pabo/movie-review-data/">Rotten Tomato movie reviews</a>) frequently used for sentiment analysis. It was able to achieve up to 76–78% accuracy when trained to 10 epochs, with a learning rate of 0.05. With more time, a natural next step would have been adapting the model for GPU, implementing dropout, and performing hyper-parameter tuning, but this can all be done when I implement my actual model for my project.</p><h3>Preprocessing the Data</h3><p><strong>Libraries used</strong>: torchtext, and SpaCy.</p><p>After parsing the data files, I split the dataset into train/dev/test datasets using an 80/10/10 ratio</p><p>For the next steps of preprocessing (tokenization, vocab building, embedding, and batching), I utilized the torchtext library extensively. I first defined a custom dataset by inheriting data.Dataset. I define three data.Fields for my dataset (TEXT for the word embeddings, POLARITY for the polarity embeddings, and LABEL for the label of each example). When I defining the TEXT field, I was able to set the tokenizer to SpaCy’s default english tokenizer.</p><p>One of the benefits of using torchtext is the ease of building the vocab, loading the embeddings, and batching. A few simple lines of code were able to encapsulate these functionalities.</p><pre>TEXT.build_vocab(Xtrain) # 1. generate vocabulary<br />TEXT.vocab.load_vectors(‘glove.6B.’ + str(embedding_dim) + ‘d’) # 2. load GloVe embeddings<br />Xtrain, Xdev, Xtest = data.Iterator.splits(<br />    (Xtrain, Xdev, Xtest),<br />    batch_sizes=(batch_size, len(Xdev), len(Xtest)),<br />    repeat=False,<br />    device = -1 # run on CPU<br />) # 3. build batches</pre><p>One of the troubles I ran into when preprocessing the data was being unable to load two embeddings for each word in a sequence — I couldn’t figure out how to load both the pre-trained GloVe embeddings and the learn-able (untrained) polarity embeddings to encapsulates the prior polarities of words. I eventually resolved this difficulty by adding a Field to the Dataset just for the polarity of each word.</p><pre>POLARITY = data.Field(sequential=True, tokenize=get_polarity)<br />POLARITY.build_vocab(Xtrain)</pre><h3>Building the Model</h3><p><strong>Libraries used</strong>: PyTorch</p><p>I defined my network as follows —</p><pre>class Model(nn.Module):<br />    def __init__(self, num_labels, vocab_size, embeddings_size,<br />                 hidden_dim, word_embeddings, num_features,<br />                 batch_size):<br />        # Code omitted, but basically everything should be <br />        # initialized here, including:<br />        # 1. The embeddings<br />        # 2. The LSTM<br />        # 3. The linear layers, including attention</pre><pre>    def init_hidden(self):<br />        # initialize a single hidden layer to all 0s (code omitted)</pre><pre>    def forward(self, word_vec, feature_vec):<br />        # 1. Apply embeddings &amp; prepare input<br />        word_embeds_vec = self.word_embeds(word_vec)<br />        feature_embeds_vec = self.feature_embeds(feature_vec)<br />        lstm_input = \<br />            torch.cat((word_embeds_vec,feature_embeds_vec),2)</pre><pre>        # 2. Pass through lstm<br />        lstm_out, self.hidden = self.lstm(lstm_input, self.hidden)</pre><pre>        # 3. Compute and apply weights (attention) to each layer<br />        alphas = F.softmax(self.attention(lstm_out), dim=0)<br />        weighted_lstm_out = \<br />            torch.sum(torch.mul(alphas, lstm_out), dim=0)</pre><pre>        # 4. Get final results, passing in weighted lstm output:<br />        tag_space = self.hidden2label(weighted_lstm_out)<br />        log_probs = F.log_softmax(tag_space, dim=1)<br />        return log_probs</pre><p>As can be seen by the forward algorithm, the model first retrieves the embeddings of each word in the sequence, then passes them through an LSTM, applies attention, and finally maps the outputs to the labels.</p><h3>Training the Model</h3><p><strong>Library used</strong>: PyTorch</p><p>I used the NLLLoss function for loss, which I optimized using the SGD optimizer with a learning rate of 0.05. I trained the model for a maximum of 10 epochs. For each epoch, I iterated across the batches, performing 4 steps:</p><ul><li>Clear the accumulated gradients and detach the hidden state from the last instance.</li></ul><pre>model.zero_grad()<br />model.hidden = model.init_hidden()</pre><ul><li>Run the forward pass.</li></ul><pre>log_probs = model(words, polarity)</pre><ul><li>Compute the loss and gradients.</li></ul><pre>loss = loss_function(log_probs, label)<br />loss.backward()</pre><ul><li>Call optimizer.step() to update parameters.</li></ul><h3>Evaluating the Model</h3><p><strong>Library used</strong>: n/a</p><p>To evaluate my model, I simply iterated across the batches of each dataset and counted the number of correctly positive and correctly negative instances in each batch. Then, I put the numbers together for an overall accuracy score. This was a simple process that didn’t depend heavily on utilizing library tools.</p><p>All code I’ve written for this post can be found on Github: <a href="https://github.com/eunsol/document-e2e-sent/tree/master/rt-polarity">https://github.com/eunsol/document-e2e-sent/tree/master/rt-polarity</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=280325a548d1" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@be.li.nda/nlp-capstone-blog-2-learning-pytorch-280325a548d1?source=rss-fad49d942bf3------2">by Belinda Zou Li at April 05, 2018 10:48 PM</a>
+</p>
+</div>
+</div>
+
+
 </div>
 
 </div>
@@ -3347,16 +3381,16 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 <a href="http://sarahyu.weebly.com/6/feed" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="http://sarahyu.weebly.com/cse-481n" title="Sarah yu - CSE 481N">Sarah Yu <br/> Team Jekyll-Hyde</a>
 </li>
 <li>
-<a href="https://medium.com/feed/nlp-capstone-blog" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="https://medium.com/nlp-capstone-blog?source=rss----9ba3897b6688---4" title="NLP Capstone Blog - Medium">Tam Dang, Karishma Mandyam <br/> Team Illimitatum</a>
+<a href="" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a class="message" title="http status 522">Tam Dang, Karishma Mandyam <br/> Team Illimitatum</a>
 </li>
 <li>
-<a href="https://medium.com/feed/@hongnin1" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="https://medium.com/@hongnin1?source=rss-c450eb982161------2" title="Stories by Ning Hong on Medium">Zichun Liu, Ning Hong, Sujie Zhou <br/> Team The Bugless</a>
+<a href="" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a class="message" title="http status 522">Zichun Liu, Ning Hong, Sujie Zhou <br/> Team The Bugless</a>
 </li>
 </ul>
 
 <p>
 <strong>Last updated:</strong><br>
-May 11, 2018 05:30 AM<br>
+May 11, 2018 06:01 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
