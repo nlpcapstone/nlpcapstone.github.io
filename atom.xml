@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:planet="http://planet.intertwingly.net/" xmlns:indexing="urn:atom-extension:indexing" indexing:index="no"><access:restriction xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" relationship="deny"/>
   <title>NLP Capstone Spring 2018</title>
-  <updated>2018-05-14T18:00:35Z</updated>
+  <updated>2018-05-14T18:30:26Z</updated>
   <generator uri="http://intertwingly.net/code/venus/">Venus</generator>
   <author>
     <name>Nelson Liu</name>
@@ -54,7 +54,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-14T18:00:35Z</updated>
+      <updated>2018-05-14T18:30:26Z</updated>
     </source>
   </entry>
 
@@ -77,7 +77,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-14T18:00:24Z</updated>
+      <updated>2018-05-14T18:30:21Z</updated>
     </source>
   </entry>
 
@@ -108,7 +108,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-14T18:00:26Z</updated>
+      <updated>2018-05-14T18:30:23Z</updated>
     </source>
   </entry>
 
@@ -132,7 +132,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-14T18:00:34Z</updated>
+      <updated>2018-05-14T18:30:25Z</updated>
     </source>
   </entry>
 
@@ -159,7 +159,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-14T18:00:33Z</updated>
+      <updated>2018-05-14T18:30:25Z</updated>
     </source>
   </entry>
 
@@ -184,7 +184,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-14T18:00:23Z</updated>
+      <updated>2018-05-14T18:30:20Z</updated>
     </source>
   </entry>
 
@@ -207,7 +207,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-14T18:00:26Z</updated>
+      <updated>2018-05-14T18:30:23Z</updated>
     </source>
   </entry>
 
@@ -471,7 +471,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-14T18:00:21Z</updated>
+      <updated>2018-05-14T18:30:19Z</updated>
     </source>
   </entry>
 
@@ -494,7 +494,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-14T18:00:06Z</updated>
+      <updated>2018-05-14T18:30:05Z</updated>
     </source>
   </entry>
 
@@ -517,7 +517,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-14T18:00:05Z</updated>
+      <updated>2018-05-14T18:30:05Z</updated>
     </source>
   </entry>
 
@@ -541,7 +541,29 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-14T18:00:04Z</updated>
+      <updated>2018-05-14T18:30:04Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>http://sarahyu.weebly.com/cse-481n/advanced-model-attempt-1-part-21</id>
+    <link href="http://sarahyu.weebly.com/cse-481n/advanced-model-attempt-1-part-21" rel="alternate" type="text/html"/>
+    <title>Advanced Model Attempt #1 (Act 2 Scene 1)</title>
+    <summary>This week, I had to do a little backtracking and restructuring, but all for the better! More Data! I have had a couple jobs still running that has allowed me to have more reddit data to work with overall, which is especially good news for the next advanced modelSubreddit ReOrg - A large portion of this week has been on identifying different subsets for the neurodivergent and neurotypical groups. In conversation with Maarten, we discussed that the subreddits in the current state are a bit to [...]</summary>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div class="paragraph">This week, I had to do a little backtracking and restructuring, but all for the better! <ul><li>More Data! I have had a couple jobs still running that has allowed me to have more reddit data to work with overall, which is especially good news for the next advanced model</li><li>Subreddit ReOrg - A large portion of this week has been on identifying different subsets for the neurodivergent and neurotypical groups. In conversation with Maarten, we discussed that the subreddits in the current state are a bit too broad to address the hypotheses and may not produce a focused language model that makes sense. Currently, the neurodivergent group is a broad strokes grouping of all types of differences. With that in mind, I spent some time researching, following some Reddit rabbit holes, and learning about ICD 10 <font color="#515151">(International Statistical Classification of Diseases and Related Health Problems (ICD), a medical classification list by the World Health Organization (WHO)) to classify the subreddits and the mental illnesses they speak to. Among these topics, we specifically wanted to look at the the two 'Blocks' - Mood (affective) disorders and Neurotic, Stress-Related and Somatoform disorders. This would be defined as the new 28 subreddits constituting the neurodivergent set, and the 22 neurotypical subreddits are those that are general advice, community support, or discussions on mental health, broadly speaking. These were chosen from the initial ND set because while some of them discussed mental health and neurodiversity, they were open to more than just users dealing with mental health related issues. They had similar types of posts where people are more open and discussing in detail their personal lives, a kind of venting space. And choosing from this group rather than to look at more general reddit, was a decision made so that I could find the nuances rather than the more general difference seen in discussing psychology and not. Despite the significant reduction of subreddits (from 126 to 28 ND and 100 to 22 NT), the data collection I mentioned above has resulted in 5x the original vocabulary size and we now have a combined 1 million words in the newest set (being added to as we speak)</font></li></ul><br/>With that, I was able to run the previous vennclouds and idp models (and Act 2 Scene 2, before next week will hopefully include the Connotation Frames model results). For the vennclouds, I think we see some similarity from before of the "my/me/I" terms speaking in first person, but the NT posts has more discussion of a second person or a more general reference to an other or friends. It might also be useful to find a list of prepositional phrases to remove and to find something more interesting in the venn diagram middle portion. </div>  <div><div class="wsite-image wsite-image-border-none " style="padding-top: 10px; padding-bottom: 10px; margin-left: 0; margin-right: 0; text-align: center;"> <a> <img alt="Picture" src="http://sarahyu.weebly.com/uploads/2/4/3/0/24307463/screen-shot-2018-05-09-at-2-32-31-am_orig.png" style="width: auto;"/> </a> <div style="display: block; font-size: 90%;"/> </div></div>  <div class="paragraph"><br/>I also ran the IDP model from before and found the following top categories:<br/><strong>ND</strong><br/><em>I/<span>my/</span></em><span><em>me/myself</em> - the personal discussion makes sense, but I'm a bit curious as to why it would be more prevalent than in the other discussion forums that are also predominantly venting spaces focused on the self seeking the community. </span><br/><em>anxiety/depression/OCD</em> - these are the subreddit categories we basically chose<br/><em>feel/feeling </em>- I was surprised to see a significantly higher mention of feeling in the ND categories despite the other subreddits still being communities discussing mental illness along with the larger public in discussing general problems <br/><br/><strong>NT</strong><br/><em>you / his/he/him / girls/she/her - </em>This is a bit surprising given that I had made a bit of a fuss around the female mentions being significantly higher in the ND categories. I'm interested to see what this shift might mean, but even more so, I think the discussion of another is an interesting contrast between the two that might be better suited for the connotation frames results that I hope to do in the next couple of days. <br/><em>https</em> - links are back! But more interestingly, while they were prevalent in the original NT group, which we hypothesized were due to the higher proportion of anecdotal advice in the ND categories, it seems that even in regards to discussions around mental illness, people bring in outside links and whatnot to advise, or uplift other users. <br/><br/>Next Steps: As I mentioned above, I'd like to run this same new and larger dataset with the connotation frames model. Beyond that, I'd like to spend the next two weeks working on either implementing a SAGE log-linear model to describe these language models, or a deep learning model. If possible, I hope to also get the graphical model going <br/><br/></div></div>
+    </content>
+    <updated>2018-05-08T07:00:00Z</updated>
+    <category term="Uncategorized"/>
+    <source>
+      <id>http://sarahyu.weebly.com/cse-481n</id>
+      <author>
+        <name>Sarah Yu &lt;br/&gt; Team Jekyll-Hyde</name>
+      </author>
+      <link href="http://sarahyu.weebly.com/cse-481n" rel="alternate" type="text/html"/>
+      <link href="http://sarahyu.weebly.com/6/feed" rel="self" type="application/rss+xml"/>
+      <subtitle>CSE 481N</subtitle>
+      <title>Sarah yu - CSE 481N</title>
+      <updated>2018-05-09T17:30:11Z</updated>
     </source>
   </entry>
 
@@ -564,7 +586,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-14T18:00:26Z</updated>
+      <updated>2018-05-14T18:30:22Z</updated>
     </source>
   </entry>
 
@@ -589,7 +611,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-14T18:00:23Z</updated>
+      <updated>2018-05-14T18:30:20Z</updated>
     </source>
   </entry>
 
@@ -615,7 +637,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-14T18:00:24Z</updated>
+      <updated>2018-05-14T18:30:21Z</updated>
     </source>
   </entry>
 
@@ -642,7 +664,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-14T18:00:33Z</updated>
+      <updated>2018-05-14T18:30:25Z</updated>
     </source>
   </entry>
 
@@ -667,7 +689,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-14T18:00:26Z</updated>
+      <updated>2018-05-14T18:30:23Z</updated>
     </source>
   </entry>
 
@@ -1145,7 +1167,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-14T18:00:21Z</updated>
+      <updated>2018-05-14T18:30:19Z</updated>
     </source>
   </entry>
 
@@ -1169,7 +1191,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-14T18:00:34Z</updated>
+      <updated>2018-05-14T18:30:25Z</updated>
     </source>
   </entry>
 
@@ -1192,7 +1214,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-14T18:00:06Z</updated>
+      <updated>2018-05-14T18:30:05Z</updated>
     </source>
   </entry>
 
@@ -1215,7 +1237,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-14T18:00:04Z</updated>
+      <updated>2018-05-14T18:30:04Z</updated>
     </source>
   </entry>
 
@@ -1238,7 +1260,29 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-14T18:00:05Z</updated>
+      <updated>2018-05-14T18:30:05Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>http://sarahyu.weebly.com/cse-481n/advanced-model-attempt-1</id>
+    <link href="http://sarahyu.weebly.com/cse-481n/advanced-model-attempt-1" rel="alternate" type="text/html"/>
+    <title>Advanced Model Attempt #1 (Act 1)</title>
+    <summary>The first part of implementing my advanced model attempt was to work on implementing the IDP Algorithm presented in  Monroe, B. L., Colaresi, M. P., &amp; Quinn, K. M. (2008). Fightin' words: Lexical feature selection and evaluation for identifying the content of political conflict. Political Analysis, 16(4), 372-403. In doing so, I was able to find the weighted log odds ratio of each word present in both ND and NT posts, ultimately showing which type of subreddit each w [...]</summary>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div class="paragraph">The first part of implementing my advanced model attempt was to work on implementing the IDP Algorithm presented in  Monroe, B. L., Colaresi, M. P., &amp; Quinn, K. M. (2008). <em>Fightin' words: Lexical feature selection and evaluation for identifying the content of political conflict. </em><font size="2">Political Analysis, 16(4), 372-403. </font><br/><br/>In doing so, I was able to find the weighted log odds ratio of each word present in both ND and NT posts, ultimately showing which type of subreddit each word was 'more affiliated' with. The findings were as one might expect, especially with my previous baselines and were in line with the results from those. As seen below we see some familiar words within the ND (I, you, <strong>she</strong>​) and NT (http) - so sorry for the ugly terminal output, but I need to find a prettier CSV presentation:</div>  <div><div class="wsite-multicol"><div class="wsite-multicol-table-wrap"> 	<table class="wsite-multicol-table"> 		<tbody class="wsite-multicol-tbody"> 			<tr class="wsite-multicol-tr"> 				<td class="wsite-multicol-col" style="width: 50%; padding: 0 15px;"> 					 						  <div><div class="wsite-image wsite-image-border-none " style="padding-top: 10px; padding-bottom: 10px; margin-left: 0; margin-right: 0; text-align: center;"> <a> <img alt="Picture" src="http://sarahyu.weebly.com/uploads/2/4/3/0/24307463/screen-shot-2018-05-02-at-12-42-36-am_orig.png" style="width: auto;"/> </a> <div style="display: block; font-size: 90%;"/> </div></div>   					 				</td>				<td class="wsite-multicol-col" style="width: 50%; padding: 0 15px;"> 					 						  <div><div class="wsite-image wsite-image-border-none " style="padding-top: 10px; padding-bottom: 10px; margin-left: 0; margin-right: 0; text-align: center;"> <a> <img alt="Picture" src="http://sarahyu.weebly.com/uploads/2/4/3/0/24307463/screen-shot-2018-05-02-at-12-43-09-am_orig.png" style="width: auto;"/> </a> <div style="display: block; font-size: 90%;"/> </div></div>   					 				</td>			</tr> 		</tbody> 	</table> </div></div></div>  <div class="paragraph">This was a good first step, and will need some more work hashing out some final implementation details, but my next step in making this an actual advanced model, is to now utilize some of that reddit data that I've been harvesting for the past week or so. With that, we have a lot more data and might need to make some changes on the subreddit subsets depending on how the data has developed (changes in sentence length and number of total number of posts in each subreddit). Off to more data!!!</div></div>
+    </content>
+    <updated>2018-05-01T07:00:00Z</updated>
+    <category term="Uncategorized"/>
+    <source>
+      <id>http://sarahyu.weebly.com/cse-481n</id>
+      <author>
+        <name>Sarah Yu &lt;br/&gt; Team Jekyll-Hyde</name>
+      </author>
+      <link href="http://sarahyu.weebly.com/cse-481n" rel="alternate" type="text/html"/>
+      <link href="http://sarahyu.weebly.com/6/feed" rel="self" type="application/rss+xml"/>
+      <subtitle>CSE 481N</subtitle>
+      <title>Sarah yu - CSE 481N</title>
+      <updated>2018-05-09T17:30:11Z</updated>
     </source>
   </entry>
 
@@ -1266,7 +1310,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-14T18:00:26Z</updated>
+      <updated>2018-05-14T18:30:23Z</updated>
     </source>
   </entry>
 
@@ -1293,7 +1337,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-14T18:00:33Z</updated>
+      <updated>2018-05-14T18:30:25Z</updated>
     </source>
   </entry>
 
@@ -1318,7 +1362,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-14T18:00:23Z</updated>
+      <updated>2018-05-14T18:30:20Z</updated>
     </source>
   </entry>
 
@@ -1341,7 +1385,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-14T18:00:26Z</updated>
+      <updated>2018-05-14T18:30:22Z</updated>
     </source>
   </entry>
 
@@ -1364,7 +1408,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-14T18:00:06Z</updated>
+      <updated>2018-05-14T18:30:05Z</updated>
     </source>
   </entry>
 
@@ -1387,7 +1431,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-14T18:00:24Z</updated>
+      <updated>2018-05-14T18:30:21Z</updated>
     </source>
   </entry>
 
@@ -1411,7 +1455,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-14T18:00:34Z</updated>
+      <updated>2018-05-14T18:30:25Z</updated>
     </source>
   </entry>
 
@@ -1555,7 +1599,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-14T18:00:21Z</updated>
+      <updated>2018-05-14T18:30:19Z</updated>
     </source>
   </entry>
 
@@ -1601,7 +1645,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-14T18:00:35Z</updated>
+      <updated>2018-05-14T18:30:26Z</updated>
     </source>
   </entry>
 
@@ -1625,7 +1669,29 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-14T18:00:04Z</updated>
+      <updated>2018-05-14T18:30:04Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>http://sarahyu.weebly.com/cse-481n/actual-strawman-update</id>
+    <link href="http://sarahyu.weebly.com/cse-481n/actual-strawman-update" rel="alternate" type="text/html"/>
+    <title>Actual Strawman Update</title>
+    <summary>Real Data and Results Have Been Seen! As I mentioned in my last post, I was struggling with accessing the data, but I've since solved my problems and got to learn some cool tools along the way (like apparently you can read a compressed file without decompressing??? wild). I've also spent a large part of the week learning and fighting with SqlAlchemy, PyMySQL, MySQL, and UTF-8 issues. With the interaction of all of these, I was able to read (most of the) Reddit posts of January 2017 (thanks  [...]</summary>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div class="paragraph"><strong>Real Data and Results Have Been Seen! </strong><br/>As I mentioned in my last post, I was struggling with accessing the data, but I've since solved my problems and got to learn some cool tools along the way (like apparently you can read a compressed file without decompressing??? wild). I've also spent a large part of the week learning and fighting with SqlAlchemy, PyMySQL, MySQL, and UTF-8 issues. With the interaction of all of these, I was able to read (most of the) Reddit posts of January 2017 (thanks to Jason Baumgartner publishing these dumps on pushshift.io, I will donate when I have an income) which amounted to 80 million posts, find the users we are interested in, find neurotypical subreddits these users post to, and then get posts of our two (neurotypical and neurodivergent) subreddit subsets. <br/><br/>Side Note: I'm going to start referencing the Neurodivergent set as ND, and Neurotypical as NT, trying to save some typing<br/><br/><strong>Baseline #1 (kind of an update of the Strawman #1):</strong><ul><li><span>Glen Coppersmith and Erin Kelly (2014). <strong><em>Dynamic Wordclouds and Vennclouds for Exploratory Data Analysis. </em></strong></span><span><font size="2">Association for Computational Linguistics Workshop on Interactive Language Learning and Visualization</font></span></li></ul> With thanks to Coppersmith and Kelly, I was able to make a Term Frequency Venncloud as seen below that show in black the most frequent terms found in both subreddit subsets, and then separated into the most frequent terms in neurodivergent subreddits and neurotypical subreddits in blue and red, respectively. </div>  <div><div class="wsite-image wsite-image-border-none " style="padding-top: 10px; padding-bottom: 10px; margin-left: 0px; margin-right: 0px; text-align: center;"> <a> <img alt="Picture" src="http://sarahyu.weebly.com/uploads/2/4/3/0/24307463/screen-shot-2018-04-26-at-1-48-22-pm_orig.png" style="width: auto;"/> </a> <div style="display: block; font-size: 90%;">Naurodivergent vs. Neurotypical Subreddit Venncloud</div> </div></div>  <div class="paragraph"><br/>As we can see, the middle of the venncloud is pretty uninteresting, but here are some notable points:<ul><li>Personalization: Frequency of you/me, your/my words which indicate some sense of relationship and more personalization between ND posters. This contrasts the frequency of they, indicating some discussion of an other, in the NT subreddits.</li><li>"is": I interpreted the frequency of this word in the NT subreddits as a more definitive and declarative way of speech, rather than other words such as "think", "feel" and "maybe" (in the ND subreddits) which signal more hesitation. This is a point touched on and described as dogma in Fast &amp; Horvitz which is one of the papers I discussed in a previous post.</li><li>"www", "imagesofnetwork" :  This is something I cold probably fix; the way I pre-process the data scrubs and separates the links into separate words. At the end of the day though, this shows that there are significantly more links in NT subreddits. My thought is that the lack of such in the ND subreddits might mean more anecdotal and personal interactions than when compared to ND subreddits</li><li>Moral Adjectives: Some of the ND frequently used terms are what I am going to call Morale Adjectives (let me know if there's an actual term for this); here I mean, we see words like "good", "right", "bad", which are often used to describe habits or behavior.</li><li>SURPRISE GENDER DIFF: As you can see, 'she' is one of the most frequent ND words, whereas 'he' is  one of the most frequently used NT words. Some thoughts: 1) doesn't show anything, there are some partner subreddits and may just show that the predominantly male reddit user base talks about different genders in the two, but they themselves may not be a different gender distribution or 2) could show different gender engagement in the different subsets.</li></ul><br/><strong>Baseline #2: Connotation Frames</strong><ul><li><span style="color: rgb(0, 0, 0);">Hannah Rashkin, Sameer Singh, Yejin Choi. 2016. <strong><em>Connotation Frames: A Data-Driven Investigation.</em></strong><font size="2"> In Proceedings of ACL 2016</font></span></li><li><span style="color: rgb(0, 0, 0);">Maarten Sap, Marcella Cindy Prasettio, Ari Holtzman, Hannah Rashkin, &amp; Yejin Choi. 2017. <em><strong>Connotation Frames of Power and Agency in Modern Films.</strong></em> <font size="2">sched. to appear EMNLP 2017 short papers. </font></span></li></ul> With help from Maarten Sap, another model I explored was the Connotation Frames formalism, to look at the verbs used in both our NT and ND subreddits and the sentiments these provide between agent and subject. However, we found no significant differences between the two (output below).</div>  <div><div class="wsite-multicol"><div class="wsite-multicol-table-wrap"> 	<table class="wsite-multicol-table"> 		<tbody class="wsite-multicol-tbody"> 			<tr class="wsite-multicol-tr"> 				<td class="wsite-multicol-col" style="width: 50%; padding: 0 15px;"> 					 						  <div><div class="wsite-image wsite-image-border-none " style="padding-top: 10px; padding-bottom: 10px; margin-left: 0; margin-right: 0; text-align: center;"> <a> <img alt="Picture" src="http://sarahyu.weebly.com/uploads/2/4/3/0/24307463/screen-shot-2018-04-26-at-9-45-10-am_orig.png" style="width: auto;"/> </a> <div style="display: block; font-size: 90%;"/> </div></div>   					 				</td>				<td class="wsite-multicol-col" style="width: 50%; padding: 0 15px;"> 					 						  <div><div class="wsite-image wsite-image-border-none " style="padding-top: 10px; padding-bottom: 10px; margin-left: 0; margin-right: 0; text-align: center;"> <a> <img alt="Picture" src="http://sarahyu.weebly.com/uploads/2/4/3/0/24307463/nt-verbs_1_orig.png" style="width: auto;"/> </a> <div style="display: block; font-size: 90%;"/> </div></div>   					 				</td>			</tr> 		</tbody> 	</table> </div></div></div>  <div class="paragraph"><br/><strong>Baseline #3: LIWC2015</strong><br/>Finally, I used LIWC2015 to count and classify the psychological meanings and categories for both NT and ND subreddits. This serves as another type of language model to define these two 'languages' and offers us another metric on which to find similarities and differences. ​<br/><br/>Just for some clarification, the way that this model works is by having 73 categories (more information available <a href="https://liwc.wpengine.com/compare-dictionaries/" target="_blank">here</a>), anywhere from topics - PRONOUN, HEALTH, BIO - to grammar - VERB, ARTICLE - and gives the percentage of the language that each category accounts for in that 'language'. In our case, we see the distribution of categories in NT subreddits compared to ND subreddits. <br/><br/><span>My hypotheses were:</span><ul><li>[You, Heshe, Pronoun, Health, Feel, They] categories would be significantly higher in ND </li><li>[Anger, Power, Swear] categories would be significantly lower in ND than in NT</li></ul><br/>After getting the results, I report the top 10 categories with the largest % difference between the two. <ul><li>HEALTH(3.34x), <span>INGEST(2.69x), BIO(2.13x)</span><br/><ul><li>These categories are topic specific (ingestion related to drug subreddits and bio on biological processes) and align with what we expect in mental health topic subreddits</li></ul></li><li>FEEL(2.04x), SAD(1.88x), ANX - anxiety (<span>2.86x)</span><br/><ul><li><span>​Also make sense for the support communities within the ND group, potentially, topical for "anxiety" as a temporary and consistent feeling</span><br/></li></ul></li><li>FAMILY(2.07x), HOME (2.05x)<br/><ul><li>This was a bit surprising, I believe appeals to the family and home tend are prominent in support groups as well as the "partners of" subreddits we have in the ND group</li></ul></li><li>I (1.73x)<ul><li>There seems to also be a lot of personal discussion, which we expect in subreddits that are meant to discuss personal problems</li></ul></li><li>FEMALE (1.81x)<br/><ul><li>ITS HERE AGAIN WHY AND HOW</li></ul></li></ul>​<br/>That's all for baseline models, here's to my first attempt at the more advanced model this week...</div></div>
+    </content>
+    <updated>2018-04-24T07:00:00Z</updated>
+    <category term="Uncategorized"/>
+    <source>
+      <id>http://sarahyu.weebly.com/cse-481n</id>
+      <author>
+        <name>Sarah Yu &lt;br/&gt; Team Jekyll-Hyde</name>
+      </author>
+      <link href="http://sarahyu.weebly.com/cse-481n" rel="alternate" type="text/html"/>
+      <link href="http://sarahyu.weebly.com/6/feed" rel="self" type="application/rss+xml"/>
+      <subtitle>CSE 481N</subtitle>
+      <title>Sarah yu - CSE 481N</title>
+      <updated>2018-05-09T17:30:11Z</updated>
     </source>
   </entry>
 
@@ -1648,7 +1714,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-14T18:00:05Z</updated>
+      <updated>2018-05-14T18:30:05Z</updated>
     </source>
   </entry>
 
@@ -1676,7 +1742,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-14T18:00:26Z</updated>
+      <updated>2018-05-14T18:30:23Z</updated>
     </source>
   </entry>
 
@@ -1700,7 +1766,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-14T18:00:04Z</updated>
+      <updated>2018-05-14T18:30:04Z</updated>
     </source>
   </entry>
 
@@ -1727,7 +1793,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-14T18:00:33Z</updated>
+      <updated>2018-05-14T18:30:25Z</updated>
     </source>
   </entry>
 
@@ -1750,7 +1816,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-14T18:00:26Z</updated>
+      <updated>2018-05-14T18:30:22Z</updated>
     </source>
   </entry>
 
@@ -1774,7 +1840,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-05-14T18:00:32Z</updated>
+      <updated>2018-05-14T18:30:24Z</updated>
     </source>
   </entry>
 
@@ -1800,7 +1866,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-14T18:00:24Z</updated>
+      <updated>2018-05-14T18:30:21Z</updated>
     </source>
   </entry>
 
@@ -1868,7 +1934,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-14T18:00:35Z</updated>
+      <updated>2018-05-14T18:30:26Z</updated>
     </source>
   </entry>
 
@@ -1892,7 +1958,29 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-14T18:00:34Z</updated>
+      <updated>2018-05-14T18:30:25Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>http://sarahyu.weebly.com/cse-481n/first-strawman-attempt</id>
+    <link href="http://sarahyu.weebly.com/cse-481n/first-strawman-attempt" rel="alternate" type="text/html"/>
+    <title>First Strawman Attempt</title>
+    <summary>Well...here's the first hiccup: the Reddit data I'd like to use is much too large (like 8GB compressed and unknown uncompressed for one month of posts). Since my last post, I had been working on trying to scrape the data manually through Reddit API requests, but I was running into some issues and it was taking quite a while because of the request restrictions.I decided, maybe a little later than I should have, to use the Reddit Data dumps provided by John Baumgartner at pushshift.io instead, but [...]</summary>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div class="paragraph">Well...here's the first hiccup: the Reddit data I'd like to use is much too large (like 8GB compressed and unknown uncompressed for one month of posts). Since my last post, I had been working on trying to scrape the data manually through Reddit API requests, but I was running into some issues and it was taking quite a while because of the request restrictions.<br/><br/>I decided, maybe a little later than I should have, to use the Reddit Data dumps provided by John Baumgartner at pushshift.io instead, but much of the recent data is too large for my computer, attu, as well as my Azure instance. I am working with a grad student to get access to more resources so that I can work with (or even open) some of these files! However, in the meantime I have committed some files that <em>would </em>be my strawman. I have a list of 124 subreddits labeled as the neurodivergent subreddit subset and currently have a model that builds a set of users that post to these subsets, finds the other neurotypical subreddits those users also post to, and aggregates a set of those subreddits. The strawman compares the basic n-grams in each subset of the subreddits to see basic language model differences. I also cloned the vennclouds github project to try and visualize the n-grams (uni, bi, and tri) that are used in these two subsets as well as their overlap however, the current version seems to have a basic bug.<br/><br/>I will get the resources hopefully in the next couple of days and update this post with the actual data results! <br/><br/><em>To be continued...</em><br/><br/></div></div>
+    </content>
+    <updated>2018-04-18T03:47:19Z</updated>
+    <category term="Uncategorized"/>
+    <source>
+      <id>http://sarahyu.weebly.com/cse-481n</id>
+      <author>
+        <name>Sarah Yu &lt;br/&gt; Team Jekyll-Hyde</name>
+      </author>
+      <link href="http://sarahyu.weebly.com/cse-481n" rel="alternate" type="text/html"/>
+      <link href="http://sarahyu.weebly.com/6/feed" rel="self" type="application/rss+xml"/>
+      <subtitle>CSE 481N</subtitle>
+      <title>Sarah yu - CSE 481N</title>
+      <updated>2018-05-09T17:30:11Z</updated>
     </source>
   </entry>
 
@@ -2196,7 +2284,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-14T18:00:21Z</updated>
+      <updated>2018-05-14T18:30:19Z</updated>
     </source>
   </entry>
 
@@ -2219,7 +2307,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-14T18:00:06Z</updated>
+      <updated>2018-05-14T18:30:05Z</updated>
     </source>
   </entry>
 
@@ -2244,7 +2332,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-14T18:00:23Z</updated>
+      <updated>2018-05-14T18:30:20Z</updated>
     </source>
   </entry>
 
@@ -2267,7 +2355,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-14T18:00:05Z</updated>
+      <updated>2018-05-14T18:30:04Z</updated>
     </source>
   </entry>
 
@@ -2294,7 +2382,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-14T18:00:33Z</updated>
+      <updated>2018-05-14T18:30:25Z</updated>
     </source>
   </entry>
 
@@ -2317,7 +2405,29 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-14T18:00:06Z</updated>
+      <updated>2018-05-14T18:30:05Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>http://sarahyu.weebly.com/cse-481n/formal-proposal</id>
+    <link href="http://sarahyu.weebly.com/cse-481n/formal-proposal" rel="alternate" type="text/html"/>
+    <title>Formal Proposal</title>
+    <summary>Linguistic Accommodation for Self-Presentation as seen in Neurotypical vs. Neurodivergent SubredditsHypotheses: 1) Users change their language depending on the community, represented by subreddits categorized as Neurotypical vs Neurodivergent      - The divergence from their own baseline is a sign of assimilation through tuned self-presentation*2) Language Models, as used by the whole community, differ and not just in topic-specific jargon      - The langu [...]</summary>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div class="paragraph">Linguistic Accommodation for Self-Presentation as seen in Neurotypical vs. Neurodivergent Subreddits<br/><br/><u>Hypotheses:</u> <br/>1) Users change their language depending on the community, represented by subreddits categorized as Neurotypical vs Neurodivergent<br/>      - The divergence from their own baseline is a<span> sign of assimilation through tuned self-presentation*</span><br/>2) Language Models, as used by the whole community, differ and not just in topic-specific jargon<br/>      - The language changes of the individual user and the change in delta from the community's language model is a sign of their attempt at assimilating language accommodation*<br/>          - Do certain users adapt better? If so, what is differentiating those users?<br/><font size="1">*(subpoints are very similar, and I'm still working through if there is a nuance, or if they're the same)</font><br/><br/>My <strong>objective</strong>, then, is to address these hypotheses through the following approach:<br/><br/><u>Literature Survey:</u><br/>While this project is novel, mainly in the focus on neurotypical vs neurodivergent separation and the use of Reddit data, this project finds guidance from previous work done on similar questions. First, this project aims to extend upon the work of Danescu-Niculescu-Mizil et al. in<em> </em><u><em>Mark My Words! Linguistic Style Accommodation in Social Media​.</em></u> This was the first large-scale endeavor in identifying linguistic accommodation using social media. However, our project extends this work by taking advantage of the siloed nature of Reddit to identify linguistic accommodation employed by a single user across communities as opposed to the one-dimensional view of a user's linguistic accommodation to the general twittersphere in Danescu's paper. Also, this project is informed by Fast and Horvitz in <u><em>Identifying Dogmatism in Social Media: Signals and Models</em></u>, specifically in their methodologies and models; I attempt to extend upon these with more complex models. In this process, I also found several works that were similar in nature: Tamburrini et al. on language change based on social identity on Twitter, Nguyen and Rose on language socialization in online communities, and Michael and Otterbacher on herding in online review language. Two more relevant works for my project are De Choudhury et al.'s work on identifying the shift to Suicidal Ideation in social media and D<span>anescu-Niculescu-Mizil's work on the life-cycle of users in online communities. <br/>​<br/><u>Proposed Methodologies</u>: </span><br/>In it's most basic form, these questions can be explored with basic language models. First, we will identify a subset of neurotypical and neurodivergent subreddits to explore (100 or so respectively), chosen by a preliminary search on overlapping users posting between these. Based on this preliminary search, we will also gain a set of users who potentially post to both neurotypical and neurodivergent subreddits (we may need to look only at posts within a band of characters, but that is a parameter I'd like to explore). We will aggregate all of a user's posting history, not just in the subset aforementioned, to model the user's language use and do the same for the language of all posts made by any user (not just our set) to the subreddit to model the subreddit's language. I will supplement these models with the LIWC lexicon to characterize the differences between the communities and between users in different subreddits. (I may use a subset of the LIWC categories later on). A more complex model would be to use PPDB to find differences via paraphrasing. Yet another complex model would be to use a graphical model as inspired by Bamman et al's <em><u>Learning Latent Personas of Film Characters</u></em>. A stretch goal would be to train an RNN model for the language model of a neurotypical subreddit and that of a neurodivergent to see the probability of a post to belong to either of these categories. A stretch goal (not in complexity as in the RNN, but rather in interest) is to use the <em>Zelig Quotient</em>, a proposed measure for normalizing linguistic accommodation by Jones et al and see how much this may affect our findings. <br/>One special consideration is the use of NSFW language. My only filter will be to disqualify the list of NSFW subreddits, as named by a reddit post (so meta) in being chosen for the subsets, but otherwise we will not do anything special for NSFW language in other subreddits. <br/><br/><u>Resources</u>: Lots of Reddit fun!!!<br/><br/><em>​Here goes nothing...</em></div></div>
+    </content>
+    <updated>2018-04-11T07:00:00Z</updated>
+    <category term="Uncategorized"/>
+    <source>
+      <id>http://sarahyu.weebly.com/cse-481n</id>
+      <author>
+        <name>Sarah Yu &lt;br/&gt; Team Jekyll-Hyde</name>
+      </author>
+      <link href="http://sarahyu.weebly.com/cse-481n" rel="alternate" type="text/html"/>
+      <link href="http://sarahyu.weebly.com/6/feed" rel="self" type="application/rss+xml"/>
+      <subtitle>CSE 481N</subtitle>
+      <title>Sarah yu - CSE 481N</title>
+      <updated>2018-05-09T17:30:11Z</updated>
     </source>
   </entry>
 
@@ -2372,7 +2482,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-14T18:00:26Z</updated>
+      <updated>2018-05-14T18:30:23Z</updated>
     </source>
   </entry>
 
@@ -2395,7 +2505,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-14T18:00:26Z</updated>
+      <updated>2018-05-14T18:30:23Z</updated>
     </source>
   </entry>
 
@@ -2420,7 +2530,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-14T18:00:23Z</updated>
+      <updated>2018-05-14T18:30:20Z</updated>
     </source>
   </entry>
 
@@ -2493,7 +2603,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-14T18:00:35Z</updated>
+      <updated>2018-05-14T18:30:26Z</updated>
     </source>
   </entry>
 
@@ -2517,7 +2627,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-05-14T18:00:32Z</updated>
+      <updated>2018-05-14T18:30:24Z</updated>
     </source>
   </entry>
 
@@ -2541,7 +2651,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-14T18:00:34Z</updated>
+      <updated>2018-05-14T18:30:25Z</updated>
     </source>
   </entry>
 
@@ -2565,7 +2675,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-14T18:00:24Z</updated>
+      <updated>2018-05-14T18:30:21Z</updated>
     </source>
   </entry>
 
@@ -2619,7 +2729,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-14T18:00:21Z</updated>
+      <updated>2018-05-14T18:30:19Z</updated>
     </source>
   </entry>
 
@@ -2642,132 +2752,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-14T18:00:05Z</updated>
-    </source>
-  </entry>
-
-  <entry>
-    <id>tag:blogger.com,1999:blog-5600014144802012716.post-8898628104121215850</id>
-    <link href="https://nlpcapstonesemparse.blogspot.com/2018/04/blog-3-formal-proposal.html" rel="alternate" type="text/html"/>
-    <title>Blog 3: Formal Proposal</title>
-    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><b style="font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;">Minimal viable action plan </b><br/><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">Implement the model from the java paper mentioned in the previous blog posts. This includes the variable and method camel case encoding, the two step attention, the type constrained decoding, and many other tasks such as preprocessing, evaluation metrics etc.</span></span><br/><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;"><br/></span></span><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>Stretch goals</b></span><br/><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;">This depends on my error analysis on the mvp, but here are a couple ideas.</span><br/><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>1. </b>Incorporate implementation specific encoding. The encoder just uses the method names, but it'd be interesting to also include the method implementations.</span><br/><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;"><b>2. </b>More type constraints on the decoder. Currently if the decoder wants to generate a variable, there's nothing to check that the variable was previously declared.</span></span><br/><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><br/></span><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>Project objectives</b></span><br/><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">Reproduce the strong paper baseline. </span></span><br/><br/><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>Proposed methodologies</b> </span><br/><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">Implement the model from the paper. Potentially experiment with other semantic parsing task architectures and see if they also perform competitively with the baseline, for example seq2seq.</span></span><br/><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;"><br/></span></span><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>Available resources</b></span><br/><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">The dataset and allennlp.</span></span><br/><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b><br/></b></span><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>Evaluation plan</b></span><br/><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;">Test on the test set and measure bleu and exact match metrics.</span><br/><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">Test if this is useful by coming up with a couple of real classes that I've written and see if it generates the method.</span></span><br/><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">Perhaps come up with a new metric, such as a binary executability metric (stretch goal).</span></span><br/><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b><br/></b></span><span style="background-color: white; font-family: Palatino, Arial, helvetica, sans-serif; font-size: 14.44px;"><b>Literature survey</b></span><br/><span style="font-family: Palatino, Arial, helvetica, sans-serif;"><span style="background-color: white; font-size: 14.44px;">The type constrained architecture was used in a number of recent papers such as "</span><span style="font-size: 14.44px;">A syntactic neural model for parsing natural language to executable code". The dataset is novel in that previous ones haven't used programmatic contexts and have focused on nl2code pairs.</span></span></div>
-    </summary>
-    <updated>2018-04-10T03:21:00Z</updated>
-    <author>
-      <name>nlpcapstone</name>
-      <email>noreply@blogger.com</email>
-    </author>
-    <source>
-      <id>tag:blogger.com,1999:blog-5600014144802012716</id>
-      <author>
-        <name>nlpcapstone</name>
-        <email>noreply@blogger.com</email>
-      </author>
-      <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
-      <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
-      <title>NlpCapstone</title>
-      <updated>2018-05-14T18:00:04Z</updated>
-    </source>
-  </entry>
-
-  <entry>
-    <id>https://medium.com/p/45c89bec2c2e</id>
-    <link href="https://medium.com/@hongnin1/movie-sentiment-summarization-project-proposal-45c89bec2c2e?source=rss-c450eb982161------2" rel="alternate" type="text/html"/>
-    <title>Movie Sentiment Summarization — Project Proposal</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>Team: Ning Hong, Zhuchun Liu, Sujie Zhou</p><p>Overview: our model will be able to summarize the reviews for the input movies. The summarization of the movie include how the audience feel about the movie and what is the overall rating for the movie, for example, given a movie title, our model should be able to produce something like this: &lt;movie title&gt; is violet but good, most people think this movie is 6/10.</p><p>If time permits, we would like to improve our model such that it can also output a more detailed overall review for the movie instead of simple sentences, for example, given a movie title as input, our model should output: “&lt;movie title&gt; got my full attention from beginning to end. I couldn’t turn away. I didn’t want to turn away. For me, that’s extremely rare, I would give it 8/10.”</p><p>Another stretch goal for our model is to be able to detect sentiment not only in the US market, but also in China market by using data from DouBan (one of the largest movie review site for China), and compare the sentiment between US and China for a certain movie, for example, given an input movie title, our model can output something like: &lt;movie title&gt; was generally perceived more positively in the US than in China, the Chinese audience mostly felt uncomfortable about its violent and explicit content whereas more American audience appreciated the bloodiness of the film.</p><p>Model: we are going to use basic encoder- decoder RNN that serves as our baseline and then propose several novel models for summarization, each addressing a specific weakness in the base- line such as encoder-decoder RNN with attention and large vocabulary trick, capturing keywords using feature-rich encoder, modeling rare/unseen words using switching generator-pointer, and capturing hierarchical document structure with hierarchical attention.</p><p>This project has a lot of potential uses. Not only can we use movie dataset to output movie sentiment summarization, if given restaurant review dataset (Yelp), we can also output summarization about how customers feel about a restaurant.</p><p>On the other hand, there might be some difficulties we will be facing: we are planning to use sequence2sequence model to generate summarization, it is hard to determine how good is the output we are generating; more research needs to be done for this problem.</p><p>Resources:</p><p>Data scraping blogpost:</p><p><a href="https://www.dataquest.io/blog/web-scraping-beautifulsoup/">An intermediate tutorial</a></p><p>Possible IMDb training data:</p><p><a href="https://github.com/SrinidhiRaghavan/AI-Sentiment-Analysis-on-IMDB-Dataset">SrinidhiRaghavan/AI-Sentiment-Analysis-on-IMDB-Dataset</a></p><p>Model paper:</p><a href="https://medium.com/media/1ff2a893f361e9bda813a32d4e89c5f6/href">https://medium.com/media/1ff2a893f361e9bda813a32d4e89c5f6/href</a><p>Model github:</p><p><a href="https://github.com/thunlp/TensorFlow-Summarization">thunlp/TensorFlow-Summarization</a></p><p>Movie sentiment paper:</p><p><a href="https://ieeexplore.ieee.org/document/8076790/">Movie review summarization and sentiment analysis using rapidminer - IEEE Conference Publication</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=45c89bec2c2e" width="1"/></div>
-    </content>
-    <updated>2018-04-10T02:54:02Z</updated>
-    <category term="data-science"/>
-    <author>
-      <name>Ning Hong</name>
-    </author>
-    <source>
-      <id>https://medium.com/@hongnin1?source=rss-c450eb982161------2</id>
-      <logo>https://cdn-images-1.medium.com/fit/c/150/150/0*d6QC_ngideag3rTN.</logo>
-      <link href="https://medium.com/@hongnin1?source=rss-c450eb982161------2" rel="alternate" type="text/html"/>
-      <link href="https://medium.com/feed/@hongnin1" rel="self" type="application/rss+xml"/>
-      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
-      <subtitle>Stories by Ning Hong on Medium</subtitle>
-      <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-14T18:00:06Z</updated>
-    </source>
-  </entry>
-
-  <entry xml:lang="en">
-    <id>http://deeplearningturingtest.wordpress.com/?p=12</id>
-    <link href="https://deeplearningturingtest.wordpress.com/2018/04/06/warm-up-testing-a-codebase/" rel="alternate" type="text/html"/>
-    <title>Warm Up: Testing a Codebase</title>
-    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">I installed both the Tensorflow and Pytorch API’s since I’m not sure which framework I will use yet. Then, I downloaded the following repository which implemented Hybrid Code Networks for Dialog State tracking in its respective research paper. Code base URL: https://github.com/voicy-ai/DialogStateTracking Research Paper URL: https://www.semanticscholar.org/paper/Hybrid-Code-Networks%3A-practical-and-efficient-with-Williams-Asadi/0645905d70caf180433145be09c9af266a85c863 Their implementation uses Keras (built on Tensorflow) to build … <a class="more-link" href="https://deeplearningturingtest.wordpress.com/2018/04/06/warm-up-testing-a-codebase/">Continue reading <span class="screen-reader-text">Warm Up: Testing a Codebase</span> <span class="meta-nav">→</span></a></div>
-    </summary>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>I installed both the Tensorflow and Pytorch API’s since I’m not sure which framework I will use yet. Then, I downloaded the following repository which implemented Hybrid Code Networks for Dialog State tracking in its respective research paper.</p>
-<p>Code base URL: <a href="https://github.com/voicy-ai/DialogStateTracking" rel="nofollow">https://github.com/voicy-ai/DialogStateTracking</a></p>
-<p>Research Paper URL: <a href="https://www.semanticscholar.org/paper/Hybrid-Code-Networks%3A-practical-and-efficient-with-Williams-Asadi/0645905d70caf180433145be09c9af266a85c863" rel="nofollow">https://www.semanticscholar.org/paper/Hybrid-Code-Networks%3A-practical-and-efficient-with-Williams-Asadi/0645905d70caf180433145be09c9af266a85c863</a></p>
-<p>Their implementation uses Keras (built on Tensorflow) to build the network. The model stores a predetermined set of action templates to execute based on what the user requests. By feeding in features like the previous action taken, a bag of words vector, an entity tracking feature vector, etc. their RNN outputs a softmax distribution over the possible action templates. The action taken is the one with the highest probability. Because the conversation is restricted to a particular domain such as searching for a restaurant, the model performed well when I ran and tested it. The model generally recognized the type of request I was making, but its responses were extremely robotic and towards the end, gave me yes or no questions to answer to narrow down what action it should take. My goal is to generalize the type of information the model can store between time steps to be able to provide responses for requests outside of a restricted domain (like searching for a restaurant in this case).</p></div>
-    </content>
-    <updated>2018-04-06T06:58:40Z</updated>
-    <category term="Uncategorized"/>
-    <author>
-      <name>ananthgo</name>
-    </author>
-    <source>
-      <id>https://deeplearningturingtest.wordpress.com</id>
-      <logo>https://s0.wp.com/i/buttonw-com.png</logo>
-      <link href="https://deeplearningturingtest.wordpress.com/feed/" rel="self" type="application/rss+xml"/>
-      <link href="https://deeplearningturingtest.wordpress.com" rel="alternate" type="text/html"/>
-      <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
-      <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
-      <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-14T18:00:26Z</updated>
-    </source>
-  </entry>
-
-  <entry>
-    <id>https://medium.com/p/96fb908765f5</id>
-    <link href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5?source=rss-2759d54493c0------2" rel="alternate" type="text/html"/>
-    <title>NLP Capstone | 02: Getting Started</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p><a href="https://medium.com/@halden.lin/nlp-capstone-01-options-ee873b6885d5">previous post</a></p><p>Alright, it’s been only 2 days since my last entry, so this will be a relatively short post. The direction I proposed in <strong>Option 1 </strong>of that post was towards a more robust, interpretable, and informative visualization of attention, particularly in the context of text summarization. A quick recap:</p><blockquote>Perhaps interaction can be used to create a more insightful and interpretable visualization framework for understanding attention. For example, text heat-maps are already used widely to visualize sentiment analysis.</blockquote><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*lsgeuBXGGBog4YkuQNgJVw.png"/>Lin et al. (2017) [6]. Visualization of sentiment analysis on a token-by-token basis.</figure><blockquote>In a static context, using this method for attention would require repeat of the same input sequence for each word in the output sequence. Using interaction, however, a model creator could brush over single or sequences of words in the output sequence to view corresponding soft-alignment in the input sequence. Aggregate visualizations could be shown to supplement this view (either aggregates over a particular input / output sequence, or aggregates over all input / output sequences).</blockquote><p>I’m currently working on laying out the groundwork for such a project. Task 1: implement a model. Without one, there’s no data to visualize!</p><p>With that in mind, here’s what I’ve been up to:</p><h4>Finding a Text Summarization Dataset</h4><p>A quick survey of recent research papers [1–5] on text summarization points, as well as online forums, points to three commonly used datasets.</p><ol><li><a href="https://cs.nyu.edu/~kcho/DMQA/">CNN/Daily Mail Corpus</a>. A collection of articles and their bullet point summaries, with each bullet split for Q/A purposes. <a href="https://github.com/abisee/cnn-dailymail">A script</a> [1] can be ran over the original dataset to restore the original bullet point summaries, to be used as a summarization corpus.</li><li><a href="https://www-nlpir.nist.gov/projects/duc/data.html">DUC Corpus</a>. In particular, DUC 2003 and DUC 2004. These contain a collection of documents, each accompanied by a short (~10 word) summary. There is also a longer summary for each cluster of documents.</li><li><a href="https://catalog.ldc.upenn.edu/ldc2003t05">Gigaword Corpus</a>. An annotated collection of millions of documents. The summarization task here would be to predict the headline of each [5]</li></ol><p>The accessibility of the <strong>CNN/Daily Mail Corpus</strong> (a process is required for the other two), in addition to the prevalence of projects that used it as a primary dataset [1, 2, 4], made it the most attractive option. The relatively longer summaries (~4 bullet points as opposed a short blurb in the other two datasets) also lends itself conveniently to the case of an interactive visualization with multi-token selection (e.g. select a whole bullet point and see where it attended). For a baseline, this will be my dataset!</p><h4>Identifying a Baseline Model</h4><p>See et al. (2017) [1] lay out a seq2seq attentional model as their baseline (a bidirectional LSTM). I’ll be using this as a baseline model with which to obtain data.</p><h4>Getting Some Code Up</h4><p>I’ll be using <a href="http://pytorch.org/">PyTorch</a> and the <a href="http://allennlp.org/">AllenNLP</a> toolkit [7] to implement my NN models. These are both ready to go on both my machine and Azure. I’m currently in the process of writing a DatasetReader for the dataset described above.</p><h3>Next Steps</h3><ul><li>Finish writing the DatasetReader for the CNN/Daily Mail Corpus.</li><li>Begin work on a baseline seq2seq attentional model, as described in <strong>Identifying a Baseline Model</strong></li></ul><h4>Works Cited</h4><p>[1] <a href="https://arxiv.org/pdf/1704.04368.pdf">See, Abigail et al. “Get To The Point: Summarization with Pointer-Generator Networks.” <em>ACL</em> (2017).</a></p><p>[2] <a href="https://arxiv.org/pdf/1712.06100.pdf">Hasselqvist, Johan et al. “Query-Based Abstractive Summarization Using Neural Networks.” <em>CoRR</em> abs/1712.06100 (2017): n. pag.</a></p><p>[3] <a href="https://arxiv.org/pdf/1602.06023.pdf">Nallapati, Ramesh et al. “Abstractive Text Summarization using Sequence-to-sequence RNNs and Beyond.” <em>CoNLL</em> (2016).</a></p><p>[4] <a href="https://arxiv.org/pdf/1705.04304.pdf">Paulus, Romain et al. “A Deep Reinforced Model for Abstractive Summarization.” <em>CoRR</em> abs/1705.04304 (2017): n. pag.</a></p><p>[5] <a href="https://arxiv.org/pdf/1509.00685.pdf">Rush, Alexander M. et al. “A Neural Attention Model for Abstractive Sentence Summarization.” <em>EMNLP</em> (2015).</a></p><p>[6] <a href="https://arxiv.org/pdf/1703.03130.pdf">Lin, Zhouhan, <em>et al.</em>, “A structured self-attentive sentence embedding.”<em>arXiv preprint arXiv:1703.03130</em> (2017).</a></p><p>[7] <a href="https://pdfs.semanticscholar.org/a550/2187140cdd98d76ae711973dbcdaf1fef46d.pdf?_ga=2.150901366.1370831839.1522970228-1363309632.1522194596">Gardner, Matt et al. “AllenNLP: A Deep Semantic Natural Language Processing Platform.” (2017).</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=96fb908765f5" width="1"/></div>
-    </content>
-    <updated>2018-04-06T06:53:32Z</updated>
-    <category term="computer-science"/>
-    <category term="visualization"/>
-    <category term="machine-learning"/>
-    <category term="data-visualization"/>
-    <category term="nlp"/>
-    <author>
-      <name>Halden Lin</name>
-    </author>
-    <source>
-      <id>https://medium.com/@halden.lin?source=rss-2759d54493c0------2</id>
-      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*Hzu2ZqgloT0I1F6Kwg8OPA.jpeg</logo>
-      <link href="https://medium.com/@halden.lin?source=rss-2759d54493c0------2" rel="alternate" type="text/html"/>
-      <link href="https://medium.com/feed/@halden.lin" rel="self" type="application/rss+xml"/>
-      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
-      <subtitle>Stories by Halden Lin on Medium</subtitle>
-      <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-14T18:00:33Z</updated>
-    </source>
-  </entry>
-
-  <entry>
-    <id>https://medium.com/p/278789e4d04a</id>
-    <link href="https://medium.com/@viterbi.or.not/warming-up-278789e4d04a?source=rss-c522ef075bb3------2" rel="alternate" type="text/html"/>
-    <title>Warming Up</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*qc9b3NkzkWe1kNnqmlHukA.png"/></figure><p>In order to begin implementing our baseline model, for which we intend to duplicate the results presented in another research paper covering discussion summarization, we began by identifying software that was referenced by other papers as being useful for their implementations.</p><p>Using these leads, we decided to “warm up” by installing the software and gaining some familiarity with it. The main libraries that we identified are listed here:</p><h4><a href="https://www.nltk.org/"><strong>Natural Language Toolkit (nltk)</strong></a></h4><p>Perhaps it is no surprise that this resource ended up first on our list, but it was a clear choice to familiarize ourselves with because of the sheer variety of tools it provides. While performing an initial survey of conversation summarization papers, we discovered a reference to the TextTiling algorithm, described in <a href="http://www.aclweb.org/anthology/J97-1003">this paper</a> and referenced as a technique used in <a href="http://www.aclweb.org/anthology/D08-1081">another paper</a> about summarization. Broadly, the algorithm detects boundaries between topics in text, so it was used by this summarization paper as part of a pipeline before assigning scores to those topics representing their importance. For our baseline model, one possibility is to implement a similar pipeline, so having access to an implementation of the TextTiling algorithm would allow us to quickly implement that component and spend more time on other design decisions and implementation details. The nltk library provides a <a href="https://www.nltk.org/api/nltk.tokenize.html#module-nltk.tokenize.texttiling">TextTiling module</a> with this functionality.</p><h4><a href="http://scikit-learn.org/stable/"><strong>SciKit-Learn</strong></a></h4><p><a href="http://www.aclweb.org/anthology/P05-1037">Another research paper</a> we found concerning the topic of conversation summarization had several sections dedicated to the task of identifying portions of a chatlog with direct relevance to one another — for example, a question asked by one contributor and answered by another contributor several messages down would be considered a pair of directly relevant sections. As part of their technique for identifying these pairs, the researchers used <a href="http://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html">Support Vector Machines</a> and <a href="http://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html">Maximum Entropy</a> models in order to determine the sections that most likely directly respond to previous portions of the conversation. SciKit-Learn provides these functionalities, and in order to familiarize ourselves with additional existing tools that might be useful in building a baseline model we have installed this tool and begun experimenting with it.</p><h4><a href="https://www.cs.waikato.ac.nz/ml/weka/"><strong>Weka Toolkit</strong></a></h4><p>Another less commonly seen method for chat summarization can be found in a more recent (in comparison to the others we have referenced) <a href="http://web2py.iiit.ac.in/research_centres/publications/download/inproceedings.pdf.8b32440f2dc771c4.323031325f414e445f43616d6572612e706466.pdf">research paper</a> which explores the usage of Multilayer Perceptrons (MLP) for the task, among several other approaches. The MLP approach in the paper is broadly composed of a feedforward neural network with more layers between the input and output layers using backpropagation to train the network and built with the Weka toolkit, a collection of machine learning algorithms that can applied to a dataset and which contains tools for developing a variety of schemes for processing data. Although the paper finds an approach using Naive Bayes to be the most effective on the GNUe archives, their MLP implementation comes in relatively close second and we think the idea is worth pursuing further. For a baseline model, we could start by working on a similar MLP system to the one in the paper using the same Weka toolkit implementation and strive to improve from there.</p><h4><a href="http://pytorch.org/"><strong>PyTorch</strong></a></h4><p>Though not referenced by any of the papers we have encountered so far, PyTorch would be a really helpful tool for us to further the explore the usage of neural network models in chat summarization, which we can use for the aforementioned MLP approach as well as apply to our stretch goal of working on a less commonly used deep learning based model.</p><p>In addition to researching libraries and tools that we might use in our project, we have begun the process of finding and enumerating datasets that might be useful for our project ideas — more to come on the datasets and other resources in our next blog post!</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=278789e4d04a" width="1"/></div>
-    </content>
-    <updated>2018-04-06T06:41:19Z</updated>
-    <category term="nlp"/>
-    <author>
-      <name>Viterbi Or Not To Be</name>
-    </author>
-    <source>
-      <id>https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2</id>
-      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*wiisg40Bu4z11RTWJ66mnA.png</logo>
-      <link href="https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2" rel="alternate" type="text/html"/>
-      <link href="https://medium.com/feed/@viterbi.or.not" rel="self" type="application/rss+xml"/>
-      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
-      <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
-      <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-14T18:00:26Z</updated>
+      <updated>2018-05-14T18:30:05Z</updated>
     </source>
   </entry>
 </feed>
