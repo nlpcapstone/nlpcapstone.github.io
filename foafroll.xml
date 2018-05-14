@@ -109,19 +109,6 @@
     </foaf:member>
     <foaf:member>
       <foaf:Agent>
-        <foaf:name>Sarah Yu &lt;br/&gt; Team Jekyll-Hyde</foaf:name>
-        <foaf:weblog>
-          <foaf:Document rdf:about="http://sarahyu.weebly.com/cse-481n">
-            <dc:title>Sarah yu - CSE 481N</dc:title>
-            <rdfs:seeAlso>
-              <rss:channel rdf:about="http://sarahyu.weebly.com/6/feed"/>
-            </rdfs:seeAlso>
-          </foaf:Document>
-        </foaf:weblog>
-      </foaf:Agent>
-    </foaf:member>
-    <foaf:member>
-      <foaf:Agent>
         <foaf:name>Ron Fan, Aditya Saraf &lt;br/&gt; Team PrimeapeNLP</foaf:name>
         <foaf:weblog>
           <foaf:Document rdf:about="https://cse481n.blogspot.com/">
