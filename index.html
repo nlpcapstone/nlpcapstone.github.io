@@ -23,6 +23,42 @@
 <h1>NLP Capstone Spring 2018</h1>
 
 <div class="daygroup">
+<h2>May 15, 2018</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2" title="Stories by Ryan Pham on Medium">Ryan Pham <br/> Team NeuralEmpty</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/5c8a38264cae">
+<h4><a href="https://medium.com/@ryanp97/error-analysis-and-the-transformer-architecture-5c8a38264cae?source=rss-6378d85d3a9b------2">Error Analysis and the Transformer Architecture</a></h4>
+<div class="entry">
+<div class="content">
+<p>In the past week, I’ve been tuning hyper-parameters for the LSTM based models, exploring the Transformer architecture, and looking more in-depth at the predictions the model is making for error analysis.</p><h4>Swapping LSTM with Transformer</h4><p>As suggested by Nelson, I trained a model using the Transformer architecture from “<a href="https://arxiv.org/pdf/1706.03762.pdf">Attention Is All You Need</a>” (Vaswani et al.) to explore and see if different architecture would help improve the performance of the LSTM based models.</p><p>I used the same hyper-parameters that was used to achieve the results listed in the paper. Unfortunately, the model showed a significant decrease in performance compared to the LSTM models. The main cause of this was due to ill-formed graphs. Unlike the LSTM models, the transformer was unable to learn the general requirements for a well-formed graph even after training for 50 epochs.</p><p>Every graph starts with an opening paren, (, which is the only place this token will occur (other opening parentheses are always attached to edge labels). The LSTM based model was able to correctly identify that this token only occurs at the beginning of the sequence while the transformer was unable to make this connection. Another issue that the transformer ran into was predicting a set of features after an edge label without any predicate, something that the LSTM based models also did not run into.</p><p>I believe that one of the causes of these issues is the fact that the Transformer was trained using batches of tokens rather than batches of sentences. However, even after training the transformer on batches of graphs, it still experienced issues of predicting edges without a predicate. Even more unfortunately, neither model was able to increase the SMATCH score or the surface/abstract predicate scores by any significant number.</p><pre>SMATCH (F1):<br />    Transformer (Tokens) - 0.60<br />    Transformer (Graphs) - 0.63</pre><pre>Surface Predicate F1:<br />    Transformer (Tokens) - 0.52<br />    Transformer (Graphs) - 0.54</pre><pre>Abstract Predicate F1:<br />    Transformer (Tokens) - 0.71<br />    Transformer (Graphs) - 0.73</pre><h4>Error Analysis</h4><p>This week I also trained some different models with larger hidden sizes, but unfortunately still did not see much improvement (all of them had similar performances as all the previously listed and tested models).</p><p>With the baseline and other models that did not have a coverage attention mechanism, there were around 2,200~2,300 predictions that differed in length by at least 15 tokens (around 5 predicates less than the gold-label graph). We hoped that adding a coverage mechanism would alleviate this issue, but the model with coverage actually resulted in more predictions having a large length difference. After looking into the parsed graph data more carefully, there doesn’t seem to be a clear correlation between the length of the graph in English and the graph length in Japanese. Furthermore, attending to the English predicates may not be the correct thing to do since there are pieces of grammar that may not be able to be directly related to some predicate in the input.</p><p>I also calculated which predicates were commonly mis-predicted as well as ones that were not predicted when they should have been. Surprisingly There was quite a big overlap between these two sets. Below is a small subset of the predicates for the baseline model trained with features:</p><pre>Abstract Predicates:<br />    def_q<br />    udef_q<br />    pron<br />    cop_id<br />    nominalization</pre><pre>Surface Predicates:<br />    _wa_d<br />    _ni_p<br />    _no_p<br />    _koto_n_nom<br />    _sono_q</pre><p>Something interesting to note are the surface predicates. The first three listed are called particles in the Japanese grammar. The first predicate, _wa_d, serves multiple purposes. は can be used to be a topic marker as well as being used to show contrast between subjects. The second predicate, _ni_p, also has multiple purposes with more varied usage. に can be used to mark time, destination, place, etc. So it seems that the models have trouble predicting predicates which have widely varied usage. Despite having a fairly high SMATCH score, it seems that the model is not quite learning the semantic structure of the Japanese graphs.</p><p>There are a couple reasons for this. Just like I mentioned in early posts, the sequence based models is likely not the best method of performing this semantic transfer and something like a TreeLSTM is more likely to be able to accurately capture the tree structure and the semantic meaning in the tree structure.</p><p>The second reason may be because of inconsistencies in the data. The Tanaka corpus is known to have a lot of casual speech, and despite taking some precautionary steps to avoid this (by using a modified version of Jacy to account for casual speech and slang), the data may still be too noisy for the number of examples in the training set that we have. To work around this, I can look into incorporating the Tanaka corpus as mentioned in one of my earlier posts. Michael Goodman was nice enough to link me the <a href="https://github.com/goodmami/xmt/blob/master/scripts/data-preparation/kyoto-wiki.sh">script</a> he used to grab the sentence pairs from the Kyoto corpus, so this is a reasonable goal for the up-coming week. Additionally, Michael suggested looking into Japanese WordNet for additional data on top of the Kyoto Corpus.</p><h4>Plans for the Next Week</h4><p>As mentioned above, I’ll be looking into incorporating more data from both the Kyoto Corpus and WordNet. Another thing I plan to look into is the South Attention Mechanism which acts as a nice middle ground between the LSTM based models I’m currently using and a TreeLSTM. The idea behind this attention mechanism is to feed the previous decoder time step from the parent node into the current decoder time step. This allows the model to make more direct connections when it comes to long range dependencies.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=5c8a38264cae" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@ryanp97/error-analysis-and-the-transformer-architecture-5c8a38264cae?source=rss-6378d85d3a9b------2">by Ryan Pham at May 15, 2018 06:58 AM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
+<div class="daygroup">
 <h2>May 10, 2018</h2>
 
 <div class="channelgroup">
@@ -3272,38 +3308,6 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 </div>
 
 
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2" title="Stories by Ryan Pham on Medium">Ryan Pham <br/> Team NeuralEmpty</a></h3>
-
-
-<div class="entrygroup" id="https://medium.com/p/a1903faeadb7">
-<h4><a href="https://medium.com/@ryanp97/project-proposal-neural-machine-translation-with-semantic-transfer-a1903faeadb7?source=rss-6378d85d3a9b------2">Project Proposal — Neural Machine Translation with Semantic Transfer</a></h4>
-<div class="entry">
-<div class="content">
-<p>State-of-the-art neural machine translation does not currently utilize much, if any, semantic information, meaning it misses out on a large amount of potentially useful information indirectly embedded in the sentence. This project aims to explore the benefits that semantic transfer could offer to neural machine translation.</p><p>In particular, this project will focus on Dependency Minimal Recursion Semantics and translation between English DMRS and Japanese DMRS. Currently, I’m working on this project alone under the supervision of Jan Buys.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*AlAZF1O2uYt4b12hCu7ajA.png" />An example of English and Japanese DMRS graphs for the above sentence. Note the sentences have the same meaning.</figure><h4>Minimal Viable Action Plan</h4><ol><li>Obtain a parallel corpus.</li><li>Parse DMRS graphs from the parallel corpus</li><li>Simplify graphs (and be able to recover them in a robust manner to handle the model’s output)</li><li>Train a seq2seq model to predict a Japanese DMRS graph given an English DMRS graph as well as the required embeddings</li></ol><p>I’ve chosen the <a href="http://www.edrdg.org/wiki/index.php/Tanaka_Corpus">Tanaka Corpus</a> as my parallel corpus and cleaned it such that the only remaining sentences are English and Japanese sentences which belong to a translation pair. From there, I’ve parsed the corresponding DMRS graphs. For further details on how I cleaned the corpus and parsed the graphs, refer to my <a href="https://medium.com/@ryanp97/project-logistics-and-package-exploration-3d3651220219">last</a> blog post.</p><p>Currently, I’m working on how to simplify and recover the graphs robustly. Simplifying the graph seems fairly easy; however, I made some incorrect assumptions about the graphs, so recovery is currently a work in progress. Furthermore, I have yet to handle the robustness aspect. In general, I need to handle the cases where the model does not output a valid “simplified” graph. This includes, but is not limited to: handling mismatched/missing parentheses.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*LdgExRT9YoJ-UwxYxwJfsA.png" />On the left is the English DMRS and on the right is the Japanese DMRS. Each example is labeled with a sentence ID and the original sentence (prefixed with `#` which Smatch ignores). The model will not have to predict these comments. However, in the future, we’d like to extend the model such that it would be able to recover the original sentence after generating a DMRS graph in the target language.</figure><p>From then, the last step in the minimal viable action plan is to train and evaluate model. Ideally, we would train the embeddings for the tokens in the graphs and the seq2seq model end-to-end with <a href="https://amr.isi.edu/eval/smatch/tutorial.html">Smatch</a> as the objective function, though I am still working with Jan on how I should piece this model together.</p><h4>Stretch Goals</h4><ol><li>Explore alternatives to standard seq2seq models (i.e. TreeLSTMs, custom architecture, etc.)</li><li>Expand/supplement dataset with <a href="https://alaginrc.nict.go.jp/WikiCorpus/index_E.html">Kyoto Corpus</a></li></ol><p>Since we are expecting the model to learn and generate graphs, it would be ideal if we were able to use a tree-like structure that would more accurately represent the data. If I am able to finish the minimal viable action plan with enough time left over, I would like to experiment and test out different architectures and see how that affects the model’s performance. There are a couple different packages for TreeLSTMs (such as <a href="https://github.com/dasguptar/treelstm.pytorch">this</a> one) that would potentially make this task not too difficult. Though, eventually I would like to customize an architecture for this task.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/496/1*omSJj6AYg7TDPUW0XPY6ew.png" />A figure of a TreeLSTM grabbed from the <a href="https://arxiv.org/pdf/1503.00075.pdf">original</a> paper on TreeLSTMs.</figure><p>Each example in the Tanaka Corpus is a single sentence, making it easy to work with in terms of development and debugging. However, if I have extra time, I would like to supplement the Tanaka Corpus with the Kyoto Corpus which is comprised of translated Wikipedia articles. The corpus has much longer examples and provides a much more complex and realistic setting. An issue is that the documentation is in Japanese, and it is not entirely clear which of the different translations is “correct” as each example has a “primary,” “secondary,” and “check” translation. You can read more about it on the Kyoto Corpus website, hyperlinked above.</p><h4>Evaluation Plan</h4><p>There is not really a good statistical model, nor are there results that are very comparable due to the scope of the project. Since the scope of the project does not include recovering the sentence from a generated DMRS graph, comparisons between this project and papers that do tree-to-tree machine translations don’t really make much sense.</p><p>I expect to have some time leftover to explore different architectures, so I hope to make the seq2seq results the baseline for comparison for other architectures I have time to try.</p><h4>Related Work</h4><p><a href="https://arxiv.org/pdf/1704.08381.pdf">Neural AMR: Sequence-to-Sequence Models for Parsing and Generation</a> is fairly relevant to this project in the sense that it has similar motivations for working with semantics in NLP. The paper covers how they overcame a lack of labeled data, achieved competitive results for both parsing AMR graphs and generating text from AMR graphs, as well as extensive ablation studies and analysis. Their graph preprocessing steps are extremely relevant to this project, and I will likely be referencing their paper and <a href="https://github.com/sinantie/NeuralAmr">codebase</a> often as I work on cleaning and preprocessing the Tanaka Corpus.</p><p><a href="https://arxiv.org/pdf/1503.00075.pdf">Improved Semantic Representations From Tree-Structured LSTMs</a> provides a good basis for my stretch goals. The Child-Sum TreeLSTM units seem like a good option to test for representing the DMRS graph as any given node can take any number of children. These children can be used to represent dependencies as outlined in the paper, but it seems it might be possible to have the properties of a head word as children of the corresponding node as well. There’s a couple other useful ideas that come from the paper, but for the sake of brevity, we’ll leave it at this.</p><p><a href="https://arxiv.org/pdf/1603.06075.pdf">Tree-to-Sequence Attention Neural Machine Translation</a> is a slight glimpse at the future of this project. If this project is successfully able to transfer semantic information between languages, the next step would make the model complete the entire cycle, sequence-to-graph-to-graph-to-sequence, in hopes of achieving better results than statistical machine translation.</p><p>Additionally, here is a short list of other relevant papers:</p><ul><li><a href="https://arxiv.org/pdf/1409.0473.pdf">Neural Machine Translation by Jointly Learning to Align and Translate</a></li><li><a href="https://arxiv.org/pdf/1704.07092.pdf">Robust Incremental Neural Semantic Graph Parsing</a></li><li><a href="http://www.aclweb.org/anthology/P13-2131">Smatch: an Evaluation Metric for Semantic Feature Structures</a></li></ul><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=a1903faeadb7" width="1" /></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://medium.com/@ryanp97/project-proposal-neural-machine-translation-with-semantic-transfer-a1903faeadb7?source=rss-6378d85d3a9b------2">by Ryan Pham at April 10, 2018 05:31 AM</a>
-</p>
-</div>
-</div>
-
-
 </div>
 
 </div>
@@ -3356,7 +3360,7 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 
 <p>
 <strong>Last updated:</strong><br>
-May 15, 2018 06:30 AM<br>
+May 15, 2018 07:00 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
