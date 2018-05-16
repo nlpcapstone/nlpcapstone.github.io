@@ -23,6 +23,50 @@
 <h1>NLP Capstone Spring 2018</h1>
 
 <div class="daygroup">
+<h2>May 16, 2018</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="http://cse481n-capstone.azurewebsites.net" title="Team Watch Your Language!">Boyan Li, Dennis Orzikh, Lanhao Wu <br/> Team Watch Your Language!</a></h3>
+
+
+<div class="entrygroup" id="http://cse481n-capstone.azurewebsites.net/?p=105">
+<h4 lang="en-US"><a href="http://cse481n-capstone.azurewebsites.net/2018/05/15/advanced-attempt-ii-2/">Advanced Attempt II</a></h4>
+<div class="entry">
+<div class="content" lang="en-US">
+<h3>Data Collection</h3>
+<h3>Advanced Model Attempt</h3>
+<h3>Demo Frontend</h3>
+<p><span style="font-weight: 400;">Previously, we used default AllenNLP frontend for demoing purpose. Although it was easy to set up and use by us the developers who knew exactly what numbers we are looking for, it was not intuitive to use at all for other people. The default demo page looked like this:</span></p>
+<p><img alt="" class="alignnone size-full wp-image-107" height="922" src="http://cse481n-capstone.azurewebsites.net/wp-content/uploads/2018/05/old_demo.png" width="2712" /></p>
+<p><span style="font-weight: 400;">In order to make the demo page more straightforward, we decided to only keep the most relevant fields of the model output: predicted label and class probabilities. Since it is also interesting to see how prediction changes every time a new word is entered, we designed the page to make a prediction everytime a blank space or ENTER is entered in the text input box (in addition to the Predict button being hit). Our new demo page looked like this (serving a different model):</span></p>
+<p><img alt="" class="alignnone size-full wp-image-108" height="1034" src="http://cse481n-capstone.azurewebsites.net/wp-content/uploads/2018/05/new_demo.png" width="2758" /></p>
+<p><span style="font-weight: 400;">As shown above, while the overall page format looked the same (the left half is input, the right half is output), the output display changed quite a bit. The predicted label is nicely put into a sentence and highlighted under “Prediction”, and the class probabilities are in a table with the “Hate probability” entry highlighted under “Summary Breakdown”. We also added hate probability visualization at the end. A linear gradient from bright green to red represented hate probability from 0% to 100%, a dark vertical line representing the predicted hate probability of the current sentence, and a small label under the dark line showing the hate probability. </span></p>
+<p><span style="font-weight: 400;">Not only is the new demo page easier to read and see the changes when each word is entered, this simple output display could potentially be ported to AMT surveys in the future if we want turkers to come up with hard to detect examples. </span></p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="http://cse481n-capstone.azurewebsites.net/2018/05/15/advanced-attempt-ii-2/">by Team Watch Your Language! at May 16, 2018 03:27 AM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
+<div class="daygroup">
 <h2>May 15, 2018</h2>
 
 <div class="channelgroup">
@@ -360,7 +404,7 @@ I'm focusing now on combining coding patterns from the new class at test time wi
 
 
 <div class="entrygroup" id="http://cse481n-capstone.azurewebsites.net/?p=82">
-<h4 lang="en-US"><a href="http://cse481n-capstone.azurewebsites.net/2018/05/08/advanced-attempt-ii/">Advanced Attempt II</a></h4>
+<h4 lang="en-US"><a href="http://cse481n-capstone.azurewebsites.net/2018/05/08/advanced-attempt-ii/">Advanced Attempt I Continues</a></h4>
 <div class="entry">
 <div class="content" lang="en-US">
 <h3>Data Collection</h3>
@@ -3241,38 +3285,6 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 </div>
 
 
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://medium.com/nlp-capstone-blog?source=rss----9ba3897b6688---4" title="NLP Capstone Blog - Medium">Tam Dang, Karishma Mandyam <br/> Team Illimitatum</a></h3>
-
-
-<div class="entrygroup" id="https://medium.com/p/43368563cf97">
-<h4><a href="https://medium.com/nlp-capstone-blog/machine-dictionary-43368563cf97?source=rss----9ba3897b6688---4">Machine Dictionary</a></h4>
-<div class="entry">
-<div class="content">
-<p>We have decided to call our project, the Machine Dictionary. Formally, the goal of this project is to use a large corpus of data to generate definitions for technical terms that are consistent with how those terms are explored in the corpus.</p><h4>Motivation</h4><p>Our aim is to explore novel text generation approaches and apply them to the specific task of generating definitions. One of these techniques includes a specific approach we have termed “Connecting the Dots”. This approach will allow us to loosely structure the definitions such that they contain meaningful content but also keep the model general enough to generate appropriate context. We will discuss this approach further down. Another large motivation is the amount of research paper data we have from the AI2 Semantic Scholar corpus. This will allow us to use domain specific corpora to support definitions.</p><h4>Prior Work</h4><p>Although text generation has been a hot topic in NLP research for a while, we did not discover any prior attempts to generate definitions for technical terms. That said, the text generation task has itself been explored in great detail by many others.</p><p>In <a href="https://arxiv.org/pdf/1707.05501.pdf"><strong>this paper</strong> (Jain et al., 2017)</a>, the authors explore the task of generating short stories given a sequence of independent short descriptions. They approach the problem by using an Encoder-Decoder model to connect the descriptions and the short stories. This method might help us generate short text, but in our case, the input would be a large amount of data in the domain.</p><p>In this <a href="https://pdfs.semanticscholar.org/9dad/f5bb0a2182b1509c5ea60d434bb35d4701c1.pdf?_ga=2.15851958.1083977791.1523309085-1136887644.1523309085">other paper (Ghazvininejad et. al, 2016)</a>, the authors explore generating poetry based on topics. This paper is relevant to our project for several reasons. For instance, the paper generates poems based on a given topic, much like our goal which is to generate definitions based on a given term. In addition, the authors generate poetry by taking advantage of the structure of Shakespearean sonnets such as the unique rhyme scheme and the iambic pentameter cadence. We can use the techniques proposed in the paper to selectively choose information from the training corpus, based on the term we are asked to define and how we believe definitions should be structured.</p><h4>Minimum Viable Plan</h4><p>To reiterate, our model should be able to generate definitions that are based on context received from a large corpus. In this MVP, we can make the simplification that our model should generate definitions of a fixed length (for example, 5 sentences). These definitions should be grammatical and technically correct.</p><h4>Baseline Approach and Evaluation</h4><p>Andrej Karpathy, a former PhD student at Stanford, explores the incredible effectiveness of RNNs in in his blog. The article, <a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/">The Unreasonable Effectiveness of RNNs</a>, essentially claims that RNNs have an uncanny ability to learn the structure of training data, such as Wikipedia Articles, Shakespeare, and even code. In our baseline approach, we take advantage of this ability by training an RNN language model on the training data. At testing time, we can provide the term we seek to define as a seed to the RNN, which can then generate text until we hit a word limit or the RNN generates the &lt;STOP&gt; character. We can evaluate this approach by using perplexity, to ensure that we have a good language model. We can also cross-check definitions with other sources like Wikipedia articles. Finally, it might also be prudent to have humans evaluate the definitions.</p><h4>Target Approach I and Evaluation</h4><p>We propose two different target approaches to this model. In this first approach, we utilize techniques from work done previously in abstractive summarization. Given a term, we could filter the input data on all sentences associated with that term. We could obtain all the sentences that contain the data and a few sentences in the nearby surroundings, which could capture the context for the data. We would then use these sentences to generate a summary, which we would call the definition of the term. In this approach, we might use an attention mechanism to focus on the most important parts of the input. In terms of evaluation, we would use the cross referencing method from above, where we take the produced definition and the “correct definition” as determined by an external source and compare the number of common words.</p><h4>Target Approach II and Evaluation</h4><p>In this second approach, we explore a concept we have chosen to call “Connecting the Dots”. In this approach, we structure the definition generation by using key words. To elaborate, each term might be closely connected to a certain number of other words which could influence the definition of the term greatly. Consider the term <strong>osteoporosis</strong>. This term might be closely associated with the words <strong>bones, degrade, bone degradation, fractures, </strong>and <strong>women. </strong>We could use these words to structure a definition for <strong>osteoporosis </strong>as a fill in the blank task.</p><p><strong>Osteoporosis is … bones … degrade … bone degradation … fractures … women.</strong></p><p>In the above structure, we would rely on the model to appropriately and grammatically fill in the context between each keyword. As a result, we might generate the following definition:</p><p><strong>Osteoporosis </strong>is a disease that cause <strong>bones </strong>to <strong>degrade.</strong> <strong>Bone degradation </strong>often leads to <strong>fractures.</strong> <strong>Osteoporosis </strong>most commonly affects <strong>women.</strong></p><p>It’s important to note that when we fill in the context between keywords, we must condition on the original term that we are defining. For example, between the words <strong>fracture </strong>and <strong>women</strong>, there might be several sentences we could generate, but we must keep in mind how the keywords are related given that they are about <strong>osteoporosis.</strong></p><p>In this approach, we will build on the neural network model and add task-specific architecture to capture relationships between words. We hope that the model can learn how to define keywords associated with terms and use those terms to structure a definition.</p><p>In terms of evaluation, we introduce another technique. In this evaluation method we take a paragraph in which the technical term appears and omit the term. If we rephrase the problem as a classification task and ask the model to predict the omitted term, we would be able to conclude whether the model has a contextual understanding of the technical term. This evaluation technique would be a good supplement to the human evaluation method where we request users to rank how correct and readable the definitions are.</p><h4>Stretch Goals</h4><p>The ideal goal would be to generate text without any constraints on length, order, or keyword usage. This would be a more “hands-off” approach to text generation and could also allow us to train on different domain based corpora. We might be able to achieve this stretch goal if we perform well on the goals outlined in the Minimum Viable Plan.</p><p>Another stretch goal has to do with ontology matching, whereby we compare two definitions to determine whether they describe the same concept. We could extend this example to generate definitions for all technical terms across a body of research papers, determine which terms are defined similarly in different papers, and unify the terminology across all papers. This goal is definitely a stretch goal, but if we can perfect the architecture for generating definitions, we see this as a future application of our project.</p><h4>Data</h4><p>We plan to use the Semantic Scholar Open Research Corpus for this project. This corpus consists of over 20 million research papers classified into two domains (Computer Science and Medicine). Depending on the approach we take to solve this task, we would filter the data and train accordingly.</p><h4>Resources and Literature Survey</h4><p>We have mentioned several resources above that were the most useful for formulating the project proposal. Here are those resources and a few other resources that we think might be useful in the future.</p><p><strong>Text Generation Techniques</strong></p><p><a href="https://pdfs.semanticscholar.org/797d/7d968b88d5b5dd7c3271d08acd7296950d41.pdf?_ga=2.73597202.1083977791.1523309085-1136887644.1523309085">Using Lexical Chains for Text Summarization (Barzilay et. al, 1997)<br /></a><a href="https://pdfs.semanticscholar.org/9dad/f5bb0a2182b1509c5ea60d434bb35d4701c1.pdf?_ga=2.15851958.1083977791.1523309085-1136887644.1523309085">Generating Topical Poetry (Ghazvininejad et. al, 2016)</a></p><p><a href="http://karpathy.github.io/2015/05/21/rnn-effectiveness/">The Unreasonable Effectiveness of RNNs</a></p><p><a href="https://arxiv.org/pdf/1707.05501.pdf">Story Generation from Sequence of Independent Short Descriptions (Jain et al., 2017)</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=43368563cf97" width="1" /><hr /><p><a href="https://medium.com/nlp-capstone-blog/machine-dictionary-43368563cf97">Machine Dictionary</a> was originally published in <a href="https://medium.com/nlp-capstone-blog">NLP Capstone Blog</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://medium.com/nlp-capstone-blog/machine-dictionary-43368563cf97?source=rss----9ba3897b6688---4">by Karishma Mandyam at April 11, 2018 06:03 AM</a>
-</p>
-</div>
-</div>
-
-
 </div>
 
 </div>
@@ -3325,7 +3337,7 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 
 <p>
 <strong>Last updated:</strong><br>
-May 16, 2018 03:00 AM<br>
+May 16, 2018 03:30 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
