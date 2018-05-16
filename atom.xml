@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:planet="http://planet.intertwingly.net/" xmlns:indexing="urn:atom-extension:indexing" indexing:index="no"><access:restriction xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" relationship="deny"/>
   <title>NLP Capstone Spring 2018</title>
-  <updated>2018-05-16T06:30:23Z</updated>
+  <updated>2018-05-16T07:00:33Z</updated>
   <generator uri="http://intertwingly.net/code/venus/">Venus</generator>
   <author>
     <name>Nelson Liu</name>
@@ -10,6 +10,85 @@
   <id>https://nlpcapstone.github.io/atom.xml</id>
   <link href="https://nlpcapstone.github.io/atom.xml" rel="self" type="application/atom+xml"/>
   <link href="https://nlpcapstone.github.io/" rel="alternate"/>
+
+  <entry>
+    <id>https://medium.com/p/33072535817f</id>
+    <link href="https://medium.com/@halden.lin/nlp-capstone-08-human-summaries-33072535817f?source=rss-2759d54493c0------2" rel="alternate" type="text/html"/>
+    <title>NLP Capstone | 08: Human Summaries</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>I’ll keep this blogpost short — my current undertakings are in-progress and it might be a week or more before they are realized. To preface:</p><ol><li>Visualizing human summaries</li><li>Improving the visualization.</li></ol><h3>Visualizing Human Summaries</h3><p>When I was presenting my project update last week, Prof. Choi asked a very interesting question. What if we could use this visualization tool to not only understand how the model is generating summaries, but also how human summaries are produced and how the two compare?</p><p>I’ll briefly explain the thought behind this.</p><p>Visualizations provide a mapping from raw data (in this case, attention weights and input / output tokens) to visual encodings. These visual encodings are valuable in that they allow us as humans to perceive the data in a meaningful way. For example, the attention visualizer I am working on allows us to identify overall patterns in the attention of the model.</p><p>How do we interpret human written summaries, i.e. their relation to the source text? Perhaps we scan the document and attempt to match paragraphs or sentences to sentences in the summary. This can be compared to the ‘attention’ our minds use to generate the summary. If we can visualize this mapping, perhaps in a more refined and detailed manner (i.e. token by token) they we should be able to compare the human summaries with the machine generated summaries, right? And then one may be able to identify what the human summaries have that the machine summaries do not, or visa versa. The hope is that if we can enable this kind of comparison, researchers may be better equipped to improve their models by using these insights.</p><p>So far, I’ve experimented with two methods for generating this ‘attention’ from human summary to source text.</p><h4>Word Similarity</h4><p>The first approach that sprung to mind was to use word similarity as a proxy for ‘attention’. To do this, I used <a href="https://nlp.stanford.edu/projects/glove/">pre-trained GloVe embeddings</a> and the <a href="https://radimrehurek.com/gensim/">Gensim API</a> to calculate word similarities between each input token / output token pair. <a href="https://spacy.io/">SpaCy</a> was used to tokenize the sequences. The result is a matrix of weights, similar to attention distribution, albeit not normalized per output token (with attention, for a given output token the aggregate over all input tokens is 1). As the example below shows, this method falls flat, as output tokens are matched to input tokens regardless of context. This means it makes little sense to compare these weights to attention.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*D6pMsnZjlNiz1XJyN5xcBQ.png"/>The word ‘the’ is matched with nearly every token in the input sequence, likely a result of its extreme commonness and proximity to most words in embedding space.</figure><h4>Summarization Model</h4><p>The second method I considered was one suggested by Ari. Here, we use the same model used to generate the machine summaries. The difference is that at each decoder time-step, instead of feeding in the previous <strong>predicted</strong> token, we feed in the previous <strong>actual</strong> token. This means that instead of having a decoding pipeline that looks like this:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*N-til0kZzQeAVI3zkoDKVg.jpeg"/></figure><p>Where y-hats represent predicted output tokens, we have one that looks like this:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*H7nMlelojnzNkfthS2ljAg.jpeg"/></figure><p>Where y (no hat) represents true output token (the token from the human summary). This is a process similar to the one taken during training of generative encoder-decoder models.</p><p>By grabbing attention distributions just as we had with the machine summaries, we hope to get an approximation of the attention distributions for the human summaries — we are essentially feeding the model the answer. However, there is a catch, and an important one. Because attention weights are used to create a context vector that is then fed into the <strong>next</strong> decoder unit to predict the <strong>next </strong>word, we run into an issue when the next word is predicted incorrectly. Turns out, this happens often under the model being used (from <a href="https://github.com/abisee/pointer-generator">See et al.</a>). This actually makes sense, as the model has been shown to produce largely <strong>extractive </strong>summaries, and so one would expect the model to, at each time-step, attempt to produce the next word in the source text that follows the word fed to it. With <strong>abstractive</strong> summaries, this is not often the optimal choice. This results in attention weights that make little sense, as seen below.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*c5KuVp0qzjkcQxNAJSfYLw.png"/>According to this, ‘manager’ was the focal point of attention when producing the word ‘were’. It would seem that the model intended to predict ‘manager’, and so when we map this attention weight to the human token, we run into an issue.</figure><p>Here’s the problem. The model is trained to use attention weights to <strong>generate </strong>an output token. What we want is the opposite. We want the attention <strong>given</strong> an output token — use the output token to generate the attention weights. This poses a significant challenge.</p><h4>So How Else?</h4><p>So neither of these methods seem to produce anything meaningful. I’m not ready to give up though — this is an intriguing problem. In the next week I’ll be brainstorming other methods. One that might have some traction is to use a few heuristics to approximate ‘attention’ using word similarities in conjunction with context. For example, by imposing a penalty on the weight if the context of the output token is dissimilar to the word ‘attended’ to in the source text. Much more work to be done here.</p><h3>Improving the visualization</h3><p>This section will be short. There are a few problems I looked into in the past week.</p><ol><li>Implement divided edge bundling, as produced by <a href="http://vis.stanford.edu/files/2011-DividedEdgeBundling-InfoVis.pdf">Selassie et al. (2011)</a>. I described this briefly in my previous blog post. The obstacle here is that there is not available d3 implementation of the algorithm. In fact, the only implementation I could find available was <a href="https://github.com/kakearney/divedgebundle-pkg">one for Matlab</a>, produced by <a href="http://kellyakearney.net/">Kelly Kearny (University of Washington)</a>. This might prove more difficult than the remaining time in this quarter allows, but I’ve started the process anyways and will see where it takes me.</li><li>Highlighting extraction. That is, making it apparent in the visualization when the model is simply copying. I’ve been playing around with things such as color to encode this, but haven’t settled on anything I like.</li></ol><p>More work to come!</p><h4>References</h4><ol><li><a href="https://arxiv.org/pdf/1704.04368.pdf">See, Abigail et al. “Get To The Point: Summarization with Pointer-Generator Networks.” <em>ACL</em> (2017).</a></li><li><a href="http://vis.stanford.edu/files/2011-DividedEdgeBundling-InfoVis.pdf">Selassie, David et al. “Divided Edge Bundling for Directional Network Data.” <em>IEEE Transactions on Visualization and Computer Graphics</em> 17 (2011): 2354–2363.</a></li></ol><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=33072535817f" width="1"/></div>
+    </content>
+    <updated>2018-05-16T06:58:49Z</updated>
+    <category term="computer-science"/>
+    <category term="visualization"/>
+    <category term="nlp"/>
+    <category term="machine-learning"/>
+    <category term="data-visualization"/>
+    <author>
+      <name>Halden Lin</name>
+    </author>
+    <source>
+      <id>https://medium.com/@halden.lin?source=rss-2759d54493c0------2</id>
+      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*Hzu2ZqgloT0I1F6Kwg8OPA.jpeg</logo>
+      <link href="https://medium.com/@halden.lin?source=rss-2759d54493c0------2" rel="alternate" type="text/html"/>
+      <link href="https://medium.com/feed/@halden.lin" rel="self" type="application/rss+xml"/>
+      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
+      <subtitle>Stories by Halden Lin on Medium</subtitle>
+      <title>Stories by Halden Lin on Medium</title>
+      <updated>2018-05-16T07:00:31Z</updated>
+    </source>
+  </entry>
+
+  <entry xml:lang="en">
+    <id>http://deeplearningturingtest.wordpress.com/?p=25</id>
+    <link href="https://deeplearningturingtest.wordpress.com/2018/05/16/advanced-model-attempt-2-part-1/" rel="alternate" type="text/html"/>
+    <title>Advanced Model Attempt 2 (Part 1)</title>
+    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">This week I was able to greatly improve upon the results from last week. Last week my average reward got to about -23 at best, but this week by tweaking my reward function I was able to greatly speed up convergence and bump my model up to about +70 reward on average. I made my … <a class="more-link" href="https://deeplearningturingtest.wordpress.com/2018/05/16/advanced-model-attempt-2-part-1/">Continue reading <span class="screen-reader-text">Advanced Model Attempt 2 (Part 1)</span> <span class="meta-nav">→</span></a></div>
+    </summary>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>This week I was able to greatly improve upon the results from last week. Last week my average reward got to about -23 at best, but this week by tweaking my reward function I was able to greatly speed up convergence and bump my model up to about +70 reward on average. I made my reward function more strict about interpreting the user response correctly by giving a +6 reward for correct interpretation, -6 reward for the opposite interpretation and 0 reward for interpreting as unknown (model is unsure).</p>
+<p>One way I tried to improve over last week was reducing my CNN architecture to simplify the state representation, but surprisingly this had the opposite effect of underfitting on the user responses and misinterpreting them more. In fact, I later found out that my reward function was the main reason my model didn’t converge and in the end I actually ended up increasing the number of filters in my CNN architecture.</p>
+<p>At this point, my model is able to win between 3 and 4 out of 5 games on average because there is 1 out of my 31 questions for which it learned the wrong Q values, probably due to insufficient exposure to the right answer, so I’ll increase the amount of exploration the model takes until these values are straightened out and the model wins 5 out of 5 games. Then I’ll evaluate the model performance on a separate database of 100 different people. While I expect the end result to be the same (winning 100% of games), I expect the model to take longer to win on average because the order of questions it asks to eliminate people is tailored towards the training database.</p>
+<p>My goals for this week are reporting more exact quantitative results of model performance in terms of games won and reward gained, both on the training database and a validation database of 100 different people. Furthermore, I’ll experiment with a slightly more complicated dialogue scenario but I probably won’t go too deep considering I only have about a week left.</p></div>
+    </content>
+    <updated>2018-05-16T06:55:57Z</updated>
+    <category term="Uncategorized"/>
+    <author>
+      <name>ananthgo</name>
+    </author>
+    <source>
+      <id>https://deeplearningturingtest.wordpress.com</id>
+      <logo>https://s0.wp.com/i/buttonw-com.png</logo>
+      <link href="https://deeplearningturingtest.wordpress.com/feed/" rel="self" type="application/rss+xml"/>
+      <link href="https://deeplearningturingtest.wordpress.com" rel="alternate" type="text/html"/>
+      <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
+      <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
+      <title>NLP Capstone Project Updates – Ananth</title>
+      <updated>2018-05-16T07:00:28Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>tag:blogger.com,1999:blog-9203775015655831448.post-3973266691169482239</id>
+    <link href="https://teamoverfit.blogspot.com/2018/05/8-milestone-advanced-model-attempt-2.html" rel="alternate" type="text/html"/>
+    <title>#8 Milestone: Advanced model attempt #2</title>
+    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><h2 style="height: 0px;"><span>Team Overfit</span></h2><h3><span><br/></span></h3><h3><span>Project repo: <span style="font-size: 18.72px;"><a href="https://github.com/pinyiw/nlpcapstone-teamoverfit">https://github.com/pinyiw/nlpcapstone-teamoverfit</a></span></span></h3><h4><span>Team members: Dawei Shen, Pinyi Wang, Xukai Liu</span></h4><div style="text-align: start; text-indent: 0px;"><div style="margin: 0px;"><div><span><b>Blog Post: #7: 05/09/2018</b></span></div><div><span><span><b><br/></b></span></span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Social Media Predicts Stock Price (StartUp Mode)</span><br/><span><br/></span><span>This week, we weren't able to make our model make better prediction on stock price movement.</span><br/><h3><span>We have tried:</span></h3><br/><ul><li><span style="font-family: arial, helvetica, sans-serif;">Improve initialization weights and bias</span></li><ul><li><span style="font-family: arial, helvetica, sans-serif;">Increase standard deviation so that the initial price prediction varies more preventing the model to be stuck at local minima</span></li><li><span style="font-family: arial, helvetica, sans-serif;">Decrease bias so that the initial prediction are closer to the expected, and therefore, converge faster</span></li></ul><li><span style="font-family: arial, helvetica, sans-serif;">Tune hyperparameters of LSTM and try out different settings of data</span></li><ul><li><span style="font-family: arial, helvetica, sans-serif;">Number of time steps of RNN</span></li><li><span style="font-family: arial, helvetica, sans-serif;">Size of dictionary</span></li><ul><li><span style="font-family: arial, helvetica, sans-serif;">Remove vocab that have high document frequency</span></li></ul><li><span style="font-family: arial, helvetica, sans-serif;">Number of LSTM hidden units</span></li><li><span style="font-family: arial, helvetica, sans-serif;">Number of RNN layers</span></li><li><span style="font-family: arial, helvetica, sans-serif;">Learning rate</span></li><li><span style="font-family: arial, helvetica, sans-serif;">Dropout layer</span></li></ul><li><span style="font-family: arial, helvetica, sans-serif;">Visualize and investigate our prediction/training to have better understanding of our model</span></li><ul><li><span style="font-family: arial, helvetica, sans-serif;">Find out the top k words that have most weight for a given day</span></li><ul><li><span style="font-family: arial, helvetica, sans-serif;">Most of them do not seem to relate to stock price movement</span></li></ul><li><span style="font-family: arial, helvetica, sans-serif;">Compare the prediction/target graph for each epochs to see if the predictions are improving/convergin</span></li></ul></ul><h3><span style="font-family: arial, helvetica, sans-serif;">In progress and next steps:</span></h3><div><ul><li><span style="font-family: arial, helvetica, sans-serif;">Find good news data and write preprocessor</span></li><li><span style="font-family: arial, helvetica, sans-serif;">Research on better featurizations</span></li><li><span style="font-family: arial, helvetica, sans-serif;">Research on better model</span></li><li><span style="font-family: arial, helvetica, sans-serif;">Add learning rate decay to our training</span></li><li><span style="font-family: arial, helvetica, sans-serif;">Investigate the correlation between sentiment analysis of Tweets and stock price movement</span></li></ul></div></div></div></div></div>
+    </summary>
+    <updated>2018-05-16T06:37:00Z</updated>
+    <author>
+      <name>Team Overfit</name>
+      <email>noreply@blogger.com</email>
+    </author>
+    <source>
+      <id>tag:blogger.com,1999:blog-9203775015655831448</id>
+      <author>
+        <name>Team Overfit</name>
+        <email>noreply@blogger.com</email>
+      </author>
+      <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
+      <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
+      <title>NLP Capstone</title>
+      <updated>2018-05-16T07:00:32Z</updated>
+    </source>
+  </entry>
 
   <entry>
     <id>https://medium.com/p/ca5a7f69db85</id>
@@ -30,7 +109,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-16T06:30:18Z</updated>
+      <updated>2018-05-16T07:00:26Z</updated>
     </source>
   </entry>
 
@@ -53,7 +132,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-16T06:30:12Z</updated>
+      <updated>2018-05-16T07:00:07Z</updated>
     </source>
   </entry>
 
@@ -219,7 +298,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-16T06:30:16Z</updated>
+      <updated>2018-05-16T07:00:24Z</updated>
     </source>
   </entry>
 
@@ -243,7 +322,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-16T06:30:10Z</updated>
+      <updated>2018-05-16T07:00:05Z</updated>
     </source>
   </entry>
 
@@ -266,7 +345,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-16T06:30:11Z</updated>
+      <updated>2018-05-16T07:00:06Z</updated>
     </source>
   </entry>
 
@@ -313,7 +392,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-16T06:30:23Z</updated>
+      <updated>2018-05-16T07:00:33Z</updated>
     </source>
   </entry>
 
@@ -336,7 +415,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-16T06:30:18Z</updated>
+      <updated>2018-05-16T07:00:27Z</updated>
     </source>
   </entry>
 
@@ -367,7 +446,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-16T06:30:19Z</updated>
+      <updated>2018-05-16T07:00:28Z</updated>
     </source>
   </entry>
 
@@ -391,7 +470,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-16T06:30:22Z</updated>
+      <updated>2018-05-16T07:00:32Z</updated>
     </source>
   </entry>
 
@@ -418,7 +497,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-16T06:30:21Z</updated>
+      <updated>2018-05-16T07:00:31Z</updated>
     </source>
   </entry>
 
@@ -443,7 +522,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-16T06:30:17Z</updated>
+      <updated>2018-05-16T07:00:25Z</updated>
     </source>
   </entry>
 
@@ -466,7 +545,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-16T06:30:19Z</updated>
+      <updated>2018-05-16T07:00:28Z</updated>
     </source>
   </entry>
 
@@ -730,7 +809,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-16T06:30:16Z</updated>
+      <updated>2018-05-16T07:00:24Z</updated>
     </source>
   </entry>
 
@@ -753,7 +832,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-16T06:30:12Z</updated>
+      <updated>2018-05-16T07:00:07Z</updated>
     </source>
   </entry>
 
@@ -776,7 +855,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-16T06:30:11Z</updated>
+      <updated>2018-05-16T07:00:06Z</updated>
     </source>
   </entry>
 
@@ -800,7 +879,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-16T06:30:10Z</updated>
+      <updated>2018-05-16T07:00:05Z</updated>
     </source>
   </entry>
 
@@ -845,7 +924,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-16T06:30:19Z</updated>
+      <updated>2018-05-16T07:00:28Z</updated>
     </source>
   </entry>
 
@@ -870,7 +949,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-16T06:30:17Z</updated>
+      <updated>2018-05-16T07:00:25Z</updated>
     </source>
   </entry>
 
@@ -896,7 +975,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-16T06:30:18Z</updated>
+      <updated>2018-05-16T07:00:26Z</updated>
     </source>
   </entry>
 
@@ -923,7 +1002,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-16T06:30:21Z</updated>
+      <updated>2018-05-16T07:00:31Z</updated>
     </source>
   </entry>
 
@@ -948,7 +1027,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-16T06:30:19Z</updated>
+      <updated>2018-05-16T07:00:28Z</updated>
     </source>
   </entry>
 
@@ -1426,7 +1505,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-16T06:30:16Z</updated>
+      <updated>2018-05-16T07:00:23Z</updated>
     </source>
   </entry>
 
@@ -1450,7 +1529,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-16T06:30:22Z</updated>
+      <updated>2018-05-16T07:00:32Z</updated>
     </source>
   </entry>
 
@@ -1473,7 +1552,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-16T06:30:12Z</updated>
+      <updated>2018-05-16T07:00:07Z</updated>
     </source>
   </entry>
 
@@ -1496,7 +1575,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-16T06:30:10Z</updated>
+      <updated>2018-05-16T07:00:05Z</updated>
     </source>
   </entry>
 
@@ -1519,7 +1598,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-16T06:30:11Z</updated>
+      <updated>2018-05-16T07:00:06Z</updated>
     </source>
   </entry>
 
@@ -1569,7 +1648,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-16T06:30:19Z</updated>
+      <updated>2018-05-16T07:00:28Z</updated>
     </source>
   </entry>
 
@@ -1596,7 +1675,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-16T06:30:21Z</updated>
+      <updated>2018-05-16T07:00:31Z</updated>
     </source>
   </entry>
 
@@ -1621,7 +1700,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-16T06:30:17Z</updated>
+      <updated>2018-05-16T07:00:25Z</updated>
     </source>
   </entry>
 
@@ -1644,7 +1723,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-16T06:30:19Z</updated>
+      <updated>2018-05-16T07:00:28Z</updated>
     </source>
   </entry>
 
@@ -1667,7 +1746,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-16T06:30:12Z</updated>
+      <updated>2018-05-16T07:00:07Z</updated>
     </source>
   </entry>
 
@@ -1690,7 +1769,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-16T06:30:18Z</updated>
+      <updated>2018-05-16T07:00:26Z</updated>
     </source>
   </entry>
 
@@ -1714,7 +1793,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-16T06:30:22Z</updated>
+      <updated>2018-05-16T07:00:32Z</updated>
     </source>
   </entry>
 
@@ -1858,7 +1937,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-16T06:30:16Z</updated>
+      <updated>2018-05-16T07:00:24Z</updated>
     </source>
   </entry>
 
@@ -1904,7 +1983,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-16T06:30:23Z</updated>
+      <updated>2018-05-16T07:00:33Z</updated>
     </source>
   </entry>
 
@@ -1928,7 +2007,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-16T06:30:10Z</updated>
+      <updated>2018-05-16T07:00:05Z</updated>
     </source>
   </entry>
 
@@ -1973,7 +2052,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-16T06:30:11Z</updated>
+      <updated>2018-05-16T07:00:06Z</updated>
     </source>
   </entry>
 
@@ -2001,7 +2080,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-16T06:30:19Z</updated>
+      <updated>2018-05-16T07:00:28Z</updated>
     </source>
   </entry>
 
@@ -2025,7 +2104,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-16T06:30:10Z</updated>
+      <updated>2018-05-16T07:00:05Z</updated>
     </source>
   </entry>
 
@@ -2052,7 +2131,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-16T06:30:21Z</updated>
+      <updated>2018-05-16T07:00:31Z</updated>
     </source>
   </entry>
 
@@ -2075,7 +2154,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-16T06:30:19Z</updated>
+      <updated>2018-05-16T07:00:28Z</updated>
     </source>
   </entry>
 
@@ -2099,7 +2178,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-05-16T06:30:20Z</updated>
+      <updated>2018-05-16T07:00:29Z</updated>
     </source>
   </entry>
 
@@ -2125,7 +2204,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-16T06:30:18Z</updated>
+      <updated>2018-05-16T07:00:27Z</updated>
     </source>
   </entry>
 
@@ -2193,7 +2272,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-16T06:30:23Z</updated>
+      <updated>2018-05-16T07:00:33Z</updated>
     </source>
   </entry>
 
@@ -2217,7 +2296,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-16T06:30:22Z</updated>
+      <updated>2018-05-16T07:00:32Z</updated>
     </source>
   </entry>
 
@@ -2543,7 +2622,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-16T06:30:16Z</updated>
+      <updated>2018-05-16T07:00:25Z</updated>
     </source>
   </entry>
 
@@ -2566,7 +2645,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-16T06:30:12Z</updated>
+      <updated>2018-05-16T07:00:07Z</updated>
     </source>
   </entry>
 
@@ -2591,7 +2670,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-16T06:30:17Z</updated>
+      <updated>2018-05-16T07:00:25Z</updated>
     </source>
   </entry>
 
@@ -2614,7 +2693,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-16T06:30:11Z</updated>
+      <updated>2018-05-16T07:00:06Z</updated>
     </source>
   </entry>
 
@@ -2641,7 +2720,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-16T06:30:21Z</updated>
+      <updated>2018-05-16T07:00:31Z</updated>
     </source>
   </entry>
 
@@ -2664,7 +2743,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-16T06:30:12Z</updated>
+      <updated>2018-05-16T07:00:07Z</updated>
     </source>
   </entry>
 
@@ -2741,128 +2820,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-16T06:30:19Z</updated>
-    </source>
-  </entry>
-
-  <entry>
-    <id>https://medium.com/p/7b6d1a9ec67c</id>
-    <link href="https://medium.com/@viterbi.or.not/formal-project-proposal-7b6d1a9ec67c?source=rss-c522ef075bb3------2" rel="alternate" type="text/html"/>
-    <title>Formal Project Proposal</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*cr8jfKVLjgd9Y7YmxXWSYA.png"/></figure><p>Introducing our project topic, <strong>automatic conversation summarization</strong>! Our proposal will outline specific objectives, motivations, and plan we have for this project. We also cover here the resources we have gathered — related work, datasets (as promised), and evaluation frameworks, to demonstrate viability and give background on the topic.</p><h4><strong>Objective</strong></h4><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*DmM6aXAhZi61Ec7Yhp6YBw.png"/>Example summarization of an email chain from the <a href="https://www.cs.ubc.ca/cs-research/lci/research-groups/natural-language-processing/bc3.html">W3C email threads corpus</a></figure><p>In the field of automatic text summarization, there are numerous techniques that can be used to produce summaries of general text data. However, for our project, we seek to work on a more specific type of data by exploring and evaluating techniques for summarization of conversation logs. Therefore, the models we will attempt to implement and measure will take input in the form of natural text from conversations, such as email threads, chat logs, or transcribed spoken conversations, and output more concise summaries that capture the most important parts of the input.</p><p>While a document or paper typically sticks to a single topic at once and represents communication between an author and the reader, conversational data is characterized by a mixing of sub-topics and, in many cases, contributions from multiple different authors before one topic is finished. As a result, the objective of conversational summarization includes identifying topics and threads among a potentially chaotic conversation in order to make a sensible summarization even without the benefit of a single, linear topic progression.</p><h4><strong>Extractive vs. Abstractive</strong></h4><p>When considering text summarization, a distinction has to be made between two different approaches to summarization that offer different levels of implementation difficulty and usefulness. An extractive summary is produced by identifying the most important sentences from the input text and combining them to form a summary that is the concatenation of those sentences.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*iZujvW2rP_HSVU2KXLtvew.png"/>Example of a short chatlog and its corresponding extractive summary</figure><p>Alternatively, an abstractive summary consists of new text generated from the topics and important aspects of the input text, but requires the model to create new summary sentences rather than simply re-using existing ones. As a result of this generation process, abstractive summaries are typically considered to be more useful, because they consist of natural-sounding text while still paraphrasing the concepts that are important. However, current techniques perform much better at generating extractive summaries, which are considered much easier to implement because they only require assigning scores to the sentences of the input.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*1oiGv-MrfdubjbKv-Vp9fA.png"/>Example of a short chatlog and its corresponding abstractive summary</figure><h4><strong>Motivation</strong></h4><p>The <strong>academic</strong> motivations behind our project are to pursue a topic in summarization that has been relatively less explored. This means tackling the challenges that come with the conversation summarization domain — annotated conversation datasets are typically smaller and more unpredictable, and whereas tasks like document summary usually involve one topic written by one author/voice, conversations and involve many participants and have less well-defined topic segmentation.</p><p>The project is also motivated by the possibly impactful <strong>applications </strong>of conversation summarization. Being able to summarize long chains of emails or group IMs is an increasingly important task to tackle in today’s world and can be a useful augmentation to digital group conversations.</p><h4><strong>Related Work</strong></h4><p>In our literature survey, we will first discuss the two papers that have been most impactful in helping establish our project plan.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*U0i-moKx4s_YB3My."/>Graph of contributions of general feature categories to the performance of logistic regression classifiers</figure><p><a href="http://www.aclweb.org/anthology/D08-1081"><strong>Summarizing Spoken and Written Conversations</strong></a><strong>¹ </strong>uses meeting and email datasets. The authors of this paper approach extractive summarization with logistic regression classifiers and a mix of general summarization features as well as some basic conversation summarization features. The overall feature categories can be seen in the corresponding figure, which graphs the contributions of each feature category to the classifier’s performance. “Participant” category features were found to help achieve competitive results.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1010/0*wLl3u1tR-GKYuIql."/>Table of performances of previously published models and the models used in the experiment (C4.5, NB, MLP, SVM)</figure><p><a href="http://web2py.iiit.ac.in/research_centres/publications/download/inproceedings.pdf.8b32440f2dc771c4.323031325f414e445f43616d6572612e706466.pdf"><strong>Summarizing Online Conversations: A Machine Learning Approach</strong></a><strong>²</strong> uses chatlog and meeting datasets. The authors of this paper conduct experiments with Decision Tree, Naive Bayes classifier, Multilayer Perceptron (MLP) and Support Vector Machine (SVM) summarizers to create extractive summaries. The input feature vectors to these trainable summarizers use both general summarization features (sentence length, sentence position, similarity to title, etc.) as well as conversation specific summarization features that are more specialized than those mentioned in the previously discussed paper (is question, sentiment score, discourse markers). The paper overall found that the Naive Bayes classifier and MLP performed the best.</p><h4><strong>Datasets</strong></h4><p>The datasets we found cover a variety of conversation domains and are all human-annotated with summaries.</p><p><strong>Email: </strong><a href="https://www.cs.ubc.ca/cs-research/lci/research-groups/natural-language-processing/bc3.html"><strong>W3C Email Threads</strong></a></p><ul><li>40 email threads of ~80 lines each</li><li>Extractive and Abstractive Summaries</li></ul><p><strong>Chat: </strong><a href="https://flossmole.org/content/software-archaeology-gnue-irc-data-summaries"><strong>GNU Enterprise Chatlogs</strong></a></p><ul><li>~120 chats of ~1200 lines each</li><li>Abstractive Summaries</li></ul><p><strong>Spoken Conversation: </strong><a href="http://groups.inf.ed.ac.uk/ami/corpus/"><strong>AMI Meeting Transcripts</strong></a></p><ul><li>140 meeting transcriptions of ~45 minutes each</li><li>Extractive and Abstractive Summaries</li></ul><h4><strong>Evaluation</strong></h4><p>In terms of <strong>automated</strong> methods of evaluation for the summaries that we will generate, there are a few frameworks we can use:</p><p><strong>BLEU</strong> (BIlingual Evaluation Understudy)</p><ul><li>Precision measure with some enhancements</li></ul><p><strong>METEOR</strong> (Metric for Evaluation of Translation with Explicit ORdering)</p><ul><li>Improves on BLEU by adding recall, synonyms</li><li>Better at sentence-level evaluation</li></ul><p><strong>ROUGE</strong> (Recall-Oriented Understudy for Gisting Evaluation)</p><ul><li><strong>ROUGE-L</strong>: Longest common subsequence</li><li><strong>ROUGE-N</strong>: Overlap of N-Grams between passages</li></ul><p>However, for summarization tasks, <strong>human evaluation</strong> is possibly most ideal and it is unclear if any automatic metric can be as effective.</p><h4><strong>Minimum Viable Product</strong></h4><p>Our plan is to start with two <strong>baseline models</strong> that replicate the best performing models (Naive Bayes and MLP approaches) of “Summarizing Online Conversations: A Machine Learning Approach” using the non-conversation specific features.</p><p>We would then experiment with tweaks to the baseline models that use conversation-specific features, both based off of the ones described in the paper and also based on some of our ideas about what kinds of domain-specific features might benefit conversation summarization. We can also continue to explore alternative models and compare model approaches.</p><h4><strong>Stretch Goals</strong></h4><p>There are a number of ideas we have for stretch goals that can push our project further:</p><p><strong>Neural Network implementation: </strong>Applying general summarization techniques to conversation</p><p><strong>Model entity relationships: </strong>Identifying the role of a contributor or named entity, such as a supervisor in an email thread</p><p><strong>Abstractive summarization: </strong>Convert a previously extractive summary to be natural-sounding and abstractive</p><p><strong>Optimize performance for a specific domain: </strong>For example, in chats about bugfixes, use that specific context to try outperforming the general case</p><p><strong>Relate parameters from different types of data: </strong>For example, use data from spoken corpus to improve results on email</p><p>We hope you enjoyed reading our project proposal and we are excited to get working!</p><p>[1] Murray, G. &amp; Carenini, G. (2008). Summarizing Spoken and Written Conversations. <em>Proceedings of the 2008 Conference on Empirical Methods in Natural Language Processing, </em>773–782.</p><p>[2] Sood, A. &amp; Varma, V. (2012). Summarizing Online Conversations: A Machine Learning Approach. <em>Centre for Search and Information Extraction Lab International Institute of Information Technology Hyderabad,</em> 500.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=7b6d1a9ec67c" width="1"/></div>
-    </content>
-    <updated>2018-04-11T06:56:31Z</updated>
-    <category term="nlp"/>
-    <author>
-      <name>Viterbi Or Not To Be</name>
-    </author>
-    <source>
-      <id>https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2</id>
-      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*wiisg40Bu4z11RTWJ66mnA.png</logo>
-      <link href="https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2" rel="alternate" type="text/html"/>
-      <link href="https://medium.com/feed/@viterbi.or.not" rel="self" type="application/rss+xml"/>
-      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
-      <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
-      <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-16T06:30:19Z</updated>
-    </source>
-  </entry>
-
-  <entry>
-    <id>https://medium.com/p/c8a12d3ae611</id>
-    <link href="https://medium.com/@be.li.nda/nlp-capstone-blog-3-project-proposal-c8a12d3ae611?source=rss-fad49d942bf3------2" rel="alternate" type="text/html"/>
-    <title>NLP Capstone Blog #3: Project Proposal</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>The project I’m working on is document-level entity-entity sentiment analysis.</p><h4>Objectives and Definition</h4><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*mfDKzKS3wAEnJZ3gvLHwyw.png"/>Notice in the above example that the arc from Russia to Belarus is negative, which makes sense if our article has the sentence “Russia criticizes Belarus.”</figure><p>The goal of my project can be stated thusly: given a document, be able to figure out whether various entities within the document feel positively or negatively towards each other.</p><p>In particular, I’m looking to apply a neural model to <a href="https://homes.cs.washington.edu/~eunsol/papers/acl2016.pdf">an existing paper</a> in an attempt to improve its F1 scores.</p><p>Applications of this work include:</p><ul><li>Modeling social dynamics between entities</li><li>Applying sentiment analysis to problems beyond simply movie/product reviews</li></ul><p>A farther motivation for this project is that entity-entity sentiment analysis is a relatively novel task, with little existing work thus far. Also, even work in related fields is usually focused on the sentence level, rather than the document level.</p><h4><strong>Literature Survey</strong></h4><p>Some work in related fields to this project. For each paper, I will be focusing especially on its model /methodologies, which could be of use to developing my own model —</p><p><strong>Targeted Sentiment Analysis</strong></p><p><a href="https://www.aaai.org/ocs/index.php/AAAI/AAAI16/paper/download/12074/12065">Zhang, Meishan, Zhang, Yue, and Vo, Duy-Tin, 2016. Gated Neural Networks for Targeted Sentiment Analysis.</a></p><ul><li>Introduced the use of gated neural networks to perform targeted sentiment analysis.</li><li>Inputs: Concatenation of 2 types of word embeddings: both embeddings incorporate sentiment information in some way</li><li>Model: GRNN + G3 model, where outputs of GRNN are pooled and fed into G3. The G3 was used to better model interaction between left and right context for an entity, as sentiment can be dominated by left or right context</li><li>Outputs: Targeted sentiment</li></ul><p><strong>Coreference Resolution</strong></p><p><a href="https://homes.cs.washington.edu/~luheng/files/emnlp2017_lhlz.pdf">Lee, Kenton, He, Luheng, Lewis, Mike, and Zettlemoyer, Luke, 2017. End-to-end Neural Coreference Resolution.</a></p><ul><li>Model: 2-step, 1st step being a biLSTM, and 2nd step being a FFNN</li><li>Inputs to FFNN: Something nice about this model is the fact that they were able to encode multi-word entities efficiently by concatenating LSTM outputs.</li></ul><figure><img alt="" src="https://cdn-images-1.medium.com/max/227/1*7yoU47vuvU5CaBm-r3n3aw.png"/>ϕ used to encode size of span. x* are outputs of LSTMs for boundaries of span. x hat are outputs of attention mechanism over span.</figure><ul><li>FFNN architecture:</li></ul><figure><img alt="" src="https://cdn-images-1.medium.com/max/390/1*9KxdIWkYNSzMwDJeSI3fuw.png"/></figure><p><strong>Document-level Relation Extraction</strong></p><p><a href="https://www.cs.jhu.edu/~npeng/papers/TACL_17_RelationExtraction.pdf">Peng, Nanyun, Poon, Hoifung, Quirk, Chris, Toutanova, Kristina, Yih, and Wen-tau, 2017. Cross-Sentence N-ary Relation Extraction with Graph LSTMs.</a></p><figure><img alt="" src="https://cdn-images-1.medium.com/max/600/1*-M0TCCGCpmYtYpVnYfhAHg.png"/>Example of a graph LSTM structure used in the paper. Note the additional links between non-adjacent cells encodes for syntactic dependencies and discourse relations.</figure><ul><li>Uses a graph LSTM with architecture following the structure of the document graph (introduced by <a href="https://arxiv.org/pdf/1609.04873.pdf">Quirk and Poon, 2017</a>), which encodes various dependencies, including word adjacency, syntactic dependencies, and discourse relations</li></ul><p><a href="https://arxiv.org/pdf/1802.10569.pdf">Verga, Patrick, Strubell, Emma, and McCallum, Andrew, 2018. Simultaneously Self-Attending to All Mentions for Full-Abstract Biological Relation Extraction.</a></p><figure><img alt="" src="https://cdn-images-1.medium.com/max/345/1*6ap---pVvwWNNdCgwhh16w.png"/></figure><ul><li>Bi-affine neural model: First pass document through Transformer, then evaluate relations between pairs of tokens using a bi-affine operator and the LogSumExp function</li></ul><h4><strong>Methodologies</strong></h4><p><strong>Baseline Neural Model (Minimal Viable Plan)</strong></p><p>Inputs: for each token, concatenate word embeddings, polarity embeddings, and holder/target/none embeddings</p><ul><li>Word embeddings are pre-trained GloVe embeddings</li><li>EX: “the cat disliked milk”, holder = “cat”, target = “milk”</li><li>Input becomes: [the, 0, 0] [cat, 0, H] [disliked, NEG, 0] [milk, 0, T]</li></ul><p>Model: Attentive biLSTM</p><p>Output: Sentiment score for positivity and negativity</p><p><strong>Scoring Holder/Target Sentiment in a Second Step (Minimal Viable Plan / Stretch Goal, i.e. I think I can get this but I can’t guaruntee it)</strong></p><ol><li>Feedforward Neural Network: Incorporating the FFNN from the Lee et al. paper (see above for details). To adapt the architecture for my needs, I will get rid of the mention score, and thus the white and grey cells will be the same. The grey cell, instead of outputting a coreference score, will output a sentiment (positivity and negativity) score.</li><li>Bi-affine Scoring: Incorporating the scoring mechanism from the Verga et al. paper (see above for details). Instead of a “Transformer,” I will use the LSTM from my baseline model, which gets fed in to two MLPs, the biaffine operator, and finally aggregated using the LogSumExp function.</li></ol><p><strong>Experimenting with Different Ways of Aggregating across Different Mentions (Stretch Goal)</strong></p><ol><li>LogSumExp function from the Verga et al. paper (see above).</li><li>Encode inputs to second step in a way that incorporates information from all mentions.</li></ol><p><strong>Experimenting with Graph LSTM Structure (Stretch Goal)</strong></p><ul><li>Based off of ideas in Peng et al. paper (see above)</li></ul><p><strong>Incorporate Ideas from Targeted Sentiment Analysis (Stretch Goal)</strong></p><ul><li>Add a G3 gate, based on Zhang et al. paper (see above), or even adapt the architecture of the G3 gate to better suit the task of sentiment analysis between entities</li></ul><h4><strong>Available Resources</strong></h4><p>Dataset from Choi et al. (paper I’m improving). The data has already been pre-processed using StanfordNLP. Some of the preprocessing that’s been done includes tokenization, named entity recognition, and co-reference resolution.</p><h4><strong>Evaluation Plan</strong></h4><p>As an evaluation metric, I’m going to use the F1 scores for both positive and negative sentiments.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=c8a12d3ae611" width="1"/></div>
-    </content>
-    <updated>2018-04-11T06:47:08Z</updated>
-    <category term="deep-learning"/>
-    <category term="naturallanguageprocessing"/>
-    <category term="machine-learning"/>
-    <author>
-      <name>Belinda Zou Li</name>
-    </author>
-    <source>
-      <id>https://medium.com/@be.li.nda?source=rss-fad49d942bf3------2</id>
-      <logo>https://cdn-images-1.medium.com/fit/c/150/150/0*A16vZtRWBzxYPlmn.</logo>
-      <link href="https://medium.com/@be.li.nda?source=rss-fad49d942bf3------2" rel="alternate" type="text/html"/>
-      <link href="https://medium.com/feed/@be.li.nda" rel="self" type="application/rss+xml"/>
-      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
-      <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
-      <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-16T06:30:17Z</updated>
-    </source>
-  </entry>
-
-  <entry xml:lang="en">
-    <id>http://mathstoc.wordpress.com/?p=309</id>
-    <link href="https://mathstoc.wordpress.com/2018/04/11/nlp-capstone-post-3-proposal/" rel="alternate" type="text/html"/>
-    <title>NLP Capstone Post #3: Proposal</title>
-    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">Here, we finally present our project proposal in full. Project Objectives: Our goal for this project is to engineer a model that, given the instrumental (“karaoke”) music for a song in English represented as MIDI data, output a coherent sequence of words corresponding to lyrics for the music. The model will produce timings along with … <a class="more-link" href="https://mathstoc.wordpress.com/2018/04/11/nlp-capstone-post-3-proposal/">Continue reading <span class="screen-reader-text">NLP Capstone Post #3: Proposal</span></a></div>
-    </summary>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>Here, we finally present our project proposal in full.</p>
-<h3>Project Objectives:</h3>
-<p>Our goal for this project is to engineer a model that, given the instrumental (“karaoke”) music for a song in English represented as MIDI data, output a coherent sequence of words corresponding to lyrics for the music. The model will produce timings along with the words to align it with the background instrumentals. Additionally, given the output of the model and the input music, we will automate their combination into a song complete with lyrics and supporting instrumentals. This combined output will be playable and we intend to do live demonstration.</p>
-<h3>Proposed Methodology:</h3>
-<p>Here, we outline the steps we will need to take in detail.</p>
-<li>Data collection (datasets of songs, preferably with instrumentals and lyrics already separated)</li>
-<li>Decide on vocabulary and how to handle uncommon words</li>
-<li>Decide and implement any required preprocessing of the raw MIDI data. Strip lyrics from MIDI data if not already provided in dataset.</li>
-<li>Decide and implement model (see Model Design)</li>
-<li>Implement model sanity checks</li>
-<li>Model tweaking (we expect this will take the majority of the time; see Model Design)</li>
-<li>Implement automated combination of model output (lyrics) and model input (instrumentals)</li>
-<li>Further testing</li>
-<li>Assuming preceding steps are completed satisfactorily, proceed to stretch goals</li>
-<li>Presentation and write-up</li>
-<h3>Model Design:</h3>
-<p>We will pursue a seq2seq RNN approach, taking in input MIDI data represented as a sequence, and outputting a sequence of words from a specified vocabulary. This model will be referred to as the generator. We will employ adversarial training, simultaneously training a many-to-one RNN discriminator that, given the input instrumentals and corresponding lyrics, output if the lyrics were produced by the generator or not. We will follow approaches taken in previous works such as SeqGAN [2] (and [3, 4]), namely using policy gradient ideas from reinforcement learning to obtain gradients that can be backpropagated from the discriminator network through the generator network. We note that syntactic correctness can be enforced in this manner, as malformed lyrical output can be assigned arbitrarily small reward.</p>
-<h3>Stretch Goals:</h3>
-<p>There are several stretch goals we will consider, time permitted. They are as follows, in no particular order.</p>
-<li>Handling multiple languages, particularly those with less available data</li>
-<li>Given a specific songwriter/band, produce the instrumentals along with lyrics for a new song that is in the style of that songwriter/band</li>
-<li>Lyrics generation for duets, or multi-singer songs</li>
-<li>Playing with phoneme-level generation</li>
-<h3>Core Challenges:</h3>
-<p>The core challenges we will need to overcome include alignment of lyrics with the music, and production of sensible lyrics. On the more technical side, it is well-known that ensuring convergence in adversarial training is difficult.</p>
-<h3>Available Resources:</h3>
-<p>Existing music datasets for machine learning tasks are made up of audio samples (such as .wav or .mp3), or MIDI data that specifies timing and notes. For karaoke, lyrics are also provided either as a separate text file (.LRC) specifying the timing of each word, or can be embedded into the MIDI file directly (.KAR). It may also be useful to train a lyric model on a larger corpus of song lyrics, since lyrics are easier to collect than fully time-annotated karaoke files.</p>
-<p>The MusicNet dataset [9] provides 330 classical instrumental audio files, each of which has associated timing provided for every note. Since we are primarily interested in lyrical generation and alignment, this dataset is not going to be useful for creating a language model.</p>
-<p>An existing karaoke dataset called Kara1k [1] provides many features computed from 1000 lyric-annotated songs. This provides lots of metadata about each song, including annotated chords for each timestep of the song. According to the KaraMIR website, these features are extracted from audio samples using Vamp Plugins, which estimates chords with accuracy up to 70%. </p>
-<p>We propose a new dataset (name not yet determined) of MIDI karaoke data with embedded lyrics (.KAR). This dataset contains over 700 files, scraped from a karaoke content aggregator [11]. Timed lyrical data has been extracted from these files, and the precise timing of each note is already available by nature of the MIDI format.</p>
-<p>Additional datasets for training a lyric model may be useful, and many are available. One such dataset is the 55000+ Song Lyrics on Kaggle [10]. This could help our model generalize its lyrical output beyond the limited set of vocabulary available within the 1000 or fewer annotated karaoke songs.</p>
-<h3>Evaluation Plan:</h3>
-<p>Evaluation of our model can be done several ways. The first is simply to listen to the music ourselves. This is the most direct method of evaluation but is not efficient, as likely we will need many iterations of tuning; furthermore, will likely need to listen to several songs to be confident of the model’s quality. Hence, we will also design basic “sanity check” tests for our models.</p>
-<p>Recall that in our proposed methodology, we intend to use adversarial training. The discriminator network itself gives a direct evaluation of the generator. As long as the discriminator is of vetted quality, and the discriminator is run on sufficiently many examples (with roughly even number of generated and true examples mixed in), the generator will be deemed also of sufficient quality (as a “sanity check”).</p>
-<p>Of course, this leaves the question of ensuring the discriminator is good. We can run the discriminator on instrumentals combined with randomly generated words (according to some distribution), or on instrumentals combined with the original lyrics, which are perturbed in some fashion. As an example, one can perturb the original lyrics temporally (making an utterance off-beat when it should be precisely on the down-beat of a bar) or replacing a few words with randomly selected ones (according to some distribution over the vocabulary). These “test inputs” to the discriminator can be generated before-hand.</p>
-<h3>Literature Survey:</h3>
-<p>Here are some relevant papers (most were already included in preceding posts).</p>
-<p>[1] Y. Bayle, L. Marsik, M. Rusek, M. Robine, P. Hanna, K. Slaninova, J. Martinovic, J. Pokorny. “Kara1k: A Karaoke Dataset for Cover Song Identification and Singing Voice Analysis”. IEEE International Symposium on Multimedia (ISM), 2017. <a href="https://ieeexplore.ieee.org/document/8241597/" rel="nofollow">https://ieeexplore.ieee.org/document/8241597/</a></p>
-<p>[2] L. Yu, W. Zhang, J. Wang, Y. Yu. “SeqGAN: Sequence Generative Adversarial Nets with Policy Gradient”. Proceedings of the Thirty-First AAAI Conference on Artificial Intelligence, 2017. <a href="https://arxiv.org/abs/1609.05473" rel="nofollow">https://arxiv.org/abs/1609.05473</a></p>
-<p>[3] S. Lee, U. Hwang, S. Min, S. Yoon. “A SeqGAN for Polyphonic Music Generation”. 2017. <a href="https://arxiv.org/abs/1710.11418" rel="nofollow">https://arxiv.org/abs/1710.11418</a></p>
-<p>[4] H. W. Dong, W. Y. Hsiao, L. C. Yang, Y. H. Yang. “MuseGAN: Multi-track Sequential Generative Adversarial Networks for Symbolic Music Generation and Accompaniment”. 2017. <a href="https://arxiv.org/abs/1709.06298" rel="nofollow">https://arxiv.org/abs/1709.06298</a></p>
-<p>[5] I. J. Goodfellow, J. Pouget-Abadie, M. Mirza, B. Xu, D. Warde-Farley, S. Ozair, A. Courville, Y. Bengio. “Generative Adversarial Nets”. NIPS, 2014. <a href="https://papers.nips.cc/paper/5423-generative-adversarial-nets" rel="nofollow">https://papers.nips.cc/paper/5423-generative-adversarial-nets</a></p>
-<p>[6] T. Salimans, I. J. Goodfellow, W. Zaremba, V. Cheung, A. Radford, X. Chen. “Improved Techniques for Training GANs”. NIPS, 2016. <a href="https://arxiv.org/abs/1606.03498" rel="nofollow">https://arxiv.org/abs/1606.03498</a></p>
-<p>[7] M. Arjovsky,  S. Chintala, L. Bottou. “Wasserstein GAN”. 2017. <a href="https://arxiv.org/abs/1701.07875" rel="nofollow">https://arxiv.org/abs/1701.07875</a></p>
-<p>[8] J. Faille, Y. Wang. “Using Deep Learning to Annotate Karaoke Songs”. 2016. <a href="https://www.semanticscholar.org/paper/Using-Deep-Learning-to-Annotate-Karaoke-Songs-Faille-Wang/521361762a7327f8fcc77bd9d76eaa2b503f845a" rel="nofollow">https://www.semanticscholar.org/paper/Using-Deep-Learning-to-Annotate-Karaoke-Songs-Faille-Wang/521361762a7327f8fcc77bd9d76eaa2b503f845a</a></p>
-<p>[9] J. Thickstun, Z. Harchaoui, S. Kakade. “Learning Features of Music from Scratch”. 2017. <a href="https://arxiv.org/abs/1611.09827" rel="nofollow">https://arxiv.org/abs/1611.09827</a></p>
-<p>[10] Additional data <a href="https://www.kaggle.com/mousehead/songlyrics">here</a></p>
-<p>[11] Even more additional data <a href="http://vooch.narod.ru/midi/midi.htm">here</a></p></div>
-    </content>
-    <updated>2018-04-11T06:45:55Z</updated>
-    <category term="NLP Capstone"/>
-    <author>
-      <name>Kuikui Liu</name>
-    </author>
-    <source>
-      <id>https://mathstoc.wordpress.com</id>
-      <logo>https://s0.wp.com/i/buttonw-com.png</logo>
-      <link href="https://mathstoc.wordpress.com/category/nlp-capstone/feed/" rel="self" type="application/rss+xml"/>
-      <link href="https://mathstoc.wordpress.com" rel="alternate" type="text/html"/>
-      <link href="https://mathstoc.wordpress.com/osd.xml" rel="search" title="Mathematical Distractions" type="application/opensearchdescription+xml"/>
-      <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
-      <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
-      <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-16T06:30:22Z</updated>
+      <updated>2018-05-16T07:00:28Z</updated>
     </source>
   </entry>
 </feed>
