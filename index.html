@@ -157,6 +157,88 @@
 </tbody>
 </table>
 <h3>Advanced Model Attempt</h3>
+<p><span style="font-weight: 400;">We implemented a new model which incorporates attention.</span></p>
+<p><span style="font-weight: 400;">The way we did it is by writing an seq2seq (in this case, is LSTM) encoder with attention and then take the last dimension of each sequence as our vector representation of the whole sentence.</span></p>
+<p><span style="font-weight: 400;">For example, if we have (batch_size, sentence_length, dim), our vector representation will become (batch_size, dim).</span></p>
+<p><span style="font-weight: 400;">After that, we passed it through a 2-layer feedforward neural network and map the output to a 2-dimensional vector which represents each class (hate, none in this case). Then we do a softmax and pick the one with the highest probability as our prediction.</span></p>
+<p><b>Statistics</b></p>
+<table>
+<tbody>
+<tr>
+<td><span>50d</span></td>
+<td><span>Without ELMo</span></td>
+</tr>
+<tr>
+<td><span>F1</span></td>
+<td><span>0.7907</span></td>
+</tr>
+<tr>
+<td><span>Precision</span></td>
+<td><span>0.7961</span></td>
+</tr>
+<tr>
+<td><span>Recall</span></td>
+<td><span>0.7862</span></td>
+</tr>
+<tr>
+<td><span>Accuracy</span></td>
+<td><span>0.8194</span></td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<table>
+<tbody>
+<tr>
+<td><span>100d</span></td>
+<td><span>Without ELMo</span></td>
+</tr>
+<tr>
+<td><span>F1</span></td>
+<td><span>0.7907</span></td>
+</tr>
+<tr>
+<td><span>Precision</span></td>
+<td><span>0.8076</span></td>
+</tr>
+<tr>
+<td><span>Recall</span></td>
+<td><span>0.7798</span></td>
+</tr>
+<tr>
+<td><span>Accuracy</span></td>
+<td><span>0.8242</span></td>
+</tr>
+</tbody>
+</table>
+<p> </p>
+<table>
+<tbody>
+<tr>
+<td><span>200d</span></td>
+<td><span>Without ELMo</span></td>
+</tr>
+<tr>
+<td><span>F1</span></td>
+<td><span>0.7944</span></td>
+</tr>
+<tr>
+<td><span>Precision</span></td>
+<td><span>0.7902</span></td>
+</tr>
+<tr>
+<td><span>Recall</span></td>
+<td><span>0.7995</span></td>
+</tr>
+<tr>
+<td><span>Accuracy</span></td>
+<td><span>0.8166</span></td>
+</tr>
+</tbody>
+</table>
+<p><b>Unexpected Problem encountered:</b></p>
+<p><span style="font-weight: 400;">There was a bug in pytorch saying “fn” is undefined when we want to train LSTM with ELMo using CUDA, and we have no luck on fixing that. After googling it, it turns out to be a problem related to pytorch 0.3.1 and it’s fixed in a later version like 0.4.0. Since Allennlp requires pytorch 0.3.1, we may have to try something else instead.</span></p>
+<p><span style="font-weight: 400;">We will try to use GRU instead (hopefully it works) and report all metrics in detail in next week’s blog post.</span></p>
 <h3>Demo Frontend</h3>
 <p><span style="font-weight: 400;">Previously, we used default AllenNLP frontend for demoing purpose. Although it was easy to set up and use by us the developers who knew exactly what numbers we are looking for, it was not intuitive to use at all for other people. The default demo page looked like this:</span></p>
 <p><img alt="" class="alignnone size-full wp-image-107" height="922" src="http://cse481n-capstone.azurewebsites.net/wp-content/uploads/2018/05/old_demo.png" width="2712" /></p>
@@ -165,7 +247,7 @@
 <p><span style="font-weight: 400;">As shown above, while the overall page format looked the same (the left half is input, the right half is output), the output display changed quite a bit. The predicted label is nicely put into a sentence and highlighted under “Prediction”, and the class probabilities are in a table with the “Hate probability” entry highlighted under “Summary Breakdown”. We also added hate probability visualization at the end. A linear gradient from bright green to red represented hate probability from 0% to 100%, a dark vertical line representing the predicted hate probability of the current sentence, and a small label under the dark line showing the hate probability. </span></p>
 <p><span style="font-weight: 400;">Not only is the new demo page easier to read and see the changes when each word is entered, this simple output display could potentially be ported to AMT surveys in the future if we want turkers to come up with hard to detect examples.</span></p>
 <h3>Next Steps:</h3>
-<p>On the data collection front, we will push forward in the process of getting our reddit dataset labeled.  For modeling, we would perform more hyperparameter tuning and error analysis, and we want to explore potential ways to make neural nets work with relatively small datasets like these twitter datasets that we currently have.</p></div>
+<p>On the data collection front, we will push forward in the process of getting our reddit dataset labeled.  For modeling, we would perform more hyperparameter tuning and error analysis as well as incorporating ELMo into the current model, and hopefully, we get to explore potential ways to make neural nets work with relatively small datasets like these twitter datasets that we have.</p></div>
 
 
 
@@ -3390,7 +3472,7 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 
 <p>
 <strong>Last updated:</strong><br>
-May 16, 2018 06:00 AM<br>
+May 16, 2018 06:30 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
