@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:planet="http://planet.intertwingly.net/" xmlns:indexing="urn:atom-extension:indexing" indexing:index="no"><access:restriction xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" relationship="deny"/>
   <title>NLP Capstone Spring 2018</title>
-  <updated>2018-05-16T05:00:21Z</updated>
+  <updated>2018-05-16T05:30:16Z</updated>
   <generator uri="http://intertwingly.net/code/venus/">Venus</generator>
   <author>
     <name>Nelson Liu</name>
@@ -30,7 +30,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-16T05:00:08Z</updated>
+      <updated>2018-05-16T05:30:07Z</updated>
     </source>
   </entry>
 
@@ -38,9 +38,60 @@
     <id>http://cse481n-capstone.azurewebsites.net/?p=105</id>
     <link href="http://cse481n-capstone.azurewebsites.net/2018/05/15/advanced-attempt-ii-2/" rel="alternate" type="text/html"/>
     <title>Advanced Attempt II</title>
-    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">Data Collection Advanced Model Attempt Demo Frontend Previously, we used default AllenNLP frontend for demoing purpose. Although it was easy to set up and use by us the developers who knew exactly what numbers we are looking for, it was not intuitive to use at all for other people. The default demo page looked like … <a class="more-link" href="http://cse481n-capstone.azurewebsites.net/2018/05/15/advanced-attempt-ii-2/">Continue reading<span class="screen-reader-text"> "Advanced Attempt II"</span></a></div>
+    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">Data Collection In our last post, we described our final collection of Reddit sentences that we would send for labeling. We decided to add subreddit metadata to each sentence before sending it off, but this created an unexpected slight setback because of the way we spliced posts into sentences after throwing away all of the … <a class="more-link" href="http://cse481n-capstone.azurewebsites.net/2018/05/15/advanced-attempt-ii-2/">Continue reading<span class="screen-reader-text"> "Advanced Attempt II"</span></a></div>
     </summary>
     <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><h3>Data Collection</h3>
+<p><span style="font-weight: 400;">In our last post, we described our final collection of Reddit sentences that we would send for labeling. We decided to add subreddit metadata to each sentence before sending it off, but this created an unexpected slight setback because of the way we spliced posts into sentences after throwing away all of the metadata associated with the original dump. We did finish connecting each sentence to its originating subreddit however, and from doing so discovered a slight issue with our data. It turned out that from doing the hate lexicon matching described earlier, we got a few posts that looked like: “[uncensored-r/Bitcoin] &lt;</span><i><span style="font-weight: 400;">some original post</span></i><span style="font-weight: 400;">&gt; The following post by vichuu is being replicated because the post has been silently removed.” In the end we decided to add the subreddit “noncensored_bitcoin” to our blacklist and removed all its sentences from our dataset, but this decreased our dataset size to ~18k, down 2k from the last blog post. </span></p>
+<p><span style="font-weight: 400;">In our sixth blog post we showed the top 10 subreddits for quantity of posts. Here are the top 10 subreddits just in our dataset. </span></p>
+<p><span style="font-weight: 400;">As expected, we have a lot of MeanJoke sentences as well as sentences from other joke subreddits that probably have similar language structure. The inclusion of the hate lexicon set of sentences most likely helped bring diversity to this final set of sentences. Otherwise, it looks like a good collection of discussion subreddits. As well, since there are 18k sentences and the top 10 subreddits only sum to ~6000 of them we once again see the sparse nature of our data’s origins. </span></p>
+<table>
+<tbody>
+<tr>
+<td>Subreddit</td>
+<td>Number of Sentences</td>
+</tr>
+<tr>
+<td>MeanJokes</td>
+<td>2964</td>
+</tr>
+<tr>
+<td>AskReddit</td>
+<td>706</td>
+</tr>
+<tr>
+<td>Jokes</td>
+<td>565</td>
+</tr>
+<tr>
+<td>darkjokes</td>
+<td>387</td>
+</tr>
+<tr>
+<td>depression</td>
+<td>284</td>
+</tr>
+<tr>
+<td>relationships</td>
+<td>280</td>
+</tr>
+<tr>
+<td>DebateConservatives</td>
+<td>253</td>
+</tr>
+<tr>
+<td>offmychest</td>
+<td>227</td>
+</tr>
+<tr>
+<td>raisedbynarcissists</td>
+<td>168</td>
+</tr>
+<tr>
+<td>relationship_advice</td>
+<td>166</td>
+</tr>
+</tbody>
+</table>
 <h3>Advanced Model Attempt</h3>
 <h3>Demo Frontend</h3>
 <p><span style="font-weight: 400;">Previously, we used default AllenNLP frontend for demoing purpose. Although it was easy to set up and use by us the developers who knew exactly what numbers we are looking for, it was not intuitive to use at all for other people. The default demo page looked like this:</span></p>
@@ -48,10 +99,12 @@
 <p><span style="font-weight: 400;">In order to make the demo page more straightforward, we decided to only keep the most relevant fields of the model output: predicted label and class probabilities. Since it is also interesting to see how prediction changes every time a new word is entered, we designed the page to make a prediction everytime a blank space or ENTER is entered in the text input box (in addition to the Predict button being hit). Our new demo page looked like this (serving a different model):</span></p>
 <p><img alt="" class="alignnone size-full wp-image-108" height="1034" src="http://cse481n-capstone.azurewebsites.net/wp-content/uploads/2018/05/new_demo.png" width="2758"/></p>
 <p><span style="font-weight: 400;">As shown above, while the overall page format looked the same (the left half is input, the right half is output), the output display changed quite a bit. The predicted label is nicely put into a sentence and highlighted under “Prediction”, and the class probabilities are in a table with the “Hate probability” entry highlighted under “Summary Breakdown”. We also added hate probability visualization at the end. A linear gradient from bright green to red represented hate probability from 0% to 100%, a dark vertical line representing the predicted hate probability of the current sentence, and a small label under the dark line showing the hate probability. </span></p>
-<p><span style="font-weight: 400;">Not only is the new demo page easier to read and see the changes when each word is entered, this simple output display could potentially be ported to AMT surveys in the future if we want turkers to come up with hard to detect examples. </span></p></div>
+<p><span style="font-weight: 400;">Not only is the new demo page easier to read and see the changes when each word is entered, this simple output display could potentially be ported to AMT surveys in the future if we want turkers to come up with hard to detect examples.</span></p>
+<h3>Next Steps:</h3>
+<p>On the data collection front, we will push forward in the process of getting our reddit dataset labeled.  For modeling, we would perform more hyperparameter tuning and error analysis, and we want to explore potential ways to make neural nets work with relatively small datasets like these twitter datasets that we currently have.</p></div>
     </content>
     <updated>2018-05-16T03:27:56Z</updated>
-    <category term="Uncategorized"/>
+    <category term="Weekly blog"/>
     <author>
       <name>Team Watch Your Language!</name>
     </author>
@@ -61,7 +114,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-16T05:00:10Z</updated>
+      <updated>2018-05-16T05:30:09Z</updated>
     </source>
   </entry>
 
@@ -85,7 +138,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-16T05:00:06Z</updated>
+      <updated>2018-05-16T05:30:05Z</updated>
     </source>
   </entry>
 
@@ -108,7 +161,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-16T05:00:07Z</updated>
+      <updated>2018-05-16T05:30:06Z</updated>
     </source>
   </entry>
 
@@ -155,7 +208,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-16T05:00:21Z</updated>
+      <updated>2018-05-16T05:30:16Z</updated>
     </source>
   </entry>
 
@@ -178,7 +231,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-16T05:00:14Z</updated>
+      <updated>2018-05-16T05:30:11Z</updated>
     </source>
   </entry>
 
@@ -209,7 +262,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-16T05:00:18Z</updated>
+      <updated>2018-05-16T05:30:13Z</updated>
     </source>
   </entry>
 
@@ -233,7 +286,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-16T05:00:20Z</updated>
+      <updated>2018-05-16T05:30:16Z</updated>
     </source>
   </entry>
 
@@ -260,7 +313,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-16T05:00:20Z</updated>
+      <updated>2018-05-16T05:30:15Z</updated>
     </source>
   </entry>
 
@@ -285,7 +338,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-16T05:00:13Z</updated>
+      <updated>2018-05-16T05:30:10Z</updated>
     </source>
   </entry>
 
@@ -308,7 +361,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-16T05:00:17Z</updated>
+      <updated>2018-05-16T05:30:12Z</updated>
     </source>
   </entry>
 
@@ -572,7 +625,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-16T05:00:10Z</updated>
+      <updated>2018-05-16T05:30:09Z</updated>
     </source>
   </entry>
 
@@ -595,7 +648,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-16T05:00:08Z</updated>
+      <updated>2018-05-16T05:30:06Z</updated>
     </source>
   </entry>
 
@@ -618,7 +671,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-16T05:00:07Z</updated>
+      <updated>2018-05-16T05:30:06Z</updated>
     </source>
   </entry>
 
@@ -642,7 +695,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-16T05:00:06Z</updated>
+      <updated>2018-05-16T05:30:05Z</updated>
     </source>
   </entry>
 
@@ -687,7 +740,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-16T05:00:15Z</updated>
+      <updated>2018-05-16T05:30:12Z</updated>
     </source>
   </entry>
 
@@ -712,7 +765,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-16T05:00:13Z</updated>
+      <updated>2018-05-16T05:30:10Z</updated>
     </source>
   </entry>
 
@@ -738,7 +791,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-16T05:00:14Z</updated>
+      <updated>2018-05-16T05:30:11Z</updated>
     </source>
   </entry>
 
@@ -765,7 +818,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-16T05:00:20Z</updated>
+      <updated>2018-05-16T05:30:15Z</updated>
     </source>
   </entry>
 
@@ -790,7 +843,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-16T05:00:18Z</updated>
+      <updated>2018-05-16T05:30:13Z</updated>
     </source>
   </entry>
 
@@ -1268,7 +1321,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-16T05:00:10Z</updated>
+      <updated>2018-05-16T05:30:09Z</updated>
     </source>
   </entry>
 
@@ -1292,7 +1345,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-16T05:00:20Z</updated>
+      <updated>2018-05-16T05:30:16Z</updated>
     </source>
   </entry>
 
@@ -1315,7 +1368,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-16T05:00:08Z</updated>
+      <updated>2018-05-16T05:30:06Z</updated>
     </source>
   </entry>
 
@@ -1338,7 +1391,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-16T05:00:06Z</updated>
+      <updated>2018-05-16T05:30:05Z</updated>
     </source>
   </entry>
 
@@ -1361,7 +1414,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-16T05:00:07Z</updated>
+      <updated>2018-05-16T05:30:06Z</updated>
     </source>
   </entry>
 
@@ -1411,7 +1464,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-16T05:00:18Z</updated>
+      <updated>2018-05-16T05:30:13Z</updated>
     </source>
   </entry>
 
@@ -1438,7 +1491,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-16T05:00:20Z</updated>
+      <updated>2018-05-16T05:30:15Z</updated>
     </source>
   </entry>
 
@@ -1463,7 +1516,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-16T05:00:13Z</updated>
+      <updated>2018-05-16T05:30:10Z</updated>
     </source>
   </entry>
 
@@ -1486,7 +1539,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-16T05:00:17Z</updated>
+      <updated>2018-05-16T05:30:12Z</updated>
     </source>
   </entry>
 
@@ -1509,7 +1562,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-16T05:00:08Z</updated>
+      <updated>2018-05-16T05:30:07Z</updated>
     </source>
   </entry>
 
@@ -1532,7 +1585,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-16T05:00:14Z</updated>
+      <updated>2018-05-16T05:30:11Z</updated>
     </source>
   </entry>
 
@@ -1556,7 +1609,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-16T05:00:21Z</updated>
+      <updated>2018-05-16T05:30:16Z</updated>
     </source>
   </entry>
 
@@ -1700,7 +1753,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-16T05:00:10Z</updated>
+      <updated>2018-05-16T05:30:09Z</updated>
     </source>
   </entry>
 
@@ -1746,7 +1799,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-16T05:00:21Z</updated>
+      <updated>2018-05-16T05:30:16Z</updated>
     </source>
   </entry>
 
@@ -1770,7 +1823,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-16T05:00:06Z</updated>
+      <updated>2018-05-16T05:30:05Z</updated>
     </source>
   </entry>
 
@@ -1815,7 +1868,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-16T05:00:07Z</updated>
+      <updated>2018-05-16T05:30:06Z</updated>
     </source>
   </entry>
 
@@ -1843,7 +1896,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-16T05:00:18Z</updated>
+      <updated>2018-05-16T05:30:13Z</updated>
     </source>
   </entry>
 
@@ -1867,7 +1920,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-16T05:00:06Z</updated>
+      <updated>2018-05-16T05:30:05Z</updated>
     </source>
   </entry>
 
@@ -1894,7 +1947,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-16T05:00:20Z</updated>
+      <updated>2018-05-16T05:30:15Z</updated>
     </source>
   </entry>
 
@@ -1917,7 +1970,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-16T05:00:16Z</updated>
+      <updated>2018-05-16T05:30:12Z</updated>
     </source>
   </entry>
 
@@ -1941,7 +1994,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-05-16T05:00:19Z</updated>
+      <updated>2018-05-16T05:30:14Z</updated>
     </source>
   </entry>
 
@@ -1967,7 +2020,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-16T05:00:14Z</updated>
+      <updated>2018-05-16T05:30:11Z</updated>
     </source>
   </entry>
 
@@ -2035,7 +2088,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-16T05:00:21Z</updated>
+      <updated>2018-05-16T05:30:16Z</updated>
     </source>
   </entry>
 
@@ -2059,7 +2112,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-16T05:00:21Z</updated>
+      <updated>2018-05-16T05:30:16Z</updated>
     </source>
   </entry>
 
@@ -2385,7 +2438,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-16T05:00:10Z</updated>
+      <updated>2018-05-16T05:30:09Z</updated>
     </source>
   </entry>
 
@@ -2408,7 +2461,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-16T05:00:08Z</updated>
+      <updated>2018-05-16T05:30:06Z</updated>
     </source>
   </entry>
 
@@ -2433,7 +2486,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-16T05:00:13Z</updated>
+      <updated>2018-05-16T05:30:10Z</updated>
     </source>
   </entry>
 
@@ -2456,7 +2509,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-16T05:00:07Z</updated>
+      <updated>2018-05-16T05:30:06Z</updated>
     </source>
   </entry>
 
@@ -2483,7 +2536,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-16T05:00:20Z</updated>
+      <updated>2018-05-16T05:30:15Z</updated>
     </source>
   </entry>
 
@@ -2506,7 +2559,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-16T05:00:08Z</updated>
+      <updated>2018-05-16T05:30:07Z</updated>
     </source>
   </entry>
 
@@ -2583,7 +2636,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-16T05:00:18Z</updated>
+      <updated>2018-05-16T05:30:13Z</updated>
     </source>
   </entry>
 
@@ -2606,7 +2659,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-16T05:00:17Z</updated>
+      <updated>2018-05-16T05:30:12Z</updated>
     </source>
   </entry>
 
@@ -2631,7 +2684,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-16T05:00:13Z</updated>
+      <updated>2018-05-16T05:30:10Z</updated>
     </source>
   </entry>
 
@@ -2704,7 +2757,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-16T05:00:21Z</updated>
+      <updated>2018-05-16T05:30:16Z</updated>
     </source>
   </entry>
 
@@ -2728,7 +2781,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-05-16T05:00:19Z</updated>
+      <updated>2018-05-16T05:30:14Z</updated>
     </source>
   </entry>
 </feed>

@@ -73,6 +73,57 @@
 <div class="entry">
 <div class="content" lang="en-US">
 <h3>Data Collection</h3>
+<p><span style="font-weight: 400;">In our last post, we described our final collection of Reddit sentences that we would send for labeling. We decided to add subreddit metadata to each sentence before sending it off, but this created an unexpected slight setback because of the way we spliced posts into sentences after throwing away all of the metadata associated with the original dump. We did finish connecting each sentence to its originating subreddit however, and from doing so discovered a slight issue with our data. It turned out that from doing the hate lexicon matching described earlier, we got a few posts that looked like: “[uncensored-r/Bitcoin] &lt;</span><i><span style="font-weight: 400;">some original post</span></i><span style="font-weight: 400;">&gt; The following post by vichuu is being replicated because the post has been silently removed.” In the end we decided to add the subreddit “noncensored_bitcoin” to our blacklist and removed all its sentences from our dataset, but this decreased our dataset size to ~18k, down 2k from the last blog post. </span></p>
+<p><span style="font-weight: 400;">In our sixth blog post we showed the top 10 subreddits for quantity of posts. Here are the top 10 subreddits just in our dataset. </span></p>
+<p><span style="font-weight: 400;">As expected, we have a lot of MeanJoke sentences as well as sentences from other joke subreddits that probably have similar language structure. The inclusion of the hate lexicon set of sentences most likely helped bring diversity to this final set of sentences. Otherwise, it looks like a good collection of discussion subreddits. As well, since there are 18k sentences and the top 10 subreddits only sum to ~6000 of them we once again see the sparse nature of our data’s origins. </span></p>
+<table>
+<tbody>
+<tr>
+<td>Subreddit</td>
+<td>Number of Sentences</td>
+</tr>
+<tr>
+<td>MeanJokes</td>
+<td>2964</td>
+</tr>
+<tr>
+<td>AskReddit</td>
+<td>706</td>
+</tr>
+<tr>
+<td>Jokes</td>
+<td>565</td>
+</tr>
+<tr>
+<td>darkjokes</td>
+<td>387</td>
+</tr>
+<tr>
+<td>depression</td>
+<td>284</td>
+</tr>
+<tr>
+<td>relationships</td>
+<td>280</td>
+</tr>
+<tr>
+<td>DebateConservatives</td>
+<td>253</td>
+</tr>
+<tr>
+<td>offmychest</td>
+<td>227</td>
+</tr>
+<tr>
+<td>raisedbynarcissists</td>
+<td>168</td>
+</tr>
+<tr>
+<td>relationship_advice</td>
+<td>166</td>
+</tr>
+</tbody>
+</table>
 <h3>Advanced Model Attempt</h3>
 <h3>Demo Frontend</h3>
 <p><span style="font-weight: 400;">Previously, we used default AllenNLP frontend for demoing purpose. Although it was easy to set up and use by us the developers who knew exactly what numbers we are looking for, it was not intuitive to use at all for other people. The default demo page looked like this:</span></p>
@@ -80,7 +131,9 @@
 <p><span style="font-weight: 400;">In order to make the demo page more straightforward, we decided to only keep the most relevant fields of the model output: predicted label and class probabilities. Since it is also interesting to see how prediction changes every time a new word is entered, we designed the page to make a prediction everytime a blank space or ENTER is entered in the text input box (in addition to the Predict button being hit). Our new demo page looked like this (serving a different model):</span></p>
 <p><img alt="" class="alignnone size-full wp-image-108" height="1034" src="http://cse481n-capstone.azurewebsites.net/wp-content/uploads/2018/05/new_demo.png" width="2758" /></p>
 <p><span style="font-weight: 400;">As shown above, while the overall page format looked the same (the left half is input, the right half is output), the output display changed quite a bit. The predicted label is nicely put into a sentence and highlighted under “Prediction”, and the class probabilities are in a table with the “Hate probability” entry highlighted under “Summary Breakdown”. We also added hate probability visualization at the end. A linear gradient from bright green to red represented hate probability from 0% to 100%, a dark vertical line representing the predicted hate probability of the current sentence, and a small label under the dark line showing the hate probability. </span></p>
-<p><span style="font-weight: 400;">Not only is the new demo page easier to read and see the changes when each word is entered, this simple output display could potentially be ported to AMT surveys in the future if we want turkers to come up with hard to detect examples. </span></p></div>
+<p><span style="font-weight: 400;">Not only is the new demo page easier to read and see the changes when each word is entered, this simple output display could potentially be ported to AMT surveys in the future if we want turkers to come up with hard to detect examples.</span></p>
+<h3>Next Steps:</h3>
+<p>On the data collection front, we will push forward in the process of getting our reddit dataset labeled.  For modeling, we would perform more hyperparameter tuning and error analysis, and we want to explore potential ways to make neural nets work with relatively small datasets like these twitter datasets that we currently have.</p></div>
 
 
 
@@ -3337,7 +3390,7 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 
 <p>
 <strong>Last updated:</strong><br>
-May 16, 2018 05:00 AM<br>
+May 16, 2018 05:30 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--

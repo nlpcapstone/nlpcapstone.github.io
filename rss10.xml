@@ -90,6 +90,57 @@
 	<title>Boyan Li, Dennis Orzikh, Lanhao Wu &lt;br/&gt; Team Watch Your Language!: Advanced Attempt II</title>
 	<link>http://cse481n-capstone.azurewebsites.net/2018/05/15/advanced-attempt-ii-2/</link>
 	<content:encoded>&lt;h3&gt;Data Collection&lt;/h3&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;In our last post, we described our final collection of Reddit sentences that we would send for labeling. We decided to add subreddit metadata to each sentence before sending it off, but this created an unexpected slight setback because of the way we spliced posts into sentences after throwing away all of the metadata associated with the original dump. We did finish connecting each sentence to its originating subreddit however, and from doing so discovered a slight issue with our data. It turned out that from doing the hate lexicon matching described earlier, we got a few posts that looked like: “[uncensored-r/Bitcoin] &amp;lt;&lt;/span&gt;&lt;i&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;some original post&lt;/span&gt;&lt;/i&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;&amp;gt; The following post by vichuu is being replicated because the post has been silently removed.” In the end we decided to add the subreddit “noncensored_bitcoin” to our blacklist and removed all its sentences from our dataset, but this decreased our dataset size to ~18k, down 2k from the last blog post. &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;In our sixth blog post we showed the top 10 subreddits for quantity of posts. Here are the top 10 subreddits just in our dataset. &lt;/span&gt;&lt;/p&gt;
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;As expected, we have a lot of MeanJoke sentences as well as sentences from other joke subreddits that probably have similar language structure. The inclusion of the hate lexicon set of sentences most likely helped bring diversity to this final set of sentences. Otherwise, it looks like a good collection of discussion subreddits. As well, since there are 18k sentences and the top 10 subreddits only sum to ~6000 of them we once again see the sparse nature of our data’s origins. &lt;/span&gt;&lt;/p&gt;
+&lt;table&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Subreddit&lt;/td&gt;
+&lt;td&gt;Number of Sentences&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;MeanJokes&lt;/td&gt;
+&lt;td&gt;2964&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;AskReddit&lt;/td&gt;
+&lt;td&gt;706&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Jokes&lt;/td&gt;
+&lt;td&gt;565&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;darkjokes&lt;/td&gt;
+&lt;td&gt;387&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;depression&lt;/td&gt;
+&lt;td&gt;284&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;relationships&lt;/td&gt;
+&lt;td&gt;280&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;DebateConservatives&lt;/td&gt;
+&lt;td&gt;253&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;offmychest&lt;/td&gt;
+&lt;td&gt;227&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;raisedbynarcissists&lt;/td&gt;
+&lt;td&gt;168&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;relationship_advice&lt;/td&gt;
+&lt;td&gt;166&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
 &lt;h3&gt;Advanced Model Attempt&lt;/h3&gt;
 &lt;h3&gt;Demo Frontend&lt;/h3&gt;
 &lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Previously, we used default AllenNLP frontend for demoing purpose. Although it was easy to set up and use by us the developers who knew exactly what numbers we are looking for, it was not intuitive to use at all for other people. The default demo page looked like this:&lt;/span&gt;&lt;/p&gt;
@@ -97,7 +148,9 @@
 &lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;In order to make the demo page more straightforward, we decided to only keep the most relevant fields of the model output: predicted label and class probabilities. Since it is also interesting to see how prediction changes every time a new word is entered, we designed the page to make a prediction everytime a blank space or ENTER is entered in the text input box (in addition to the Predict button being hit). Our new demo page looked like this (serving a different model):&lt;/span&gt;&lt;/p&gt;
 &lt;p&gt;&lt;img alt=&quot;&quot; class=&quot;alignnone size-full wp-image-108&quot; height=&quot;1034&quot; src=&quot;http://cse481n-capstone.azurewebsites.net/wp-content/uploads/2018/05/new_demo.png&quot; width=&quot;2758&quot; /&gt;&lt;/p&gt;
 &lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;As shown above, while the overall page format looked the same (the left half is input, the right half is output), the output display changed quite a bit. The predicted label is nicely put into a sentence and highlighted under “Prediction”, and the class probabilities are in a table with the “Hate probability” entry highlighted under “Summary Breakdown”. We also added hate probability visualization at the end. A linear gradient from bright green to red represented hate probability from 0% to 100%, a dark vertical line representing the predicted hate probability of the current sentence, and a small label under the dark line showing the hate probability. &lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Not only is the new demo page easier to read and see the changes when each word is entered, this simple output display could potentially be ported to AMT surveys in the future if we want turkers to come up with hard to detect examples. &lt;/span&gt;&lt;/p&gt;</content:encoded>
+&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Not only is the new demo page easier to read and see the changes when each word is entered, this simple output display could potentially be ported to AMT surveys in the future if we want turkers to come up with hard to detect examples.&lt;/span&gt;&lt;/p&gt;
+&lt;h3&gt;Next Steps:&lt;/h3&gt;
+&lt;p&gt;On the data collection front, we will push forward in the process of getting our reddit dataset labeled.  For modeling, we would perform more hyperparameter tuning and error analysis, and we want to explore potential ways to make neural nets work with relatively small datasets like these twitter datasets that we currently have.&lt;/p&gt;</content:encoded>
 	<dc:date>2018-05-16T03:27:56+00:00</dc:date>
 	<dc:creator>Team Watch Your Language!</dc:creator>
 </item>
