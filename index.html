@@ -23,6 +23,42 @@
 <h1>NLP Capstone Spring 2018</h1>
 
 <div class="daygroup">
+<h2>May 17, 2018</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/@be.li.nda?source=rss-fad49d942bf3------2" title="Stories by Belinda Zou Li on Medium">Belinda Li <br/> Team Sentimentity</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/922aee66f717">
+<h4><a href="https://medium.com/@be.li.nda/nlp-capstone-blog-8-more-detailed-error-analysis-922aee66f717?source=rss-fad49d942bf3------2">NLP Capstone Blog #8: More Detailed Error Analysis</a></h4>
+<div class="entry">
+<div class="content">
+<p>This week, I spent quite a bit of time doing error analysis and trying to figure out what was wrong with my advanced model, and more specific ways of improving it.</p><p>Here is the breakdown of how the model classified various examples on the dev data, as well as what the actual label should’ve been:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/420/1*AnX6uRWHLcySgkKcuAGpRg.png" /></figure><p>Clearly, it seems that a lot of “no sentiment” examples are being identified as “positive” or “negative.” This is congruous with my previous findings that recall had been much higher than precision for positive and negative examples, as the model was falsely predicting many no sentiment examples to be positive/negative. In fact, the recall seems to be much better than the best recalls from the <a href="https://homes.cs.washington.edu/~eunsol/papers/acl2016.pdf">Choi et al.</a>:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/514/1*FEr4Kogbpu3vSdpoiYxHdw.png" /></figure><p>However, poor precision prevents the F1 scores from surpassing the previous paper’s.</p><p>To help with this, I tried experimenting a little with adjusting the thresholds. Instead of always picking the “most probable” class as the label for the example, I set the thresholds such that even if the model was 10% sure that the example is “no sentiment,” it would classify it as such. Unfortunately, this did not seem to be extremely effective on the non-training sets, and only seemed to decrease the recall in initial epochs. Eventually, as the model kept iterating through epochs, the recall surpassed precision again and F1 scores on positive and negative were ~0.2, similar to before.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/758/1*g89-UZtyPcaME8IRVLXSdg.png" />Results on Development Set: With and without thresholds.</figure><h3>Adding Features for Number of Mentions</h3><p>Looking at the dataset, it became apparent that the entity pairs which hold polarity (are positive/negative) are the most frequently mentioned entities in the document, while nearly all of the rest of the entity pairs expressed “no sentiment.” However, the predictions the model is making so far doesn’t necessarily reflect that:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/856/1*-UEY0RulJNJHbt4fIMAP6g.png" />Average # of mentions for each label: across all 3 datasets, the apparent trend is that mention pairs labelled “no sentiment” has less mentions than those labelled “positive” or “negative”.</figure><figure><img alt="" src="https://cdn-images-1.medium.com/max/593/1*peoDMPxJLBC7DzlDHLegCA.png" />Average # of mentions based off the predicted labels: especially on the development set, the pairs predicted “no sentiment” actually have a greater number of holder and target mentions, contrary to what should be the case.</figure><p>This suggests that adding features for the number of times the holder and target entities are mentioned may be useful.</p><h3>Is the Model Just Memorizing Entity Pairs?</h3><p>To answer this question, I looked into how the model classified the same pair of entity in multiple document. For example,the pair “China” to “US” occurred in 4 different documents. I wondered if each time the pair appeared, they were being classified the same way (“uniformly”) — i.e., was the model memorizing a label for the pairs and assigning it each time the pair came up? Given the architecture of my model, I hypothesized that this shouldn’t be the case. My error analysis results seemed to corroborate this hypothesis. My model wasn’t predicting the same pairs of entity the same way throughout each document. In fact, the actual labels were uniform more often than my predictions.</p><p>On MPQA Test Data,</p><ul><li>Total # of entity pairs: 3601</li><li># of pairs appearing multiple times (* conservative estimate): 155</li></ul><p>(* Note: This represents a conservative estimate as I used exact token matching to determine whether entity pairs appeared more than once. That is to say, entities “US” and “United States” would’ve been considered different entities, and thus “US-&gt;China” and “United States-&gt;China” would not be considered appearing multiple times.)</p><p>The table below depicts how “uniform” and non-“uniform” pairs are actually classified, vs. how they are predicted. “Uniform” refers to the pair having the same sentiment label for each document it appears in. “Non-uniform” refers to the pair having a different sentiment label for at least one document.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/485/1*IGyWKDu43Qn084XzyIprNw.png" />Note that entity pairs are actually uniform more than they are predicted to be uniform, suggesting that the model is not memorizing pairs and assigning labels accordingly.</figure><h3>Is the Model Classifying Solely Based Off of Co-occurring Sentences?</h3><p>From last time, I had added a feature to my model specifying how many sentences the entity pair co-occurred in. This led to the question of whether the model was paying too much attention to this feature and simply classifying low co-occurrence pairs as having no sentiments. However, analysis seemed to show this was not the case:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/486/1*pnr9nyTBh2171ej75G4CGA.png" /></figure><p>Had the model just been classifying pairs that did not co-occurred frequently as no sentiment, we would’ve seen predicted “0” and “2” be much higher than predicted “1”.</p><h3>Entity Pairs Per Document</h3><p>Currently, my model is not training and labeling examples by document (i.e. one document at a time). However, doing so may improve results.</p><p>For each documents, most entity pairs are labelled as “no sentiments,” with a few (the most major/important entity pairs in the document) being classified as positive or negative. However, my model’s predictions do not follow that trend.</p><p>A typical example for a single document:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/343/1*xPQjwbBDXksKuYTSHHzM-Q.png" /></figure><h3>Future Directions</h3><ol><li>Under Eunsol’s suggestion, implementing separate models for co-occurring and non-co-occurring entity pairs in documents, and integrating the two.</li><li>Implementing transitivity and other constraints within the loss function.</li><li>Adding features for # of times holder/target entities are mentioned in the document.</li><li>Training by document.</li></ol><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=922aee66f717" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@be.li.nda/nlp-capstone-blog-8-more-detailed-error-analysis-922aee66f717?source=rss-fad49d942bf3------2">by Belinda Zou Li at May 17, 2018 04:25 AM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
+<div class="daygroup">
 <h2>May 16, 2018</h2>
 
 <div class="channelgroup">
@@ -3313,42 +3349,6 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 </div>
 
 </div>
-<div class="daygroup">
-<h2>April 11, 2018</h2>
-
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="http://sarahyu.weebly.com/cse-481n" title="Sarah yu - CSE 481N">Sarah Yu <br/> Team Jekyll-Hyde</a></h3>
-
-
-<div class="entrygroup" id="http://sarahyu.weebly.com/cse-481n/formal-proposal">
-<h4><a href="http://sarahyu.weebly.com/cse-481n/formal-proposal">Formal Proposal</a></h4>
-<div class="entry">
-<div class="content">
-<div class="paragraph">Linguistic Accommodation for Self-Presentation as seen in Neurotypical vs. Neurodivergent Subreddits<br /><br /><u>Hypotheses:</u> <br />1) Users change their language depending on the community, represented by subreddits categorized as Neurotypical vs Neurodivergent<br />      - The divergence from their own baseline is a<span> sign of assimilation through tuned self-presentation*</span><br />2) Language Models, as used by the whole community, differ and not just in topic-specific jargon<br />      - The language changes of the individual user and the change in delta from the community's language model is a sign of their attempt at assimilating language accommodation*<br />          - Do certain users adapt better? If so, what is differentiating those users?<br /><font size="1">*(subpoints are very similar, and I'm still working through if there is a nuance, or if they're the same)</font><br /><br />My <strong>objective</strong>, then, is to address these hypotheses through the following approach:<br /><br /><u>Literature Survey:</u><br />While this project is novel, mainly in the focus on neurotypical vs neurodivergent separation and the use of Reddit data, this project finds guidance from previous work done on similar questions. First, this project aims to extend upon the work of Danescu-Niculescu-Mizil et al. in<em> </em><u><em>Mark My Words! Linguistic Style Accommodation in Social Media​.</em></u> This was the first large-scale endeavor in identifying linguistic accommodation using social media. However, our project extends this work by taking advantage of the siloed nature of Reddit to identify linguistic accommodation employed by a single user across communities as opposed to the one-dimensional view of a user's linguistic accommodation to the general twittersphere in Danescu's paper. Also, this project is informed by Fast and Horvitz in <u><em>Identifying Dogmatism in Social Media: Signals and Models</em></u>, specifically in their methodologies and models; I attempt to extend upon these with more complex models. In this process, I also found several works that were similar in nature: Tamburrini et al. on language change based on social identity on Twitter, Nguyen and Rose on language socialization in online communities, and Michael and Otterbacher on herding in online review language. Two more relevant works for my project are De Choudhury et al.'s work on identifying the shift to Suicidal Ideation in social media and D<span>anescu-Niculescu-Mizil's work on the life-cycle of users in online communities. <br />​<br /><u>Proposed Methodologies</u>: </span><br />In it's most basic form, these questions can be explored with basic language models. First, we will identify a subset of neurotypical and neurodivergent subreddits to explore (100 or so respectively), chosen by a preliminary search on overlapping users posting between these. Based on this preliminary search, we will also gain a set of users who potentially post to both neurotypical and neurodivergent subreddits (we may need to look only at posts within a band of characters, but that is a parameter I'd like to explore). We will aggregate all of a user's posting history, not just in the subset aforementioned, to model the user's language use and do the same for the language of all posts made by any user (not just our set) to the subreddit to model the subreddit's language. I will supplement these models with the LIWC lexicon to characterize the differences between the communities and between users in different subreddits. (I may use a subset of the LIWC categories later on). A more complex model would be to use PPDB to find differences via paraphrasing. Yet another complex model would be to use a graphical model as inspired by Bamman et al's <em><u>Learning Latent Personas of Film Characters</u></em>. A stretch goal would be to train an RNN model for the language model of a neurotypical subreddit and that of a neurodivergent to see the probability of a post to belong to either of these categories. A stretch goal (not in complexity as in the RNN, but rather in interest) is to use the <em>Zelig Quotient</em>, a proposed measure for normalizing linguistic accommodation by Jones et al and see how much this may affect our findings. <br />One special consideration is the use of NSFW language. My only filter will be to disqualify the list of NSFW subreddits, as named by a reddit post (so meta) in being chosen for the subsets, but otherwise we will not do anything special for NSFW language in other subreddits. <br /><br /><u>Resources</u>: Lots of Reddit fun!!!<br /><br /><em>​Here goes nothing...</em></div></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="http://sarahyu.weebly.com/cse-481n/formal-proposal">April 11, 2018 07:00 AM</a>
-</p>
-</div>
-</div>
-
-
-</div>
-
-</div>
 
 
 <div class="sidebar">
@@ -3398,7 +3398,7 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 
 <p>
 <strong>Last updated:</strong><br>
-May 17, 2018 04:00 AM<br>
+May 17, 2018 04:30 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
