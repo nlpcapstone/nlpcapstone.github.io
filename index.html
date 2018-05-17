@@ -33,6 +33,46 @@
 
 
 
+<h3><a href="https://mathstoc.wordpress.com" title="NLP Capstone – Mathematical Distractions">Kuikui Liu, Nicholas Ruhland <br/> Team INLP</a></h3>
+
+
+<div class="entrygroup" id="http://mathstoc.wordpress.com/?p=339">
+<h4 lang="en"><a href="https://mathstoc.wordpress.com/2018/05/17/nlp-capstone-post-8-training-challenges/">NLP Capstone Post #8: Training challenges</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<h1><span style="font-weight: 400;">Challenges with training TSL model</span></h1>
+<p><span style="font-weight: 400;">In our previous post we proposed a three-model system that would allow us to take advantage of a larger corpus of higher quality lyrics data for the production of lyrics. We also finally tackle the alignment task with a simple approach of determining whether a lyric token should be produced at each timestep. This seems sensible since we have begun dividing the MIDIs into pianorolls with a constant frequency.</span></p>
+<p><span style="font-weight: 400;">Unfortunately, even after several bugs bashed, we’ve been still unable to produce even sensible timings. We find the RNN collapses to repeatedly generating 0 (for no lyric event), even though a randomly initialized RNN will repeatedly generate 1 (and perform better with respect to classification accuracy).</span></p>
+<p> </p>
+<h1><span style="font-weight: 400;">Future direction</span></h1>
+<p><span style="font-weight: 400;">If we are able to produce something reasonable from our existing architecture, we would like to move on to a second model that structures the problem as machine translation. We have decided to focus on the paper Attention is All You Need by Vaswani et al. [1] for our presentation in two weeks. The structure of our problem is straightforward to apply to translation as converting pianoroll format into english sentences. Incorporating attention has shown promising results in the literature, though that is no guarantee that our noisy dataset would be able to take advantage of this proposed architecture.</span></p>
+<p> </p>
+<h1><span style="font-weight: 400;">References</span></h1>
+<p><span style="font-weight: 400;">[1] </span><a href="https://arxiv.org/abs/1706.03762"><span style="font-weight: 400;">https://arxiv.org/abs/1706.03762</span></a></p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://mathstoc.wordpress.com/2018/05/17/nlp-capstone-post-8-training-challenges/">by Nicholas Ruhland at May 17, 2018 05:55 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
 <h3><a href="https://medium.com/@be.li.nda?source=rss-fad49d942bf3------2" title="Stories by Belinda Zou Li on Medium">Belinda Li <br/> Team Sentimentity</a></h3>
 
 
@@ -3314,38 +3354,6 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 </div>
 
 
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://medium.com/@hongnin1?source=rss-c450eb982161------2" title="Stories by Ning Hong on Medium">Zichun Liu, Ning Hong, Sujie Zhou <br/> Team The Bugless</a></h3>
-
-
-<div class="entrygroup" id="https://medium.com/p/b951950ad9a5">
-<h4><a href="https://medium.com/@hongnin1/image-summarization-b951950ad9a5?source=rss-c450eb982161------2">Image Annotation Papers</a></h4>
-<div class="entry">
-<div class="content">
-<p><a href="https://github.com/tensorflow/models/tree/master/research/im2txt#prepare-the-training-data">https://github.com/tensorflow/models/tree/master/research/im2txt#prepare-the-training-data</a></p><ul><li><a href="https://arxiv.org/abs/1412.6632">[1412.6632] Deep Captioning with Multimodal Recurrent Neural Networks (m-RNN)</a></li><li><a href="https://arxiv.org/abs/1411.4555">[1411.4555] Show and Tell: A Neural Image Caption Generator</a></li></ul><a href="https://medium.com/media/3d1f87b3acd58d4b818d676b6a67c63a/href">https://medium.com/media/3d1f87b3acd58d4b818d676b6a67c63a/href</a><p><a href="https://arxiv.org/abs/1502.03044">[1502.03044] Show, Attend and Tell: Neural Image Caption Generation with Visual Attention</a></p><p>Image Annotation for medical use:</p><p><a href="https://arxiv.org/pdf/1603.08486.pdf">https://arxiv.org/pdf/1603.08486.pdf</a></p><p>Image Annotation for visually impaired:</p><p><a href="https://cs224d.stanford.edu/reports/mcelamri.pdf">https://cs224d.stanford.edu/reports/mcelamri.pdf</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=b951950ad9a5" width="1" /></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://medium.com/@hongnin1/image-summarization-b951950ad9a5?source=rss-c450eb982161------2">by Ning Hong at April 12, 2018 04:21 AM</a>
-</p>
-</div>
-</div>
-
-
 </div>
 
 </div>
@@ -3398,7 +3406,7 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 
 <p>
 <strong>Last updated:</strong><br>
-May 17, 2018 05:30 AM<br>
+May 17, 2018 06:00 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
