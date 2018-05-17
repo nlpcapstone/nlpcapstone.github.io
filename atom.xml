@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:planet="http://planet.intertwingly.net/" xmlns:indexing="urn:atom-extension:indexing" indexing:index="no"><access:restriction xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" relationship="deny"/>
   <title>NLP Capstone Spring 2018</title>
-  <updated>2018-05-17T00:00:34Z</updated>
+  <updated>2018-05-17T00:30:19Z</updated>
   <generator uri="http://intertwingly.net/code/venus/">Venus</generator>
   <author>
     <name>Nelson Liu</name>
@@ -15,7 +15,7 @@
     <id>https://medium.com/p/33072535817f</id>
     <link href="https://medium.com/@halden.lin/nlp-capstone-08-human-summaries-33072535817f?source=rss-2759d54493c0------2" rel="alternate" type="text/html"/>
     <title>NLP Capstone | 08: Human Summaries</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>I’ll keep this blogpost short — my current undertakings are in-progress and it might be a week or more before they are realized. To preface:</p><ol><li>Visualizing human summaries</li><li>Improving the visualization.</li></ol><h3>Visualizing Human Summaries</h3><p>When I was presenting my project update last week, Prof. Choi asked a very interesting question. What if we could use this visualization tool to not only understand how the model is generating summaries, but also how human summaries are produced and how the two compare?</p><p>I’ll briefly explain the thought behind this.</p><p>Visualizations provide a mapping from raw data (in this case, attention weights and input / output tokens) to visual encodings. These visual encodings are valuable in that they allow us as humans to perceive the data in a meaningful way. For example, the attention visualizer I am working on allows us to identify overall patterns in the attention of the model.</p><p>How do we interpret human written summaries, i.e. their relation to the source text? Perhaps we scan the document and attempt to match paragraphs or sentences to sentences in the summary. This can be compared to the ‘attention’ our minds use to generate the summary. If we can visualize this mapping, perhaps in a more refined and detailed manner (i.e. token by token) then we should be able to compare the human summaries with the machine generated summaries, right? And then one may be able to identify what the human summaries have that the machine summaries do not, or visa versa. The hope is that if we can enable this kind of comparison, researchers may be better equipped to improve their models by using these insights.</p><p>So far, I’ve experimented with two methods for generating this ‘attention’ from human summary to source text.</p><h4>Word Similarity</h4><p>The first approach that sprung to mind was to use word similarity as a proxy for ‘attention’. To do this, I used <a href="https://nlp.stanford.edu/projects/glove/">pre-trained GloVe embeddings</a> and the <a href="https://radimrehurek.com/gensim/">Gensim API</a> to calculate word similarities between each input token / output token pair. <a href="https://spacy.io/">SpaCy</a> was used to tokenize the sequences. The result is a matrix of weights, similar to attention distribution, albeit not normalized per output token (with attention, for a given output token the aggregate over all input tokens is 1). As the example below shows, this method falls flat, as output tokens are matched to input tokens regardless of context. This means it makes little sense to compare these weights to attention.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*D6pMsnZjlNiz1XJyN5xcBQ.png"/>The word ‘the’ is matched with nearly every token in the input sequence, likely a result of its extreme commonness and proximity to most words in embedding space.</figure><h4>Summarization Model</h4><p>The second method I considered was one suggested by Ari. Here, we use the same model used to generate the machine summaries. The difference is that at each decoder time-step, instead of feeding in the previous <strong>predicted</strong> token, we feed in the previous <strong>actual</strong> token. This means that instead of having a decoding pipeline that looks like this:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*N-til0kZzQeAVI3zkoDKVg.jpeg"/></figure><p>Where y-hats represent predicted output tokens, we have one that looks like this:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*H7nMlelojnzNkfthS2ljAg.jpeg"/></figure><p>Where y (no hat) represents true output token (the token from the human summary). This is a process similar to the one taken during training of generative encoder-decoder models.</p><p>By grabbing attention distributions just as we had with the machine summaries, we hope to get an approximation of the attention distributions for the human summaries — we are essentially feeding the model the answer. However, there is a catch, and an important one. Because attention weights are used to create a context vector that is then fed into the <strong>next</strong> decoder unit to predict the <strong>next </strong>word, we run into an issue when the next word is predicted incorrectly. Turns out, this happens often under the model being used (from <a href="https://github.com/abisee/pointer-generator">See et al.</a>). This actually makes sense, as the model has been shown to produce largely <strong>extractive </strong>summaries, and so one would expect the model to, at each time-step, attempt to produce the next word in the source text that follows the word fed to it. With <strong>abstractive</strong> summaries, this is not often the optimal choice. This results in attention weights that make little sense, as seen below.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*c5KuVp0qzjkcQxNAJSfYLw.png"/>According to this, ‘manager’ was the focal point of attention when producing the word ‘were’. It would seem that the model intended to predict ‘manager’, and so when we map this attention weight to the human token, we run into an issue.</figure><p>Here’s the problem. The model is trained to use attention weights to <strong>generate </strong>an output token. What we want is the opposite. We want the attention <strong>given</strong> an output token — use the output token to generate the attention weights. This poses a significant challenge.</p><h4>So How Else?</h4><p>So neither of these methods seem to produce anything meaningful. I’m not ready to give up though — this is an intriguing problem. In the next week I’ll be brainstorming other methods. One that might have some traction is to use a few heuristics to approximate ‘attention’ using word similarities in conjunction with context. For example, by imposing a penalty on the weight if the context of the output token is dissimilar to the word ‘attended’ to in the source text. Much more work to be done here.</p><h3>Improving the visualization</h3><p>This section will be short. There are a few problems I looked into in the past week.</p><ol><li>Implement divided edge bundling, as produced by <a href="http://vis.stanford.edu/files/2011-DividedEdgeBundling-InfoVis.pdf">Selassie et al. (2011)</a>. I described this briefly in my previous blog post. The obstacle here is that there is not available d3 implementation of the algorithm. In fact, the only implementation I could find available was <a href="https://github.com/kakearney/divedgebundle-pkg">one for Matlab</a>, produced by <a href="http://kellyakearney.net/">Kelly Kearny (University of Washington)</a>. This might prove more difficult than the remaining time in this quarter allows, but I’ve started the process anyways and will see where it takes me.</li><li>Highlighting extraction. That is, making it apparent in the visualization when the model is simply copying. I’ve been playing around with things such as color to encode this, but haven’t settled on anything I like.</li></ol><p>More work to come!</p><h4>References</h4><ol><li><a href="https://arxiv.org/pdf/1704.04368.pdf">See, Abigail et al. “Get To The Point: Summarization with Pointer-Generator Networks.” <em>ACL</em> (2017).</a></li><li><a href="http://vis.stanford.edu/files/2011-DividedEdgeBundling-InfoVis.pdf">Selassie, David et al. “Divided Edge Bundling for Directional Network Data.” <em>IEEE Transactions on Visualization and Computer Graphics</em> 17 (2011): 2354–2363.</a></li></ol><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=33072535817f" width="1"/></div>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>previous posts: <a href="https://medium.com/@halden.lin/nlp-capstone-01-options-ee873b6885d5">01</a> <a href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5">02</a> <a href="https://medium.com/@halden.lin/nlp-capstone-03-project-proposal-7d8e9ec1a8e3">03</a> <a href="https://medium.com/@halden.lin/nlp-capstone-04-first-steps-be87c31976b7">04</a> <a href="https://medium.com/@halden.lin/nlp-capstone-05-experimenting-306dca636d3a">05</a> <a href="https://medium.com/@halden.lin/nlp-capstone-06-uncertainty-6f773ae418d0">06</a> <a href="https://medium.com/@halden.lin/nlp-capstone-07-formalizing-a2d837ecf66b">07</a></p><p>I’ll keep this blogpost short — my current undertakings are in-progress and it might be a week or more before they are realized. To preface:</p><ol><li>Visualizing human summaries</li><li>Improving the visualization.</li></ol><h3>Visualizing Human Summaries</h3><p>When I was presenting my project update last week, Prof. Choi asked a very interesting question. What if we could use this visualization tool to not only understand how the model is generating summaries, but also how human summaries are produced and how the two compare?</p><p>I’ll briefly explain the thought behind this.</p><p>Visualizations provide a mapping from raw data (in this case, attention weights and input / output tokens) to visual encodings. These visual encodings are valuable in that they allow us as humans to perceive the data in a meaningful way. For example, the attention visualizer I am working on allows us to identify overall patterns in the attention of the model.</p><p>How do we interpret human written summaries, i.e. their relation to the source text? Perhaps we scan the document and attempt to match paragraphs or sentences to sentences in the summary. This can be compared to the ‘attention’ our minds use to generate the summary. If we can visualize this mapping, perhaps in a more refined and detailed manner (i.e. token by token) then we should be able to compare the human summaries with the machine generated summaries, right? And then one may be able to identify what the human summaries have that the machine summaries do not, or visa versa. The hope is that if we can enable this kind of comparison, researchers may be better equipped to improve their models by using these insights.</p><p>So far, I’ve experimented with two methods for generating this ‘attention’ from human summary to source text.</p><h4>Word Similarity</h4><p>The first approach that sprung to mind was to use word similarity as a proxy for ‘attention’. To do this, I used <a href="https://nlp.stanford.edu/projects/glove/">pre-trained GloVe embeddings</a> and the <a href="https://radimrehurek.com/gensim/">Gensim API</a> to calculate word similarities between each input token / output token pair. <a href="https://spacy.io/">SpaCy</a> was used to tokenize the sequences. The result is a matrix of weights, similar to attention distribution, albeit not normalized per output token (with attention, for a given output token the aggregate over all input tokens is 1). As the example below shows, this method falls flat, as output tokens are matched to input tokens regardless of context. This means it makes little sense to compare these weights to attention.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*D6pMsnZjlNiz1XJyN5xcBQ.png"/>The word ‘the’ is matched with nearly every token in the input sequence, likely a result of its extreme commonness and proximity to most words in embedding space.</figure><h4>Summarization Model</h4><p>The second method I considered was one suggested by Ari. Here, we use the same model used to generate the machine summaries. The difference is that at each decoder time-step, instead of feeding in the previous <strong>predicted</strong> token, we feed in the previous <strong>actual</strong> token. This means that instead of having a decoding pipeline that looks like this:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*N-til0kZzQeAVI3zkoDKVg.jpeg"/></figure><p>Where y-hats represent predicted output tokens, we have one that looks like this:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*H7nMlelojnzNkfthS2ljAg.jpeg"/></figure><p>Where y (no hat) represents true output token (the token from the human summary). This is a process similar to the one taken during training of generative encoder-decoder models.</p><p>By grabbing attention distributions just as we had with the machine summaries, we hope to get an approximation of the attention distributions for the human summaries — we are essentially feeding the model the answer. However, there is a catch, and an important one. Because attention weights are used to create a context vector that is then fed into the <strong>next</strong> decoder unit to predict the <strong>next </strong>word, we run into an issue when the next word is predicted incorrectly. Turns out, this happens often under the model being used (from <a href="https://github.com/abisee/pointer-generator">See et al.</a>). This actually makes sense, as the model has been shown to produce largely <strong>extractive </strong>summaries, and so one would expect the model to, at each time-step, attempt to produce the next word in the source text that follows the word fed to it. With <strong>abstractive</strong> summaries, this is not often the optimal choice. This results in attention weights that make little sense, as seen below.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*c5KuVp0qzjkcQxNAJSfYLw.png"/>According to this, ‘manager’ was the focal point of attention when producing the word ‘were’. It would seem that the model intended to predict ‘manager’, and so when we map this attention weight to the human token, we run into an issue.</figure><p>Here’s the problem. The model is trained to use attention weights to <strong>generate </strong>an output token. What we want is the opposite. We want the attention <strong>given</strong> an output token — use the output token to generate the attention weights. This poses a significant challenge.</p><h4>So How Else?</h4><p>So neither of these methods seem to produce anything meaningful. I’m not ready to give up though — this is an intriguing problem. In the next week I’ll be brainstorming other methods. One that might have some traction is to use a few heuristics to approximate ‘attention’ using word similarities in conjunction with context. For example, by imposing a penalty on the weight if the context of the output token is dissimilar to the word ‘attended’ to in the source text. Much more work to be done here.</p><h3>Improving the visualization</h3><p>This section will be short. There are a few problems I looked into in the past week.</p><ol><li>Implement divided edge bundling, as produced by <a href="http://vis.stanford.edu/files/2011-DividedEdgeBundling-InfoVis.pdf">Selassie et al. (2011)</a>. I described this briefly in my previous blog post. The obstacle here is that there is not available d3 implementation of the algorithm. In fact, the only implementation I could find available was <a href="https://github.com/kakearney/divedgebundle-pkg">one for Matlab</a>, produced by <a href="http://kellyakearney.net/">Kelly Kearny (University of Washington)</a>. This might prove more difficult than the remaining time in this quarter allows, but I’ve started the process anyways and will see where it takes me.</li><li>Highlighting extraction. That is, making it apparent in the visualization when the model is simply copying. I’ve been playing around with things such as color to encode this, but haven’t settled on anything I like.</li></ol><p>More work to come!</p><h4>References</h4><ol><li><a href="https://arxiv.org/pdf/1704.04368.pdf">See, Abigail et al. “Get To The Point: Summarization with Pointer-Generator Networks.” <em>ACL</em> (2017).</a></li><li><a href="http://vis.stanford.edu/files/2011-DividedEdgeBundling-InfoVis.pdf">Selassie, David et al. “Divided Edge Bundling for Directional Network Data.” <em>IEEE Transactions on Visualization and Computer Graphics</em> 17 (2011): 2354–2363.</a></li></ol><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=33072535817f" width="1"/></div>
     </content>
     <updated>2018-05-16T06:58:49Z</updated>
     <category term="computer-science"/>
@@ -34,7 +34,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-17T00:00:29Z</updated>
+      <updated>2018-05-17T00:30:18Z</updated>
     </source>
   </entry>
 
@@ -62,7 +62,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-17T00:00:27Z</updated>
+      <updated>2018-05-17T00:30:16Z</updated>
     </source>
   </entry>
 
@@ -86,7 +86,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-17T00:00:33Z</updated>
+      <updated>2018-05-17T00:30:19Z</updated>
     </source>
   </entry>
 
@@ -109,7 +109,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-17T00:00:26Z</updated>
+      <updated>2018-05-17T00:30:15Z</updated>
     </source>
   </entry>
 
@@ -132,7 +132,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-17T00:00:09Z</updated>
+      <updated>2018-05-17T00:30:09Z</updated>
     </source>
   </entry>
 
@@ -298,7 +298,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-17T00:00:23Z</updated>
+      <updated>2018-05-17T00:30:13Z</updated>
     </source>
   </entry>
 
@@ -322,7 +322,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-17T00:00:06Z</updated>
+      <updated>2018-05-17T00:30:08Z</updated>
     </source>
   </entry>
 
@@ -345,7 +345,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-17T00:00:09Z</updated>
+      <updated>2018-05-17T00:30:09Z</updated>
     </source>
   </entry>
 
@@ -392,7 +392,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-17T00:00:34Z</updated>
+      <updated>2018-05-17T00:30:19Z</updated>
     </source>
   </entry>
 
@@ -415,7 +415,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-17T00:00:26Z</updated>
+      <updated>2018-05-17T00:30:15Z</updated>
     </source>
   </entry>
 
@@ -446,7 +446,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-17T00:00:27Z</updated>
+      <updated>2018-05-17T00:30:16Z</updated>
     </source>
   </entry>
 
@@ -470,7 +470,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-17T00:00:33Z</updated>
+      <updated>2018-05-17T00:30:19Z</updated>
     </source>
   </entry>
 
@@ -497,7 +497,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-17T00:00:31Z</updated>
+      <updated>2018-05-17T00:30:18Z</updated>
     </source>
   </entry>
 
@@ -522,7 +522,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-17T00:00:24Z</updated>
+      <updated>2018-05-17T00:30:14Z</updated>
     </source>
   </entry>
 
@@ -545,7 +545,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-17T00:00:27Z</updated>
+      <updated>2018-05-17T00:30:16Z</updated>
     </source>
   </entry>
 
@@ -809,7 +809,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-17T00:00:23Z</updated>
+      <updated>2018-05-17T00:30:13Z</updated>
     </source>
   </entry>
 
@@ -832,7 +832,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-17T00:00:09Z</updated>
+      <updated>2018-05-17T00:30:09Z</updated>
     </source>
   </entry>
 
@@ -855,7 +855,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-17T00:00:09Z</updated>
+      <updated>2018-05-17T00:30:09Z</updated>
     </source>
   </entry>
 
@@ -879,7 +879,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-17T00:00:06Z</updated>
+      <updated>2018-05-17T00:30:08Z</updated>
     </source>
   </entry>
 
@@ -924,7 +924,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-17T00:00:27Z</updated>
+      <updated>2018-05-17T00:30:16Z</updated>
     </source>
   </entry>
 
@@ -949,7 +949,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-17T00:00:25Z</updated>
+      <updated>2018-05-17T00:30:14Z</updated>
     </source>
   </entry>
 
@@ -975,7 +975,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-17T00:00:26Z</updated>
+      <updated>2018-05-17T00:30:15Z</updated>
     </source>
   </entry>
 
@@ -1002,7 +1002,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-17T00:00:32Z</updated>
+      <updated>2018-05-17T00:30:18Z</updated>
     </source>
   </entry>
 
@@ -1027,7 +1027,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-17T00:00:27Z</updated>
+      <updated>2018-05-17T00:30:16Z</updated>
     </source>
   </entry>
 
@@ -1505,7 +1505,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-17T00:00:23Z</updated>
+      <updated>2018-05-17T00:30:13Z</updated>
     </source>
   </entry>
 
@@ -1529,7 +1529,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-17T00:00:33Z</updated>
+      <updated>2018-05-17T00:30:19Z</updated>
     </source>
   </entry>
 
@@ -1552,7 +1552,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-17T00:00:09Z</updated>
+      <updated>2018-05-17T00:30:09Z</updated>
     </source>
   </entry>
 
@@ -1575,7 +1575,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-17T00:00:06Z</updated>
+      <updated>2018-05-17T00:30:08Z</updated>
     </source>
   </entry>
 
@@ -1598,7 +1598,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-17T00:00:09Z</updated>
+      <updated>2018-05-17T00:30:09Z</updated>
     </source>
   </entry>
 
@@ -1648,7 +1648,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-17T00:00:27Z</updated>
+      <updated>2018-05-17T00:30:16Z</updated>
     </source>
   </entry>
 
@@ -1675,7 +1675,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-17T00:00:32Z</updated>
+      <updated>2018-05-17T00:30:18Z</updated>
     </source>
   </entry>
 
@@ -1700,7 +1700,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-17T00:00:25Z</updated>
+      <updated>2018-05-17T00:30:14Z</updated>
     </source>
   </entry>
 
@@ -1723,7 +1723,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-17T00:00:27Z</updated>
+      <updated>2018-05-17T00:30:16Z</updated>
     </source>
   </entry>
 
@@ -1746,7 +1746,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-17T00:00:09Z</updated>
+      <updated>2018-05-17T00:30:09Z</updated>
     </source>
   </entry>
 
@@ -1769,7 +1769,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-17T00:00:26Z</updated>
+      <updated>2018-05-17T00:30:15Z</updated>
     </source>
   </entry>
 
@@ -1793,7 +1793,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-17T00:00:33Z</updated>
+      <updated>2018-05-17T00:30:19Z</updated>
     </source>
   </entry>
 
@@ -1937,7 +1937,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-17T00:00:23Z</updated>
+      <updated>2018-05-17T00:30:13Z</updated>
     </source>
   </entry>
 
@@ -1983,7 +1983,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-17T00:00:34Z</updated>
+      <updated>2018-05-17T00:30:19Z</updated>
     </source>
   </entry>
 
@@ -2007,7 +2007,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-17T00:00:06Z</updated>
+      <updated>2018-05-17T00:30:08Z</updated>
     </source>
   </entry>
 
@@ -2052,7 +2052,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-17T00:00:09Z</updated>
+      <updated>2018-05-17T00:30:09Z</updated>
     </source>
   </entry>
 
@@ -2080,7 +2080,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-17T00:00:27Z</updated>
+      <updated>2018-05-17T00:30:16Z</updated>
     </source>
   </entry>
 
@@ -2104,7 +2104,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-17T00:00:06Z</updated>
+      <updated>2018-05-17T00:30:08Z</updated>
     </source>
   </entry>
 
@@ -2131,7 +2131,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-17T00:00:31Z</updated>
+      <updated>2018-05-17T00:30:18Z</updated>
     </source>
   </entry>
 
@@ -2154,7 +2154,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-17T00:00:27Z</updated>
+      <updated>2018-05-17T00:30:16Z</updated>
     </source>
   </entry>
 
@@ -2178,7 +2178,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-05-17T00:00:28Z</updated>
+      <updated>2018-05-17T00:30:17Z</updated>
     </source>
   </entry>
 
@@ -2204,7 +2204,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-17T00:00:26Z</updated>
+      <updated>2018-05-17T00:30:15Z</updated>
     </source>
   </entry>
 
@@ -2272,7 +2272,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-17T00:00:34Z</updated>
+      <updated>2018-05-17T00:30:19Z</updated>
     </source>
   </entry>
 
@@ -2296,7 +2296,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-17T00:00:33Z</updated>
+      <updated>2018-05-17T00:30:19Z</updated>
     </source>
   </entry>
 
@@ -2622,7 +2622,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-17T00:00:23Z</updated>
+      <updated>2018-05-17T00:30:13Z</updated>
     </source>
   </entry>
 
@@ -2645,7 +2645,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-17T00:00:09Z</updated>
+      <updated>2018-05-17T00:30:09Z</updated>
     </source>
   </entry>
 
@@ -2670,7 +2670,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-17T00:00:25Z</updated>
+      <updated>2018-05-17T00:30:14Z</updated>
     </source>
   </entry>
 
@@ -2693,7 +2693,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-17T00:00:09Z</updated>
+      <updated>2018-05-17T00:30:09Z</updated>
     </source>
   </entry>
 
@@ -2720,7 +2720,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-17T00:00:32Z</updated>
+      <updated>2018-05-17T00:30:18Z</updated>
     </source>
   </entry>
 
@@ -2743,7 +2743,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-17T00:00:09Z</updated>
+      <updated>2018-05-17T00:30:09Z</updated>
     </source>
   </entry>
 
@@ -2820,7 +2820,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-17T00:00:27Z</updated>
+      <updated>2018-05-17T00:30:16Z</updated>
     </source>
   </entry>
 </feed>
