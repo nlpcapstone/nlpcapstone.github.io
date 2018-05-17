@@ -33,6 +33,38 @@
 
 
 
+<h3><a href="http://sarahyu.weebly.com/cse-481n" title="Sarah yu - CSE 481N">Sarah Yu <br/> Team Jekyll-Hyde</a></h3>
+
+
+<div class="entrygroup" id="http://sarahyu.weebly.com/cse-481n/advanced-model-attempt-2">
+<h4><a href="http://sarahyu.weebly.com/cse-481n/advanced-model-attempt-2">Advanced Model Attempt #2</a></h4>
+<div class="entry">
+<div class="content">
+<div class="paragraph">Wow, can't believe we're already in week 8! <br /><br />This past week, I've worked on shifting my project from not having a neural component, to well, having one. With inspiration from the work of Ghosh et al. in <em>Affect-LM: A Neural Language Model for Customizable Affective Text Generation, </em>I've extended my project (and am encroaching on stretch goal territory) to include a neural language model for reddit post generation***. The idea would be to train a model on reddit posts out of five categories - F30 (mood [affective] disorders), F40<font color="#515151"> (Anxiety, dissociative, stress-related, somatoform and other nonpsychotic mental disorders), X71 (Intentional Self Harm), F10 (addiction categories), and neurotypical advice - and use that model for post generation, based on the specified target type, i.e. generate a F30 reddit post. <br /><br /></font><br /></div></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="http://sarahyu.weebly.com/cse-481n/advanced-model-attempt-2">May 16, 2018 11:19 PM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
 <h3><a href="https://medium.com/@halden.lin?source=rss-2759d54493c0------2" title="Stories by Halden Lin on Medium">Halden Lin <br/> Team undef.</a></h3>
 
 
@@ -3314,68 +3346,6 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 </div>
 
 
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://deeplearningturingtest.wordpress.com" title="NLP Capstone Project Updates – Ananth">Ananth Gottumukkala <br/> Team Turing Test</a></h3>
-
-
-<div class="entrygroup" id="http://deeplearningturingtest.wordpress.com/?p=14">
-<h4 lang="en"><a href="https://deeplearningturingtest.wordpress.com/2018/04/11/project-proposal-question-based-knowledge-representation/">Project Proposal: Question-Based Knowledge Representation</a></h4>
-<div class="entry">
-<div class="content" lang="en">
-<p><strong>Project Objective:</strong> The objective of this project is to create a model that can build a representation of the knowledge it’s gathered by reading the input text line by line and asking appropriate clarifying questions to a human for further insight.</p>
-<p><strong>Literature Survey:</strong></p>
-<ul>
-<li><cite class="formatted-citation formatted-citation--style-mla">Williams, Jason D. et al. “Hybrid Code Networks: practical and efficient end-to-end dialog control with supervised and reinforcement learning.” <em>ACL</em> (2017).</cite></li>
-<li>
-<div class="padded"><cite class="formatted-citation formatted-citation--style-mla">Zhang, Qianqian et al. “A Review on Entity Relation Extraction.” <em>2017 Second International Conference on Mechanical, Control and Computer Engineering (ICMCCE)</em> (2017): 178-183.</cite></div>
-</li>
-<li>Arvind Neelakantan’s Doctoral Disseration: <em>Knowledge Representation and Reasoning with Deep Neural Networks (2017)</em></li>
-<li>
-<div class="padded"><cite class="formatted-citation formatted-citation--style-mla">Zhao, Tiancheng and Maxine Eskénazi. “Towards End-to-End Learning for Dialog State Tracking and Management using Deep Reinforcement Learning.” <em>SIGDIAL Conference</em> (2016).</cite></div>
-</li>
-</ul>
-<p><strong>Minimal Viable Action Plan:</strong> My minimum action plan would be to implement and train an RL model to ask certain question template(s) as clarification as it processes input text line by line. Then a human (myself) would assign a reward to indicate the quality of the question and give a brief answer to the question. This brief answer would then be used to expand the model’s stored knowledge representation and the assigned reward would be used to train the RL model. This series of exchanges is treated like a one-on-one conversation even if it’s more like a one-sided lecture.</p>
-<p><strong>Stretch Goals:</strong> Stretch goals include extracting features from the existing knowledge base and feeding those into the model to further improve the relevancy of questions (for example not asking questions that the model should already know). Another stretch goal would be to translate the knowledge representation back into everyday English text for tasks such as answering reading comprehension questions. This can be done either by training a Machine Translation model, using a parser like ANTLR, or some other method.</p>
-<p><strong>Proposed Methodologies:</strong> My proposed methodologies follows a similar outline as given by Williams et al. in their paper on Hybrid Code Networks (HCNs).</p>
-<ul>
-<li>The input text is read in line-by-line and goes through various preprocessing steps like entity extraction, word embeddings layer, sentiment analysis, bag of words, etc. These features are concatenated and fed into the model.</li>
-<li>In the HCN paper, the model was an RNN followed by a softmax layer (probability distribution over the various actions to take).
-<ul>
-<li>In this problem, the “actions” to take are the different types of question templates to ask so copying this model and substituting their action templates with my question templates would work.</li>
-</ul>
-</li>
-<li>An alternative approach would be to build a Deep Q Network model with an LSTM (or GRU) layer at the end, so the network would update the Q values for each question type that can be asked (and the one with the highest Q value can be greedily selected). For clarification, each input sentence would represent a time step.</li>
-<li>After a question type is selected with either of the 2 approaches above, nouns need to be substituted in to form an actual question (as in the HCN paper). For example, a question template might be “Is there a relationship between ______ and ______?” and the two blanks need to be filled in with nouns. If the substitution results in a good question, a good reward is assigned and otherwise, a very negative reward is assigned. If it’s a good question, then an answer is given to update the knowledge representation.
-<ul>
-<li>Some possible ways to create this knowledge representation is to use lists, trees, semantic networks, production rules, logical propositions and/or other existing NLP knowledge representation models (I haven’t decided on one yet).</li>
-</ul>
-</li>
-</ul>
-<p><strong>Available Resources/Databases:</strong> To train the model, any reading comprehension dataset like MS Marco (Microsoft), SQuAD (Stanford), RACE, etc. can be used. If my project is successful enough, I can even use these datasets for evaluation.</p>
-<p><strong>Evaluation Plan:</strong> If I only finish my minimum viable action plan, I’m not sure how I can qualitatively assess my knowledge representation except by comparing the representation against the information I wanted to be recorded (or have other people judge what knowledge should be stored). On the other hand, if I finish my stretch goals (translating knowledge representation to English) I can try to use the knowledge representation to train on and respond to queries in a reading comprehension dataset (which would be a much more qualitative evaluation).</p></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://deeplearningturingtest.wordpress.com/2018/04/11/project-proposal-question-based-knowledge-representation/">by ananthgo at April 11, 2018 06:59 AM</a>
-</p>
-</div>
-</div>
-
-
 </div>
 
 </div>
@@ -3428,7 +3398,7 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 
 <p>
 <strong>Last updated:</strong><br>
-May 17, 2018 01:30 AM<br>
+May 17, 2018 02:00 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
