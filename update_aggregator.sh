@@ -7,7 +7,7 @@ current_date_time="`date +%Y%m%d%H%M%S`";
 cd ~
 
 # go to venus directory
-cd venus
+cd nlpcapstone/venus
 
 # Remove cache
 rm -rf cache
@@ -16,10 +16,10 @@ rm -rf cache
 source activate venus
 
 # Pull changes from planet
-python planet.py ~/Documents/Github/nlpcapstone.github.io/capstone_2018.ini --expunge
+python planet.py ~/nlpcapstone/nlpcapstone.github.io/capstone_2018.ini --expunge
 
 # push changes to github
-cd ~/Documents/Github/nlpcapstone.github.io/
+cd ~/nlpcapstone/nlpcapstone.github.io/
 eval "$(ssh-agent -s)"
 ssh-add ~/.ssh/id_rsa_nlpcapstonebot
 git add -A
