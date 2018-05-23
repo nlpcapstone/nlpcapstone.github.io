@@ -23,6 +23,98 @@
 <h1>NLP Capstone Spring 2018</h1>
 
 <div class="daygroup">
+<h2>May 23, 2018</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="http://cse481n-capstone.azurewebsites.net" title="Team Watch Your Language!">Boyan Li, Dennis Orzikh, Lanhao Wu <br/> Team Watch Your Language!</a></h3>
+
+
+<div class="entrygroup" id="http://cse481n-capstone.azurewebsites.net/?p=114">
+<h4 lang="en-US"><a href="http://cse481n-capstone.azurewebsites.net/2018/05/22/adversarial-data-collection-pilot-reddit-comment-storage-design-advanced-attempt-ii-continue/">Adversarial Data Collection Pilot &amp; Reddit Comment Storage Design (Advanced Attempt II Continue)</a></h4>
+<div class="entry">
+<div class="content" lang="en-US">
+<h3>Adversarial Data Collection</h3>
+<h3>Context extraction for Reddit Comment Design</h3>
+<p><span style="font-weight: 400;">Here we present a high-level idea about how to store Reddit comment objects in DBMS for future context retrieval.  This is a substantial project on its own, therefore the implementation might not happen this quarter. We hope our exploration on this subject would pave the path for future work. </span></p>
+<p><span style="font-weight: 400;">Last week, we presented an interesting paper, Anyone Can Become a Troll:</span><span style="font-weight: 400;"><br />
+</span><span style="font-weight: 400;">Causes of Trolling Behavior in Online Discussions by Cheng et. al. To recap, the paper concludes that Negative Mood and Negative Discussion Context are the two causes of trolling behavior online. Moreover, the paper states that when training and evaluating a logistic regression classifier, “features relating to discussion context are most informative” (Cheng et. al.). </span></p>
+<p><span style="font-weight: 400;">This gives us an idea that could potentially improve our model performance on reddit comments. Since a reddit post/discussion format is very much like CNN.com’s comment section where the post takes the role of an article, and all subsequent comments either spawn directly from the post or from previous comments, we believe the context of comments would also be a very useful feature for us to use when we use reddit comment data in the future (note: we are collecting reddit posts at this moment, but the data collection pipeline could easily be ported to reddit comments). </span></p>
+<p><span style="font-weight: 400;">A reddit comment JSON object looks like this in the comment dumps we get from pushshift.io: </span></p>
+<pre><span style="font-weight: 400;">{
+    'author': 'LysergicOracle',</span>
+
+<span style="font-weight: 400;">    'author_flair_css_class': None,</span>
+
+<span style="font-weight: 400;">    'author_flair_text': None,</span>
+
+<span style="font-weight: 400;">    'body': '&lt;3',</span>
+
+<span style="font-weight: 400;">    'can_gild': True,</span>
+
+<span style="font-weight: 400;">    'controversiality': 0,</span>
+
+<span style="font-weight: 400;">    'created_utc': 1512086400,</span>
+
+<span style="font-weight: 400;">    'distinguished': None,</span>
+
+<span style="font-weight: 400;">    'edited': False,</span>
+
+<span style="font-weight: 400;">    'gilded': 0,</span>
+
+<span style="font-weight: 400;">    'id': 'dql1dzn',</span>
+
+<span style="font-weight: 400;">    'is_submitter': False,</span>
+
+<span style="font-weight: 400;">    'link_id': 't3_7go27t',</span>
+
+<span style="font-weight: 400;">    'parent_id': 't1_dql0d4o',</span>
+
+<span style="font-weight: 400;">    'permalink': '/r/freefolk/comments/7go27t/jonerys_first_fight_306_ac_colorized/dql1dzn/',</span>
+
+<span style="font-weight: 400;">    'retrieved_on': 1514212661,</span>
+
+<span style="font-weight: 400;">    'score': 2,</span>
+
+<span style="font-weight: 400;">    'stickied': False,</span>
+
+<span style="font-weight: 400;">    'subreddit': 'freefolk',</span>
+
+<span style="font-weight: 400;">    'subreddit_id': 't5_37tpy',</span>
+
+<span style="font-weight: 400;">    'subreddit_type': 'public',</span>
+<span style="font-weight: 400;">}</span></pre>
+<p><span style="font-weight: 400;">Here we get a comment from subreddit freefolks and the comment’s content is ‘&lt;3’. “link_id” is the id of the post under which this comment is posted, and “parent_id” is the id of the comment or post under which this comment is posted. In the case where the current comment is a top-level comment (directly posted under the post, with no parent comment), “link_id” and “parent_id” would be the same. We can also use “created_utc” to figure out which comment was created first if they are siblings, thus knowing which comment could have had an influence on the other.  </span></p>
+<p><span style="font-weight: 400;">To recreate the discussion context of a comment, we are thinking of two kinds of queries: 1) queries that find all “ancestor comments” of the current comment; 2) queries that finds all “sibling comments” that were posted at an earlier timestamp than the current comment. Then we can incorporate the level of negativity of these comments as features when learning or making predictions of the current comment.</span></p>
+<p><span style="font-weight: 400;">To store these comment objects in a DBMS for fast retrieval and context construction, we did some research on which DBMS to use. There are many DBMS systems out there that support JSON datatype, but the two we mainly looked at were MongoDB and PostgreSQL. Both of them are open source projects. MongoDB supports native JSON storage and has its own set of query commands. PostgreSQL was initially designed to be a SQL database, but it has supported JSON datatype for a few years. While both were valid choices, PostgreSQL supports SQL like query language on JSON data. It also supports recursive queries, which is perfect for the purpose of context tree construction. Therefore, we decided PostgreSQL is a better choice for Reddit comment storage.</span></p>
+<p><span style="font-weight: 400;">For future work, we would spin up a PostgreSQL server and write a client-side package for comment context retrieval.</span></p>
+<h3>Advanced Model Attempt Update</h3>
+<h3>Work Cited</h3>
+<p><a href="https://files.clr3.com/papers/2017_anyone.pdf"><span style="font-weight: 400;">Cheng, Justin et al. “Anyone Can Become a Troll: Causes of Trolling Behavior in Online Discussions.” CSCW : proceedings of the Conference on Computer-Supported Cooperative Work. Conference on Computer-Supported Cooperative Work 2017 (2017): 1217-1230.</span></a></p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="http://cse481n-capstone.azurewebsites.net/2018/05/22/adversarial-data-collection-pilot-reddit-comment-storage-design-advanced-attempt-ii-continue/">by Team Watch Your Language! at May 23, 2018 02:11 AM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
+<div class="daygroup">
 <h2>May 22, 2018</h2>
 
 <div class="channelgroup">
@@ -3322,38 +3414,6 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 </div>
 
 
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://medium.com/@be.li.nda?source=rss-fad49d942bf3------2" title="Stories by Belinda Zou Li on Medium">Belinda Li <br/> Team Sentimentity</a></h3>
-
-
-<div class="entrygroup" id="https://medium.com/p/7de5277b5be">
-<h4><a href="https://medium.com/@be.li.nda/nlp-capstone-blog-4-baseline-model-i-7de5277b5be?source=rss-fad49d942bf3------2">NLP Capstone Blog #4: Baseline Model I</a></h4>
-<div class="entry">
-<div class="content">
-<p>This week, I implemented the baseline neural model from my minimal viable plan. Specifically, my model was an attentive biLSTM, which took as input concatenated word, polarity, and holder/target embeddings.</p><p>As for evaluation frameworks, I’ve implemented f1 scoring. I also kept track of other metrics like accuracy and loss, in addition to f1 score, to get a better understanding of my model’s performance.</p><p>The following is a summary of my preliminary results. I’ve done very little hyper-parameter tuning thus far, but of the tuning that I did do, I found that changing the optimizer had the greatest benefit, specifically, using the Adam optimizer over the SGD optimizer. I trained the following two hyper-parameter settings:</p><pre>╔═════════════════════╦═════════╦═════════╗<br />║   Hyperparameters   ║    1    ║    2    ║<br />╠═════════════════════╬═════════╬═════════╣<br />║ Optimizer           ║ Adam    ║ SGD     ║<br />║ Learning Rate       ║ 0.01    ║ 0.05    ║<br />║ # Epochs            ║ 20      ║ 20      ║<br />║ Loss Function       ║ NLLLoss ║ NLLLoss ║<br />║ Hidden Dimension    ║ 150     ║ 150     ║<br />║ Dropout Rate        ║ 0.20    ║ 0.20    ║<br />║ Batch Size          ║ 10      ║ 10      ║<br />║ Embedding Dimension ║ 50      ║ 50      ║<br />║    (all 3)          ║         ║         ║<br />╚═════════════════════╩═════════╩═════════╝</pre><p>As you can see, the only differences are in the optimizer and learning rate. Note I did experiment a little with learning rate for each optimizer, however, the amount of tuning I did for this is definitely not sufficiently.</p><p>Also note hyper-parameter configuration 1 (Adam optimizer) performed much better than 2 (SGD optimizer).</p><h3>Preliminary Results</h3><h4>Adam Optimizer</h4><p>Graph of the <strong>loss</strong> over time:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/640/1*sYny1MXCplPx-XQ_ToYN4Q.png" /></figure><p>Graph of <strong>f1 scores</strong> over time: (Note there are 3 types of sentiments two pairs of entities can share: positive sentiment, negative sentiment, or no sentiment)</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*iPBZ5X-TctKEGWXub_8Klw.png" /></figure><p>Graph of <strong>accuracies</strong> over time:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/640/1*5TrbatjcthnZDlaz4eNxXg.png" /></figure><h4>SGD Optimizer</h4><ul><li>For SGD, I experimented with a few values for learning rate (0.01, 0.05, and 0.1), and found 0.05 to fairly optimal.</li></ul><p>Graph of the <strong>loss</strong> over time:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/640/1*nweK1MYnyudak8XGAHMnng.png" /></figure><p>Graph of <strong>f1 scores</strong> over time:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*VPN0B5UEkH1tWDShzrcSLQ.png" /></figure><p>Graph of <strong>accuracies</strong> over time:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/640/1*9BmjOwEAcPQbHR-a1ZINLg.png" /></figure><h3>Key Takeaways</h3><ul><li>There’s a huge discrepancy between the performance on the train set and the performance on the dev set, indicating that the development data set and training data set are very different.</li><li>Analysis of the datasets, as you can see, the training set is very different in composition from the other sets:</li></ul><pre>╔══════════════╦══════════╦══════════╦══════════╦══════════╦═══════╗<br />║              ║          ║ average  ║    #     ║    #     ║   #   ║<br />║              ║    #     ║ entities ║ positive ║ negative ║ none  ║<br />║              ║ articles ║ /article ║  pairs   ║  pairs   ║ pairs ║<br />╠══════════════╬══════════╬══════════╬══════════╬══════════╬═══════╣<br />║ train-ACL    ║ 897      ║ 2.63     ║ 648      ║ 815      ║ 355   ║<br />║ dev-ACL-tune ║ 38       ║ 8.82     ║ 257      ║ 95       ║ 2520  ║<br />║ dev-ACL-test ║ 36       ║ 9        ║ 237      ║ 118      ║ 2547  ║<br />║ test-ACL     ║ 79       ║ 9.25     ║ 379      ║ 198      ║ 6037  ║<br />║ test-MPQA    ║ 54       ║ 11.72    ║ 435      ║ 362      ║ 6813  ║<br />╚══════════════╩══════════╩══════════╩══════════╩══════════╩═══════╝</pre><ul><li>For the Adam optimizer, the loss is still decreasing at the 20th epoch, meaning that I could probably keep seeing an improvement in performance if I continued running many more epochs.</li></ul><h3>Plan for Next Time</h3><ol><li>Deal with the discrepancy between train/dev/test data.</li><li>Do some more hyper-parameter tuning to try and improve scores.</li><li>Implement the end-to-end model architecture based on the <a href="https://homes.cs.washington.edu/~luheng/files/emnlp2017_lhlz.pdf">Lee et al. paper</a>, i.e. scoring holder/target sentiment using a FFNN in a second step. This is point 1 of my MVP/Stretch Goal from my last blog post. If time suffices, also implement bi-affine scoring (<a href="https://arxiv.org/pdf/1802.10569.pdf">Verga et al., 2018</a>, or point 2 in my MVP/Stretch Goal from my last blog post) and compare the results with the baseline model.</li><li>Experiment with attention mechanism, instead of calculating attention weights through a linear mapping from hidden state → weight, perhaps use a FFNN and pass in the hidden state.</li></ol><p>All code I’ve written for this post can be found on Github: <a href="https://github.com/eunsol/document-e2e-sent">https://github.com/eunsol/document-e2e-sent</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=7de5277b5be" width="1" /></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://medium.com/@be.li.nda/nlp-capstone-blog-4-baseline-model-i-7de5277b5be?source=rss-fad49d942bf3------2">by Belinda Zou Li at April 17, 2018 06:51 AM</a>
-</p>
-</div>
-</div>
-
-
 </div>
 
 </div>
@@ -3406,7 +3466,7 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 
 <p>
 <strong>Last updated:</strong><br>
-May 23, 2018 02:00 AM<br>
+May 23, 2018 02:30 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--
