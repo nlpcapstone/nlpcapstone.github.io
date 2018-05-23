@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:planet="http://planet.intertwingly.net/" xmlns:indexing="urn:atom-extension:indexing" indexing:index="no"><access:restriction xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" relationship="deny"/>
   <title>NLP Capstone Spring 2018</title>
-  <updated>2018-05-23T04:00:21Z</updated>
+  <updated>2018-05-23T04:30:39Z</updated>
   <generator uri="http://intertwingly.net/code/venus/">Venus</generator>
   <author>
     <name>Nelson Liu</name>
@@ -10,6 +10,30 @@
   <id>https://nlpcapstone.github.io/atom.xml</id>
   <link href="https://nlpcapstone.github.io/atom.xml" rel="self" type="application/atom+xml"/>
   <link href="https://nlpcapstone.github.io/" rel="alternate"/>
+
+  <entry>
+    <id>tag:blogger.com,1999:blog-9203775015655831448.post-7864337718441481784</id>
+    <link href="https://teamoverfit.blogspot.com/2018/05/9-milestone-advanced-model-attempt-2.html" rel="alternate" type="text/html"/>
+    <title>#9 Milestone: Advanced model attempt #2 (continued)</title>
+    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><h2 style="height: 0px;"><span>Team Overfit</span></h2><h3><span><br/></span></h3><h3><span>Project repo: <span style="font-size: 18.72px;"><a href="https://github.com/pinyiw/nlpcapstone-teamoverfit">https://github.com/pinyiw/nlpcapstone-teamoverfit</a></span></span></h3><h4><span>Team members: Dawei Shen, Pinyi Wang, Xukai Liu</span></h4><div style="text-align: start; text-indent: 0px;"><div style="margin: 0px;"><div><span><b>Blog Post: #9: 05/22/2018</b></span></div><div><span><span><b><br/></b></span></span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Social Media Predicts Stock Price (StartUp Mode)</span><br/><span><br/></span><span><b>What We Did:</b></span><br/><ul><li><span>Use news data and write preprocessor</span></li><ul><li><span>The drawback of News Tweets</span></li><ul><li><span><span id="docs-internal-guid-883230d4-8b20-8c22-2807-843c883c978c"><span>Too short for each tweet and not informative enough for the model to learn from it.</span></span></span></li><li><span><span><span id="docs-internal-guid-af2383c6-8b20-b2a3-a62a-455584d56812"><span style="vertical-align: baseline;">Some news tweets don’t summarize well for the real content and cause misleading predictions.</span></span></span></span></li><li><span><span><span style="vertical-align: baseline;"><span id="docs-internal-guid-e02be321-8b21-0416-2fa0-ef6480c92d92"><span style="vertical-align: baseline;">The sources of such news tweets are mostly unauthorized.</span></span></span></span></span></li></ul><li><span><span style="white-space: pre-wrap;"><span id="docs-internal-guid-e9f853fe-8b21-3a41-e15b-561e8b9a7498"><span style="vertical-align: baseline;">Therefore, we decided to move on and explore new news sources which are authorized as our input.</span></span></span></span></li><li><span><span style="white-space: pre-wrap;"><span style="vertical-align: baseline;"><span id="docs-internal-guid-00d89dbe-8b21-6184-8856-59ddaaef7254"><span style="vertical-align: baseline;">We used the financial news published everyday and crawl the content directly, instead of using the titles. This will increase the input size for each news. However, it helps the model to gain more information from each single news.</span></span></span></span></span></li><li><span><span style="white-space: pre-wrap;"><span style="vertical-align: baseline;"><span style="vertical-align: baseline;"><span id="docs-internal-guid-a49c91be-8b21-8bf2-9b24-72087904ee5d"><span style="vertical-align: baseline;">The link to the source we use: </span><span style="color: #1155cc; vertical-align: baseline;"><a href="https://intrinio.com/tutorial/file_download#News">https://intrinio.com/tutorial/file_download#News</a></span></span></span></span></span></span></li></ul><li><span><span style="white-space: pre-wrap;">Model Optimization</span></span></li><ul><li><span><span style="white-space: pre-wrap;"><span id="docs-internal-guid-d56ee8ab-8b21-eec9-1c8a-26602af6d372"><span style="vertical-align: baseline;">Add learning rate decay to our training</span></span></span></span></li><ul><li><span><span style="white-space: pre-wrap;"><span style="vertical-align: baseline;">This helps the model to converge smoothly at the end of training</span></span></span></li></ul><li><span><span style="white-space: pre-wrap;"><span id="docs-internal-guid-cd723ea4-8b22-d2e3-4c18-27df8c103e58"><span style="vertical-align: baseline;">Investigate the correlation between sentiment analysis of Tweets and stock price movement</span></span></span></span></li><ul><li><span><span style="white-space: pre-wrap;"><span style="vertical-align: baseline;">We categorize the attitudes in each tweets and news, which increase our feature size</span></span></span></li><li><span><span style="white-space: pre-wrap;"><span style="vertical-align: baseline;"><span id="docs-internal-guid-ac7fa55e-8b23-3684-d1f2-4eda487b4e92"><span style="vertical-align: baseline;">Also, we compare the overall attitudes of all tweets and news each day with the prediction made by the model and the real stock price.</span></span></span></span></span></li></ul></ul><li><span><span style="white-space: pre-wrap;"><span id="docs-internal-guid-56177478-8b23-82ae-6d6a-d780f77fdf2a"><span style="vertical-align: baseline;">Visualize and investigate our prediction/training to have better understanding of our model</span></span></span></span></li><ul><li><span><span style="white-space: pre-wrap;"><span style="vertical-align: baseline;">Find out the top k words that have most weight for a given day</span></span></span></li><ul><li><span><span style="white-space: pre-wrap;"><span style="vertical-align: baseline;">Most of them do not seem to relate to stock price movement</span></span></span></li></ul><li><span><span style="white-space: pre-wrap;"><span id="docs-internal-guid-51b8e57b-8b23-fc01-5457-d60abea87f96"><span style="vertical-align: baseline;">Compare the prediction/target graph for each epochs to see if the predictions are improving/converging</span></span></span></span></li><li><span><span style="white-space: pre-wrap;"><span style="vertical-align: baseline;">Graphs:</span></span></span></li></ul></ul><a href="https://2.bp.blogspot.com/-cvX-eD-CWqI/WwTph39sPdI/AAAAAAAAAAY/p-YRfgomFu0oyiXeSsMXTRAhNRQ4FbPGgCEwYBhgL/s1600/final.png" style="clear: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" height="133" src="https://2.bp.blogspot.com/-cvX-eD-CWqI/WwTph39sPdI/AAAAAAAAAAY/p-YRfgomFu0oyiXeSsMXTRAhNRQ4FbPGgCEwYBhgL/s640/final.png" width="640"/></a><br/><div><span><span style="white-space: pre-wrap;"><b>Possible Next steps</b></span></span></div><div><ul><li><span><span style="white-space: pre-wrap;">Predict more stock prices in the further future rather than just the next day.</span></span></li><li><span><span style="white-space: pre-wrap;">Implement an application to help optimize investment strategy</span></span></li></ul></div><ul><ul/></ul></div></div></div></div>
+    </summary>
+    <updated>2018-05-23T04:11:00Z</updated>
+    <author>
+      <name>Team Overfit</name>
+      <email>noreply@blogger.com</email>
+    </author>
+    <source>
+      <id>tag:blogger.com,1999:blog-9203775015655831448</id>
+      <author>
+        <name>Team Overfit</name>
+        <email>noreply@blogger.com</email>
+      </author>
+      <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
+      <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
+      <title>NLP Capstone</title>
+      <updated>2018-05-23T04:30:38Z</updated>
+    </source>
+  </entry>
 
   <entry xml:lang="en-US">
     <id>http://cse481n-capstone.azurewebsites.net/?p=114</id>
@@ -86,7 +110,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-23T04:00:12Z</updated>
+      <updated>2018-05-23T04:30:25Z</updated>
     </source>
   </entry>
 
@@ -110,7 +134,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-23T04:00:08Z</updated>
+      <updated>2018-05-23T04:30:18Z</updated>
     </source>
   </entry>
 
@@ -133,7 +157,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-23T04:00:16Z</updated>
+      <updated>2018-05-23T04:30:29Z</updated>
     </source>
   </entry>
 
@@ -167,7 +191,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-23T04:00:21Z</updated>
+      <updated>2018-05-23T04:30:39Z</updated>
     </source>
   </entry>
 
@@ -192,7 +216,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-23T04:00:14Z</updated>
+      <updated>2018-05-23T04:30:26Z</updated>
     </source>
   </entry>
 
@@ -241,7 +265,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-23T04:00:19Z</updated>
+      <updated>2018-05-23T04:30:37Z</updated>
     </source>
   </entry>
 
@@ -269,7 +293,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-23T04:00:16Z</updated>
+      <updated>2018-05-23T04:30:34Z</updated>
     </source>
   </entry>
 
@@ -277,7 +301,7 @@
     <id>tag:blogger.com,1999:blog-9203775015655831448.post-3973266691169482239</id>
     <link href="https://teamoverfit.blogspot.com/2018/05/8-milestone-advanced-model-attempt-2.html" rel="alternate" type="text/html"/>
     <title>#8 Milestone: Advanced model attempt #2</title>
-    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><h2 style="height: 0px;"><span>Team Overfit</span></h2><h3><span><br/></span></h3><h3><span>Project repo: <span style="font-size: 18.72px;"><a href="https://github.com/pinyiw/nlpcapstone-teamoverfit">https://github.com/pinyiw/nlpcapstone-teamoverfit</a></span></span></h3><h4><span>Team members: Dawei Shen, Pinyi Wang, Xukai Liu</span></h4><div style="text-align: start; text-indent: 0px;"><div style="margin: 0px;"><div><span><b>Blog Post: #7: 05/15/2018</b></span></div><div><span><span><b><br/></b></span></span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Social Media Predicts Stock Price (StartUp Mode)</span><br/><span><br/></span><span>This week, we weren't able to make our model make better prediction on stock price movement.</span><br/><h3><span>We have tried:</span></h3><ul><li><span>Improve initialization weights and bias</span></li><ul><li><span>Increase standard deviation so that the initial price prediction varies more preventing the model to be stuck at local minima</span></li><li><span>Decrease bias so that the initial prediction are closer to the expected, and therefore, converge faster</span></li></ul><li><span>Tune hyperparameters of LSTM and try out different settings of data</span></li><ul><li><span>Number of time steps of RNN</span></li><li><span>Size of dictionary</span></li><ul><li><span>Remove vocab that have high document frequency</span></li></ul><li><span>Number of LSTM hidden units</span></li><li><span>Number of RNN layers</span></li><li><span>Learning rate</span></li><li><span>Dropout layer</span></li></ul><li><span>Visualize and investigate our prediction/training to have better understanding of our model</span></li><ul><li><span>Find out the top k words that have most weight for a given day</span></li><ul><li><span>Most of them do not seem to relate to stock price movement</span></li></ul><li><span>Compare the prediction/target graph for each epochs to see if the predictions are improving/convergin</span></li></ul></ul><h3><span>In progress and next steps:</span></h3><div><ul><li><span>Find good news data and write preprocessor</span></li><li><span>Research on better featurizations</span></li><li><span>Research on better model</span></li><li><span>Add learning rate decay to our training</span></li><li><span>Investigate the correlation between sentiment analysis of Tweets and stock price movement</span></li></ul></div></div></div></div></div>
+    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><h2 style="height: 0px;"><span>Team Overfit</span></h2><h3><span><br/></span></h3><h3><span>Project repo: <span style="font-size: 18.72px;"><a href="https://github.com/pinyiw/nlpcapstone-teamoverfit">https://github.com/pinyiw/nlpcapstone-teamoverfit</a></span></span></h3><h4><span>Team members: Dawei Shen, Pinyi Wang, Xukai Liu</span></h4><div style="text-align: start; text-indent: 0px;"><div style="margin: 0px;"><div><span><b>Blog Post: #8: 05/15/2018</b></span></div><div><span><span><b><br/></b></span></span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Social Media Predicts Stock Price (StartUp Mode)</span><br/><span><br/></span><span>This week, we weren't able to make our model make better prediction on stock price movement.</span><br/><h3><span>We have tried:</span></h3><ul><li><span>Improve initialization weights and bias</span></li><ul><li><span>Increase standard deviation so that the initial price prediction varies more preventing the model to be stuck at local minima</span></li><li><span>Decrease bias so that the initial prediction are closer to the expected, and therefore, converge faster</span></li></ul><li><span>Tune hyperparameters of LSTM and try out different settings of data</span></li><ul><li><span>Number of time steps of RNN</span></li><li><span>Size of dictionary</span></li><ul><li><span>Remove vocab that have high document frequency</span></li></ul><li><span>Number of LSTM hidden units</span></li><li><span>Number of RNN layers</span></li><li><span>Learning rate</span></li><li><span>Dropout layer</span></li></ul><li><span>Visualize and investigate our prediction/training to have better understanding of our model</span></li><ul><li><span>Find out the top k words that have most weight for a given day</span></li><ul><li><span>Most of them do not seem to relate to stock price movement</span></li></ul><li><span>Compare the prediction/target graph for each epochs to see if the predictions are improving/convergin</span></li></ul></ul><h3><span>In progress and next steps:</span></h3><div><ul><li><span>Find good news data and write preprocessor</span></li><li><span>Research on better featurizations</span></li><li><span>Research on better model</span></li><li><span>Add learning rate decay to our training</span></li><li><span>Investigate the correlation between sentiment analysis of Tweets and stock price movement</span></li></ul></div></div></div></div></div>
     </summary>
     <updated>2018-05-16T06:37:00Z</updated>
     <author>
@@ -293,7 +317,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-23T04:00:20Z</updated>
+      <updated>2018-05-23T04:30:38Z</updated>
     </source>
   </entry>
 
@@ -316,7 +340,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-23T04:00:15Z</updated>
+      <updated>2018-05-23T04:30:27Z</updated>
     </source>
   </entry>
 
@@ -339,7 +363,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-23T04:00:10Z</updated>
+      <updated>2018-05-23T04:30:20Z</updated>
     </source>
   </entry>
 
@@ -505,7 +529,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-23T04:00:12Z</updated>
+      <updated>2018-05-23T04:30:25Z</updated>
     </source>
   </entry>
 
@@ -529,7 +553,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-23T04:00:08Z</updated>
+      <updated>2018-05-23T04:30:18Z</updated>
     </source>
   </entry>
 
@@ -552,7 +576,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-23T04:00:09Z</updated>
+      <updated>2018-05-23T04:30:19Z</updated>
     </source>
   </entry>
 
@@ -599,7 +623,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-23T04:00:21Z</updated>
+      <updated>2018-05-23T04:30:39Z</updated>
     </source>
   </entry>
 
@@ -622,7 +646,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-23T04:00:15Z</updated>
+      <updated>2018-05-23T04:30:27Z</updated>
     </source>
   </entry>
 
@@ -653,7 +677,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-23T04:00:16Z</updated>
+      <updated>2018-05-23T04:30:34Z</updated>
     </source>
   </entry>
 
@@ -677,7 +701,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-23T04:00:20Z</updated>
+      <updated>2018-05-23T04:30:38Z</updated>
     </source>
   </entry>
 
@@ -704,7 +728,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-23T04:00:19Z</updated>
+      <updated>2018-05-23T04:30:37Z</updated>
     </source>
   </entry>
 
@@ -729,7 +753,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-23T04:00:13Z</updated>
+      <updated>2018-05-23T04:30:26Z</updated>
     </source>
   </entry>
 
@@ -752,7 +776,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-23T04:00:16Z</updated>
+      <updated>2018-05-23T04:30:29Z</updated>
     </source>
   </entry>
 
@@ -1016,7 +1040,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-23T04:00:12Z</updated>
+      <updated>2018-05-23T04:30:25Z</updated>
     </source>
   </entry>
 
@@ -1039,7 +1063,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-23T04:00:10Z</updated>
+      <updated>2018-05-23T04:30:19Z</updated>
     </source>
   </entry>
 
@@ -1062,7 +1086,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-23T04:00:09Z</updated>
+      <updated>2018-05-23T04:30:19Z</updated>
     </source>
   </entry>
 
@@ -1086,7 +1110,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-23T04:00:08Z</updated>
+      <updated>2018-05-23T04:30:18Z</updated>
     </source>
   </entry>
 
@@ -1131,7 +1155,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-23T04:00:16Z</updated>
+      <updated>2018-05-23T04:30:29Z</updated>
     </source>
   </entry>
 
@@ -1156,7 +1180,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-23T04:00:14Z</updated>
+      <updated>2018-05-23T04:30:26Z</updated>
     </source>
   </entry>
 
@@ -1182,7 +1206,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-23T04:00:15Z</updated>
+      <updated>2018-05-23T04:30:27Z</updated>
     </source>
   </entry>
 
@@ -1209,7 +1233,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-23T04:00:19Z</updated>
+      <updated>2018-05-23T04:30:37Z</updated>
     </source>
   </entry>
 
@@ -1234,7 +1258,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-23T04:00:16Z</updated>
+      <updated>2018-05-23T04:30:34Z</updated>
     </source>
   </entry>
 
@@ -1712,7 +1736,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-23T04:00:12Z</updated>
+      <updated>2018-05-23T04:30:24Z</updated>
     </source>
   </entry>
 
@@ -1736,7 +1760,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-23T04:00:20Z</updated>
+      <updated>2018-05-23T04:30:38Z</updated>
     </source>
   </entry>
 
@@ -1759,7 +1783,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-23T04:00:10Z</updated>
+      <updated>2018-05-23T04:30:19Z</updated>
     </source>
   </entry>
 
@@ -1782,7 +1806,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-23T04:00:08Z</updated>
+      <updated>2018-05-23T04:30:18Z</updated>
     </source>
   </entry>
 
@@ -1805,7 +1829,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-23T04:00:09Z</updated>
+      <updated>2018-05-23T04:30:19Z</updated>
     </source>
   </entry>
 
@@ -1855,7 +1879,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-23T04:00:16Z</updated>
+      <updated>2018-05-23T04:30:34Z</updated>
     </source>
   </entry>
 
@@ -1882,7 +1906,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-23T04:00:19Z</updated>
+      <updated>2018-05-23T04:30:37Z</updated>
     </source>
   </entry>
 
@@ -1907,7 +1931,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-23T04:00:14Z</updated>
+      <updated>2018-05-23T04:30:26Z</updated>
     </source>
   </entry>
 
@@ -1930,7 +1954,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-23T04:00:16Z</updated>
+      <updated>2018-05-23T04:30:29Z</updated>
     </source>
   </entry>
 
@@ -1953,7 +1977,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-23T04:00:10Z</updated>
+      <updated>2018-05-23T04:30:19Z</updated>
     </source>
   </entry>
 
@@ -1976,7 +2000,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-23T04:00:15Z</updated>
+      <updated>2018-05-23T04:30:27Z</updated>
     </source>
   </entry>
 
@@ -2000,7 +2024,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-23T04:00:20Z</updated>
+      <updated>2018-05-23T04:30:38Z</updated>
     </source>
   </entry>
 
@@ -2144,7 +2168,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-23T04:00:12Z</updated>
+      <updated>2018-05-23T04:30:25Z</updated>
     </source>
   </entry>
 
@@ -2190,7 +2214,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-23T04:00:20Z</updated>
+      <updated>2018-05-23T04:30:39Z</updated>
     </source>
   </entry>
 
@@ -2214,7 +2238,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-23T04:00:08Z</updated>
+      <updated>2018-05-23T04:30:18Z</updated>
     </source>
   </entry>
 
@@ -2259,7 +2283,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-23T04:00:09Z</updated>
+      <updated>2018-05-23T04:30:19Z</updated>
     </source>
   </entry>
 
@@ -2287,7 +2311,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-23T04:00:16Z</updated>
+      <updated>2018-05-23T04:30:34Z</updated>
     </source>
   </entry>
 
@@ -2311,7 +2335,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-23T04:00:08Z</updated>
+      <updated>2018-05-23T04:30:18Z</updated>
     </source>
   </entry>
 
@@ -2338,7 +2362,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-23T04:00:19Z</updated>
+      <updated>2018-05-23T04:30:37Z</updated>
     </source>
   </entry>
 
@@ -2361,7 +2385,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-23T04:00:16Z</updated>
+      <updated>2018-05-23T04:30:29Z</updated>
     </source>
   </entry>
 
@@ -2385,7 +2409,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-05-23T04:00:17Z</updated>
+      <updated>2018-05-23T04:30:35Z</updated>
     </source>
   </entry>
 
@@ -2411,7 +2435,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-23T04:00:15Z</updated>
+      <updated>2018-05-23T04:30:27Z</updated>
     </source>
   </entry>
 
@@ -2479,7 +2503,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-23T04:00:20Z</updated>
+      <updated>2018-05-23T04:30:39Z</updated>
     </source>
   </entry>
 
@@ -2503,7 +2527,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-23T04:00:20Z</updated>
+      <updated>2018-05-23T04:30:38Z</updated>
     </source>
   </entry>
 
@@ -2829,30 +2853,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-23T04:00:12Z</updated>
-    </source>
-  </entry>
-
-  <entry>
-    <id>https://medium.com/p/d1d1b2d1f34c</id>
-    <link href="https://medium.com/@hongnin1/image-annotation-model-baseline-dataset-and-evaluation-framework-d1d1b2d1f34c?source=rss-c450eb982161------2" rel="alternate" type="text/html"/>
-    <title>Image Annotation Model Baseline, Dataset and Evaluation Framework</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><h3>Baseline approach:</h3><h4>Overview:</h4><p>We are using a deep neural network that learns how to output the description of a general image. Example:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*RWtQGi8MpUzCsQTmWpR0Og.png"/>Image from paper <a href="https://arxiv.org/pdf/1412.6632.pdf">https://arxiv.org/pdf/1412.6632.pdf</a></figure><p>Our baseline model is an encoder-decoder neural network. First it encodes a image into a vector using a deep convolutional neural network (CNN), our baseline choice of network is <a href="https://arxiv.org/abs/1512.00567">Inception v3</a> image recognition model pre-trained on the <a href="http://www.image-net.org/challenges/LSVRC/2012/">ILSVRC-2012-CLS</a> image classification dataset. Then decode the vector into a paragraph of description using a long short-term memory network (LSTM). Words in the output description are represented with an embedding model with each word in the dictionary represented by a fixed-length vector (learned during training).</p><h4>Architecture:</h4><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*na7zdPNZQG66QVCJK1Kqmg.png"/>Baseline Model Architecture</figure><p>Above architecture outputs the log likelihoods of the correct words at each step (logp1(S1)); later we use beam search to generate the description for given image.</p><h4>Running the model/Experiment:</h4><ol><li>we downloaded Cuda, Bazel, TensorFlow, Numpy, Natural Language ToolKit(NLTK).</li></ol><p>2. Download necessary data from Microsoft COCO:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*Ap25lgpLRu8lkr0omWUdqQ.png"/>Bash screenshot of downloading MSCOCO data.</figure><p>3. Prepare all the necessary data we just downloaded for training:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*KBg_dBwZX6w3gIw2XzJDeA.png"/>Last few lines of bash logs for preparing data.</figure><p>4. Run training scripts and require: We only trained for about ~3 minutes.</p><p>5. After acquiring the model, we tried it out by input following images:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*a7WVZZT-k0fYKq82WUFLhA.png"/>input image: Surfer Guy</figure><figure><img alt="" src="https://cdn-images-1.medium.com/max/623/1*H89koub2tfhDoxN4WPCYQA.png"/>input image 2: Rowing</figure><p>Our model’s output is not idea, for “Surfer Guy” image, our output is:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/784/1*Wl_AHUOJ8inu91LYEIKVZw.png"/></figure><p>For “Rowing” image, our output is:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/780/1*mHCnFYULsaI80jZWjfav5Q.png"/></figure><p>6. Then by using TensorBoard, we plotted the log loss for our model in training:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*kLU6ytNXYM9ytsKUS9bUrQ.png"/>TensorBoard Log Loss Graph</figure><p>As well as our model’s architecture:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*Coh87C_W_jfo4Pg4aObPwA.png"/>Image Captioning Baseline Model Architecture on TensorBoard.</figure><h3>Evaluation Framework:</h3><p>The model we are referencing on <a href="https://github.com/tensorflow/models/tree/master/research/im2txt#prepare-the-training-data">git</a> hub has a built in evaluation framework, so we were using their evaluation script. It logs evaluation metrics to TensorBoard which allows training progress to be monitored in real-time (refer to the image “TensorBoard Log Loss Graph”).</p><h3>Resources:</h3><p>paper referenced: <a href="https://arxiv.org/pdf/1411.4555.pdf">https://arxiv.org/pdf/1411.4555.pdf</a></p><p>RMSProp referenced: <a href="https://www.coursera.org/learn/deep-neural-network/lecture/BhJlm/rmsprop">https://www.coursera.org/learn/deep-neural-network/lecture/BhJlm/rmsprop</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=d1d1b2d1f34c" width="1"/></div>
-    </content>
-    <updated>2018-04-17T07:30:16Z</updated>
-    <category term="machine-learning"/>
-    <author>
-      <name>Ning Hong</name>
-    </author>
-    <source>
-      <id>https://medium.com/@hongnin1?source=rss-c450eb982161------2</id>
-      <logo>https://cdn-images-1.medium.com/fit/c/150/150/0*d6QC_ngideag3rTN.</logo>
-      <link href="https://medium.com/@hongnin1?source=rss-c450eb982161------2" rel="alternate" type="text/html"/>
-      <link href="https://medium.com/feed/@hongnin1" rel="self" type="application/rss+xml"/>
-      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
-      <subtitle>Stories by Ning Hong on Medium</subtitle>
-      <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-23T04:00:10Z</updated>
+      <updated>2018-05-23T04:30:25Z</updated>
     </source>
   </entry>
 </feed>
