@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:planet="http://planet.intertwingly.net/" xmlns:indexing="urn:atom-extension:indexing" indexing:index="no"><access:restriction xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" relationship="deny"/>
   <title>NLP Capstone Spring 2018</title>
-  <updated>2018-05-23T04:30:39Z</updated>
+  <updated>2018-05-23T05:00:30Z</updated>
   <generator uri="http://intertwingly.net/code/venus/">Venus</generator>
   <author>
     <name>Nelson Liu</name>
@@ -10,6 +10,52 @@
   <id>https://nlpcapstone.github.io/atom.xml</id>
   <link href="https://nlpcapstone.github.io/atom.xml" rel="self" type="application/atom+xml"/>
   <link href="https://nlpcapstone.github.io/" rel="alternate"/>
+
+  <entry>
+    <id>https://medium.com/p/97cca6e26c14</id>
+    <link href="https://medium.com/@hongnin1/week-9-milestone-advanced-model-attempt-2-continued-97cca6e26c14?source=rss-c450eb982161------2" rel="alternate" type="text/html"/>
+    <title>Week 9 Milestone: Advanced model attempt #2 (continued)</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>A little recap from our <a href="https://medium.com/@hongnin1/advanced-model-attempt-2-continued-49da49607c01">Advanced model attempt</a> #2.</p><p>During week 7 we implemented BLEU score, which is a crucial indicator of the performance of our prediction. And during this week, we have been trying to improve our performance on primarily BLEU score and training loss. The result is not satisfying yet, but we are getting closer to our goal.</p><p>Earlier we discovered that our BLEU score and training batch loss stopped improving after a few thousand batches. And from Ari’s suggestion, we changed our optimizer from Adam to Stochastic Gradient Descent with learning rate decay, hoping to see the improvements. But we now discovered that it might not be our issue after a week of trying and tuning. Here is the performance we got with SGD:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/796/0*vrNjGo0XJnLzRFO9."/></figure><figure><img alt="" src="https://cdn-images-1.medium.com/max/711/0*UW7xg-U7JSLSfGvh."/></figure><figure><img alt="" src="https://cdn-images-1.medium.com/max/697/0*tASlStdM-dv0Nzkh."/></figure><p>Compared to what we had last week, we didn’t see a dramatic improvement.</p><p>Therefore, we believe that we have issues with other parts of our code. To find out which part causes our issue, we decided to run others’ code and compare the results with ours. Originally, with the same data set, the “<em>Show, Attend and Tell</em>” model (<a href="https://github.com/yunjey/show-attend-and-tell">https://github.com/yunjey/show-attend-and-tell</a>) converged to a slightly higher BLEU score but much lower loss than our implementation. In order to find where the issue came from, we substituted different parts of their model with ours and observed the result. After several trials, we discovered that when we substitute only the model itself (keeping their data pre-processing and train solver), we got similar result to their original model. Thus we drew the conclusion that the issue lies in our data pre-processing implementation.</p><p>The first thing we will do for this week is to address this issue. We will spend more time on investigating the implementation of our data pre-processing and try to find out the issue with that. Secondly, if that can go well, we will try out even more architectures based on the approach introduced by the paper (<a href="https://arxiv.org/pdf/1704.07489.pdf">https://arxiv.org/pdf/1704.07489.pdf</a>) as it doesn’t publish its hyperparameters. Last but not the least, after fixing the issues above we can continue our attempt to add another language encode (inspired by <a href="https://arxiv.org/pdf/1704.07489.pdf">this paper</a>) to improve the fluency of the annotation, as mentioned last time.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=97cca6e26c14" width="1"/></div>
+    </content>
+    <updated>2018-05-23T04:53:36Z</updated>
+    <category term="machine-learning"/>
+    <author>
+      <name>Ning Hong</name>
+    </author>
+    <source>
+      <id>https://medium.com/@hongnin1?source=rss-c450eb982161------2</id>
+      <logo>https://cdn-images-1.medium.com/fit/c/150/150/0*d6QC_ngideag3rTN.</logo>
+      <link href="https://medium.com/@hongnin1?source=rss-c450eb982161------2" rel="alternate" type="text/html"/>
+      <link href="https://medium.com/feed/@hongnin1" rel="self" type="application/rss+xml"/>
+      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
+      <subtitle>Stories by Ning Hong on Medium</subtitle>
+      <title>Stories by Ning Hong on Medium</title>
+      <updated>2018-05-23T05:00:16Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>https://medium.com/p/ff44ae10d41e</id>
+    <link href="https://medium.com/@ryanp97/incorporating-more-data-ff44ae10d41e?source=rss-6378d85d3a9b------2" rel="alternate" type="text/html"/>
+    <title>Incorporating more Data</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>Based on the results of last week’s hyper-parameter tuning, I wanted to incorporate more data to see if the issue was with the dataset or not. So this week I worked on adding the Kyoto corpus as well as Japanese WordNet (parallel corpus) definitions and examples into my dataset.</p><p>I began parsing the graphs from the Kyoto Corpus similar to how I did with the Tanaka Corpus earlier this week until Michael Goodman, the linguistics grad student I have also been working with gave me access to his preprocessed version. Michael had split up the data in many tiny chunks for each corpus such that each subdirectory was a subset of the actual data. Also the data was stored in a different format than I was expecting, but it was easily converted to the Penman format using the mrs-to-penman script mentioned in earlier blog posts.</p><p>In total, this allowed me to triple the size of my dataset from ~124,000 examples to ~325,000 examples (the result of combining Tanaka, Kyoto, and WordNet corpora from Michael). Although this is not as significant as I was hoping, it adds a lot of variety to the types of sentences and graphs that the model has been trained on up until this point.</p><p>The Tanaka Corpus is very casual in nature since it was essentially crowd-sourced by a teacher asking his students to translate sentences for him. As a result, the sentences are usually in casual speech form, some examples are from songs, some of the translations include mistakes, etc. The Kyoto Corpus, on the other hand, was created from manual translation of Wikipedia articles with the purpose of the data being used for travel brochures and similar tasks in mind. As a result, a translation pair from the Kyoto Corpus is likely to contain named entities that are not often found in the other translation pairs in the dataset, which causes errors mentioned later in this post. The Japanese WordNet examples are the definitions of words and examples of the words being used in sentences. This also seems like it may contribute to the issues mentioned later.</p><p>Something to note is that the preprocessed data I got from Michael contained a different version of the Tanaka Corpus than the one I am currently using. It seems to have been segmented differently and/or seems that it might be a non-current version since it was shipped with the Jacy grammar. So the Tanaka Corpus that came with Michael’s data accounts for ~1,000/325,000 examples which is significantly fewer parsed graphs than I was able to obtain.</p><p>In the coming week, I want to experiment with training a model with the Michael’s dataset combined with my current dataset as well as different subsets of the data (i.e. just the Kyoto Corpus or just the Japanese WordNet corpus).</p><h4>Retraining the Baseline</h4><p>After I preprocessed the data from Michael, I chose the best model from my previous attempts (though they were all pretty similar in performance), which happened to be my initial baseline, and trained it on Michael’s combined dataset. I was optimistically hoping for improved performance in terms of predicate precision and recall, but the model performed much worse.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*IhuwDSj7OrdW4n_Z9bivNA.png"/></figure><p>Using the same concept as last week, I calculated the most commonly mis-predicted/overly-predicted predicates:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*XGtwfRJBrQcPyptwMBth5Q.png"/></figure><p>Just like with the previous models and dataset, the model still has issues mis-predicting abstract predicates and grammar concepts like particles. Something new to the list is the named abstract predicate. This was not even in the top 20 mis-predicted predicates in any of the previous models, but it shot up to the top of the charts with this new dataset. Like I mentioned earlier, the cause for this can most likely be attributed to the Kyoto Corpus and Japanese WordNet translation pairs containing many more named entities compared to the Tanaka Corpus.</p><p>Something else that I noticed is that this new dataset resulted in many more predictions having large length differences. In the baseline model, ~2,200/12,000 translation pairs differed by 5 or more predicates. With this new dataset, ~4,400/13,000 translation pairs differed by 5 or more predicates. One possible reason for this is the Kyoto Corpus — the Kyoto Corpus has translation pairs for both titles and summaries. The length difference between these is usually quite large since summaries are just longer by nature and carry much more semantic meaning.</p><h4>Future Work</h4><p>Like I mentioned earlier, I want to continue experimenting with different subsets of the data for training the model. I mentioned last week that I wanted to try implementing parent feeding into the decoder to try and force the model to really learn the semantic meanings of the non-terminals. I didn’t have time to do that for this blog post, but it is something that is a possibility for the next blogpost and/or the final presentation. Something else that I plan to try is ELMo embeddings as suggested by Yejin. OpenNMT currently does not have ELMo embedding support, as far as I am aware, so I may switch back over to AllenNLP to explore this addition to the model.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=ff44ae10d41e" width="1"/></div>
+    </content>
+    <updated>2018-05-23T04:48:56Z</updated>
+    <category term="machine-learning"/>
+    <author>
+      <name>Ryan Pham</name>
+    </author>
+    <source>
+      <id>https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2</id>
+      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*83KfTWByl5pPq7A8_E8ApA.gif</logo>
+      <link href="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2" rel="alternate" type="text/html"/>
+      <link href="https://medium.com/feed/@ryanp97" rel="self" type="application/rss+xml"/>
+      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
+      <subtitle>Stories by Ryan Pham on Medium</subtitle>
+      <title>Stories by Ryan Pham on Medium</title>
+      <updated>2018-05-23T05:00:15Z</updated>
+    </source>
+  </entry>
 
   <entry>
     <id>tag:blogger.com,1999:blog-9203775015655831448.post-7864337718441481784</id>
@@ -31,7 +77,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-23T04:30:38Z</updated>
+      <updated>2018-05-23T05:00:29Z</updated>
     </source>
   </entry>
 
@@ -110,7 +156,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-23T04:30:25Z</updated>
+      <updated>2018-05-23T05:00:22Z</updated>
     </source>
   </entry>
 
@@ -134,7 +180,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-23T04:30:18Z</updated>
+      <updated>2018-05-23T05:00:12Z</updated>
     </source>
   </entry>
 
@@ -157,7 +203,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-23T04:30:29Z</updated>
+      <updated>2018-05-23T05:00:25Z</updated>
     </source>
   </entry>
 
@@ -191,7 +237,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-23T04:30:39Z</updated>
+      <updated>2018-05-23T05:00:30Z</updated>
     </source>
   </entry>
 
@@ -216,7 +262,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-23T04:30:26Z</updated>
+      <updated>2018-05-23T05:00:23Z</updated>
     </source>
   </entry>
 
@@ -265,7 +311,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-23T04:30:37Z</updated>
+      <updated>2018-05-23T05:00:28Z</updated>
     </source>
   </entry>
 
@@ -293,7 +339,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-23T04:30:34Z</updated>
+      <updated>2018-05-23T05:00:25Z</updated>
     </source>
   </entry>
 
@@ -317,7 +363,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-23T04:30:38Z</updated>
+      <updated>2018-05-23T05:00:29Z</updated>
     </source>
   </entry>
 
@@ -340,7 +386,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-23T04:30:27Z</updated>
+      <updated>2018-05-23T05:00:24Z</updated>
     </source>
   </entry>
 
@@ -363,7 +409,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-23T04:30:20Z</updated>
+      <updated>2018-05-23T05:00:16Z</updated>
     </source>
   </entry>
 
@@ -529,7 +575,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-23T04:30:25Z</updated>
+      <updated>2018-05-23T05:00:22Z</updated>
     </source>
   </entry>
 
@@ -553,7 +599,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-23T04:30:18Z</updated>
+      <updated>2018-05-23T05:00:12Z</updated>
     </source>
   </entry>
 
@@ -561,7 +607,7 @@
     <id>https://medium.com/p/5c8a38264cae</id>
     <link href="https://medium.com/@ryanp97/error-analysis-and-the-transformer-architecture-5c8a38264cae?source=rss-6378d85d3a9b------2" rel="alternate" type="text/html"/>
     <title>Error Analysis and the Transformer Architecture</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>In the past week, I’ve been tuning hyper-parameters for the LSTM based models, exploring the Transformer architecture, and looking more in-depth at the predictions the model is making for error analysis.</p><h4>Swapping LSTM with Transformer</h4><p>As suggested by Nelson, I trained a model using the Transformer architecture from “<a href="https://arxiv.org/pdf/1706.03762.pdf">Attention Is All You Need</a>” (Vaswani et al.) to explore and see if different architecture would help improve the performance of the LSTM based models.</p><p>I used the same hyper-parameters that was used to achieve the results listed in the paper. Unfortunately, the model showed a significant decrease in performance compared to the LSTM models. The main cause of this was due to ill-formed graphs. Unlike the LSTM models, the transformer was unable to learn the general requirements for a well-formed graph even after training for 50 epochs.</p><p>Every graph starts with an opening paren, (, which is the only place this token will occur (other opening parentheses are always attached to edge labels). The LSTM based model was able to correctly identify that this token only occurs at the beginning of the sequence while the transformer was unable to make this connection. Another issue that the transformer ran into was predicting a set of features after an edge label without any predicate, something that the LSTM based models also did not run into.</p><p>I believe that one of the causes of these issues is the fact that the Transformer was trained using batches of tokens rather than batches of sentences. However, even after training the transformer on batches of graphs, it still experienced issues of predicting edges without a predicate. Even more unfortunately, neither model was able to increase the SMATCH score or the surface/abstract predicate scores by any significant number.</p><pre>SMATCH (F1):<br/>    Transformer (Tokens) - 0.60<br/>    Transformer (Graphs) - 0.63</pre><pre>Surface Predicate F1:<br/>    Transformer (Tokens) - 0.52<br/>    Transformer (Graphs) - 0.54</pre><pre>Abstract Predicate F1:<br/>    Transformer (Tokens) - 0.71<br/>    Transformer (Graphs) - 0.73</pre><h4>Error Analysis</h4><p>This week I also trained some different models with larger hidden sizes, but unfortunately still did not see much improvement (all of them had similar performances as all the previously listed and tested models).</p><p>With the baseline and other models that did not have a coverage attention mechanism, there were around 2,200~2,300 predictions that differed in length by at least 15 tokens (around 5 predicates less than the gold-label graph). We hoped that adding a coverage mechanism would alleviate this issue, but the model with coverage actually resulted in more predictions having a large length difference. After looking into the parsed graph data more carefully, there doesn’t seem to be a clear correlation between the length of the graph in English and the graph length in Japanese. Furthermore, attending to the English predicates may not be the correct thing to do since there are pieces of grammar that may not be able to be directly related to some predicate in the input.</p><p>I also calculated which predicates were commonly mis-predicted as well as ones that were not predicted when they should have been. Surprisingly There was quite a big overlap between these two sets. Below is a small subset of the predicates for the baseline model trained with features:</p><pre>Abstract Predicates:<br/>    def_q<br/>    udef_q<br/>    pron<br/>    cop_id<br/>    nominalization</pre><pre>Surface Predicates:<br/>    _wa_d<br/>    _ni_p<br/>    _no_p<br/>    _koto_n_nom<br/>    _sono_q</pre><p>Something interesting to note are the surface predicates. The first three listed are called particles in the Japanese grammar. The first predicate, _wa_d, serves multiple purposes. は can be used to be a topic marker as well as being used to show contrast between subjects. The second predicate, _ni_p, also has multiple purposes with more varied usage. に can be used to mark time, destination, place, etc. So it seems that the models have trouble predicting predicates which have widely varied usage. Despite having a fairly high SMATCH score, it seems that the model is not quite learning the semantic structure of the Japanese graphs.</p><p>There are a couple reasons for this. Just like I mentioned in early posts, the sequence based models is likely not the best method of performing this semantic transfer and something like a TreeLSTM is more likely to be able to accurately capture the tree structure and the semantic meaning in the tree structure.</p><p>The second reason may be because of inconsistencies in the data. The Tanaka corpus is known to have a lot of casual speech, and despite taking some precautionary steps to avoid this (by using a modified version of Jacy to account for casual speech and slang), the data may still be too noisy for the number of examples in the training set that we have. To work around this, I can look into incorporating the Tanaka corpus as mentioned in one of my earlier posts. Michael Goodman was nice enough to link me the <a href="https://github.com/goodmami/xmt/blob/master/scripts/data-preparation/kyoto-wiki.sh">script</a> he used to grab the sentence pairs from the Kyoto corpus, so this is a reasonable goal for the up-coming week. Additionally, Michael suggested looking into Japanese WordNet for additional data on top of the Kyoto Corpus.</p><h4>Plans for the Next Week</h4><p>As mentioned above, I’ll be looking into incorporating more data from both the Kyoto Corpus and WordNet. Another thing I plan to look into is the South Attention Mechanism which acts as a nice middle ground between the LSTM based models I’m currently using and a TreeLSTM. The idea behind this attention mechanism is to feed the previous decoder time step from the parent node into the current decoder time step. This allows the model to make more direct connections when it comes to long range dependencies.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=5c8a38264cae" width="1"/></div>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>In the past week, I’ve been tuning hyper-parameters for the LSTM based models, exploring the Transformer architecture, and looking more in-depth at the predictions the model is making for error analysis.</p><h4>Swapping LSTM with Transformer</h4><p>As suggested by Nelson, I trained a model using the Transformer architecture from “<a href="https://arxiv.org/pdf/1706.03762.pdf">Attention Is All You Need</a>” (Vaswani et al.) to explore and see if different architecture would help improve the performance of the LSTM based models.</p><p>I used the same hyper-parameters that was used to achieve the results listed in the paper. Unfortunately, the model showed a significant decrease in performance compared to the LSTM models. The main cause of this was due to ill-formed graphs. Unlike the LSTM models, the transformer was unable to learn the general requirements for a well-formed graph even after training for 50 epochs.</p><p>Every graph starts with an opening paren, (, which is the only place this token will occur (other opening parentheses are always attached to edge labels). The LSTM based model was able to correctly identify that this token only occurs at the beginning of the sequence while the transformer was unable to make this connection. Another issue that the transformer ran into was predicting a set of features after an edge label without any predicate, something that the LSTM based models also did not run into.</p><p>I believe that one of the causes of these issues is the fact that the Transformer was trained using batches of tokens rather than batches of sentences. However, even after training the transformer on batches of graphs, it still experienced issues of predicting edges without a predicate. Even more unfortunately, neither model was able to increase the SMATCH score or the surface/abstract predicate scores by any significant number.</p><pre>SMATCH (F1):<br/>    Transformer (Tokens) - 0.60<br/>    Transformer (Graphs) - 0.63</pre><pre>Surface Predicate F1:<br/>    Transformer (Tokens) - 0.52<br/>    Transformer (Graphs) - 0.54</pre><pre>Abstract Predicate F1:<br/>    Transformer (Tokens) - 0.71<br/>    Transformer (Graphs) - 0.73</pre><h4>Error Analysis</h4><p>This week I also trained some different models with larger hidden sizes, but unfortunately still did not see much improvement (all of them had similar performances as all the previously listed and tested models).</p><p>With the baseline and other models that did not have a coverage attention mechanism, there were around 2,200~2,300 predictions that differed in length by at least 15 tokens (around 5 predicates less than the gold-label graph). We hoped that adding a coverage mechanism would alleviate this issue, but the model with coverage actually resulted in more predictions having a large length difference. After looking into the parsed graph data more carefully, there doesn’t seem to be a clear correlation between the length of the graph in English and the graph length in Japanese. Furthermore, attending to the English predicates may not be the correct thing to do since there are pieces of grammar that may not be able to be directly related to some predicate in the input.</p><p>I also calculated which predicates were commonly mis-predicted as well as ones that were not predicted when they should have been. Surprisingly There was quite a big overlap between these two sets. Below is a small subset of the predicates for the baseline model trained with features:</p><pre>Abstract Predicates:<br/>    def_q<br/>    udef_q<br/>    pron<br/>    cop_id<br/>    nominalization</pre><pre>Surface Predicates:<br/>    _wa_d<br/>    _ni_p<br/>    _no_p<br/>    _koto_n_nom<br/>    _sono_q</pre><p>Something interesting to note are the surface predicates. The first three listed are called particles in the Japanese grammar. The first predicate, _wa_d, serves multiple purposes. は can be used to be a topic marker as well as being used to show contrast between subjects. The second predicate, _ni_p, also has multiple purposes with more varied usage. に can be used to mark time, destination, place, etc. So it seems that the models have trouble predicting predicates which have widely varied usage. Despite having a fairly high SMATCH score, it seems that the model is not quite learning the semantic structure of the Japanese graphs.</p><p>There are a couple reasons for this. Just like I mentioned in early posts, the sequence based models is likely not the best method of performing this semantic transfer and something like a TreeLSTM is more likely to be able to accurately capture the tree structure and the semantic meaning in the tree structure.</p><p>The second reason may be because of inconsistencies in the data. The Tanaka corpus is known to have a lot of casual speech, and despite taking some precautionary steps to avoid this (by using a modified version of Jacy to account for casual speech and slang), the data may still be too noisy for the number of examples in the training set that we have. To work around this, I can look into incorporating the Tanaka corpus as mentioned in one of my earlier posts. Michael Goodman was nice enough to link me the <a href="https://github.com/goodmami/xmt/blob/master/scripts/data-preparation/kyoto-wiki.sh">script</a> he used to grab the sentence pairs from the Kyoto corpus, so this is a reasonable goal for the up-coming week. Additionally, Michael suggested looking into Japanese WordNet for additional data on top of the Kyoto Corpus.</p><h4>Plans for the Next Week</h4><p>As mentioned above, I’ll be looking into incorporating more data from both the Kyoto Corpus and WordNet. Another thing I plan to look into is parent feeding which acts as a nice middle ground between the LSTM based models I’m currently using and a TreeLSTM. The idea behind this attention mechanism is to feed the previous decoder time step from the parent node into the current decoder time step. This allows the model to make more direct connections when it comes to long range dependencies.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=5c8a38264cae" width="1"/></div>
     </content>
     <updated>2018-05-15T06:58:30Z</updated>
     <category term="machine-learning"/>
@@ -576,7 +622,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-23T04:30:19Z</updated>
+      <updated>2018-05-23T05:00:15Z</updated>
     </source>
   </entry>
 
@@ -623,7 +669,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-23T04:30:39Z</updated>
+      <updated>2018-05-23T05:00:30Z</updated>
     </source>
   </entry>
 
@@ -646,7 +692,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-23T04:30:27Z</updated>
+      <updated>2018-05-23T05:00:24Z</updated>
     </source>
   </entry>
 
@@ -677,7 +723,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-23T04:30:34Z</updated>
+      <updated>2018-05-23T05:00:25Z</updated>
     </source>
   </entry>
 
@@ -701,7 +747,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-23T04:30:38Z</updated>
+      <updated>2018-05-23T05:00:29Z</updated>
     </source>
   </entry>
 
@@ -728,7 +774,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-23T04:30:37Z</updated>
+      <updated>2018-05-23T05:00:28Z</updated>
     </source>
   </entry>
 
@@ -753,7 +799,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-23T04:30:26Z</updated>
+      <updated>2018-05-23T05:00:23Z</updated>
     </source>
   </entry>
 
@@ -776,7 +822,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-23T04:30:29Z</updated>
+      <updated>2018-05-23T05:00:25Z</updated>
     </source>
   </entry>
 
@@ -1040,7 +1086,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-23T04:30:25Z</updated>
+      <updated>2018-05-23T05:00:22Z</updated>
     </source>
   </entry>
 
@@ -1063,7 +1109,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-23T04:30:19Z</updated>
+      <updated>2018-05-23T05:00:16Z</updated>
     </source>
   </entry>
 
@@ -1086,7 +1132,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-23T04:30:19Z</updated>
+      <updated>2018-05-23T05:00:15Z</updated>
     </source>
   </entry>
 
@@ -1110,7 +1156,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-23T04:30:18Z</updated>
+      <updated>2018-05-23T05:00:12Z</updated>
     </source>
   </entry>
 
@@ -1155,7 +1201,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-23T04:30:29Z</updated>
+      <updated>2018-05-23T05:00:25Z</updated>
     </source>
   </entry>
 
@@ -1180,7 +1226,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-23T04:30:26Z</updated>
+      <updated>2018-05-23T05:00:23Z</updated>
     </source>
   </entry>
 
@@ -1206,7 +1252,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-23T04:30:27Z</updated>
+      <updated>2018-05-23T05:00:24Z</updated>
     </source>
   </entry>
 
@@ -1233,7 +1279,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-23T04:30:37Z</updated>
+      <updated>2018-05-23T05:00:28Z</updated>
     </source>
   </entry>
 
@@ -1258,7 +1304,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-23T04:30:34Z</updated>
+      <updated>2018-05-23T05:00:26Z</updated>
     </source>
   </entry>
 
@@ -1736,7 +1782,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-23T04:30:24Z</updated>
+      <updated>2018-05-23T05:00:22Z</updated>
     </source>
   </entry>
 
@@ -1760,7 +1806,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-23T04:30:38Z</updated>
+      <updated>2018-05-23T05:00:29Z</updated>
     </source>
   </entry>
 
@@ -1783,7 +1829,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-23T04:30:19Z</updated>
+      <updated>2018-05-23T05:00:16Z</updated>
     </source>
   </entry>
 
@@ -1806,7 +1852,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-23T04:30:18Z</updated>
+      <updated>2018-05-23T05:00:12Z</updated>
     </source>
   </entry>
 
@@ -1829,7 +1875,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-23T04:30:19Z</updated>
+      <updated>2018-05-23T05:00:15Z</updated>
     </source>
   </entry>
 
@@ -1879,7 +1925,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-23T04:30:34Z</updated>
+      <updated>2018-05-23T05:00:25Z</updated>
     </source>
   </entry>
 
@@ -1906,7 +1952,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-23T04:30:37Z</updated>
+      <updated>2018-05-23T05:00:28Z</updated>
     </source>
   </entry>
 
@@ -1931,7 +1977,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-23T04:30:26Z</updated>
+      <updated>2018-05-23T05:00:23Z</updated>
     </source>
   </entry>
 
@@ -1954,7 +2000,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-23T04:30:29Z</updated>
+      <updated>2018-05-23T05:00:25Z</updated>
     </source>
   </entry>
 
@@ -1977,7 +2023,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-23T04:30:19Z</updated>
+      <updated>2018-05-23T05:00:16Z</updated>
     </source>
   </entry>
 
@@ -2000,7 +2046,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-23T04:30:27Z</updated>
+      <updated>2018-05-23T05:00:24Z</updated>
     </source>
   </entry>
 
@@ -2024,7 +2070,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-23T04:30:38Z</updated>
+      <updated>2018-05-23T05:00:29Z</updated>
     </source>
   </entry>
 
@@ -2168,7 +2214,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-23T04:30:25Z</updated>
+      <updated>2018-05-23T05:00:22Z</updated>
     </source>
   </entry>
 
@@ -2214,7 +2260,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-23T04:30:39Z</updated>
+      <updated>2018-05-23T05:00:30Z</updated>
     </source>
   </entry>
 
@@ -2238,7 +2284,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-23T04:30:18Z</updated>
+      <updated>2018-05-23T05:00:13Z</updated>
     </source>
   </entry>
 
@@ -2283,7 +2329,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-23T04:30:19Z</updated>
+      <updated>2018-05-23T05:00:15Z</updated>
     </source>
   </entry>
 
@@ -2311,7 +2357,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-23T04:30:34Z</updated>
+      <updated>2018-05-23T05:00:25Z</updated>
     </source>
   </entry>
 
@@ -2335,7 +2381,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-23T04:30:18Z</updated>
+      <updated>2018-05-23T05:00:12Z</updated>
     </source>
   </entry>
 
@@ -2362,7 +2408,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-23T04:30:37Z</updated>
+      <updated>2018-05-23T05:00:28Z</updated>
     </source>
   </entry>
 
@@ -2385,7 +2431,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-23T04:30:29Z</updated>
+      <updated>2018-05-23T05:00:25Z</updated>
     </source>
   </entry>
 
@@ -2409,7 +2455,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>PrimeapeNLP</title>
-      <updated>2018-05-23T04:30:35Z</updated>
+      <updated>2018-05-23T05:00:27Z</updated>
     </source>
   </entry>
 
@@ -2435,7 +2481,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-23T04:30:27Z</updated>
+      <updated>2018-05-23T05:00:24Z</updated>
     </source>
   </entry>
 
@@ -2503,7 +2549,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-23T04:30:39Z</updated>
+      <updated>2018-05-23T05:00:29Z</updated>
     </source>
   </entry>
 
@@ -2527,333 +2573,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-23T04:30:38Z</updated>
-    </source>
-  </entry>
-
-  <entry>
-    <id>http://sarahyu.weebly.com/cse-481n/first-strawman-attempt</id>
-    <link href="http://sarahyu.weebly.com/cse-481n/first-strawman-attempt" rel="alternate" type="text/html"/>
-    <title>First Strawman Attempt</title>
-    <summary>Well...here's the first hiccup: the Reddit data I'd like to use is much too large (like 8GB compressed and unknown uncompressed for one month of posts). Since my last post, I had been working on trying to scrape the data manually through Reddit API requests, but I was running into some issues and it was taking quite a while because of the request restrictions.I decided, maybe a little later than I should have, to use the Reddit Data dumps provided by John Baumgartner at pushshift.io instead, but [...]</summary>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div class="paragraph">Well...here's the first hiccup: the Reddit data I'd like to use is much too large (like 8GB compressed and unknown uncompressed for one month of posts). Since my last post, I had been working on trying to scrape the data manually through Reddit API requests, but I was running into some issues and it was taking quite a while because of the request restrictions.<br/><br/>I decided, maybe a little later than I should have, to use the Reddit Data dumps provided by John Baumgartner at pushshift.io instead, but much of the recent data is too large for my computer, attu, as well as my Azure instance. I am working with a grad student to get access to more resources so that I can work with (or even open) some of these files! However, in the meantime I have committed some files that <em>would </em>be my strawman. I have a list of 124 subreddits labeled as the neurodivergent subreddit subset and currently have a model that builds a set of users that post to these subsets, finds the other neurotypical subreddits those users also post to, and aggregates a set of those subreddits. The strawman compares the basic n-grams in each subset of the subreddits to see basic language model differences. I also cloned the vennclouds github project to try and visualize the n-grams (uni, bi, and tri) that are used in these two subsets as well as their overlap however, the current version seems to have a basic bug.<br/><br/>I will get the resources hopefully in the next couple of days and update this post with the actual data results! <br/><br/><em>To be continued...</em><br/><br/></div></div>
-    </content>
-    <updated>2018-04-18T03:47:19Z</updated>
-    <category term="Uncategorized"/>
-    <source>
-      <id>http://sarahyu.weebly.com/cse-481n</id>
-      <author>
-        <name>Sarah Yu &lt;br/&gt; Team Jekyll-Hyde</name>
-      </author>
-      <link href="http://sarahyu.weebly.com/cse-481n" rel="alternate" type="text/html"/>
-      <link href="http://sarahyu.weebly.com/6/feed" rel="self" type="application/rss+xml"/>
-      <subtitle>CSE 481N</subtitle>
-      <title>Sarah yu - CSE 481N</title>
-      <updated>2018-05-17T07:00:31Z</updated>
-    </source>
-  </entry>
-
-  <entry xml:lang="en-US">
-    <id>http://cse481n-capstone.azurewebsites.net/?p=41</id>
-    <link href="http://cse481n-capstone.azurewebsites.net/2018/04/17/data-collection-and-first-baseline/" rel="alternate" type="text/html"/>
-    <title>Data Collection and First Baseline</title>
-    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">Data Collection In a previous blog, we mentioned using RAKE to collect content phrases from posts in order to compare their similarity. However, we decided since then that it would be easier to just look at ngrams, since they can capture the same information as the content phrases. So, after removing stopwords we collect all … <a class="more-link" href="http://cse481n-capstone.azurewebsites.net/2018/04/17/data-collection-and-first-baseline/">Continue reading<span class="screen-reader-text"> "Data Collection and First Baseline"</span></a></div>
-    </summary>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><h3>Data Collection</h3>
-<p><span style="font-weight: 400;">In a previous blog, we mentioned using RAKE to collect content phrases from posts in order to compare their similarity. However, we decided since then that it would be easier to just look at ngrams, since they can capture the same information as the content phrases. So, after removing stopwords we collect all of the unigrams, bigrams, and trigrams on each MeanJokes post and on each general Reddit post. However, this creates a ton of data compared to the posts or even their content phrases. So, we must do some cleaning before we make use of this data.</span></p>
-<p><span style="font-weight: 400;">For data cleaning, we decided to use document frequency to further clean content ngrams gathered from both mean-jokes and other Reddit posts. The reason why we choose df is:</span></p>
-<ul>
-<li style="font-weight: 400;"><span style="font-weight: 400;">First, we are using content ngrams, so it does not make sense to compute ngram term back on the original post since bigram, trigram term frequency is likely to be 1.</span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Second, df provides us a good way to remove too frequent and too infrequent ngrams. If an ngram is too frequent or too infrequent, it won’t be very informative about the pattern of the sentence.</span></li>
-</ul>
-<p><span style="font-weight: 400;">By using document frequency, we achieved the following purpose:</span></p>
-<ul>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Much shorter, cleaner content ngrams</span></li>
-</ul>
-<p><b>Example:</b></p>
-<p><span style="font-weight: 400;">[(‘took’, ‘family’, ‘camping’), (‘camping’, ‘concentration’), (‘took’, ‘family’), (‘family’, ‘camping’), (‘took’,), (‘family’,), (‘concentration’, ‘camping’), (‘family’, ‘camping’, ‘concentration’), (‘camping’,), (‘concentration’,), (‘camping’, ‘concentration’, ‘camping’)]</span></p>
-<p><b>After filtering:</b></p>
-<p><span style="font-weight: 400;">[(‘took’,), (‘family’,), (‘camping’,), (‘concentration’,)]</span></p>
-<ul>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Filtered out posts written in a different language (like written in Spanish or Germany)</span></li>
-</ul>
-<p><strong>Example:</strong></p>
-<p><span style="font-weight: 400;">[(‘adan’,), (‘zapata-con’,), (‘carino’,), (‘para’,), (‘ti’,), (‘letra’,), (‘encanta’,), (‘sii’,), (‘adan’, ‘zapata-con’), (‘zapata-con’, ‘carino’), (‘carino’, ‘para’), (‘para’, ‘ti’), (‘ti’, ‘letra’), (‘letra’, ‘encanta’), (‘encanta’, ‘sii’), (‘adan’, ‘zapata-con’, ‘carino’), (‘zapata-con’, ‘carino’, ‘para’), (‘carino’, ‘para’, ‘ti’), (‘para’, ‘ti’, ‘letra’), (‘ti’, ‘letra’, ‘encanta’), (‘letra’, ‘encanta’, ‘sii’)]</span></p>
-<p><span style="font-weight: 400;">However, we sometimes encounter a problem that after filtering, the content ngrams becomes empty. We decide to skip these lines when we do set similarity because by looking back to the original posts, posts that end up with empty content ngram are generally </span><b>very short</b><span style="font-weight: 400;"> and </span><b>non-informative</b><span style="font-weight: 400;">. For example, the post “Bolivian coastline MeanJokes” ended up with an empty content ngrams. </span></p>
-<p><span style="font-weight: 400;">To determine our final dataset, we want to find Reddit posts that use similar language to the MeanJokes posts. To do this, we use </span><a href="https://en.wikipedia.org/wiki/Jaccard_index"><span style="font-weight: 400;">Jaccard index</span></a><span style="font-weight: 400;"> to determine similarity. Due to the nature of MeanJokes posts being rather short compared to most Reddit posts, the Jaccard Index of most posts compared to these posts would be very low. By filtering as described above, Jaccard index becomes much more useful because the number of n-grams we consider for each post is greatly reduced, down to those we consider most identifying of those posts. However, Reddit posts are very diverse so there is a great sparsity of similar posts. Very few posts have Jaccard Indices greater than .2 even after this filtering. Before filtering, very few posts would even get close to .1. For context, Jaccard similarity could be thought of as a percentage from 0 to 1, where 1 means the posts are identical and 0 means they have no intersection. We have over 3 million Reddit posts just in one month though, so we are not worried about not getting a big enough dataset if we have a high threshold for similarity.</span></p>
-<p><span style="font-weight: 400;">Here’s an example of what this data looks like:</span></p>
-<p><b>Intersection: </b><span style="font-weight: 400;">{(‘ca’, “n’t”, ‘spell’), (‘ca’, “n’t”), (“n’t”, ‘spell’), (‘spell’,), (‘ca’,)}</span></p>
-<p><b>MeanJokes Post:</b><span style="font-weight: 400;"> {(‘ca’, “n’t”), (‘therapist’,), (‘without’,), (‘ca’, “n’t”, ‘spell’), (‘rapist’,), (“n’t”, ‘spell’), (‘spell’,), (‘remember’,), (‘ca’,)}</span></p>
-<p><b>Reddit Post:</b><span style="font-weight: 400;"> {(‘ca’, “n’t”), (‘ca’, “n’t”, ‘spell’), (“n’t”, ‘spell’), (‘spell’,), (‘crisis’,), (‘ca’,)}</span></p>
-<p><b>Jaccard index:</b><span style="font-weight: 400;"> 0.5</span></p>
-<p><span style="font-weight: 400;">5 / (9 + 6 – 5) -&gt; 5/10 -&gt; .5</span></p>
-<p> </p>
-<h3>Baseline Model</h3>
-<p><span style="font-weight: 400;">Because we are in the process of data collection, we want to build baseline models on similar datasets and later port the model over to our own dataset. The dataset we chose for this purpose is the </span><span style="font-weight: 400;">Twitter Hate Speech dataset</span><span style="font-weight: 400;"> created by</span><span style="font-weight: 400;"> Zeerak Waseem and Dirk Hovy</span><span style="font-weight: 400;">. In this dataset, each tweet is labeled as “racism”, “sexism”, or “none”. Since our goal is to build tools that can not only detect if the text is offensive or non-offensive but also detect towards which group the text is offensive, the Twitter Hate Speech dataset serves as a good starting point. Here, we built a logistic regression model as a baseline for offensiveness detection. We consider both “racism” and “sexism” as offensive, and “none” non-offensive. </span></p>
-<p><span style="font-weight: 400;">The each example in the dataset is of the format &lt;tweet_id&gt;, &lt;label&gt;. We first used </span><span style="font-weight: 400;">python-twitter </span><span style="font-weight: 400;">(a python wrapper around Twitter API) to collect the original tweets by the tweet_ids given. In this process, we noticed that 1133 tweets from this dataset are already removed from Twitter. </span></p>
-<p><span style="font-weight: 400;">To make the results more reproducible, we made a train, dev, test dataset split (80%, 10%, 10%) using sklearn train_test_split function. </span></p>
-<p><span style="font-weight: 400;">For data preprocessing, we used an existing </span><span style="font-weight: 400;">text preprocessor made by Zhang et. al. to clean each tweet down to plain text, removing extra space, URLs, hashtags, special characters, etc. </span></p>
-<p><span style="font-weight: 400;">For text vectorization, we experimented with two different sklearn vectorizers: tf-idf vectorizer and count vectorizer. Count vectorizer converts a corpus to a document-term matrix. TF-IDF vectorizer converts a corpus to a tf-idf weighted document-term matrix. </span></p>
-<p><span style="font-weight: 400;">After that, we trained a logistic regression model on training data and tuned epoch on dev data. Both the trained model and trained text vectorizer would be saved. We then loaded in the saved model and text vectorizer to make predictions and evaluate on test data. </span></p>
-<p><span style="font-weight: 400;">The metrics we chose for performance evaluation are accuracy, precision, recall, and f1 score. Here we decided to be more conservative and paid more attention to precision because the expected downstream application (a.k.a. the targeting group detector)  relies on text predicted “offensive” to be actually offensive. We also focused on the f1 score to evaluate the overall performance of this baseline model.</span></p>
-<p><span style="font-weight: 400;">We ran experiments with this baseline model with the different types of vectorizers and different vectorizer setups. We decided to keep follow ngram_range (1, 4) chosen by </span>Zeerak Waseem and Dirk Hovy.</p>
-<ol>
-<li>Set-up1:
-<ul>
-<li>Vectorizer:<br/>
-<table>
-<tbody>
-<tr>
-<td><span style="font-weight: 400;">type</span></td>
-<td><span style="font-weight: 400;">strip_accents</span></td>
-<td><span style="font-weight: 400;">analyzer</span></td>
-<td><span style="font-weight: 400;">ngram_range</span></td>
-<td><span style="font-weight: 400;">max_features</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">tf-idf</span></td>
-<td><span style="font-weight: 400;">unicode</span></td>
-<td><span style="font-weight: 400;">word</span></td>
-<td><span style="font-weight: 400;">(1, 4)</span></td>
-<td><span style="font-weight: 400;">10000</span></td>
-</tr>
-</tbody>
-</table>
-</li>
-<li>Model: <span style="font-weight: 400;">Logistic regression, epoch_chosen=5</span></li>
-<li>
-<table>
-<tbody>
-<tr>
-<td>dev accuracy: 0.8162</td>
-<td>test accuracy: 0.8131</td>
-</tr>
-<tr>
-<td>dev precision: 0.8170</td>
-<td>test precision: 0.8203</td>
-</tr>
-<tr>
-<td>dev recall: 0.7336</td>
-<td>test recall: 0.7333</td>
-</tr>
-<tr>
-<td>dev f1: 0.7560</td>
-<td>test f1: 0.7552</td>
-</tr>
-</tbody>
-</table>
-</li>
-</ul>
-</li>
-<li>Set-up2:
-<ul>
-<li>Vectorizer:<br/>
-<table>
-<tbody>
-<tr>
-<td><span style="font-weight: 400;">type</span></td>
-<td><span style="font-weight: 400;">strip_accents</span></td>
-<td><span style="font-weight: 400;">analyzer</span></td>
-<td><span style="font-weight: 400;">ngram_range</span></td>
-<td><span style="font-weight: 400;">max_features</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">tf-idf</span></td>
-<td><span style="font-weight: 400;">unicode</span></td>
-<td><span style="font-weight: 400;">char</span></td>
-<td><span style="font-weight: 400;">(1, 4)</span></td>
-<td><span style="font-weight: 400;">10000</span></td>
-</tr>
-</tbody>
-</table>
-</li>
-<li>Model: <span style="font-weight: 400;">Logistic regression, epoch_chosen=18</span></li>
-<li>
-<table>
-<tbody>
-<tr>
-<td><span style="font-weight: 400;">dev accuracy: 0.8175</span></td>
-<td><span style="font-weight: 400;">test accuracy: 0.8067</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">dev precision: 0.8040</span></td>
-<td><span style="font-weight: 400;">test precision: 0.7951</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">dev recall: 0.7482</span></td>
-<td><span style="font-weight: 400;">test recall: 0.7388</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">dev f1: 0.7664</span></td>
-<td><span style="font-weight: 400;">test f1: 0.7561</span></td>
-</tr>
-</tbody>
-</table>
-</li>
-<li>Comparison: <span style="font-weight: 400;">By taking character level ngrams, test f1 actually improves, but test precision drops drastically. </span></li>
-</ul>
-</li>
-<li>Set-up3:
-<ul>
-<li><span style="font-weight: 400;">Vectorizer:</span><br/>
-<table>
-<tbody>
-<tr>
-<td><span style="font-weight: 400;">type</span></td>
-<td><span style="font-weight: 400;">strip_accents</span></td>
-<td><span style="font-weight: 400;">analyzer</span></td>
-<td><span style="font-weight: 400;">ngram_range</span></td>
-<td><span style="font-weight: 400;">max_features</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">tf-idf</span></td>
-<td><span style="font-weight: 400;">unicode</span></td>
-<td><span style="font-weight: 400;">char</span></td>
-<td><span style="font-weight: 400;">(1, 4)</span></td>
-<td><span style="font-weight: 400;">30000</span></td>
-</tr>
-</tbody>
-</table>
-</li>
-<li><span style="font-weight: 400;">Model: Logistic regression, epoch_chosen=10</span><br/>
-<table>
-<tbody>
-<tr>
-<td><span style="font-weight: 400;">dev accuracy: 0.8194</span></td>
-<td><span style="font-weight: 400;">test accuracy: 0.8105</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">dev precision: 0.8099</span></td>
-<td><span style="font-weight: 400;">test precision: 0.8021</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">dev recall: 0.7473</span></td>
-<td><span style="font-weight: 400;">test recall: 0.7416</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">dev f1: 0.7669</span></td>
-<td><span style="font-weight: 400;">test f1: 0.7598</span></td>
-</tr>
-</tbody>
-</table>
-</li>
-<li><span style="font-weight: 400;">Comparison: By increasing the max number of features a document-term matrix can have, both test precision and test f1 improved compared with those of set-up2. </span></li>
-</ul>
-</li>
-<li>Set-up4:
-<ul>
-<li><span style="font-weight: 400;">Vectorizer:</span><br/>
-<table>
-<tbody>
-<tr>
-<td><span style="font-weight: 400;">type</span></td>
-<td><span style="font-weight: 400;">strip_accents</span></td>
-<td><span style="font-weight: 400;">analyzer</span></td>
-<td><span style="font-weight: 400;">ngram_range</span></td>
-<td><span style="font-weight: 400;">max_features</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">count</span></td>
-<td><span style="font-weight: 400;">unicode</span></td>
-<td><span style="font-weight: 400;">word</span></td>
-<td><span style="font-weight: 400;">(1, 4)</span></td>
-<td><span style="font-weight: 400;">30000</span></td>
-</tr>
-</tbody>
-</table>
-</li>
-<li><span style="font-weight: 400;">Model: Logistic regression, epoch_chosen=100</span><br/>
-<table>
-<tbody>
-<tr>
-<td><span style="font-weight: 400;">dev accuracy: 0.8321</span></td>
-<td><span style="font-weight: 400;">test accuracy: 0.8213</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">dev precision: 0.8213</span></td>
-<td><span style="font-weight: 400;">test precision: 0.8097</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">dev recall: 0.7690</span></td>
-<td><span style="font-weight: 400;">test recall: 0.7618</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">dev f1: 0.7871</span></td>
-<td><span style="font-weight: 400;">test f1: 0.7781</span></td>
-</tr>
-</tbody>
-</table>
-</li>
-<li><span style="font-weight: 400;">Comparison: Vectorizer is now changed to count vectorizer. With this set-up, test f1 is the highest among all set-ups, while test precision is higher than that of set-up3 and lower of that of set-up1. </span></li>
-</ul>
-</li>
-<li>Set-up5:
-<ul>
-<li><span style="font-weight: 400;">Vectorizer:</span><br/>
-<table style="height: 96px;" width="328">
-<tbody>
-<tr>
-<td><span style="font-weight: 400;">type</span></td>
-<td><span style="font-weight: 400;">strip_accents</span></td>
-<td><span style="font-weight: 400;">analyzer</span></td>
-<td><span style="font-weight: 400;">ngram_range</span></td>
-<td><span style="font-weight: 400;">max_features</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">count</span></td>
-<td><span style="font-weight: 400;">unicode</span></td>
-<td><span style="font-weight: 400;">char</span></td>
-<td><span style="font-weight: 400;">(1, 4)</span></td>
-<td><span style="font-weight: 400;">30000</span></td>
-</tr>
-</tbody>
-</table>
-</li>
-<li><span style="font-weight: 400;">Model: Logistic regression, epoch_chosen=30</span></li>
-<li>
-<table style="height: 291px;" width="388">
-<tbody>
-<tr>
-<td><span style="font-weight: 400;">dev accuracy: 0.8226</span></td>
-<td><span style="font-weight: 400;">test accuracy: 0.8093</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">dev precision: 0.8001</span></td>
-<td><span style="font-weight: 400;">test precision: 0.7860</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">dev recall: 0.7690</span></td>
-<td><span style="font-weight: 400;">test recall: 0.7594</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">dev f1: 0.7812</span></td>
-<td><span style="font-weight: 400;">test f1: 0.7698</span></td>
-</tr>
-</tbody>
-</table>
-</li>
-<li><span style="font-weight: 400;">Comparison: Test precision is the lowest of all the set-ups, and test f1 is higher than the first 3 set-ups, but lower than set-up4.</span></li>
-</ul>
-</li>
-</ol>
-<p><span style="font-weight: 400;">Although </span><span style="font-weight: 400;">Zeerak Waseem and Dirk Hovy’s paper stated that </span><span style="font-weight: 400;">character n-grams have better performance than work n-grams as features, our experiment results suggested otherwise. All of our set-ups have higher test precision and f1 score but lower test recall that the best model of the paper. These differences might be because of the removal of tweets from the original dataset. The train, dev, test data split method might also contribute to the differences. </span></p>
-<p><span style="font-weight: 400;">Next Steps: We would like to experiment with other baseline models, especially neural networks and perform error analysis on these baseline models.</span></p>
-<p>Work Cited:</p>
-<p><a href="https://www.semanticscholar.org/paper/Hateful-Symbols-or-Hateful-People%3F-Predictive-for-Waseem-Hovy/df704cca917666dace4e42b4d3a50f65597b8f06"><span style="font-weight: 400;">Waseem, Zeerak and Dirk Hovy. “Hateful Symbols or Hateful People? Predictive Features for Hate Speech Detection on Twitter.” SRW@HLT-NAACL (2016).</span></a></p>
-<p><a href="https://www.researchgate.net/publication/323723283_Detecting_hate_speech_on_Twitter_using_a_convolution-GRU_based_deep_neural_network">Zhang, Ziqi &amp; Robinson, D &amp; Tepper, J. (2018). Detecting hate speech on Twitter using a convolution-GRU based deep neural network.</a></p></div>
-    </content>
-    <updated>2018-04-18T02:36:38Z</updated>
-    <category term="Weekly blog"/>
-    <author>
-      <name>Team Watch Your Language!</name>
-    </author>
-    <source>
-      <id>http://cse481n-capstone.azurewebsites.net</id>
-      <link href="http://cse481n-capstone.azurewebsites.net/feed/" rel="self" type="application/rss+xml"/>
-      <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
-      <subtitle>Spring2018 CSE481N Capstone</subtitle>
-      <title>Team Watch Your Language!</title>
-      <updated>2018-05-23T04:30:25Z</updated>
+      <updated>2018-05-23T05:00:29Z</updated>
     </source>
   </entry>
 </feed>

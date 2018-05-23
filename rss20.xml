@@ -9,6 +9,20 @@
 	<atom:link rel="self" href="https://nlpcapstone.github.io/rss20.xml" type="application/rss+xml"/>
 
 <item>
+	<title>Zichun Liu, Ning Hong, Sujie Zhou &lt;br/&gt; Team The Bugless: Week 9 Milestone: Advanced model attempt #2 (continued)</title>
+	<guid isPermaLink="false">https://medium.com/p/97cca6e26c14</guid>
+	<link>https://medium.com/@hongnin1/week-9-milestone-advanced-model-attempt-2-continued-97cca6e26c14?source=rss-c450eb982161------2</link>
+	<description>&lt;p&gt;A little recap from our &lt;a href=&quot;https://medium.com/@hongnin1/advanced-model-attempt-2-continued-49da49607c01&quot;&gt;Advanced model attempt&lt;/a&gt; #2.&lt;/p&gt;&lt;p&gt;During week 7 we implemented BLEU score, which is a crucial indicator of the performance of our prediction. And during this week, we have been trying to improve our performance on primarily BLEU score and training loss. The result is not satisfying yet, but we are getting closer to our goal.&lt;/p&gt;&lt;p&gt;Earlier we discovered that our BLEU score and training batch loss stopped improving after a few thousand batches. And from Ari’s suggestion, we changed our optimizer from Adam to Stochastic Gradient Descent with learning rate decay, hoping to see the improvements. But we now discovered that it might not be our issue after a week of trying and tuning. Here is the performance we got with SGD:&lt;/p&gt;&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/796/0*vrNjGo0XJnLzRFO9.&quot; /&gt;&lt;/figure&gt;&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/711/0*UW7xg-U7JSLSfGvh.&quot; /&gt;&lt;/figure&gt;&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/697/0*tASlStdM-dv0Nzkh.&quot; /&gt;&lt;/figure&gt;&lt;p&gt;Compared to what we had last week, we didn’t see a dramatic improvement.&lt;/p&gt;&lt;p&gt;Therefore, we believe that we have issues with other parts of our code. To find out which part causes our issue, we decided to run others’ code and compare the results with ours. Originally, with the same data set, the “&lt;em&gt;Show, Attend and Tell&lt;/em&gt;” model (&lt;a href=&quot;https://github.com/yunjey/show-attend-and-tell&quot;&gt;https://github.com/yunjey/show-attend-and-tell&lt;/a&gt;) converged to a slightly higher BLEU score but much lower loss than our implementation. In order to find where the issue came from, we substituted different parts of their model with ours and observed the result. After several trials, we discovered that when we substitute only the model itself (keeping their data pre-processing and train solver), we got similar result to their original model. Thus we drew the conclusion that the issue lies in our data pre-processing implementation.&lt;/p&gt;&lt;p&gt;The first thing we will do for this week is to address this issue. We will spend more time on investigating the implementation of our data pre-processing and try to find out the issue with that. Secondly, if that can go well, we will try out even more architectures based on the approach introduced by the paper (&lt;a href=&quot;https://arxiv.org/pdf/1704.07489.pdf&quot;&gt;https://arxiv.org/pdf/1704.07489.pdf&lt;/a&gt;) as it doesn’t publish its hyperparameters. Last but not the least, after fixing the issues above we can continue our attempt to add another language encode (inspired by &lt;a href=&quot;https://arxiv.org/pdf/1704.07489.pdf&quot;&gt;this paper&lt;/a&gt;) to improve the fluency of the annotation, as mentioned last time.&lt;/p&gt;&lt;img height=&quot;1&quot; src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=97cca6e26c14&quot; width=&quot;1&quot; /&gt;</description>
+	<pubDate>Wed, 23 May 2018 04:53:36 +0000</pubDate>
+</item>
+<item>
+	<title>Ryan Pham &lt;br/&gt; Team NeuralEmpty: Incorporating more Data</title>
+	<guid isPermaLink="false">https://medium.com/p/ff44ae10d41e</guid>
+	<link>https://medium.com/@ryanp97/incorporating-more-data-ff44ae10d41e?source=rss-6378d85d3a9b------2</link>
+	<description>&lt;p&gt;Based on the results of last week’s hyper-parameter tuning, I wanted to incorporate more data to see if the issue was with the dataset or not. So this week I worked on adding the Kyoto corpus as well as Japanese WordNet (parallel corpus) definitions and examples into my dataset.&lt;/p&gt;&lt;p&gt;I began parsing the graphs from the Kyoto Corpus similar to how I did with the Tanaka Corpus earlier this week until Michael Goodman, the linguistics grad student I have also been working with gave me access to his preprocessed version. Michael had split up the data in many tiny chunks for each corpus such that each subdirectory was a subset of the actual data. Also the data was stored in a different format than I was expecting, but it was easily converted to the Penman format using the mrs-to-penman script mentioned in earlier blog posts.&lt;/p&gt;&lt;p&gt;In total, this allowed me to triple the size of my dataset from ~124,000 examples to ~325,000 examples (the result of combining Tanaka, Kyoto, and WordNet corpora from Michael). Although this is not as significant as I was hoping, it adds a lot of variety to the types of sentences and graphs that the model has been trained on up until this point.&lt;/p&gt;&lt;p&gt;The Tanaka Corpus is very casual in nature since it was essentially crowd-sourced by a teacher asking his students to translate sentences for him. As a result, the sentences are usually in casual speech form, some examples are from songs, some of the translations include mistakes, etc. The Kyoto Corpus, on the other hand, was created from manual translation of Wikipedia articles with the purpose of the data being used for travel brochures and similar tasks in mind. As a result, a translation pair from the Kyoto Corpus is likely to contain named entities that are not often found in the other translation pairs in the dataset, which causes errors mentioned later in this post. The Japanese WordNet examples are the definitions of words and examples of the words being used in sentences. This also seems like it may contribute to the issues mentioned later.&lt;/p&gt;&lt;p&gt;Something to note is that the preprocessed data I got from Michael contained a different version of the Tanaka Corpus than the one I am currently using. It seems to have been segmented differently and/or seems that it might be a non-current version since it was shipped with the Jacy grammar. So the Tanaka Corpus that came with Michael’s data accounts for ~1,000/325,000 examples which is significantly fewer parsed graphs than I was able to obtain.&lt;/p&gt;&lt;p&gt;In the coming week, I want to experiment with training a model with the Michael’s dataset combined with my current dataset as well as different subsets of the data (i.e. just the Kyoto Corpus or just the Japanese WordNet corpus).&lt;/p&gt;&lt;h4&gt;Retraining the Baseline&lt;/h4&gt;&lt;p&gt;After I preprocessed the data from Michael, I chose the best model from my previous attempts (though they were all pretty similar in performance), which happened to be my initial baseline, and trained it on Michael’s combined dataset. I was optimistically hoping for improved performance in terms of predicate precision and recall, but the model performed much worse.&lt;/p&gt;&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*IhuwDSj7OrdW4n_Z9bivNA.png&quot; /&gt;&lt;/figure&gt;&lt;p&gt;Using the same concept as last week, I calculated the most commonly mis-predicted/overly-predicted predicates:&lt;/p&gt;&lt;figure&gt;&lt;img alt=&quot;&quot; src=&quot;https://cdn-images-1.medium.com/max/1024/1*XGtwfRJBrQcPyptwMBth5Q.png&quot; /&gt;&lt;/figure&gt;&lt;p&gt;Just like with the previous models and dataset, the model still has issues mis-predicting abstract predicates and grammar concepts like particles. Something new to the list is the named abstract predicate. This was not even in the top 20 mis-predicted predicates in any of the previous models, but it shot up to the top of the charts with this new dataset. Like I mentioned earlier, the cause for this can most likely be attributed to the Kyoto Corpus and Japanese WordNet translation pairs containing many more named entities compared to the Tanaka Corpus.&lt;/p&gt;&lt;p&gt;Something else that I noticed is that this new dataset resulted in many more predictions having large length differences. In the baseline model, ~2,200/12,000 translation pairs differed by 5 or more predicates. With this new dataset, ~4,400/13,000 translation pairs differed by 5 or more predicates. One possible reason for this is the Kyoto Corpus — the Kyoto Corpus has translation pairs for both titles and summaries. The length difference between these is usually quite large since summaries are just longer by nature and carry much more semantic meaning.&lt;/p&gt;&lt;h4&gt;Future Work&lt;/h4&gt;&lt;p&gt;Like I mentioned earlier, I want to continue experimenting with different subsets of the data for training the model. I mentioned last week that I wanted to try implementing parent feeding into the decoder to try and force the model to really learn the semantic meanings of the non-terminals. I didn’t have time to do that for this blog post, but it is something that is a possibility for the next blogpost and/or the final presentation. Something else that I plan to try is ELMo embeddings as suggested by Yejin. OpenNMT currently does not have ELMo embedding support, as far as I am aware, so I may switch back over to AllenNLP to explore this addition to the model.&lt;/p&gt;&lt;img height=&quot;1&quot; src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=ff44ae10d41e&quot; width=&quot;1&quot; /&gt;</description>
+	<pubDate>Wed, 23 May 2018 04:48:56 +0000</pubDate>
+</item>
+<item>
 	<title>Pinyi Wang, Dawei Shen, Xukai Liu &lt;br/&gt; Team Overfit: #9 Milestone: Advanced model attempt #2 (continued)</title>
 	<guid isPermaLink="false">tag:blogger.com,1999:blog-9203775015655831448.post-7864337718441481784</guid>
 	<link>https://teamoverfit.blogspot.com/2018/05/9-milestone-advanced-model-attempt-2.html</link>
@@ -324,7 +338,7 @@
 	<title>Ryan Pham &lt;br/&gt; Team NeuralEmpty: Error Analysis and the Transformer Architecture</title>
 	<guid isPermaLink="false">https://medium.com/p/5c8a38264cae</guid>
 	<link>https://medium.com/@ryanp97/error-analysis-and-the-transformer-architecture-5c8a38264cae?source=rss-6378d85d3a9b------2</link>
-	<description>&lt;p&gt;In the past week, I’ve been tuning hyper-parameters for the LSTM based models, exploring the Transformer architecture, and looking more in-depth at the predictions the model is making for error analysis.&lt;/p&gt;&lt;h4&gt;Swapping LSTM with Transformer&lt;/h4&gt;&lt;p&gt;As suggested by Nelson, I trained a model using the Transformer architecture from “&lt;a href=&quot;https://arxiv.org/pdf/1706.03762.pdf&quot;&gt;Attention Is All You Need&lt;/a&gt;” (Vaswani et al.) to explore and see if different architecture would help improve the performance of the LSTM based models.&lt;/p&gt;&lt;p&gt;I used the same hyper-parameters that was used to achieve the results listed in the paper. Unfortunately, the model showed a significant decrease in performance compared to the LSTM models. The main cause of this was due to ill-formed graphs. Unlike the LSTM models, the transformer was unable to learn the general requirements for a well-formed graph even after training for 50 epochs.&lt;/p&gt;&lt;p&gt;Every graph starts with an opening paren, (, which is the only place this token will occur (other opening parentheses are always attached to edge labels). The LSTM based model was able to correctly identify that this token only occurs at the beginning of the sequence while the transformer was unable to make this connection. Another issue that the transformer ran into was predicting a set of features after an edge label without any predicate, something that the LSTM based models also did not run into.&lt;/p&gt;&lt;p&gt;I believe that one of the causes of these issues is the fact that the Transformer was trained using batches of tokens rather than batches of sentences. However, even after training the transformer on batches of graphs, it still experienced issues of predicting edges without a predicate. Even more unfortunately, neither model was able to increase the SMATCH score or the surface/abstract predicate scores by any significant number.&lt;/p&gt;&lt;pre&gt;SMATCH (F1):&lt;br /&gt;    Transformer (Tokens) - 0.60&lt;br /&gt;    Transformer (Graphs) - 0.63&lt;/pre&gt;&lt;pre&gt;Surface Predicate F1:&lt;br /&gt;    Transformer (Tokens) - 0.52&lt;br /&gt;    Transformer (Graphs) - 0.54&lt;/pre&gt;&lt;pre&gt;Abstract Predicate F1:&lt;br /&gt;    Transformer (Tokens) - 0.71&lt;br /&gt;    Transformer (Graphs) - 0.73&lt;/pre&gt;&lt;h4&gt;Error Analysis&lt;/h4&gt;&lt;p&gt;This week I also trained some different models with larger hidden sizes, but unfortunately still did not see much improvement (all of them had similar performances as all the previously listed and tested models).&lt;/p&gt;&lt;p&gt;With the baseline and other models that did not have a coverage attention mechanism, there were around 2,200~2,300 predictions that differed in length by at least 15 tokens (around 5 predicates less than the gold-label graph). We hoped that adding a coverage mechanism would alleviate this issue, but the model with coverage actually resulted in more predictions having a large length difference. After looking into the parsed graph data more carefully, there doesn’t seem to be a clear correlation between the length of the graph in English and the graph length in Japanese. Furthermore, attending to the English predicates may not be the correct thing to do since there are pieces of grammar that may not be able to be directly related to some predicate in the input.&lt;/p&gt;&lt;p&gt;I also calculated which predicates were commonly mis-predicted as well as ones that were not predicted when they should have been. Surprisingly There was quite a big overlap between these two sets. Below is a small subset of the predicates for the baseline model trained with features:&lt;/p&gt;&lt;pre&gt;Abstract Predicates:&lt;br /&gt;    def_q&lt;br /&gt;    udef_q&lt;br /&gt;    pron&lt;br /&gt;    cop_id&lt;br /&gt;    nominalization&lt;/pre&gt;&lt;pre&gt;Surface Predicates:&lt;br /&gt;    _wa_d&lt;br /&gt;    _ni_p&lt;br /&gt;    _no_p&lt;br /&gt;    _koto_n_nom&lt;br /&gt;    _sono_q&lt;/pre&gt;&lt;p&gt;Something interesting to note are the surface predicates. The first three listed are called particles in the Japanese grammar. The first predicate, _wa_d, serves multiple purposes. は can be used to be a topic marker as well as being used to show contrast between subjects. The second predicate, _ni_p, also has multiple purposes with more varied usage. に can be used to mark time, destination, place, etc. So it seems that the models have trouble predicting predicates which have widely varied usage. Despite having a fairly high SMATCH score, it seems that the model is not quite learning the semantic structure of the Japanese graphs.&lt;/p&gt;&lt;p&gt;There are a couple reasons for this. Just like I mentioned in early posts, the sequence based models is likely not the best method of performing this semantic transfer and something like a TreeLSTM is more likely to be able to accurately capture the tree structure and the semantic meaning in the tree structure.&lt;/p&gt;&lt;p&gt;The second reason may be because of inconsistencies in the data. The Tanaka corpus is known to have a lot of casual speech, and despite taking some precautionary steps to avoid this (by using a modified version of Jacy to account for casual speech and slang), the data may still be too noisy for the number of examples in the training set that we have. To work around this, I can look into incorporating the Tanaka corpus as mentioned in one of my earlier posts. Michael Goodman was nice enough to link me the &lt;a href=&quot;https://github.com/goodmami/xmt/blob/master/scripts/data-preparation/kyoto-wiki.sh&quot;&gt;script&lt;/a&gt; he used to grab the sentence pairs from the Kyoto corpus, so this is a reasonable goal for the up-coming week. Additionally, Michael suggested looking into Japanese WordNet for additional data on top of the Kyoto Corpus.&lt;/p&gt;&lt;h4&gt;Plans for the Next Week&lt;/h4&gt;&lt;p&gt;As mentioned above, I’ll be looking into incorporating more data from both the Kyoto Corpus and WordNet. Another thing I plan to look into is the South Attention Mechanism which acts as a nice middle ground between the LSTM based models I’m currently using and a TreeLSTM. The idea behind this attention mechanism is to feed the previous decoder time step from the parent node into the current decoder time step. This allows the model to make more direct connections when it comes to long range dependencies.&lt;/p&gt;&lt;img height=&quot;1&quot; src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=5c8a38264cae&quot; width=&quot;1&quot; /&gt;</description>
+	<description>&lt;p&gt;In the past week, I’ve been tuning hyper-parameters for the LSTM based models, exploring the Transformer architecture, and looking more in-depth at the predictions the model is making for error analysis.&lt;/p&gt;&lt;h4&gt;Swapping LSTM with Transformer&lt;/h4&gt;&lt;p&gt;As suggested by Nelson, I trained a model using the Transformer architecture from “&lt;a href=&quot;https://arxiv.org/pdf/1706.03762.pdf&quot;&gt;Attention Is All You Need&lt;/a&gt;” (Vaswani et al.) to explore and see if different architecture would help improve the performance of the LSTM based models.&lt;/p&gt;&lt;p&gt;I used the same hyper-parameters that was used to achieve the results listed in the paper. Unfortunately, the model showed a significant decrease in performance compared to the LSTM models. The main cause of this was due to ill-formed graphs. Unlike the LSTM models, the transformer was unable to learn the general requirements for a well-formed graph even after training for 50 epochs.&lt;/p&gt;&lt;p&gt;Every graph starts with an opening paren, (, which is the only place this token will occur (other opening parentheses are always attached to edge labels). The LSTM based model was able to correctly identify that this token only occurs at the beginning of the sequence while the transformer was unable to make this connection. Another issue that the transformer ran into was predicting a set of features after an edge label without any predicate, something that the LSTM based models also did not run into.&lt;/p&gt;&lt;p&gt;I believe that one of the causes of these issues is the fact that the Transformer was trained using batches of tokens rather than batches of sentences. However, even after training the transformer on batches of graphs, it still experienced issues of predicting edges without a predicate. Even more unfortunately, neither model was able to increase the SMATCH score or the surface/abstract predicate scores by any significant number.&lt;/p&gt;&lt;pre&gt;SMATCH (F1):&lt;br /&gt;    Transformer (Tokens) - 0.60&lt;br /&gt;    Transformer (Graphs) - 0.63&lt;/pre&gt;&lt;pre&gt;Surface Predicate F1:&lt;br /&gt;    Transformer (Tokens) - 0.52&lt;br /&gt;    Transformer (Graphs) - 0.54&lt;/pre&gt;&lt;pre&gt;Abstract Predicate F1:&lt;br /&gt;    Transformer (Tokens) - 0.71&lt;br /&gt;    Transformer (Graphs) - 0.73&lt;/pre&gt;&lt;h4&gt;Error Analysis&lt;/h4&gt;&lt;p&gt;This week I also trained some different models with larger hidden sizes, but unfortunately still did not see much improvement (all of them had similar performances as all the previously listed and tested models).&lt;/p&gt;&lt;p&gt;With the baseline and other models that did not have a coverage attention mechanism, there were around 2,200~2,300 predictions that differed in length by at least 15 tokens (around 5 predicates less than the gold-label graph). We hoped that adding a coverage mechanism would alleviate this issue, but the model with coverage actually resulted in more predictions having a large length difference. After looking into the parsed graph data more carefully, there doesn’t seem to be a clear correlation between the length of the graph in English and the graph length in Japanese. Furthermore, attending to the English predicates may not be the correct thing to do since there are pieces of grammar that may not be able to be directly related to some predicate in the input.&lt;/p&gt;&lt;p&gt;I also calculated which predicates were commonly mis-predicted as well as ones that were not predicted when they should have been. Surprisingly There was quite a big overlap between these two sets. Below is a small subset of the predicates for the baseline model trained with features:&lt;/p&gt;&lt;pre&gt;Abstract Predicates:&lt;br /&gt;    def_q&lt;br /&gt;    udef_q&lt;br /&gt;    pron&lt;br /&gt;    cop_id&lt;br /&gt;    nominalization&lt;/pre&gt;&lt;pre&gt;Surface Predicates:&lt;br /&gt;    _wa_d&lt;br /&gt;    _ni_p&lt;br /&gt;    _no_p&lt;br /&gt;    _koto_n_nom&lt;br /&gt;    _sono_q&lt;/pre&gt;&lt;p&gt;Something interesting to note are the surface predicates. The first three listed are called particles in the Japanese grammar. The first predicate, _wa_d, serves multiple purposes. は can be used to be a topic marker as well as being used to show contrast between subjects. The second predicate, _ni_p, also has multiple purposes with more varied usage. に can be used to mark time, destination, place, etc. So it seems that the models have trouble predicting predicates which have widely varied usage. Despite having a fairly high SMATCH score, it seems that the model is not quite learning the semantic structure of the Japanese graphs.&lt;/p&gt;&lt;p&gt;There are a couple reasons for this. Just like I mentioned in early posts, the sequence based models is likely not the best method of performing this semantic transfer and something like a TreeLSTM is more likely to be able to accurately capture the tree structure and the semantic meaning in the tree structure.&lt;/p&gt;&lt;p&gt;The second reason may be because of inconsistencies in the data. The Tanaka corpus is known to have a lot of casual speech, and despite taking some precautionary steps to avoid this (by using a modified version of Jacy to account for casual speech and slang), the data may still be too noisy for the number of examples in the training set that we have. To work around this, I can look into incorporating the Tanaka corpus as mentioned in one of my earlier posts. Michael Goodman was nice enough to link me the &lt;a href=&quot;https://github.com/goodmami/xmt/blob/master/scripts/data-preparation/kyoto-wiki.sh&quot;&gt;script&lt;/a&gt; he used to grab the sentence pairs from the Kyoto corpus, so this is a reasonable goal for the up-coming week. Additionally, Michael suggested looking into Japanese WordNet for additional data on top of the Kyoto Corpus.&lt;/p&gt;&lt;h4&gt;Plans for the Next Week&lt;/h4&gt;&lt;p&gt;As mentioned above, I’ll be looking into incorporating more data from both the Kyoto Corpus and WordNet. Another thing I plan to look into is parent feeding which acts as a nice middle ground between the LSTM based models I’m currently using and a TreeLSTM. The idea behind this attention mechanism is to feed the previous decoder time step from the parent node into the current decoder time step. This allows the model to make more direct connections when it comes to long range dependencies.&lt;/p&gt;&lt;img height=&quot;1&quot; src=&quot;https://medium.com/_/stat?event=post.clientViewed&amp;amp;referrerSource=full_rss&amp;amp;postId=5c8a38264cae&quot; width=&quot;1&quot; /&gt;</description>
 	<pubDate>Tue, 15 May 2018 06:58:30 +0000</pubDate>
 </item>
 <item>
@@ -1548,301 +1562,6 @@ Running the filter on 100k posts, we can see that most of the most common subred
 	<description>&lt;h2 style=&quot;height: 0px;&quot;&gt;&lt;span&gt;Team Overfit&lt;/span&gt;&lt;/h2&gt;&lt;h3&gt;&lt;span&gt;&lt;br /&gt;&lt;/span&gt;&lt;/h3&gt;&lt;h3&gt;&lt;span&gt;Project repo: &lt;span style=&quot;font-size: 18.72px;&quot;&gt;&lt;a href=&quot;https://github.com/pinyiw/nlpcapstone-teamoverfit&quot;&gt;https://github.com/pinyiw/nlpcapstone-teamoverfit&lt;/a&gt;&lt;/span&gt;&lt;/span&gt;&lt;/h3&gt;&lt;h4&gt;&lt;span&gt;Team members: Dawei Shen, Pinyi Wang, Xukai Liu&lt;/span&gt;&lt;/h4&gt;&lt;div style=&quot;text-align: start; text-indent: 0px;&quot;&gt;&lt;div style=&quot;margin: 0px;&quot;&gt;&lt;div&gt;&lt;span&gt;&lt;b&gt;Blog Post: #4: 04/17/2018&lt;/b&gt;&lt;/span&gt;&lt;/div&gt;&lt;div&gt;&lt;span&gt;&lt;span&gt;&lt;b&gt;&lt;br /&gt;&lt;/b&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;&lt;div dir=&quot;ltr&quot; style=&quot;line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;&quot;&gt;&lt;span&gt;Social Media Predicts Stock Price (StartUp Mode)&lt;/span&gt;&lt;br /&gt;&lt;br /&gt;&lt;span&gt;This week, we experimented with crawling data by querying from Twitter website, but we had some struggles finding the meaningful data set. Firstly, the Twitter API does not support fetching tweets prior than 7 days, so we have to write bash scripts and use a crawler to strip data from website, which is comparatively slower.&lt;/span&gt;&lt;br /&gt;&lt;span id=&quot;docs-internal-guid-945a652a-d716-7ba2-4653-bdd5ec706d01&quot;&gt;&lt;a href=&quot;https://github.com/Jefferson-Henrique/GetOldTweets-python&quot;&gt;&lt;span&gt;https://github.com/Jefferson-Henrique/GetOldTweets-python&lt;/span&gt;&lt;/a&gt;&lt;/span&gt;&lt;br /&gt;&lt;span&gt;&lt;br /&gt;&lt;/span&gt;&lt;span&gt;We tried to query keywords like Apple, iPhone, iPad. Lots of tweets we got are not in English, so we used language detection tools to filter out tweets in other languages. Unfortunately, there are too much giveaway and advertisement flooding on the platform. Some examples are:&lt;/span&gt;&lt;br /&gt;&lt;blockquote class=&quot;tr_bq&quot;&gt;&lt;span&gt;&quot;Microsoft planning to launch Surface Pro 6 in first quarter of 2017&quot;&lt;/span&gt;&lt;/blockquote&gt;&lt;blockquote class=&quot;tr_bq&quot;&gt;&lt;span&gt;&quot;KFire TV Giveaway: Win a Microsoft Bluetooth Mouse. http://kodifiretvstick.com&quot;&lt;/span&gt;&lt;/blockquote&gt;&lt;blockquote class=&quot;tr_bq&quot;&gt;&lt;span&gt;&quot;Microsoft Releases The 'Studio', Its First Desktop Computer&quot;&lt;/span&gt;&lt;/blockquote&gt;&lt;blockquote class=&quot;tr_bq&quot;&gt;&lt;span&gt;&quot;Like - free microsoft points world http://freemicrosoftpointsworld.weebly.com/&quot;&lt;/span&gt;&lt;/blockquote&gt;&lt;span&gt;Therefore, for out strawman model #1 we decide to use the relative news headlines under twitter search query.&lt;/span&gt;&lt;br /&gt;&lt;span&gt;&lt;br /&gt;&lt;/span&gt;&lt;span&gt;We searched companies' names like Google, Microsoft, Tesla to find relative new headlines and use unigram (bag of words) to put it in a decision tree model with random forest mechanism to predict the price go UP or DOWN. We had mixed results using this model. This is just our first attempt to see whether the twitter data is useful to predict the movement of future stock prices.&lt;/span&gt;&lt;br /&gt;&lt;span&gt;&lt;br /&gt;&lt;/span&gt;&lt;span&gt;AAPL GOOG MSFT AMZN&lt;/span&gt;&lt;br /&gt;&lt;span&gt;53.66% 58.53% 56.10% 37.50%&lt;/span&gt;&lt;br /&gt;&lt;span&gt;&lt;br /&gt;&lt;/span&gt;&lt;span&gt;Next week, we'll try to use deep neural network as predictive model and expand our input to the user feedback of the product from general users.&lt;/span&gt;&lt;br /&gt;&lt;blockquote class=&quot;tr_bq&quot;&gt;&lt;/blockquote&gt;&lt;blockquote class=&quot;tr_bq&quot;&gt;&lt;/blockquote&gt;&lt;blockquote class=&quot;tr_bq&quot;&gt;&lt;/blockquote&gt;&lt;blockquote class=&quot;tr_bq&quot;&gt;&lt;/blockquote&gt;&lt;blockquote class=&quot;tr_bq&quot;&gt;&lt;/blockquote&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;</description>
 	<pubDate>Wed, 18 Apr 2018 04:47:00 +0000</pubDate>
 	<author>noreply@blogger.com (Team Overfit)</author>
-</item>
-<item>
-	<title>Sarah Yu &lt;br/&gt; Team Jekyll-Hyde: First Strawman Attempt</title>
-	<guid isPermaLink="true">http://sarahyu.weebly.com/cse-481n/first-strawman-attempt</guid>
-	<link>http://sarahyu.weebly.com/cse-481n/first-strawman-attempt</link>
-	<description>&lt;div class=&quot;paragraph&quot;&gt;Well...here's the first hiccup: the Reddit data I'd like to use is much too large (like 8GB compressed and unknown uncompressed for one month of posts). Since my last post, I had been working on trying to scrape the data manually through Reddit API requests, but I was running into some issues and it was taking quite a while because of the request restrictions.&lt;br /&gt;&lt;br /&gt;I decided, maybe a little later than I should have, to use the Reddit Data dumps provided by John Baumgartner at pushshift.io instead, but much of the recent data is too large for my computer, attu, as well as my Azure instance. I am working with a grad student to get access to more resources so that I can work with (or even open) some of these files! However, in the meantime I have committed some files that &lt;em&gt;would &lt;/em&gt;be my strawman. I have a list of 124 subreddits labeled as the neurodivergent subreddit subset and currently have a model that builds a set of users that post to these subsets, finds the other neurotypical subreddits those users also post to, and aggregates a set of those subreddits. The strawman compares the basic n-grams in each subset of the subreddits to see basic language model differences. I also cloned the vennclouds github project to try and visualize the n-grams (uni, bi, and tri) that are used in these two subsets as well as their overlap however, the current version seems to have a basic bug.&lt;br /&gt;&lt;br /&gt;I will get the resources hopefully in the next couple of days and update this post with the actual data results! &lt;br /&gt;&lt;br /&gt;&lt;em&gt;To be continued...&lt;/em&gt;&lt;br /&gt;&lt;br /&gt;&lt;/div&gt;</description>
-	<pubDate>Wed, 18 Apr 2018 03:47:19 +0000</pubDate>
-</item>
-<item>
-	<title>Boyan Li, Dennis Orzikh, Lanhao Wu &lt;br/&gt; Team Watch Your Language!: Data Collection and First Baseline</title>
-	<guid isPermaLink="false">http://cse481n-capstone.azurewebsites.net/?p=41</guid>
-	<link>http://cse481n-capstone.azurewebsites.net/2018/04/17/data-collection-and-first-baseline/</link>
-	<description>&lt;h3&gt;Data Collection&lt;/h3&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;In a previous blog, we mentioned using RAKE to collect content phrases from posts in order to compare their similarity. However, we decided since then that it would be easier to just look at ngrams, since they can capture the same information as the content phrases. So, after removing stopwords we collect all of the unigrams, bigrams, and trigrams on each MeanJokes post and on each general Reddit post. However, this creates a ton of data compared to the posts or even their content phrases. So, we must do some cleaning before we make use of this data.&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;For data cleaning, we decided to use document frequency to further clean content ngrams gathered from both mean-jokes and other Reddit posts. The reason why we choose df is:&lt;/span&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;First, we are using content ngrams, so it does not make sense to compute ngram term back on the original post since bigram, trigram term frequency is likely to be 1.&lt;/span&gt;&lt;/li&gt;
-&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Second, df provides us a good way to remove too frequent and too infrequent ngrams. If an ngram is too frequent or too infrequent, it won’t be very informative about the pattern of the sentence.&lt;/span&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;By using document frequency, we achieved the following purpose:&lt;/span&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Much shorter, cleaner content ngrams&lt;/span&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;b&gt;Example:&lt;/b&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;[(‘took’, ‘family’, ‘camping’), (‘camping’, ‘concentration’), (‘took’, ‘family’), (‘family’, ‘camping’), (‘took’,), (‘family’,), (‘concentration’, ‘camping’), (‘family’, ‘camping’, ‘concentration’), (‘camping’,), (‘concentration’,), (‘camping’, ‘concentration’, ‘camping’)]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;After filtering:&lt;/b&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;[(‘took’,), (‘family’,), (‘camping’,), (‘concentration’,)]&lt;/span&gt;&lt;/p&gt;
-&lt;ul&gt;
-&lt;li style=&quot;font-weight: 400;&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Filtered out posts written in a different language (like written in Spanish or Germany)&lt;/span&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;p&gt;&lt;strong&gt;Example:&lt;/strong&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;[(‘adan’,), (‘zapata-con’,), (‘carino’,), (‘para’,), (‘ti’,), (‘letra’,), (‘encanta’,), (‘sii’,), (‘adan’, ‘zapata-con’), (‘zapata-con’, ‘carino’), (‘carino’, ‘para’), (‘para’, ‘ti’), (‘ti’, ‘letra’), (‘letra’, ‘encanta’), (‘encanta’, ‘sii’), (‘adan’, ‘zapata-con’, ‘carino’), (‘zapata-con’, ‘carino’, ‘para’), (‘carino’, ‘para’, ‘ti’), (‘para’, ‘ti’, ‘letra’), (‘ti’, ‘letra’, ‘encanta’), (‘letra’, ‘encanta’, ‘sii’)]&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;However, we sometimes encounter a problem that after filtering, the content ngrams becomes empty. We decide to skip these lines when we do set similarity because by looking back to the original posts, posts that end up with empty content ngram are generally &lt;/span&gt;&lt;b&gt;very short&lt;/b&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; and &lt;/span&gt;&lt;b&gt;non-informative&lt;/b&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;. For example, the post “Bolivian coastline MeanJokes” ended up with an empty content ngrams. &lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;To determine our final dataset, we want to find Reddit posts that use similar language to the MeanJokes posts. To do this, we use &lt;/span&gt;&lt;a href=&quot;https://en.wikipedia.org/wiki/Jaccard_index&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Jaccard index&lt;/span&gt;&lt;/a&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; to determine similarity. Due to the nature of MeanJokes posts being rather short compared to most Reddit posts, the Jaccard Index of most posts compared to these posts would be very low. By filtering as described above, Jaccard index becomes much more useful because the number of n-grams we consider for each post is greatly reduced, down to those we consider most identifying of those posts. However, Reddit posts are very diverse so there is a great sparsity of similar posts. Very few posts have Jaccard Indices greater than .2 even after this filtering. Before filtering, very few posts would even get close to .1. For context, Jaccard similarity could be thought of as a percentage from 0 to 1, where 1 means the posts are identical and 0 means they have no intersection. We have over 3 million Reddit posts just in one month though, so we are not worried about not getting a big enough dataset if we have a high threshold for similarity.&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Here’s an example of what this data looks like:&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Intersection: &lt;/b&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;{(‘ca’, “n’t”, ‘spell’), (‘ca’, “n’t”), (“n’t”, ‘spell’), (‘spell’,), (‘ca’,)}&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;MeanJokes Post:&lt;/b&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; {(‘ca’, “n’t”), (‘therapist’,), (‘without’,), (‘ca’, “n’t”, ‘spell’), (‘rapist’,), (“n’t”, ‘spell’), (‘spell’,), (‘remember’,), (‘ca’,)}&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Reddit Post:&lt;/b&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; {(‘ca’, “n’t”), (‘ca’, “n’t”, ‘spell’), (“n’t”, ‘spell’), (‘spell’,), (‘crisis’,), (‘ca’,)}&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;b&gt;Jaccard index:&lt;/b&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; 0.5&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;5 / (9 + 6 – 5) -&amp;gt; 5/10 -&amp;gt; .5&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt; &lt;/p&gt;
-&lt;h3&gt;Baseline Model&lt;/h3&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Because we are in the process of data collection, we want to build baseline models on similar datasets and later port the model over to our own dataset. The dataset we chose for this purpose is the &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Twitter Hate Speech dataset&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; created by&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt; Zeerak Waseem and Dirk Hovy&lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;. In this dataset, each tweet is labeled as “racism”, “sexism”, or “none”. Since our goal is to build tools that can not only detect if the text is offensive or non-offensive but also detect towards which group the text is offensive, the Twitter Hate Speech dataset serves as a good starting point. Here, we built a logistic regression model as a baseline for offensiveness detection. We consider both “racism” and “sexism” as offensive, and “none” non-offensive. &lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;The each example in the dataset is of the format &amp;lt;tweet_id&amp;gt;, &amp;lt;label&amp;gt;. We first used &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;python-twitter &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;(a python wrapper around Twitter API) to collect the original tweets by the tweet_ids given. In this process, we noticed that 1133 tweets from this dataset are already removed from Twitter. &lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;To make the results more reproducible, we made a train, dev, test dataset split (80%, 10%, 10%) using sklearn train_test_split function. &lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;For data preprocessing, we used an existing &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;text preprocessor made by Zhang et. al. to clean each tweet down to plain text, removing extra space, URLs, hashtags, special characters, etc. &lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;For text vectorization, we experimented with two different sklearn vectorizers: tf-idf vectorizer and count vectorizer. Count vectorizer converts a corpus to a document-term matrix. TF-IDF vectorizer converts a corpus to a tf-idf weighted document-term matrix. &lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;After that, we trained a logistic regression model on training data and tuned epoch on dev data. Both the trained model and trained text vectorizer would be saved. We then loaded in the saved model and text vectorizer to make predictions and evaluate on test data. &lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;The metrics we chose for performance evaluation are accuracy, precision, recall, and f1 score. Here we decided to be more conservative and paid more attention to precision because the expected downstream application (a.k.a. the targeting group detector)  relies on text predicted “offensive” to be actually offensive. We also focused on the f1 score to evaluate the overall performance of this baseline model.&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;We ran experiments with this baseline model with the different types of vectorizers and different vectorizer setups. We decided to keep follow ngram_range (1, 4) chosen by &lt;/span&gt;Zeerak Waseem and Dirk Hovy.&lt;/p&gt;
-&lt;ol&gt;
-&lt;li&gt;Set-up1:
-&lt;ul&gt;
-&lt;li&gt;Vectorizer:&lt;br /&gt;
-&lt;table&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;type&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;strip_accents&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;analyzer&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;ngram_range&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;max_features&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;tf-idf&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;unicode&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;word&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;(1, 4)&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;10000&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/li&gt;
-&lt;li&gt;Model: &lt;span style=&quot;font-weight: 400;&quot;&gt;Logistic regression, epoch_chosen=5&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;table&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;dev accuracy: 0.8162&lt;/td&gt;
-&lt;td&gt;test accuracy: 0.8131&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;dev precision: 0.8170&lt;/td&gt;
-&lt;td&gt;test precision: 0.8203&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;dev recall: 0.7336&lt;/td&gt;
-&lt;td&gt;test recall: 0.7333&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;dev f1: 0.7560&lt;/td&gt;
-&lt;td&gt;test f1: 0.7552&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Set-up2:
-&lt;ul&gt;
-&lt;li&gt;Vectorizer:&lt;br /&gt;
-&lt;table&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;type&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;strip_accents&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;analyzer&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;ngram_range&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;max_features&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;tf-idf&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;unicode&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;char&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;(1, 4)&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;10000&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/li&gt;
-&lt;li&gt;Model: &lt;span style=&quot;font-weight: 400;&quot;&gt;Logistic regression, epoch_chosen=18&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;table&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;dev accuracy: 0.8175&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;test accuracy: 0.8067&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;dev precision: 0.8040&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;test precision: 0.7951&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;dev recall: 0.7482&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;test recall: 0.7388&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;dev f1: 0.7664&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;test f1: 0.7561&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/li&gt;
-&lt;li&gt;Comparison: &lt;span style=&quot;font-weight: 400;&quot;&gt;By taking character level ngrams, test f1 actually improves, but test precision drops drastically. &lt;/span&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Set-up3:
-&lt;ul&gt;
-&lt;li&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Vectorizer:&lt;/span&gt;&lt;br /&gt;
-&lt;table&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;type&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;strip_accents&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;analyzer&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;ngram_range&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;max_features&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;tf-idf&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;unicode&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;char&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;(1, 4)&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;30000&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Model: Logistic regression, epoch_chosen=10&lt;/span&gt;&lt;br /&gt;
-&lt;table&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;dev accuracy: 0.8194&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;test accuracy: 0.8105&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;dev precision: 0.8099&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;test precision: 0.8021&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;dev recall: 0.7473&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;test recall: 0.7416&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;dev f1: 0.7669&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;test f1: 0.7598&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Comparison: By increasing the max number of features a document-term matrix can have, both test precision and test f1 improved compared with those of set-up2. &lt;/span&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Set-up4:
-&lt;ul&gt;
-&lt;li&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Vectorizer:&lt;/span&gt;&lt;br /&gt;
-&lt;table&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;type&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;strip_accents&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;analyzer&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;ngram_range&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;max_features&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;count&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;unicode&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;word&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;(1, 4)&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;30000&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Model: Logistic regression, epoch_chosen=100&lt;/span&gt;&lt;br /&gt;
-&lt;table&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;dev accuracy: 0.8321&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;test accuracy: 0.8213&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;dev precision: 0.8213&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;test precision: 0.8097&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;dev recall: 0.7690&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;test recall: 0.7618&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;dev f1: 0.7871&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;test f1: 0.7781&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Comparison: Vectorizer is now changed to count vectorizer. With this set-up, test f1 is the highest among all set-ups, while test precision is higher than that of set-up3 and lower of that of set-up1. &lt;/span&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;Set-up5:
-&lt;ul&gt;
-&lt;li&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Vectorizer:&lt;/span&gt;&lt;br /&gt;
-&lt;table style=&quot;height: 96px;&quot; width=&quot;328&quot;&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;type&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;strip_accents&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;analyzer&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;ngram_range&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;max_features&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;count&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;unicode&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;char&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;(1, 4)&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;30000&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Model: Logistic regression, epoch_chosen=30&lt;/span&gt;&lt;/li&gt;
-&lt;li&gt;
-&lt;table style=&quot;height: 291px;&quot; width=&quot;388&quot;&gt;
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;dev accuracy: 0.8226&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;test accuracy: 0.8093&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;dev precision: 0.8001&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;test precision: 0.7860&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;dev recall: 0.7690&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;test recall: 0.7594&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;dev f1: 0.7812&lt;/span&gt;&lt;/td&gt;
-&lt;td&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;test f1: 0.7698&lt;/span&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Comparison: Test precision is the lowest of all the set-ups, and test f1 is higher than the first 3 set-ups, but lower than set-up4.&lt;/span&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;/ol&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Although &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Zeerak Waseem and Dirk Hovy’s paper stated that &lt;/span&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;character n-grams have better performance than work n-grams as features, our experiment results suggested otherwise. All of our set-ups have higher test precision and f1 score but lower test recall that the best model of the paper. These differences might be because of the removal of tweets from the original dataset. The train, dev, test data split method might also contribute to the differences. &lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Next Steps: We would like to experiment with other baseline models, especially neural networks and perform error analysis on these baseline models.&lt;/span&gt;&lt;/p&gt;
-&lt;p&gt;Work Cited:&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.semanticscholar.org/paper/Hateful-Symbols-or-Hateful-People%3F-Predictive-for-Waseem-Hovy/df704cca917666dace4e42b4d3a50f65597b8f06&quot;&gt;&lt;span style=&quot;font-weight: 400;&quot;&gt;Waseem, Zeerak and Dirk Hovy. “Hateful Symbols or Hateful People? Predictive Features for Hate Speech Detection on Twitter.” SRW@HLT-NAACL (2016).&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;&lt;a href=&quot;https://www.researchgate.net/publication/323723283_Detecting_hate_speech_on_Twitter_using_a_convolution-GRU_based_deep_neural_network&quot;&gt;Zhang, Ziqi &amp;amp; Robinson, D &amp;amp; Tepper, J. (2018). Detecting hate speech on Twitter using a convolution-GRU based deep neural network.&lt;/a&gt;&lt;/p&gt;</description>
-	<pubDate>Wed, 18 Apr 2018 02:36:38 +0000</pubDate>
 </item>
 
 </channel>
