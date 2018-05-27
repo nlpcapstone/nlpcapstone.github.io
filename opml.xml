@@ -2,7 +2,7 @@
 <opml version="1.1">
   <head>
     <title>NLP Capstone Spring 2018</title>
-    <dateModified>Sun, 27 May 2018 04:30:33 GMT</dateModified>
+    <dateModified>Sun, 27 May 2018 05:00:53 GMT</dateModified>
     <ownerName>Nelson Liu</ownerName>
     <ownerEmail>nfliu[at]cs.washington.edu</ownerEmail>
   </head>
@@ -19,6 +19,5 @@
     <outline type="rss" text="Ron Fan, Aditya Saraf &lt;br/&gt; Team PrimeapeNLP" title="PrimeapeNLP" xmlUrl="https://cse481n.blogspot.com/feeds/posts/default?alt=rss"/>
     <outline type="rss" text="Halden Lin &lt;br/&gt; Team undef." title="Stories by Halden Lin on Medium" xmlUrl="https://medium.com/feed/@halden.lin"/>
     <outline type="rss" text="Pinyi Wang, Dawei Shen, Xukai Liu &lt;br/&gt; Team Overfit" title="NLP Capstone" xmlUrl="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss"/>
-    <outline type="rss" text="Kuikui Liu, Nicholas Ruhland &lt;br/&gt; Team INLP" title="NLP Capstone &#x2013; Mathematical Distractions" xmlUrl="https://mathstoc.wordpress.com/category/nlp-capstone/feed/"/>
   </body>
 </opml>
