@@ -159,5 +159,18 @@
         </foaf:weblog>
       </foaf:Agent>
     </foaf:member>
+    <foaf:member>
+      <foaf:Agent>
+        <foaf:name>Kuikui Liu, Nicholas Ruhland &lt;br/&gt; Team INLP</foaf:name>
+        <foaf:weblog>
+          <foaf:Document rdf:about="https://mathstoc.wordpress.com">
+            <dc:title>NLP Capstone – Mathematical Distractions</dc:title>
+            <rdfs:seeAlso>
+              <rss:channel rdf:about="https://mathstoc.wordpress.com/category/nlp-capstone/feed/"/>
+            </rdfs:seeAlso>
+          </foaf:Document>
+        </foaf:weblog>
+      </foaf:Agent>
+    </foaf:member>
   </foaf:Group>
 </rdf:RDF>
