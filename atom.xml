@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:planet="http://planet.intertwingly.net/" xmlns:indexing="urn:atom-extension:indexing" indexing:index="no"><access:restriction xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" relationship="deny"/>
   <title>NLP Capstone Spring 2018</title>
-  <updated>2018-05-29T00:00:17Z</updated>
+  <updated>2018-05-29T00:30:31Z</updated>
   <generator uri="http://intertwingly.net/code/venus/">Venus</generator>
   <author>
     <name>Nelson Liu</name>
@@ -10,6 +10,29 @@
   <id>https://nlpcapstone.github.io/atom.xml</id>
   <link href="https://nlpcapstone.github.io/atom.xml" rel="self" type="application/atom+xml"/>
   <link href="https://nlpcapstone.github.io/" rel="alternate"/>
+
+  <entry>
+    <id>https://medium.com/p/81ba6be6634</id>
+    <link href="https://medium.com/@ryanp97/data-subsets-parent-feeding-and-future-work-81ba6be6634?source=rss-6378d85d3a9b------2" rel="alternate" type="text/html"/>
+    <title>Data Subsets, Parent Feeding, and Future Work</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>In the last week, I’ve been training more models on different subsets of the data and began working on implementing parent feeding. Though I don’t think I will have parent feeding done in time for the final presentation, it’ll be a nice checkpoint to start at after this capstone finishes.</p><h4>Data Subsets</h4><p>The model trained on all of Michael Goodman’s data last week had an issue with SMATCH (which is why the SMATCH score was omitted in last week’s blogpost). It turns out that there were a couple translation pairs in which the unicode character U+3000 (ideographic/wide space) was used as a token causing it to appear as a surface predicate in some development examples. As a result, SMATCH had issues dealing with these and crashed. Considering how infrequently this surface predicate actually occurred, I decided to invalidate the graphs that contained them during post-processing. This model ‘achieved’ a SMATCH score of 0.54. For reference, when treating the predicates as a bag of words, the model had an F1 score of 0.52.</p><p>Considering the Kyoto Corpus suffers the issue of having many uncommon named entities, I decided to train a model on just the Japanese WordNet corpus. This dataset is significantly smaller with ~105,000 training examples compared to ~325,000 training examples for the combined corpus. I figured this dataset would have significantly fewer named entities and not mis-predict the named abstract predicate so often. This model did, in fact, achieve a better SMATCH score with a F1 of 0.57 and an F1 score of 0.54 when treating the predicates as a bag of words. Notably, the named abstract predicate was mis-predicted less often, though it was still in the top 10 mis-predicted predicates. This resulted in a higher abstract predicate precision, ~0.04 above. Surprisingly, however, the surface predicate precision drop ~0.04. I’m not entirely sure why quite yet, but it may be due to the ratio of number of surface predicates to number of abstract predicates in each dataset.</p><p>I’m currently training a model with all of the data from Michael Goodman and adding all the training examples I had parsed from the Tanaka Corpus. In theory this model should perform slightly better than the model trained with solely Michael Goodman’s dataset, though I won’t be able to tell until late tomorrow considering the time it takes to train a single epoch.</p><h4>Parent Feeding</h4><p>Working with OpenNMT’s codebase has been quite a pain. Though I’ve implemented a short method to calculate the parent indicies of a single graph, I have had lots of trouble figuring out where exactly they should be calculated and how they will be stored. For now I’ve placed it as a step in ShardedTextCorpusIterator. So the pipeline for generating the input to OpenNMT is still the same. The preprocess.py script takes the same inputs and outputs as usual. The only thing that is different now is the saved files will now also contain parent indicies for each example.</p><p>I haven’t been able to figure out how batching will work with this quite yet, so I’m meeting up with Jan later this week to discuss how we should do batching for this. Once Jan clears up how batching works on Wednesday, I should have a good enough understanding to attempt to modify/write a decoder that also uses parent feeding.</p><h4>ELMo Embeddings</h4><p>After discussing with Jan more, I likely would not see significantly improved results with ELMo embeddings unless I was able to scrape more data to train these embeddings with. Since the vocabulary the model is trying to predict are predicates and edges, I would have to generate graphs after scraping more data for both languages. Considering how little time I have left, I decided to leave this for future work.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=81ba6be6634" width="1"/></div>
+    </content>
+    <updated>2018-05-29T00:20:11Z</updated>
+    <category term="machine-learning"/>
+    <author>
+      <name>Ryan Pham</name>
+    </author>
+    <source>
+      <id>https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2</id>
+      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*83KfTWByl5pPq7A8_E8ApA.gif</logo>
+      <link href="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2" rel="alternate" type="text/html"/>
+      <link href="https://medium.com/feed/@ryanp97" rel="self" type="application/rss+xml"/>
+      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
+      <subtitle>Stories by Ryan Pham on Medium</subtitle>
+      <title>Stories by Ryan Pham on Medium</title>
+      <updated>2018-05-29T00:30:05Z</updated>
+    </source>
+  </entry>
 
   <entry>
     <id>https://medium.com/p/d4957f6e802</id>
@@ -30,7 +53,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-29T00:00:12Z</updated>
+      <updated>2018-05-29T00:30:28Z</updated>
     </source>
   </entry>
 
@@ -57,7 +80,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-29T00:00:15Z</updated>
+      <updated>2018-05-29T00:30:30Z</updated>
     </source>
   </entry>
 
@@ -86,7 +109,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-29T00:00:12Z</updated>
+      <updated>2018-05-29T00:30:28Z</updated>
     </source>
   </entry>
 
@@ -111,7 +134,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-29T00:00:10Z</updated>
+      <updated>2018-05-29T00:30:25Z</updated>
     </source>
   </entry>
 
@@ -136,7 +159,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-29T00:00:12Z</updated>
+      <updated>2018-05-29T00:30:26Z</updated>
     </source>
   </entry>
 
@@ -159,7 +182,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-29T00:00:05Z</updated>
+      <updated>2018-05-29T00:30:05Z</updated>
     </source>
   </entry>
 
@@ -182,7 +205,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-29T00:00:04Z</updated>
+      <updated>2018-05-29T00:30:05Z</updated>
     </source>
   </entry>
 
@@ -206,7 +229,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-29T00:00:16Z</updated>
+      <updated>2018-05-29T00:30:31Z</updated>
     </source>
   </entry>
 
@@ -456,7 +479,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-29T00:00:10Z</updated>
+      <updated>2018-05-29T00:30:23Z</updated>
     </source>
   </entry>
 
@@ -480,7 +503,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-29T00:00:04Z</updated>
+      <updated>2018-05-29T00:30:04Z</updated>
     </source>
   </entry>
 
@@ -503,7 +526,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-29T00:00:12Z</updated>
+      <updated>2018-05-29T00:30:28Z</updated>
     </source>
   </entry>
 
@@ -537,7 +560,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-29T00:00:17Z</updated>
+      <updated>2018-05-29T00:30:31Z</updated>
     </source>
   </entry>
 
@@ -562,7 +585,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-29T00:00:11Z</updated>
+      <updated>2018-05-29T00:30:25Z</updated>
     </source>
   </entry>
 
@@ -611,7 +634,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-29T00:00:15Z</updated>
+      <updated>2018-05-29T00:30:30Z</updated>
     </source>
   </entry>
 
@@ -639,7 +662,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-29T00:00:12Z</updated>
+      <updated>2018-05-29T00:30:28Z</updated>
     </source>
   </entry>
 
@@ -663,7 +686,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-29T00:00:16Z</updated>
+      <updated>2018-05-29T00:30:31Z</updated>
     </source>
   </entry>
 
@@ -686,7 +709,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-29T00:00:12Z</updated>
+      <updated>2018-05-29T00:30:26Z</updated>
     </source>
   </entry>
 
@@ -709,7 +732,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-29T00:00:05Z</updated>
+      <updated>2018-05-29T00:30:05Z</updated>
     </source>
   </entry>
 
@@ -875,7 +898,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-29T00:00:09Z</updated>
+      <updated>2018-05-29T00:30:23Z</updated>
     </source>
   </entry>
 
@@ -899,7 +922,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-29T00:00:04Z</updated>
+      <updated>2018-05-29T00:30:04Z</updated>
     </source>
   </entry>
 
@@ -922,7 +945,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-29T00:00:04Z</updated>
+      <updated>2018-05-29T00:30:05Z</updated>
     </source>
   </entry>
 
@@ -969,7 +992,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-29T00:00:17Z</updated>
+      <updated>2018-05-29T00:30:31Z</updated>
     </source>
   </entry>
 
@@ -992,7 +1015,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-29T00:00:12Z</updated>
+      <updated>2018-05-29T00:30:26Z</updated>
     </source>
   </entry>
 
@@ -1023,7 +1046,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-29T00:00:13Z</updated>
+      <updated>2018-05-29T00:30:28Z</updated>
     </source>
   </entry>
 
@@ -1047,7 +1070,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-29T00:00:16Z</updated>
+      <updated>2018-05-29T00:30:31Z</updated>
     </source>
   </entry>
 
@@ -1074,7 +1097,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-29T00:00:15Z</updated>
+      <updated>2018-05-29T00:30:30Z</updated>
     </source>
   </entry>
 
@@ -1099,7 +1122,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-29T00:00:10Z</updated>
+      <updated>2018-05-29T00:30:25Z</updated>
     </source>
   </entry>
 
@@ -1122,7 +1145,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-29T00:00:12Z</updated>
+      <updated>2018-05-29T00:30:28Z</updated>
     </source>
   </entry>
 
@@ -1386,7 +1409,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-29T00:00:09Z</updated>
+      <updated>2018-05-29T00:30:23Z</updated>
     </source>
   </entry>
 
@@ -1409,7 +1432,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-29T00:00:05Z</updated>
+      <updated>2018-05-29T00:30:05Z</updated>
     </source>
   </entry>
 
@@ -1432,7 +1455,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-29T00:00:04Z</updated>
+      <updated>2018-05-29T00:30:05Z</updated>
     </source>
   </entry>
 
@@ -1456,7 +1479,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-29T00:00:04Z</updated>
+      <updated>2018-05-29T00:30:04Z</updated>
     </source>
   </entry>
 
@@ -1501,7 +1524,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-29T00:00:12Z</updated>
+      <updated>2018-05-29T00:30:28Z</updated>
     </source>
   </entry>
 
@@ -1526,7 +1549,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-29T00:00:11Z</updated>
+      <updated>2018-05-29T00:30:25Z</updated>
     </source>
   </entry>
 
@@ -1552,7 +1575,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-29T00:00:12Z</updated>
+      <updated>2018-05-29T00:30:26Z</updated>
     </source>
   </entry>
 
@@ -1579,7 +1602,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-29T00:00:15Z</updated>
+      <updated>2018-05-29T00:30:30Z</updated>
     </source>
   </entry>
 
@@ -1604,7 +1627,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-29T00:00:13Z</updated>
+      <updated>2018-05-29T00:30:28Z</updated>
     </source>
   </entry>
 
@@ -2082,7 +2105,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-29T00:00:09Z</updated>
+      <updated>2018-05-29T00:30:23Z</updated>
     </source>
   </entry>
 
@@ -2106,7 +2129,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-29T00:00:16Z</updated>
+      <updated>2018-05-29T00:30:31Z</updated>
     </source>
   </entry>
 
@@ -2129,7 +2152,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-29T00:00:05Z</updated>
+      <updated>2018-05-29T00:30:05Z</updated>
     </source>
   </entry>
 
@@ -2152,7 +2175,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-29T00:00:04Z</updated>
+      <updated>2018-05-29T00:30:03Z</updated>
     </source>
   </entry>
 
@@ -2175,7 +2198,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-29T00:00:04Z</updated>
+      <updated>2018-05-29T00:30:05Z</updated>
     </source>
   </entry>
 
@@ -2225,7 +2248,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-29T00:00:12Z</updated>
+      <updated>2018-05-29T00:30:28Z</updated>
     </source>
   </entry>
 
@@ -2252,7 +2275,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-29T00:00:15Z</updated>
+      <updated>2018-05-29T00:30:30Z</updated>
     </source>
   </entry>
 
@@ -2277,7 +2300,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-05-29T00:00:11Z</updated>
+      <updated>2018-05-29T00:30:25Z</updated>
     </source>
   </entry>
 
@@ -2300,7 +2323,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-05-29T00:00:12Z</updated>
+      <updated>2018-05-29T00:30:28Z</updated>
     </source>
   </entry>
 
@@ -2323,7 +2346,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-05-29T00:00:05Z</updated>
+      <updated>2018-05-29T00:30:05Z</updated>
     </source>
   </entry>
 
@@ -2346,7 +2369,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-05-29T00:00:12Z</updated>
+      <updated>2018-05-29T00:30:26Z</updated>
     </source>
   </entry>
 
@@ -2370,7 +2393,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-05-29T00:00:16Z</updated>
+      <updated>2018-05-29T00:30:31Z</updated>
     </source>
   </entry>
 
@@ -2514,7 +2537,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-05-29T00:00:09Z</updated>
+      <updated>2018-05-29T00:30:23Z</updated>
     </source>
   </entry>
 
@@ -2560,7 +2583,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-05-29T00:00:17Z</updated>
+      <updated>2018-05-29T00:30:31Z</updated>
     </source>
   </entry>
 
@@ -2584,7 +2607,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-29T00:00:04Z</updated>
+      <updated>2018-05-29T00:30:04Z</updated>
     </source>
   </entry>
 
@@ -2629,7 +2652,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-05-29T00:00:04Z</updated>
+      <updated>2018-05-29T00:30:05Z</updated>
     </source>
   </entry>
 
@@ -2657,7 +2680,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-05-29T00:00:13Z</updated>
+      <updated>2018-05-29T00:30:28Z</updated>
     </source>
   </entry>
 
@@ -2681,34 +2704,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-05-29T00:00:04Z</updated>
-    </source>
-  </entry>
-
-  <entry>
-    <id>https://medium.com/p/be87c31976b7</id>
-    <link href="https://medium.com/@halden.lin/nlp-capstone-04-first-steps-be87c31976b7?source=rss-2759d54493c0------2" rel="alternate" type="text/html"/>
-    <title>NLP Capstone | 04: First Steps</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p><em>previous posts: </em><a href="https://medium.com/@halden.lin/nlp-capstone-01-options-ee873b6885d5"><em>01</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5"><em>02</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-03-project-proposal-7d8e9ec1a8e3"><em>03</em></a></p><p>Nearing 4 weeks in — I’ve finally got a foothold in the development process. Over this past week I’ve been looking through TensorBoard and TensorFlow source-code and documentation in an attempt to develop a foundation for plugin development.</p><p><strong>Notable Resources:</strong></p><ul><li><a href="https://www.tensorflow.org/programmers_guide/summaries_and_tensorboard">TensorBoard Documentation</a></li><li><a href="https://github.com/tensorflow/tensorboard">TensorBoard Source Code</a> and <a href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins">Existing Plugins</a></li><li><a href="https://github.com/tensorflow/tensorboard-plugin-example/blob/master/README.md">Developing a TensorBoard Plugin</a> (a simple example)</li></ul><h4>Completed Milestones:</h4><ol><li>Understand the structure of a TensorBoard Plugin, specifically how the architecture of the Attention Plugin should look like.</li><li>Design and write the data fetching layer.</li></ol><h4>Plugin Architecture</h4><p>In TensorFlow, data from iterations of training / evaluation is stored as a set of <strong>summaries</strong>. These can take the form of any tensor, including text, image, scalars, or time series. These are written to disk as the computation graph is executed. Each ‘summary’ takes the form of a <a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/framework/summary.proto">Summary protocol buffer</a>, which holds, in addition to the data stored, critical identifying information (tags and metadata). A plugin can then read summaries associated with particular tags and sessions from disk to serve to the TensorBoard front-end via a plugin back-end, where a visualization is rendered.</p><p>Following <a href="https://github.com/tensorflow/tensorboard-plugin-example/blob/master/README.md"><em>Developing a TensorBoard plugin</em></a><em>, </em>the Attention Plugin with have three primary components:</p><ol><li>Data API layer. This is what allows users to capture relevant summaries from within their models.</li><li>Plugin backend, which serves said summaries.</li><li>Frontend, where the visualizations are displayed.</li></ol><p>Unlike commonly used plugins such as the <a href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/scalar]">scalar</a> and <a href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/histogram">histogram</a> plugins, the Attention Plugin consumes 3 distinct values: the input text, the decoded output text, and the attention matrix that correlates the two. Initially, I attempted to store these all in a single Summary protobuf, where the first two rows of the encapsulating matrix would contain the text, and the rest would contain the attention weights. This results in a mixing of string and float types in a single Tensor, which is not valid (to my knowledge) in TensorFlow. I then realized I could store these separately, each in their own summary, and retrieve them via an identifying name. The resulting architecture is shown in the diagram below.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*QK7USkxsSC3u6F0LKbKWXQ.png"/>The architecture of the Attention Plugin.</figure><p>I decided to make the output text an optional summary, as models don’t necessarily need to decode (via Viterbi, Beam Search, or otherwise) an output sequence while training. The input text and attention matrix are still valuable, as summary statistics (e.g. coverage, important words, etc) can be gleamed without the decoded text.</p><h4>Data API Layer</h4><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*0m1-fllpNYMP666FhR0nbA.png"/>Data API Layer highlighted in green.</figure><p>As the TensorBoard authors suggest, the data API layer, defined in attention_summary.py, provides two methods for creating Summary protobufs, which can then be written to disk via a FileWriter. The first is via a TensorFlow op, which can be thought of as a node in the computation graph, that produces a Summary when the graph is executed. The second is by directly creating the protobuf, which allows for data to be saved outside the execution of a TensorFlow session. I’ve implemented both of these. There is a separate method for each of the three datum used by the plugin (input text, output text, attention matrix), and each of the three summary datum are tagged differently (e.g. name/attention_input_summary, name/attention_output_summary) in order to allow for distinguishable retrieval later.</p><p>An example of the usage of both methods can be found in attention_demo.py.</p><h4>Next Steps</h4><p>I suspect the work completed this week was the biggest hurdle in terms of time:code ratio. I would not be surprised if I had to revisit the work done here in order to clean things up or fix small bugs. However, with this understanding and architecture nailed down, I expect implementation of the rest of the plugin will come at a faster pace. With that said, three tasks stand as immediate goals for the next week.</p><ol><li>Modify my forked repository of the summarization model created by <a href="https://arxiv.org/pdf/1704.04368.pdf">See et al.</a> (original found <a href="https://github.com/abisee/pointer-generator">here</a>) to produce and save the appropriate summaries for the Attention Plugin. I’ve already started looking into this, and expect to have to fiddle around with the training / evaluation scheme in order to grab an appropriate amount of data.</li><li>Implement the backend of the Attention Plugin.</li><li>Begin prototyping visualizations (pen &amp; paper) and acquire preliminary feedback.</li></ol><p>Until next time.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=be87c31976b7" width="1"/></div>
-    </content>
-    <updated>2018-04-19T06:33:40Z</updated>
-    <category term="nlp"/>
-    <category term="visualization"/>
-    <category term="machine-learning"/>
-    <category term="data-visualization"/>
-    <category term="computer-science"/>
-    <author>
-      <name>Halden Lin</name>
-    </author>
-    <source>
-      <id>https://medium.com/@halden.lin?source=rss-2759d54493c0------2</id>
-      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*Hzu2ZqgloT0I1F6Kwg8OPA.jpeg</logo>
-      <link href="https://medium.com/@halden.lin?source=rss-2759d54493c0------2" rel="alternate" type="text/html"/>
-      <link href="https://medium.com/feed/@halden.lin" rel="self" type="application/rss+xml"/>
-      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
-      <subtitle>Stories by Halden Lin on Medium</subtitle>
-      <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-05-29T00:00:15Z</updated>
+      <updated>2018-05-29T00:30:04Z</updated>
     </source>
   </entry>
 </feed>
