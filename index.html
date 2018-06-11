@@ -55,6 +55,38 @@
 </div>
 
 
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2" title="Stories by Ryan Pham on Medium">Ryan Pham <br/> Team NeuralEmpty</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/81ba6be6634">
+<h4><a href="https://medium.com/@ryanp97/data-subsets-parent-feeding-and-future-work-81ba6be6634?source=rss-6378d85d3a9b------2">Data Subsets, Parent Feeding, and Future Work</a></h4>
+<div class="entry">
+<div class="content">
+<p>In the last week, I’ve been training more models on different subsets of the data and began working on implementing parent feeding. Though I don’t think I will have parent feeding done in time for the final presentation, it’ll be a nice checkpoint to start at after this capstone finishes.</p><h4>Data Subsets</h4><p>The model trained on all of Michael Goodman’s data last week had an issue with SMATCH (which is why the SMATCH score was omitted in last week’s blogpost). It turns out that there were a couple translation pairs in which the unicode character U+3000 (ideographic/wide space) was used as a token causing it to appear as a surface predicate in some development examples. As a result, SMATCH had issues dealing with these and crashed. Considering how infrequently this surface predicate actually occurred, I decided to invalidate the graphs that contained them during post-processing. This model ‘achieved’ a SMATCH score of 0.54. For reference, when treating the predicates as a bag of words, the model had an F1 score of 0.52.</p><p>Considering the Kyoto Corpus suffers the issue of having many uncommon named entities, I decided to train a model on just the Japanese WordNet corpus. This dataset is significantly smaller with ~105,000 training examples compared to ~325,000 training examples for the combined corpus. I figured this dataset would have significantly fewer named entities and not mis-predict the named abstract predicate so often. This model did, in fact, achieve a better SMATCH score with a F1 of 0.57 and an F1 score of 0.54 when treating the predicates as a bag of words. Notably, the named abstract predicate was mis-predicted less often, though it was still in the top 10 mis-predicted predicates. This resulted in a higher abstract predicate precision, ~0.04 above. Surprisingly, however, the surface predicate precision drop ~0.04. I’m not entirely sure why quite yet, but it may be due to the ratio of number of surface predicates to number of abstract predicates in each dataset.</p><p>I’m currently training a model with all of the data from Michael Goodman and adding all the training examples I had parsed from the Tanaka Corpus. In theory this model should perform slightly better than the model trained with solely Michael Goodman’s dataset, though I won’t be able to tell until late tomorrow considering the time it takes to train a single epoch.</p><h4>Parent Feeding</h4><p>Working with OpenNMT’s codebase has been quite a pain. Though I’ve implemented a short method to calculate the parent indicies of a single graph, I have had lots of trouble figuring out where exactly they should be calculated and how they will be stored. For now I’ve placed it as a step in ShardedTextCorpusIterator. So the pipeline for generating the input to OpenNMT is still the same. The preprocess.py script takes the same inputs and outputs as usual. The only thing that is different now is the saved files will now also contain parent indicies for each example.</p><p>I haven’t been able to figure out how batching will work with this quite yet, so I’m meeting up with Jan later this week to discuss how we should do batching for this. Once Jan clears up how batching works on Wednesday, I should have a good enough understanding to attempt to modify/write a decoder that also uses parent feeding.</p><h4>ELMo Embeddings</h4><p>After discussing with Jan more, I likely would not see significantly improved results with ELMo embeddings unless I was able to scrape more data to train these embeddings with. Since the vocabulary the model is trying to predict are predicates and edges, I would have to generate graphs after scraping more data for both languages. Considering how little time I have left, I decided to leave this for future work.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=81ba6be6634" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@ryanp97/data-subsets-parent-feeding-and-future-work-81ba6be6634?source=rss-6378d85d3a9b------2">by Ryan Pham at May 29, 2018 12:20 AM</a>
+</p>
+</div>
+</div>
+
+
 </div>
 
 </div>
@@ -250,6 +282,38 @@
 
 <p class="date">
 <a href="https://medium.com/@hongnin1/week-9-milestone-advanced-model-attempt-2-continued-97cca6e26c14?source=rss-c450eb982161------2">by Ning Hong at May 23, 2018 04:53 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2" title="Stories by Ryan Pham on Medium">Ryan Pham <br/> Team NeuralEmpty</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/ff44ae10d41e">
+<h4><a href="https://medium.com/@ryanp97/incorporating-more-data-ff44ae10d41e?source=rss-6378d85d3a9b------2">Incorporating more Data</a></h4>
+<div class="entry">
+<div class="content">
+<p>Based on the results of last week’s hyper-parameter tuning, I wanted to incorporate more data to see if the issue was with the dataset or not. So this week I worked on adding the Kyoto corpus as well as Japanese WordNet (parallel corpus) definitions and examples into my dataset.</p><p>I began parsing the graphs from the Kyoto Corpus similar to how I did with the Tanaka Corpus earlier this week until Michael Goodman, the linguistics grad student I have also been working with gave me access to his preprocessed version. Michael had split up the data in many tiny chunks for each corpus such that each subdirectory was a subset of the actual data. Also the data was stored in a different format than I was expecting, but it was easily converted to the Penman format using the mrs-to-penman script mentioned in earlier blog posts.</p><p>In total, this allowed me to triple the size of my dataset from ~124,000 examples to ~325,000 examples (the result of combining Tanaka, Kyoto, and WordNet corpora from Michael). Although this is not as significant as I was hoping, it adds a lot of variety to the types of sentences and graphs that the model has been trained on up until this point.</p><p>The Tanaka Corpus is very casual in nature since it was essentially crowd-sourced by a teacher asking his students to translate sentences for him. As a result, the sentences are usually in casual speech form, some examples are from songs, some of the translations include mistakes, etc. The Kyoto Corpus, on the other hand, was created from manual translation of Wikipedia articles with the purpose of the data being used for travel brochures and similar tasks in mind. As a result, a translation pair from the Kyoto Corpus is likely to contain named entities that are not often found in the other translation pairs in the dataset, which causes errors mentioned later in this post. The Japanese WordNet examples are the definitions of words and examples of the words being used in sentences. This also seems like it may contribute to the issues mentioned later.</p><p>Something to note is that the preprocessed data I got from Michael contained a different version of the Tanaka Corpus than the one I am currently using. It seems to have been segmented differently and/or seems that it might be a non-current version since it was shipped with the Jacy grammar. So the Tanaka Corpus that came with Michael’s data accounts for ~1,000/325,000 examples which is significantly fewer parsed graphs than I was able to obtain.</p><p>In the coming week, I want to experiment with training a model with the Michael’s dataset combined with my current dataset as well as different subsets of the data (i.e. just the Kyoto Corpus or just the Japanese WordNet corpus).</p><h4>Retraining the Baseline</h4><p>After I preprocessed the data from Michael, I chose the best model from my previous attempts (though they were all pretty similar in performance), which happened to be my initial baseline, and trained it on Michael’s combined dataset. I was optimistically hoping for improved performance in terms of predicate precision and recall, but the model performed much worse.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*IhuwDSj7OrdW4n_Z9bivNA.png" /></figure><p>Using the same concept as last week, I calculated the most commonly mis-predicted/overly-predicted predicates:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*XGtwfRJBrQcPyptwMBth5Q.png" /></figure><p>Just like with the previous models and dataset, the model still has issues mis-predicting abstract predicates and grammar concepts like particles. Something new to the list is the named abstract predicate. This was not even in the top 20 mis-predicted predicates in any of the previous models, but it shot up to the top of the charts with this new dataset. Like I mentioned earlier, the cause for this can most likely be attributed to the Kyoto Corpus and Japanese WordNet translation pairs containing many more named entities compared to the Tanaka Corpus.</p><p>Something else that I noticed is that this new dataset resulted in many more predictions having large length differences. In the baseline model, ~2,200/12,000 translation pairs differed by 5 or more predicates. With this new dataset, ~4,400/13,000 translation pairs differed by 5 or more predicates. One possible reason for this is the Kyoto Corpus — the Kyoto Corpus has translation pairs for both titles and summaries. The length difference between these is usually quite large since summaries are just longer by nature and carry much more semantic meaning.</p><h4>Future Work</h4><p>Like I mentioned earlier, I want to continue experimenting with different subsets of the data for training the model. I mentioned last week that I wanted to try implementing parent feeding into the decoder to try and force the model to really learn the semantic meanings of the non-terminals. I didn’t have time to do that for this blog post, but it is something that is a possibility for the next blogpost and/or the final presentation. Something else that I plan to try is ELMo embeddings as suggested by Yejin. OpenNMT currently does not have ELMo embedding support, as far as I am aware, so I may switch back over to AllenNLP to explore this addition to the model.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=ff44ae10d41e" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@ryanp97/incorporating-more-data-ff44ae10d41e?source=rss-6378d85d3a9b------2">by Ryan Pham at May 23, 2018 04:48 AM</a>
 </p>
 </div>
 </div>
@@ -1100,6 +1164,38 @@ I'm focusing now on combining coding patterns from the new class at test time wi
 </div>
 
 
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2" title="Stories by Ryan Pham on Medium">Ryan Pham <br/> Team NeuralEmpty</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/5c8a38264cae">
+<h4><a href="https://medium.com/@ryanp97/error-analysis-and-the-transformer-architecture-5c8a38264cae?source=rss-6378d85d3a9b------2">Error Analysis and the Transformer Architecture</a></h4>
+<div class="entry">
+<div class="content">
+<p>In the past week, I’ve been tuning hyper-parameters for the LSTM based models, exploring the Transformer architecture, and looking more in-depth at the predictions the model is making for error analysis.</p><h4>Swapping LSTM with Transformer</h4><p>As suggested by Nelson, I trained a model using the Transformer architecture from “<a href="https://arxiv.org/pdf/1706.03762.pdf">Attention Is All You Need</a>” (Vaswani et al.) to explore and see if different architecture would help improve the performance of the LSTM based models.</p><p>I used the same hyper-parameters that was used to achieve the results listed in the paper. Unfortunately, the model showed a significant decrease in performance compared to the LSTM models. The main cause of this was due to ill-formed graphs. Unlike the LSTM models, the transformer was unable to learn the general requirements for a well-formed graph even after training for 50 epochs.</p><p>Every graph starts with an opening paren, (, which is the only place this token will occur (other opening parentheses are always attached to edge labels). The LSTM based model was able to correctly identify that this token only occurs at the beginning of the sequence while the transformer was unable to make this connection. Another issue that the transformer ran into was predicting a set of features after an edge label without any predicate, something that the LSTM based models also did not run into.</p><p>I believe that one of the causes of these issues is the fact that the Transformer was trained using batches of tokens rather than batches of sentences. However, even after training the transformer on batches of graphs, it still experienced issues of predicting edges without a predicate. Even more unfortunately, neither model was able to increase the SMATCH score or the surface/abstract predicate scores by any significant number.</p><pre>SMATCH (F1):<br />    Transformer (Tokens) - 0.60<br />    Transformer (Graphs) - 0.63</pre><pre>Surface Predicate F1:<br />    Transformer (Tokens) - 0.52<br />    Transformer (Graphs) - 0.54</pre><pre>Abstract Predicate F1:<br />    Transformer (Tokens) - 0.71<br />    Transformer (Graphs) - 0.73</pre><h4>Error Analysis</h4><p>This week I also trained some different models with larger hidden sizes, but unfortunately still did not see much improvement (all of them had similar performances as all the previously listed and tested models).</p><p>With the baseline and other models that did not have a coverage attention mechanism, there were around 2,200~2,300 predictions that differed in length by at least 15 tokens (around 5 predicates less than the gold-label graph). We hoped that adding a coverage mechanism would alleviate this issue, but the model with coverage actually resulted in more predictions having a large length difference. After looking into the parsed graph data more carefully, there doesn’t seem to be a clear correlation between the length of the graph in English and the graph length in Japanese. Furthermore, attending to the English predicates may not be the correct thing to do since there are pieces of grammar that may not be able to be directly related to some predicate in the input.</p><p>I also calculated which predicates were commonly mis-predicted as well as ones that were not predicted when they should have been. Surprisingly There was quite a big overlap between these two sets. Below is a small subset of the predicates for the baseline model trained with features:</p><pre>Abstract Predicates:<br />    def_q<br />    udef_q<br />    pron<br />    cop_id<br />    nominalization</pre><pre>Surface Predicates:<br />    _wa_d<br />    _ni_p<br />    _no_p<br />    _koto_n_nom<br />    _sono_q</pre><p>Something interesting to note are the surface predicates. The first three listed are called particles in the Japanese grammar. The first predicate, _wa_d, serves multiple purposes. は can be used to be a topic marker as well as being used to show contrast between subjects. The second predicate, _ni_p, also has multiple purposes with more varied usage. に can be used to mark time, destination, place, etc. So it seems that the models have trouble predicting predicates which have widely varied usage. Despite having a fairly high SMATCH score, it seems that the model is not quite learning the semantic structure of the Japanese graphs.</p><p>There are a couple reasons for this. Just like I mentioned in early posts, the sequence based models is likely not the best method of performing this semantic transfer and something like a TreeLSTM is more likely to be able to accurately capture the tree structure and the semantic meaning in the tree structure.</p><p>The second reason may be because of inconsistencies in the data. The Tanaka corpus is known to have a lot of casual speech, and despite taking some precautionary steps to avoid this (by using a modified version of Jacy to account for casual speech and slang), the data may still be too noisy for the number of examples in the training set that we have. To work around this, I can look into incorporating the Tanaka corpus as mentioned in one of my earlier posts. Michael Goodman was nice enough to link me the <a href="https://github.com/goodmami/xmt/blob/master/scripts/data-preparation/kyoto-wiki.sh">script</a> he used to grab the sentence pairs from the Kyoto corpus, so this is a reasonable goal for the up-coming week. Additionally, Michael suggested looking into Japanese WordNet for additional data on top of the Kyoto Corpus.</p><h4>Plans for the Next Week</h4><p>As mentioned above, I’ll be looking into incorporating more data from both the Kyoto Corpus and WordNet. Another thing I plan to look into is parent feeding which acts as a nice middle ground between the LSTM based models I’m currently using and a TreeLSTM. The idea behind this attention mechanism is to feed the previous decoder time step from the parent node into the current decoder time step. This allows the model to make more direct connections when it comes to long range dependencies.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=5c8a38264cae" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@ryanp97/error-analysis-and-the-transformer-architecture-5c8a38264cae?source=rss-6378d85d3a9b------2">by Ryan Pham at May 15, 2018 06:58 AM</a>
+</p>
+</div>
+</div>
+
+
 </div>
 
 </div>
@@ -1670,6 +1766,38 @@ I'm focusing now on combining coding patterns from the new class at test time wi
 <div class="daygroup">
 <h2>May 08, 2018</h2>
 
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2" title="Stories by Ryan Pham on Medium">Ryan Pham <br/> Team NeuralEmpty</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/82274b3d7f68">
+<h4><a href="https://medium.com/@ryanp97/evaluating-predicates-and-hyper-parameter-tuning-82274b3d7f68?source=rss-6378d85d3a9b------2">Evaluating Predicates and Hyper-Parameter Tuning</a></h4>
+<div class="entry">
+<div class="content">
+<p>The past week, I have been working on stripping the predicates from the graphs to calculate precision and recall over as well as a handful of unsuccessful attempts at hyper-parameter tuning.</p><h4>Predicate Evaluation</h4><p>As mentioned in the last blog post, one of the ideas was to separate the predicates from the graphs and treat them as a bag of words in order to calculate the precision and recall scores over them separately. We can further separate the predicates into two categories: surface predicates and abstract predicates. Surface predicates usually consist of a lemma, a part-of-speech tag, and sense. For more information on surface and abstract predicates, you can read up more on their characteristics <a href="http://moin.delph-in.net/PredicateRfc">here</a>.</p><p>This allows us to get more fine-grained detail on what each model is struggling with. In particular, all the models so far have trouble with predicting surface predicates compared to abstract predicates. For reference, the F1 score differential between Abstract and Surface predicates is nearly 20 points better on the three models I’ve successfully trained so far.</p><pre>Abstract:<br />    Baseline - Featureless:    <br />        Precision   :  0.77<br />        Recall      :  0.73<br />        F1          :  0.75<br />    Baseline - Features Removed:<br />        Precision   :  0.79<br />        Recall      :  0.75<br />        F1          :  0.74<br />    3 Layer, 600 Hidden, 500 Embed - Features Removed:<br />        Precision   :  0.80<br />        Recall      :  0.69<br />        F1          :  0.74</pre><pre>Surface:<br />    Baseline - Featureless:    <br />        Precision   :  0.59<br />        Recall      :  0.53<br />        F1          :  0.56<br />    Baseline - Features Removed:<br />        Precision   :  0.59<br />        Recall      :  0.50<br />        F1          :  0.54<br />    3 Layer, 600 Hidden, 500 Embed - Features Removed:<br />        Precision   :  0.59<br />        Recall      :  0.50<br />        F1          :  0.54</pre><p>After looking into this a little more, there is a large difference in the size of the abstract predicate and surface predicate sets. In the development dataset, there are 7,235 possible surface predicates and only 42 possible abstract predicates to guess from. Furthermore, a small subset of abstract predicates appear much more often than the rest, so it is significantly easier to boost the precision and recall scores for abstract predicates than surface predicates. On the other hand, from eye-balling, surface predicates have a much more even distribution of appearing, so this in combination with the large number of possibilities is likely the cause for the significant difference between the precision and recall scores between abstract and surface predicates.</p><h4>Hyper-parameter Tuning</h4><p>As evidenced from the previous section, there was not a huge difference between the baseline model on fully-featured data and a beefier model on fully-featured data. One of the reasons for this is that the dropout rate was not changed between the two models. So it’s likely that the larger model was able to leverage it’s parameters without overfitting to the data. On top of that, it’s unclear whether or not adding a 3rd layer to the model is beneficial considering the training dataset is fairly small (~95,000 training examples). In this coming week, I plan on performing more error analysis as I continue to tune hyper-parameters. Ideally, I would like to get more information on what surface and abstract predicates the model is able to predict well and which predicates give it the most trouble.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=82274b3d7f68" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@ryanp97/evaluating-predicates-and-hyper-parameter-tuning-82274b3d7f68?source=rss-6378d85d3a9b------2">by Ryan Pham at May 08, 2018 11:41 PM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
 <div class="channelgroup">
 
 
@@ -2497,6 +2625,38 @@ I fixed the performance issues, and I have been working on adding enhancements t
 
 
 
+<h3><a href="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2" title="Stories by Ryan Pham on Medium">Ryan Pham <br/> Team NeuralEmpty</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/e7e525549f94">
+<h4><a href="https://medium.com/@ryanp97/fully-featured-model-results-and-more-ideas-for-evaluation-e7e525549f94?source=rss-6378d85d3a9b------2">Fully-featured Model Results and More Ideas for Evaluation</a></h4>
+<div class="entry">
+<div class="content">
+<p>In the past week, I’ve been working on training a fully-featured baseline model as well as a large, fully-featured model. This post will cover the results from these two models as well as a comparison between the featureless model.</p><p>Additionally, in the past week Jan, Michael, and I have been discussing different metrics for evaluating graphs. Based on this, the project may pivot away from building more complex models for the semantic transfer task to focus on exploring new and novel techniques for evaluation.</p><p>So in the coming week, I’ll be continuing to explore with slightly larger models as well as exploring different evaluation techniques.</p><h4>Fully-featured Model Results</h4><p>To be expected, evaluating the fully-featured model is not as simple as running SMATCH and taking the F1 score at face value. After expanding the model’s predictions, the baseline model received an F1 score of 0.77, with all features included. As mentioned in the previous post, this score is inflated since SMATCH equally weights predicate and feature accurate despite features generally being easier to predict compared to predicates or arguments.</p><p>Considering this, I stripped away all features from the predictions except for tense and mood and evaluated the model again. Note the only thing that has changed is an extra post-processing step has been added to the same model and the same predictions. This change resulted in a SMATCH score of 0.65. From here, I removed all features from the predictions and re-ran SMATCH and got an F1 score of 0.63. It seems that we are able to train a model using data with squashed features with little to no risk of performance loss.</p><p>For recap, here is a small table with the results so far.</p><pre>Fully-featured (all)          -  0.77<br />Fully-featured (tense, mood)  -  0.65<br />Fully-featured (none)         -  0.63</pre><pre>Featureless (baseline)        -  0.65</pre><p>As a side note: I also attempted to train a larger model with 600 embedding size, 750 hidden size, 3 encoder and decoder layers. This, however, resulted in extreme overfitting. The model predictions (without features) received an abysmal F1 of 0.32. In an effort to not go as crazy with the parameters while making the model larger to account for adding extra information in the input, I’m training a model with 600 hidden size and 3 layers and reverting back to a 500 embedding size.</p><h4>Other Ideas for Evaluation Exploration</h4><p>As mentioned earlier in this post, an issue with SMATCH is that it weights predicates, arguments, and features all equally when features are significantly easier to predict. To address this, Jan, Michael, and I have discussed some different evaluation ideas that we might want to explore.</p><p>The first idea is to separate the predicates from the features and calculate precision and recall on just the predicates. We can also further divide the predicates into surface predicates and abstract predicates (abstract predicates often have the _ prefix). This allows us to get a more detailed insight on the model’s ability to predict predicates that SMATCH has issues revealing.</p><p>A second idea is to replace all predicted features with some dummy feature so that we can upper bound the score when features are being predicted. By doing this, we can get a more accurate gauge of how well the model is predicting features.</p><p>Finally, the third idea is to eventually do something similar to this <a href="https://github.com/mdtux89/amr-evaluation">AMR evaluator</a>. It computes SMATCH and F-scores on various different versions of the predictions by selectively cleaning up portions that are not useful to a specific metric. This would be an interesting idea and an interesting thing to reimplement/repurpose for the use of DMRS graphs.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=e7e525549f94" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@ryanp97/fully-featured-model-results-and-more-ideas-for-evaluation-e7e525549f94?source=rss-6378d85d3a9b------2">by Ryan Pham at May 01, 2018 07:10 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
 <h3><a href="http://sarahyu.weebly.com/cse-481n" title="Sarah yu - CSE 481N">Sarah Yu <br/> Team Jekyll-Hyde</a></h3>
 
 
@@ -3027,6 +3187,38 @@ I fixed the performance issues, and I have been working on adding enhancements t
 </div>
 
 
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2" title="Stories by Ryan Pham on Medium">Ryan Pham <br/> Team NeuralEmpty</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/79ba10bbc70c">
+<h4><a href="https://medium.com/@ryanp97/baseline-evaluation-and-ideas-for-evaluating-fully-featured-graphs-79ba10bbc70c?source=rss-6378d85d3a9b------2">Baseline Evaluation and Ideas for Evaluating Fully-featured Graphs</a></h4>
+<div class="entry">
+<div class="content">
+<p>Since the last week, I’ve been working on cleaning the model’s predictions in order to be able to evaluate it using SMATCH (note the following sections focus on the model trained on and predicting featureless graphs). There were a couple of cases in which the model was unable to produce a well formed graph, but those were few and far between.</p><h4>Dealing with Ill-formed Graphs</h4><p>I decided to deal with ill-formed graphs in a harsh way until Jan any I can decide on a better heuristic for dealing with them. Though, for now, whenever I encounter an invalid graph, I immediately replace it with (999999999 / invalid). I’ve verified that this graph does not appear in the development set and works as a dummy graph. Whenever SMATCH encounters this graph, it will output an F1 score of 0.0 for that prediction, label pair since there are no matched triples.</p><p>Ideally, we would like to be more generous with partially correct graphs, but dealing with that is non-trivial and is probably something I will explore more after training and evaluating a model that is able to predict features.</p><h4>Example of Ill-formed Graphs</h4><p>Below is an example of an ill-formed graph that the model predicted. Though the parenthesis structure is well-formed (i.e. none are missing or mismatched), the model predicted that the node _hito_n was a re-entrancy, despite it not appearing anywhere else in the graph</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/482/1*YlYEDUelqNqShF1bnjc5RA.png" />An example of the model predicting a re-entrancy that has not yet occurred in the graph.</figure><figure><img alt="" src="https://cdn-images-1.medium.com/max/439/1*2QvzOMoTdU_BhDB8Zhj-ig.png" />The target graph for the above example. The model’s prediction is pretty far off, but it’s interesting to see that it is able to have fairly high precision on the nodes that it is able to generate.</figure><p>The model that was trained on the featureless data was able to learn the parenthesis structure and there were no cases, that I could find, where the model predicted mismatched or missing parenthesis.’</p><h4>Baseline Evaluation Results</h4><p>Even with the harsh treatment of ill-formed graphs, the model was able to achieve a F1 score of 0.65 on the development dataset. This was much higher than I was expecting and seems to be promising for further exploration. I suspect that once I begin to train the model on data that includes features, the model will have a harder time making completely accurate predictions (though the F1 score will likely be inflated as explained in the next section)</p><h4>Ideas for Evaluating the Feature-full Model</h4><p>Though it’s nice to have the model correctly predict the mood, tense, etc. of a sentence, these may not be entirely helpful when evaluating the model. By including these features, we increase the number of triples that SMATCH looks for. There are a couple different ideas that Jan, Michael, and I discussed when it comes to evaluating the predicted graphs:</p><p>The first option is to leave the features squashed. This is probably the simplest approach, but is not ideal since it does not allow for partial credit. If the model misses a single feature (i.e. predicts the mood as tensed rather than untensed, the entire triple would be wrong even though other features are correct).</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*iQNyCAiGWw0w5YIXND8THw.png" />Example of squashed features. Note this is the same example from last week’s post.</figure><p>The second option is to uncompress the features. In the case of the previous picture, it would be removing the equals signs and splitting the “super feature” based on the colons. This approach is a bit nicer in terms of giving partial credit, but is still not ideal since in increases the number of triples. We believe that this would inflate the SMATCH score to something that is not entirely useful and most of the score would be based on the feature triples and not the actual semantic meaning.</p><p>The third and final option we discussed was to selectively include features during evaluation. During training and prediction, the model would take in the entire squashed feature as input and output squashed features during prediction. However, we would uncompress the features and then choose a couple (or none at all) to keep when we post-process the graphs. With this, we can evaluate using a couple different combinations of features and see how those affect the model’s performance.</p><p>Some of the features the model predicts are: tense, mood, pass, etc. We can choose to keep only mood and tense if we believe that these are the most useful features for semantic transfer and see how that affects performance vs. a featureless model or some other combination of features.</p><h4>Training a Fully-featured Model</h4><p>Currently I’m training a model on data that includes the squashed features, though it will not be evaluated in time for this post or for the presentation. The model is the same exact model as the featureless model, so I expect that it may have a more noticeable issue matching parentheses and generating well-formed graphs in general until I have some time to experiment with the hyperparameters.</p><p>For reference, the models (both featureless and feature-full) are trained with the following architecture and hyperparameters:</p><pre>Encoder:<br />    RNN Type       :  LSTM    <br />    Embedding Dim  :  500</pre><pre>Decoder:<br />    RNN Type       : Stacked LSTM<br />    Layers         : 2<br />    Embedding Dim  : 500<br />    Dropout        : 0.3</pre><pre>Attention:<br />    Type           : Global (<a href="https://github.com/spro/practical-pytorch/blob/master/seq2seq-translation/seq2seq-translation.ipynb">general [Luong]</a>)</pre><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=79ba10bbc70c" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@ryanp97/baseline-evaluation-and-ideas-for-evaluating-fully-featured-graphs-79ba10bbc70c?source=rss-6378d85d3a9b------2">by Ryan Pham at April 24, 2018 06:17 AM</a>
+</p>
+</div>
+</div>
+
+
 </div>
 
 </div>
@@ -3069,248 +3261,6 @@ I fixed the performance issues, and I have been working on adding enhancements t
 </div>
 
 </div>
-<div class="daygroup">
-<h2>April 19, 2018</h2>
-
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://nlpcapstonesemparse.blogspot.com/" title="NlpCapstone">Rajas Agashe <br/> Team Han Flying Solo</a></h3>
-
-
-<div class="entrygroup" id="tag:blogger.com,1999:blog-5600014144802012716.post-2741407940361589303">
-<h4><a href="https://nlpcapstonesemparse.blogspot.com/2018/04/blog-4-strawman-i.html">Blog 4: Strawman I</a></h4>
-<div class="entry">
-<div class="content">
-I'm implementing the parser within the the wikitables semantic parser(Neural Semantic parsing with type constraints by Krishnamurthy et al) since both are solving similar tasks and it'd be a cool result if the same architecture worked for both tasks. The similarity is that both tasks need to generate the logical form which incorporates elements of a context. For wikitables its cell and column names and for this task its variable and method names.<br /><br />Results:<br /><br /><ul><li>Wikitables framework - 4% accuracy.</li><li>Wikitables framework + parent states - 12% accuracy.</li></ul><div><br /></div><div>The wikitables baseline performs poorly and integrating the parent production rule used as input to the decoder cell in the java paper but not the wikitables paper results in a eight percent improvement. This is since the java production rule sequences are much longer and cannot just rely on the previous rule.</div><div> </div><br />These results demonstrate that while that tasks are similar there are some key differences in the datasets that won't allow the exact same architecture to be used. Nonetheless, I will still be implementing the java parser within the wikitables framework incorporating necessary elements to boost performance.<br /><br />My code is here:<br /><b>https://github.com/rajasagashe/allennlp/tree/enviro-linking</b></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://nlpcapstonesemparse.blogspot.com/2018/04/blog-4-strawman-i.html">by nlpcapstone (noreply@blogger.com) at April 19, 2018 07:13 PM</a>
-</p>
-</div>
-</div>
-
-
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://medium.com/@halden.lin?source=rss-2759d54493c0------2" title="Stories by Halden Lin on Medium">Halden Lin <br/> Team undef.</a></h3>
-
-
-<div class="entrygroup" id="https://medium.com/p/be87c31976b7">
-<h4><a href="https://medium.com/@halden.lin/nlp-capstone-04-first-steps-be87c31976b7?source=rss-2759d54493c0------2">NLP Capstone | 04: First Steps</a></h4>
-<div class="entry">
-<div class="content">
-<p><em>previous posts: </em><a href="https://medium.com/@halden.lin/nlp-capstone-01-options-ee873b6885d5"><em>01</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5"><em>02</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-03-project-proposal-7d8e9ec1a8e3"><em>03</em></a></p><p>Nearing 4 weeks in — I’ve finally got a foothold in the development process. Over this past week I’ve been looking through TensorBoard and TensorFlow source-code and documentation in an attempt to develop a foundation for plugin development.</p><p><strong>Notable Resources:</strong></p><ul><li><a href="https://www.tensorflow.org/programmers_guide/summaries_and_tensorboard">TensorBoard Documentation</a></li><li><a href="https://github.com/tensorflow/tensorboard">TensorBoard Source Code</a> and <a href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins">Existing Plugins</a></li><li><a href="https://github.com/tensorflow/tensorboard-plugin-example/blob/master/README.md">Developing a TensorBoard Plugin</a> (a simple example)</li></ul><h4>Completed Milestones:</h4><ol><li>Understand the structure of a TensorBoard Plugin, specifically how the architecture of the Attention Plugin should look like.</li><li>Design and write the data fetching layer.</li></ol><h4>Plugin Architecture</h4><p>In TensorFlow, data from iterations of training / evaluation is stored as a set of <strong>summaries</strong>. These can take the form of any tensor, including text, image, scalars, or time series. These are written to disk as the computation graph is executed. Each ‘summary’ takes the form of a <a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/framework/summary.proto">Summary protocol buffer</a>, which holds, in addition to the data stored, critical identifying information (tags and metadata). A plugin can then read summaries associated with particular tags and sessions from disk to serve to the TensorBoard front-end via a plugin back-end, where a visualization is rendered.</p><p>Following <a href="https://github.com/tensorflow/tensorboard-plugin-example/blob/master/README.md"><em>Developing a TensorBoard plugin</em></a><em>, </em>the Attention Plugin with have three primary components:</p><ol><li>Data API layer. This is what allows users to capture relevant summaries from within their models.</li><li>Plugin backend, which serves said summaries.</li><li>Frontend, where the visualizations are displayed.</li></ol><p>Unlike commonly used plugins such as the <a href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/scalar]">scalar</a> and <a href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/histogram">histogram</a> plugins, the Attention Plugin consumes 3 distinct values: the input text, the decoded output text, and the attention matrix that correlates the two. Initially, I attempted to store these all in a single Summary protobuf, where the first two rows of the encapsulating matrix would contain the text, and the rest would contain the attention weights. This results in a mixing of string and float types in a single Tensor, which is not valid (to my knowledge) in TensorFlow. I then realized I could store these separately, each in their own summary, and retrieve them via an identifying name. The resulting architecture is shown in the diagram below.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*QK7USkxsSC3u6F0LKbKWXQ.png" />The architecture of the Attention Plugin.</figure><p>I decided to make the output text an optional summary, as models don’t necessarily need to decode (via Viterbi, Beam Search, or otherwise) an output sequence while training. The input text and attention matrix are still valuable, as summary statistics (e.g. coverage, important words, etc) can be gleamed without the decoded text.</p><h4>Data API Layer</h4><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*0m1-fllpNYMP666FhR0nbA.png" />Data API Layer highlighted in green.</figure><p>As the TensorBoard authors suggest, the data API layer, defined in attention_summary.py, provides two methods for creating Summary protobufs, which can then be written to disk via a FileWriter. The first is via a TensorFlow op, which can be thought of as a node in the computation graph, that produces a Summary when the graph is executed. The second is by directly creating the protobuf, which allows for data to be saved outside the execution of a TensorFlow session. I’ve implemented both of these. There is a separate method for each of the three datum used by the plugin (input text, output text, attention matrix), and each of the three summary datum are tagged differently (e.g. name/attention_input_summary, name/attention_output_summary) in order to allow for distinguishable retrieval later.</p><p>An example of the usage of both methods can be found in attention_demo.py.</p><h4>Next Steps</h4><p>I suspect the work completed this week was the biggest hurdle in terms of time:code ratio. I would not be surprised if I had to revisit the work done here in order to clean things up or fix small bugs. However, with this understanding and architecture nailed down, I expect implementation of the rest of the plugin will come at a faster pace. With that said, three tasks stand as immediate goals for the next week.</p><ol><li>Modify my forked repository of the summarization model created by <a href="https://arxiv.org/pdf/1704.04368.pdf">See et al.</a> (original found <a href="https://github.com/abisee/pointer-generator">here</a>) to produce and save the appropriate summaries for the Attention Plugin. I’ve already started looking into this, and expect to have to fiddle around with the training / evaluation scheme in order to grab an appropriate amount of data.</li><li>Implement the backend of the Attention Plugin.</li><li>Begin prototyping visualizations (pen &amp; paper) and acquire preliminary feedback.</li></ol><p>Until next time.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=be87c31976b7" width="1" /></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://medium.com/@halden.lin/nlp-capstone-04-first-steps-be87c31976b7?source=rss-2759d54493c0------2">by Halden Lin at April 19, 2018 06:33 AM</a>
-</p>
-</div>
-</div>
-
-
-</div>
-
-</div>
-<div class="daygroup">
-<h2>April 18, 2018</h2>
-
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2" title="Stories by Viterbi Or Not To Be on Medium">Aaron Johnston, Lynsey Liu <br/> Team Viterbi Or Not To Be</a></h3>
-
-
-<div class="entrygroup" id="https://medium.com/p/a6690114c441">
-<h4><a href="https://medium.com/@viterbi.or.not/baseline-model-1-a6690114c441?source=rss-c522ef075bb3------2">Baseline Model #1</a></h4>
-<div class="entry">
-<div class="content">
-<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*bGQmjLRpsY3UnYhK6e8Lyg.png" /></figure><p>This week, we implemented our <a href="https://github.com/viterbi-or-not-to-be/viterbi-or-not-to-be/tree/master/baseline">first baseline model</a> for conversation summarization. In order to create a baseline that would be useful to build off of and compare our future results to, we decided to base this model off the Naive Bayes implementation described in the paper <a href="http://web2py.iiit.ac.in/research_centres/publications/download/inproceedings.pdf.8b32440f2dc771c4.323031325f414e445f43616d6572612e706466.pdf"><strong>Summarizing Online Conversations: A Machine Learning Approach</strong></a>.</p><p>To begin with, we identified the W3C Email Threads dataset as a useful starting point because of the fact that we have access to multiple email datasets, and because the paper mentioned above indicated that chatlog data would require a great deal of additional preprocessing to be able to manipulate. By comparison, the email data is fairly simple to interpret because it is rare for a single sender to convey their portion of a message across multiple emails, and the writing is generally more grammatically well-formed. The experiments in the paper run on the <a href="https://flossmole.org/content/software-archaeology-gnue-irc-data-summaries">GNUe Archives</a> and the <a href="https://www.cs.ubc.ca/cs-research/lci/research-groups/natural-language-processing/bc3.html">BC3 Corpus</a> (annotated W3C Email Threads).</p><p>The paper also uses <a href="https://www.cs.waikato.ac.nz/ml/weka/">Weka Toolkit</a> for all of its model implementations, so we initially aimed to use Weka as well to reproduce our baseline. However, we encountered a few challenges while starting out with Weka that ultimately led to our abandoning the platform in favor of a more flexible Python implementation. The email data is in XML format, whereas Weka appears to work best with a format called ARFF, and in our preliminary examination we found ARFF to be fairly difficult to map directly to XML. In particular, ARFF’s apparent inability to handle dynamic-length data types or nested relations made it challenging to plan around — this was a problem because for each training example (email thread) in our dataset, we have a variable-length amount of information (number of emails, number of sentences per email, number of words per sentence, etc.). Without usage of dynamic-length data coupled with a toolset/interface more suited to data mining and application of basic, pre-made machine learning models than detailed feature engineering, we found Weka specifically difficult to use for feature extraction.</p><p>Instead, we ended up deciding to implement the baseline model in Python — including parsing the XML from our chosen dataset, extracting features, and using SciKit-Learn to train a Naive Bayes model to form the baseline itself. Since our aim with the baseline was to re-implement at least part of the work done by the <a href="http://web2py.iiit.ac.in/research_centres/publications/download/inproceedings.pdf.8b32440f2dc771c4.323031325f414e445f43616d6572612e706466.pdf"><strong>Summarizing Online Conversations: A Machine Learning Approach</strong></a> paper, we also chose to set up evaluation that would mirror their evaluation techniques, and settled on using a previously-written implementation of ROUGE for the task. Re-implementing the baseline model in Python based on previous work took more effort than using Weka would have, but was advantageous in that it helped us understand the specific challenges of the task and resulted in somewhat extensible code we can adapt for later phases of the project.</p><h4><strong>Feature Selection</strong></h4><p>The Feature Selection section of the paper notes a “basic feature set,” which refers to features that are “not specific to conversations and consider the conversation as a simple piece of text.” For our baseline, we decided to target only the basic features to establish the difference that can be made by using conversation-specific features. Based on this basic set, our Naive Bayes baseline incorporates the following features —</p><p><strong>Mean TF-IDF: </strong>Term frequency-inverse document frequency (TF-IDF) characterizes frequency of a word and reflects its importance to an email thread. Calculating TF-IDF results in a vector of word frequencies per email, and we take the mean of the values in the vector for the mean TF-IDF feature.</p><p><strong>Mean TF-ISF: </strong>Similar to TF-IDF but at a different granularity, term frequency-inverse sentence frequency (TF-ISF) characterizes frequency of a word and reflects its importance to an email. Calculating TF-ISF results in a vector of word frequencies per sentence, and we take the mean of the values in the vector for the mean TF-ISF feature.</p><p><strong>Sentence Length: </strong>Number of characters in the sentence.</p><p><strong>Sentence Position: </strong>Index of the sentence within the email.</p><p><strong>Similarity to Title: </strong>We represent the name of an email thread as a TF-ISF title vector, in the same form as described earlier (without taking the mean). This feature is then the result of the cosine similarity between the TF-ISF vector for a sentence and the title vector.</p><p><strong>Centroid Coherence: </strong>We represent the centroid of an email thread as the average of the TF-ISF sentence vectors. This feature is then the result of the cosine similarity between the averaged centroid vector and the sentence vector.</p><p><strong>Special Terms: </strong>Numbers and proper nouns are deemed as ‘special terms.’ This feature is the count of special terms in a sentence normalized (divided) by the number of special terms in the email thread.</p><h4><strong>Results and Evaluation</strong></h4><p>After implementing our baseline model, we used the ROUGE package to evaluate its summarization on a variety of metrics. We split the data into training and testing segments, placing 80% of email threads in the training set and 20% in the testing set. We then used our model and features to generate summaries and used ROUGE-L to measure their performance. After computing the average ROUGE-L, ROUGE-1, and ROUGE-2 F1 scores across all the email threads in the testing set, we produced the following results (along with the results reported in the baseline paper for comparison):</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*vjlGJvdBn_k4obtMdkGdIA.png" />Mean F1 scores for various ROUGE metrics, compared to the results from <a href="http://web2py.iiit.ac.in/research_centres/publications/download/inproceedings.pdf.8b32440f2dc771c4.323031325f414e445f43616d6572612e706466.pdf"><strong>Summarizing Online Conversations: A Machine Learning Approach</strong></a></figure><h4><strong>Error Analysis</strong></h4><p>It is certainly helpful to have a set of metrics like ROUGE to establish a comparison between our model and existing models, but for a task such as automatic summarization it is an unfortunate reality that no existing metrics really come close to fully capturing the “success” of a summary. Comparing the compositions of two summaries provides valuable insight into the performance of a model, but ultimately a great deal of the usefulness of a summary revolves around its ability to convey the information contained in a conversation without needless filler and in a logical, simple format. Because there are no metrics that can describe how well a summary captured the topics in a conversation or how understandable it is, we will have to rely heavily on human interpretation to judge the success of our model.</p><p>For our baseline, we took a look at the generated summaries and discovered that while the general topic of each email thread is easily discernible, it is sometimes difficult to follow the course of the discussion. In addition, we found that our summaries were especially susceptible to the inclusion of “fluff” — short, choppy sentences or signature elements with no relevance to the actual contents of the summary that simply obstructed the reader. Perhaps our future attempts will have to target this with features specifically designed to identify things like email signatures or greetings, to help distinguish between these sources of “fluff” and the actual content of each email. Notably, this is not an issue that chatlog data suffers from, because there are typically fewer signatures or static portions of chats to ignore.</p><p>Our analysis is exemplified by the sample summary and its annotated counterpart below:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*ycgusov-GEUfQm7C." />Summary for an email thread generated by our baseline model</figure><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*aOxikqivuOMXLgnM." />Summary for the same email thread from the dataset annotation</figure><h4><strong>Future Improvements</strong></h4><p>Although our baseline model provided a useful point of comparison for future efforts, we were not able to entirely replicate the results of the paper we based it off of. Despite using the same features that they described, we achieved a significantly lower mean ROUGE-L F1 score of 0.409 as compared to their 0.245 for the same dataset. As a result, it seems that an important next step would be to identify the discrepancies between our implementation and theirs to try and faithfully reproduce their results before moving on to other models.</p><p>One possible issue we identified with our model could be the lack of a topic boundary preprocessing step as found in the research paper. Although their description made it seem as though the technique mainly applied to chatlog data, it is possible that performing such a preprocessing step would bring our model’s performance closer to theirs. The paper describes two different approaches at a very high level, so further research and experimentation would be needed to determine a reasonable implementation to perform such a task. In addition, there were various parameters left out of the paper’s description that could affect the model’s performance, such as ROUGE evaluation parameters and the implementation of Naive Bayes, which could have made an impact.</p><p>After finishing our baseline implementation, we plan to implement further models to address this task. The paper we previously mentioned uses a number of other approaches, so one direction we plan to move in is selecting other potentially effective models from their list and implementing them (decision trees look the most promising and would require very little modification to the code). Afterwards, we plan to address the other datasets, and then move into feature engineering and tweaking our implementations to produce our minimum viable product.</p><h4>Code</h4><p>As mentioned in our first blog post, the full code for our project is <a href="https://github.com/viterbi-or-not-to-be/viterbi-or-not-to-be">available on Github</a>, which currently includes usage instructions located in the README.md file for the baseline directory that can guide a user through the process of setting up the model, producing summaries, and running the ROUGE evaluation. We certainly have a long way to go in terms of code organization and cleanliness, but this baseline implementation at least allows for a preliminary examination of the task and produces the results necessary to interpret the rest of our model approaches with appropriate context.</p><p>Edited 4/24 to add baseline dog.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=a6690114c441" width="1" /></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://medium.com/@viterbi.or.not/baseline-model-1-a6690114c441?source=rss-c522ef075bb3------2">by Viterbi Or Not To Be at April 18, 2018 06:55 AM</a>
-</p>
-</div>
-</div>
-
-
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://cse481n.blogspot.com/" title="PrimeapeNLP">Ron Fan, Aditya Saraf <br/> Team PrimeapeNLP</a></h3>
-
-
-<div class="entrygroup" id="tag:blogger.com,1999:blog-3753031463594823927.post-8569998071322028844">
-<h4><a href="https://cse481n.blogspot.com/2018/04/blog-post-4.html">Blog Post #4</a></h4>
-<div class="entry">
-<div class="content">
-<div dir="ltr" id="docs-internal-guid-7937c8af-d777-ed0f-f77b-cf09623b985e" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">A big part of our work for setting up a baseline is the creation of a reasonably good dataset for training and evaluating extractive text summarization. Our goal was to build a dataset with all sentences from the articles marked with binary labels indicating whether or not they were part of the extracted summary.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">We used the DailyMail and CNN story dataset, which is meant for abstractive summarization, to build our own dataset. The data set includes automatically-parsed lines from news articles, as well as a few bullet point highlights for each article. These highlights are not sentences directly from the article, but are overall a decent indicator and considered to be one of the most useable datasets out there (if for no other reason than sheer volume of data).</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">To build our data set, we used a toy metric roughly based off of ROUGE-N, with the understanding that we would only need a way of relative ranking for each sentence.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">The procedure to generate the data set was as follows:</span></div><ol style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Read in a single .story file from the abstractive dataset into highlights and sentences.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Post-process sentences- in the original data, new lines do not correspond exactly with sentence endings. Additionally, some sentences are originally split arbitrarily by new lines. We do an additional split by the regex (?&lt;=[.?!])\s+ (whitespace with period, question mark, or exclamation mark lookbehind), but sentence “re-joining” is off by default, as some sentences in the original dataset do not end with punctuation.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Score each sentence with our metric.</span></div></li><ol style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Tokenize each sentence and highlight.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Build unigram, bigram, and trigram lists.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Count the number of matches between the sentence and all the highlights, giving more weight to bigram and trigram matches and also weighting by word length.</span></div></li></ol><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Sort sentences by score.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Let S be the number of sentences and H be the number of highlights. The algorithm picks up to min(1, floor(S/2)) sentences as part of the summary. It picks at least the H sentences with the highest scores. After sentence H is picked, subsequent sentences will only be picked if their score was at least (80+3*X)% of the previously-picked sentence’s score, where X is the number of sentences currently picked. This is effectively a fairly arbitrary metric to pick the most likely sentences roughly in accordance with the size of the abstractive summary, while also allowing for particularly similar sentences to both be chosen for completeness.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">All data input and output with UTF-8 encoding.</span></div></li></ol><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Output format:</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">&lt;#&gt; &lt;SENTENCE PLAINTEXT&gt;</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;"># is either 0 = normal sentence in the article, 1 = sentence chosen as part of extractive summary, 2 = original abstractive summary (should not be touched by model, only left there for human reference). </span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Overall, we think our data set is generally reasonable and makes sense. Nonetheless, there are a number of weaknesses with both extractive models in general and this specific type of dataset (including some problems which derive from the original abstractive dataset).</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Key weaknesses of data set:</span></div><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">In the original data, highlights do not always correspond to actual information in the article. For example, this short story has four highlights that are all new information: 008fc24ca9f4c48a54623bef423a3f2f8db8451a.story.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Frequent formatting problems - sentences that don’t terminate with punctuation, repeated sentences, bugged unicode characters, etc.</span></div></li></ul><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Key weaknesses specific to extractive summarization:</span></div><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Articles that are particularly short are effectively impossible to meaningfully summarize with extractive techniques.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Some sentences in articles contain the same content with slightly different wording. In these cases, we decided to choose both sentences, with the idea that post-processing could take care of highly-similar sentences, but a model could not be expected to accurately distinguish between two such sentences if they have different labels.</span></div></li></ul><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">The Baseline Model:</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">For our baseline combinatorial approach, we did a simple Maximum Coverage Problem implementation. The Maximum Coverage Problem is a classic NP-complete problem. Given a collection of n sets, the goal is to maximize the number of chosen (or “covered”) elements while only choosing k of the sets (where k &lt; n). It’s very straightforward to reduce summarization to this problem. The sentences in the document are the sets, and the vocabulary of the document represents the “universe”, or the elements in the sets. The goal is to cover as many words as possible while picking the same number of sentences as in the labelled summary. The intuition is that sentences with more words capture more semantic meaning, and once a word is listed in the summary, that word need not be considered again. This reduction makes some intuitive sense, but two main aspects must be refined. First, not all words are equally meaningful. Some words, like “a”, “the”, or “and”, have little semantic content, while named entities and other important words have much higher semantic content. Second, we should at least account for sentence lengths -- instead of constraining the algorithm to pick the same number of sentences, we should constrain it to the same word count. This two additional criteria turn the problem into the Budgeted Maximum Coverage Problem: elements in the sets have specified values, and the sets have specified costs. The new objective is to maximize the total value of the covered elements while remaining with a given budget.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Of course, this problem is NP-complete, so it may seem like a strange choice to model summarization with. There are two approaches to this. First, a simple greedy algorithm achieves an approximation of ~63%, which means that the greedy algorithm is guaranteed to get at least 63% of the value of the optimal solution. For the standard MCP, the greedy algorithm just chooses the set with the most uncovered elements until no more sets are allowed. For the budgeted MCP, the approximation algorithm is slightly more complex. See Khuller et al. for a detailed look at it -- the algorithm is slightly more work, but still very understandable, and achieves the same approximation bound.  We can also formulate the problem as an Integer Linear Program (ILP) and use an ILP solver to generate optimal solutions on realistic instance sizes. This works because the documents and sentences are both small.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">For now, we are using the greedy algorithm for the standard MCP. As a simple metric, we used the number of correct chosen sentences divided by the number of chosen sentences in total (correct means that the gold standard also picked that sentence). With a basic MCP approach, we had an accuracy of 0.218. This was measured on a small sample of 2000 stories. In order to approximate a weighting scheme, we use a stop list to simply remove common articles and other semantically empty words. With this small modification, we had an accuracy of 0.2328.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">We plan to extend this to a better baseline model in the next few days. We will formulate the problem as an ILP and pass it to an ILP solver for an optimal solution. We will also implement a more sophisticated weighting scheme. One idea is to use some of the labelled data as training data (right now, we don’t train) to build a weight matrix for common words -- we can build this matrix with a logistic regression, using n-gram (probably unigram) similarity as the loss function.This will hopefully give us a more reasonable baseline model.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Evaluation Framework:</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">For now, we’re using a simple accuracy metric. We plan to switch to ROUGE, which counts n-gram similarity (ROUGE measures recall, not precision). We will work with the ROUGE-2.0 Java package or pyrouge, depending on which language we are working with. </span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">So to summarize our goals for the next week, we will improve this baseline model by formulating the problem as an ILP and we may implement a weighting scheme (if that’s too complicated, we’ll save it for the advanced model). We will also build a baseline neural model. Then, we’ll flesh out our evaluation framework using ROUGE metrics, train/test using more of the corpus, and have detailed error analysis.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">References:</span></div><div dir="ltr"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Khuller, S., Moss, A., &amp; Naor, J. (Seffi). (1999). The Budgeted Maximum Coverage Problem. </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: italic; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Inf. Process. Lett.</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">, </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: italic; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">70</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">(1), 39–45. https://doi.org/10.1016/S0020-0190(99)00031-9</span></div></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://cse481n.blogspot.com/2018/04/blog-post-4.html">by Ron &amp;amp; Aditya (noreply@blogger.com) at April 18, 2018 06:25 AM</a>
-</p>
-</div>
-</div>
-
-
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://medium.com/nlp-capstone-blog?source=rss----9ba3897b6688---4" title="NLP Capstone Blog - Medium">Tam Dang, Karishma Mandyam <br/> Team Illimitatum</a></h3>
-
-
-<div class="entrygroup" id="https://medium.com/p/15357a82fe06">
-<h4><a href="https://medium.com/nlp-capstone-blog/first-impressions-baselines-and-the-evaluation-framework-15357a82fe06?source=rss----9ba3897b6688---4">First Impressions: Baselines and the Evaluation Framework</a></h4>
-<div class="entry">
-<div class="content">
-<p>Ultimately, our goal is to go beyond basic language modeling and create a new text generation architecture conducive to producing technical definitions. To get a feel for the data though, we approach it with familiar, simple baselines that give us a foundation in which we can improve from.</p><p>The baselines that we’ve experimented with are</p><ul><li><strong>Vanilla RNN:</strong> Hidden states as a function of the input and the previous hidden state, with Tanh activation (in particular, we’re using the <a href="https://medium.com/@tamdangnadmat/first-impressions-baselines-and-the-evaluation-framework-15357a82fe06">Elman Network</a>).</li><li><strong>GRU:</strong> An RNN architecture that learns to throttle the influence and usage of particular parameters on inference using a gating mechanism.</li><li><strong>LSTM: </strong>Another RNN architecture that specializes in intelligently remembering relevant details and forgetting irrelevant details through several gating mechanisms and a “cell state” in addition to the conventional hidden states. <a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/">Here’s more detail</a> about this particular kind of RNN.</li></ul><p>All baselines were trained as language models with cross entropy loss and were used to get a sense of how learnable the language of the Semantic Scholar dataset is. The metrics we are focusing on now are</p><ul><li><strong>Perplexity: </strong>A measure of how “confused” the model is at any point it’s attempting to predict the next word.</li><li><strong>Feature extraction through hidden states:</strong> Can the hidden states be used as features for a classification task?</li></ul><p>Our first metric is fairly straightforward; we calculate the aggregate sum of log probabilities for every word in the corpus and normalize by the size of the corpus.</p><p>Our second metric however, is inspired by Dieng et al.’s method for sentiment analysis in <a href="https://www.semanticscholar.org/paper/TopicRNN%3A-A-Recurrent-Neural-Network-with-Semantic-Dieng-Wang/412068c7e8e77b73add471789d58df3d2f3e08d8">TopicRNN</a>, in which the final hidden states after a forward pass of the model on a movie review were used to predict positive or negative sentiment using a single-layer neural network. We aim to adopt this metric from a multi-class classification perspective in which the passages we use are excerpts of research documents with an omitted, technical term. The question we aim to answer with this metric is “is the model capable of representing semantics in a latent space?”</p><p>Our labels will then be a defined set of these omitted, technical terms, and our goal will then be to predict them given the hidden states of the passage via a two-layer neural network. The framework for this evaluation metric can be found in <a href="https://github.com/NLP-Capstone-Project/machine-dictionary/tree/evaluation">this branch</a> of our codebase.</p><h4>Why we chose these metrics</h4><p>Our task is fairly novel given the way we’re approaching it, so currently no dataset exists that pairs domain-specific words with definitions that are to the caliber of research technicality. Because of this, metrics that depend on gold standards such as ROUGE and BLEU are currently out of reach at this time.</p><p>There’s a chance we’ll experiment with these metrics if we can find a labeled dataset to supplement Semantic Scholar’s Open Research Corpus. We are also considering using the publications themselves as the gold standards, which may be helpful since a desirable trait of our model would be its ability to produce language similar to that of the corpus.</p><h3>Challenges Encountered while Baselining</h3><p>In establishing our baselines and metrics, there were several issues we ran into, both in training.</p><h4>Dealing with a larger corpus</h4><p>Given that our baselines are language models, and that our later prototype models will most likely contain an LM component, we have to deal with efficient learning given there are several million documents to process.</p><p>For efficient backpropagation, we opted to introduce a “backpropagation through time” as a hyperparameter defaulted at 50, which specifies the number of words we allow the model to see before updating our parameters.</p><p>Currently, batching is supported by our codebase but was not used in our initial experiments. Given that it takes roughly one minute for the GPUs on the cloud to process a single publication, we plan to concatenate document vectors and reshape into batch-by-length tensors in the future.</p><h4>Sorting By Domain</h4><p>We’d like our model to be trained on a single domain/field of study for our future case studies comparing dictionaries built on one domain versus others. This is further motivated by some of our experiment results discussed later, how loss tends to spike between documents.</p><p>Currently, the Semantic Scholar Open Research Corpus doesn’t include anything in the set of JSON fields that we could find for filtering the data. However, we’ve been assured by AllenNLP researchers that its possible to sort the data by research domain. We may performing another round of baseline experiments once we’ve sorted the data, but for now the results below are on publications of mixed domains.</p><h3>Experimental Results</h3><p>The Semantic Scholar Open Research Corpus provides a sample subset of its dataset: a JSON file containing 4000 entries. Within each entry, the URL of the publication’s online PDF is provided. We use a GET request to <a href="https://github.com/allenai/science-parse">AI2’s Science Parse</a> service to extract the PDF contents.</p><p>From there, we run our experiments on 121 of the 4000 extracted documents, stopping training early at 15 documents and calculated perplexity on a validation set of 30 documents. The total vocabulary used was 11,330 words. Words outside of this vocabulary are replaced with an unknown token at training and test time.</p><p>Loss is calculated and normalized on the last 50 words the model is trained on.</p><ul><li><strong>Elman RNN:</strong> Perplexity of 250.25 with an average loss of 7.908 over the last 50 words.</li><li><strong>GRU:</strong> Perplexity of 265.50 with an average loss of 7.085 over the last 50 words</li><li><strong>LSTM:</strong> Perplexity of 261.95 with an average loss of 6.588 over the last 50 words</li></ul><p>Perplexities calculated using untrained models (with randomized parameters) were several orders of magnitude larger than the ones listed above, so it’s good to know that our baseline models can learn a significant amount of surface-level patterns with such a small subset of the corpus.</p><p>In terms of feature extraction and classification, the framework has been implemented but the data for this has not been created yet. We plan on evaluating our baselines along with our final model on this metric using publications from Semantic Scholar after establishing a vocabulary of semantically significant technical terms and creating the dataset using those terms. This will involve iterating over documents and replacing occurrences of these technical terms with a specialized, unknown token that won’t aid in inference.</p><h3>Conclusion</h3><p>Our methods helped us familiarize ourselves with the data as well as handle significant amounts of overhead in terms of processing the data, toggling between different models, and integration of our evaluation metrics in an organized fashion.</p><p>We are excited to see how novel architectures tailored to the task perform on these metrics!</p><p>To keep up to date with our progress in baselining, evaluation, and other things, you can watch <a href="https://github.com/NLP-Capstone-Project/">this repository</a>.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=15357a82fe06" width="1" /><hr /><p><a href="https://medium.com/nlp-capstone-blog/first-impressions-baselines-and-the-evaluation-framework-15357a82fe06">First Impressions: Baselines and the Evaluation Framework</a> was originally published in <a href="https://medium.com/nlp-capstone-blog">NLP Capstone Blog</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://medium.com/nlp-capstone-blog/first-impressions-baselines-and-the-evaluation-framework-15357a82fe06?source=rss----9ba3897b6688---4">by Tam Dang at April 18, 2018 05:40 AM</a>
-</p>
-</div>
-</div>
-
-
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="https://mathstoc.wordpress.com" title="NLP Capstone – Mathematical Distractions">Kuikui Liu, Nicholas Ruhland <br/> Team INLP</a></h3>
-
-
-<div class="entrygroup" id="http://mathstoc.wordpress.com/?p=314">
-<h4 lang="en"><a href="https://mathstoc.wordpress.com/2018/04/18/nlp-capstone-post-3-baseline-and-midi-frustration/">NLP Capstone Post #4: Baseline and MIDI Frustration</a></h4>
-<div class="entry">
-<div class="content" lang="en">
-<h1><b>Baseline model</b></h1>
-<p><span style="font-weight: 400;">Our baseline approach is taken from Daniil Pakhomov’s excellent blog post[1]. In this post, two separate RNNs are trained as generators: one for lyrical content and one for music content (in piano roll format). We will begin by using his trained lyrical model, and attempt to do conditional sampled character generation given a starting sequence of characters. We loaded the already trained models from the blog post and generated lyrics according to the style of a given songwriter and with a given seed word. The lyrics are generated via a character-level LSTM and generates the next character conditioned on the preceding characters and choice of songwriter. The model is trained on a corpus of song lyrics, where naturally the “correct” character to generate is the next character in the lyrics. Essentially the same mechanism is applied to the musical note generation.</span></p>
-<p><span style="font-weight: 400;">The characters are encoded as a one-hot vector over all letters in the English alphabet plus space, comma, etc. Piano rolls already come in an encoding amenable to feeding into RNNs, modulo additional zero padding to ensure every time slice of every piano role has the same dimension. In particular, at each time step (discretized in an appropriately fine-grained way), we have an indicator 0-1 vector on which notes are currently activated.</span></p>
-<p><span style="font-weight: 400;">Here is a song generated in the style of “Queen” with the starting seed sequence of characters “Music”:</span></p>
-<blockquote>
-<p style="text-align: center;"><i>Music savor valerite – yah  </i></p>
-<p style="text-align: center;"><i>Imabribot, bind me – I – well  </i></p>
-<p style="text-align: center;"><i>All going down to L</i></p>
-<p style="text-align: center;"><i>At the eyes of the universe  </i></p>
-<p style="text-align: center;"><i>Agree, five to the Slim  </i></p>
-<p style="text-align: center;"><i>I just want to convincide  </i></p>
-<p style="text-align: center;"><i>We wash stars and quiet Ich  </i></p>
-<p style="text-align: center;"><i>You had a dirty old baby  </i></p>
-<p style="text-align: center;"><i>We won’t  </i></p>
-<p style="text-align: center;"><i>We does nothing no one ezy? follohin?  </i></p>
-<p style="text-align: center;"><i>Sometimes we get down and ooh  </i></p>
-<p style="text-align: center;"><i>Nothing do you see all night  </i></p>
-<p style="text-align: center;"><i>  </i></p>
-<p style="text-align: center;"><i>This is my pries  </i></p>
-<p style="text-align: center;"><i>  </i></p>
-<p style="text-align: center;"><i>Joyful the world  </i></p>
-<p style="text-align: center;"><i>Does their beams  </i></p>
-<p style="text-align: center;"><i>Surgeon makes the scule la beat  </i></p>
-<p style="text-align: center;"><i>Walking out on my pocket ride  </i></p>
-<p style="text-align: center;"><i>My faulty power  </i></p>
-<p style="text-align: center;"><i>I wear from the ston</i></p>
-</blockquote>
-<p><span style="font-weight: 400;">Eventually, since we are actually interested in converting the musical information into plausible lyrics, we will need to modify this baseline in the natural way to take as input time slices of the musical instrumentation in piano roll format and predict characters (or syllables) that are to be enunciated simultaneously with the played notes. In this manner, the lyrics come already aligned in a natural way, and the words can be extracted by compressing the letters occurring between spaces.</span></p>
-<h1><b>Dataset parsing</b></h1>
-<p><span style="font-weight: 400;">The MIDI format has an unfortunate number of unexpected caveats. We have spent a majority of our time so far cleaning the data and attempting to use it in existing Python libraries that handle MIDI. A brief description of MIDI[2] covers some of the challenges:</span></p>
-<ul>
-<li style="font-weight: 400;"><span style="font-weight: 400;">MIDI is made up of a series of messages, such as notes, instruments, and tempo changes. Additional metadata messages exist called meta messages, which can contain text content such as the song title (and lyrics!). In our dataset, lyrics are provided either as “text” messages or as “lyrics” messages.</span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Messages are grouped into different tracks, often representing separate instruments. Metadata sometimes is located in its own track, and lyrics are sometimes found in a different track from the rest of the metadata.</span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Durations in the MIDI format are specified as a delta-time relative to the most recent frame. Delta times are in a unit called a tick. Ticks are defined in the file header as a division of the quarter note. The header also defines the number of ticks per frame, which is what the deltas are relative to. Beats per minute (bpm) messages adjust the speed of playback throughout the song.</span></li>
-</ul>
-<p><span style="font-weight: 400;">The most promising library so far is PrettyMIDI[3], which handles most of the unexpected behavior of the basic MIDI format. This library wraps MIDI messages into structured python objects, and provides a conversion from MIDI into piano roll format. Piano roll in this case is a numpy array of shape (num_notes, num_frames). This allows us to input the musical data directly into an RNN. The units are also converted into absolute seconds, as opposed to relative durations. PrettyMIDI can additionally handle embedded lyrics, but this has proven to be a challenge due to the variety of annotation styles in our dataset. About 200 of our 900 files have parsed lyric data properly, so continuing to clean our data is a high priority.</span></p>
-<h1><strong>U</strong>pd<strong>ate</strong></h1>
-<p><span style="font-weight: 400;">Unfortunately, we have found the Kara1k dataset[4] to be inapplicable to our project, as the raw sequence of musical notes and lyrical content are not provided, only metadata that the dataset developers have extracted.</span></p>
-<h1>References</h1>
-<p><span style="font-weight: 400;">[1] </span><a href="http://warmspringwinds.github.io/pytorch/rnns/2018/01/27/learning-to-generate-lyrics-and-music-with-recurrent-neural-networks/"><span style="font-weight: 400;">http://warmspringwinds.github.io/pytorch/rnns/2018/01/27/learning-to-generate-lyrics-and-music-with-recurrent-neural-networks/</span></a></p>
-<p><span style="font-weight: 400;">[2] </span><a href="http://www.music.mcgill.ca/~ich/classes/mumt306/StandardMIDIfileformat.html"><span style="font-weight: 400;">http://www.music.mcgill.ca/~ich/classes/mumt306/StandardMIDIfileformat.html</span></a></p>
-<p><span style="font-weight: 400;">[3] </span><a href="http://craffel.github.io/pretty-midi/"><span style="font-weight: 400;">http://craffel.github.io/pretty-midi/</span></a></p>
-<p><span style="font-weight: 400;">[4] </span><a href="http://yannbayle.fr/karamir/kara1k.php"><span style="font-weight: 400;">http://yannbayle.fr/karamir/kara1k.php</span></a></p></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="https://mathstoc.wordpress.com/2018/04/18/nlp-capstone-post-3-baseline-and-midi-frustration/">by Nicholas Ruhland at April 18, 2018 04:58 AM</a>
-</p>
-</div>
-</div>
-
-
-</div>
-
-</div>
 
 
 <div class="sidebar">
@@ -3345,7 +3295,7 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 <a href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="https://cse481n.blogspot.com/" title="PrimeapeNLP">Ron Fan, Aditya Saraf <br/> Team PrimeapeNLP</a>
 </li>
 <li>
-<a href="" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a class="message" title="http status 504">Ryan Pham <br/> Team NeuralEmpty</a>
+<a href="https://medium.com/feed/@ryanp97" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2" title="Stories by Ryan Pham on Medium">Ryan Pham <br/> Team NeuralEmpty</a>
 </li>
 <li>
 <a href="http://sarahyu.weebly.com/6/feed" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="http://sarahyu.weebly.com/cse-481n" title="Sarah yu - CSE 481N">Sarah Yu <br/> Team Jekyll-Hyde</a>
@@ -3360,7 +3310,7 @@ I'm implementing the parser within the the wikitables semantic parser(Neural Sem
 
 <p>
 <strong>Last updated:</strong><br>
-June 11, 2018 01:30 PM<br>
+June 11, 2018 02:00 PM<br>
 <em>All times are UTC.</em><br>
 
 <!--
