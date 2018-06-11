@@ -20,10 +20,10 @@
       <foaf:Agent>
         <foaf:name>Ryan Pham &lt;br/&gt; Team NeuralEmpty</foaf:name>
         <foaf:weblog>
-          <foaf:Document rdf:about="https://medium.com/@ryanp97?source=rss-6378d85d3a9b------2">
-            <dc:title>Stories by Ryan Pham on Medium</dc:title>
+          <foaf:Document rdf:about="">
+            <dc:title/>
             <rdfs:seeAlso>
-              <rss:channel rdf:about="https://medium.com/feed/@ryanp97"/>
+              <rss:channel rdf:about=""/>
             </rdfs:seeAlso>
           </foaf:Document>
         </foaf:weblog>
