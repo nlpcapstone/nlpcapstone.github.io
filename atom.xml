@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:planet="http://planet.intertwingly.net/" xmlns:indexing="urn:atom-extension:indexing" indexing:index="no"><access:restriction xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" relationship="deny"/>
   <title>NLP Capstone Spring 2018</title>
-  <updated>2018-06-23T10:30:28Z</updated>
+  <updated>2018-06-23T11:01:30Z</updated>
   <generator uri="http://intertwingly.net/code/venus/">Venus</generator>
   <author>
     <name>Nelson Liu</name>
@@ -52,30 +52,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-06-23T10:30:05Z</updated>
-    </source>
-  </entry>
-
-  <entry>
-    <id>https://medium.com/p/d4957f6e802</id>
-    <link href="https://medium.com/@viterbi.or.not/advanced-model-2-part-2-d4957f6e802?source=rss-c522ef075bb3------2" rel="alternate" type="text/html"/>
-    <title>Advanced Model #2, Part 2</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>Now that we’ve finished our minimum viable product, for Part 2 we’re focusing on further analysis and improvement of our advanced model, working on a demo to showcase our results, and drawing up a final action plan to wrap up the project!</p><h4><strong>Demo</strong></h4><p>One of the big things that we have been working on in the past week is a demo to illustrate a possible use case for our model. Our goal for the demo is ultimately to provide an interface in which users can simulate having a conversation or opening a long conversation and subsequently being able to access a useful summary of the topics and ideas that were discussed.</p><p>While coming up with our concept for the demo, we had to first make a choice about the input format that would be presented to users. After much discussion, we decided that the interface would have the most impact if it could operate on “live” data — that is, rather than simply uploading an existing conversation, if users could interact with a summary in realtime during a conversation it would help show exactly how our model works. Furthermore, although we set out to explore this project mainly for its technical merit and to understand both the universal features of language and the techniques used in summarization, we believe that our findings would be most directly useful as an augmentation for an application that already handles conversations. That way, a user has the opportunity to get immediate assistance after falling behind in a group conversation, and to explore their records of conversations via summaries rather than perusing the entire conversation.</p><p>All of these requirements, from the realtime interaction to the use case as an augmentation to an existing app, pointed us toward using chat data for the demo. We ultimately decided to create a simplistic chat interface that would allow users to stage a conversation and generate summaries directly from that — our idea being that generating the summary, chatting more in the conversation, and then seeing how the summary changes would be the most effective feedback loop for allowing users to understand what our model is doing.</p><p>As it currently exists, our demo is extremely bare-bones and serves as a proof of concept more than anything else. Users can chat in realtime, and summaries can be requested using an API call to pull the summary from a pre-trained model in our backend. We are currently working on improving the interface to be more usable, and on hosting the demo so that people can give it a try in more situations than just locally from within our repository.</p><h4><strong>Plans for Demo Expansion: Summary Visualization</strong></h4><p>In order to make the summary more usable, we want to “weave” it into the conversation so that it can serve as an augmentation rather than a totally separate feature. After all, because our model currently produces only extractive summaries, it makes sense to tie the exact sentences chosen for extraction back to the conversation. Right now, we are working on making the summary interactive in the sense that a user can click the sentences in the summary in one pane and jump to those points in the conversation, using the summary almost as a table of contents. We believe this design showcases our summary effectively and uses it as a convenient entry point for the user while still allowing them to get more detailed information if needed.</p><p>Another possibility would be to allow the user to adjust the compression ratio used in the summary, to specify if they want the summary to be only 10% of the conversation or 50%. This has the possibility of making it more user-friendly because they can create a summary for a specific use case, such as an extremely high-level summary being more useful for someone’s records as a simple reminder of a conversation they have already read, while a more in-depth summary might serve better in the use case of catching up on a conversation that has had many messages since the user last visited. However, there is also a downside to this option — by allowing users to specify a hard and fast percentage, our model loses the ability to dynamically adapt the length of the summary based on what is important. In other words, if there are n sentences available in the summary and n+1 nearly equally important sentences to fully capture the thread’s meaning, enforcing the n sentences would cause the summary to lose value while using an absolute threshold would make the summary longer if there is truly more content to display.</p><h4><strong>Plans for Expansion: Feature Visualization</strong></h4><p>One additional thing we have been exploring is the option for users to visualize the factors that lead to a sentence being selected for the summary. This would be a more technical option than those described above, because it would expose the actual features our model uses. To make this work, we would need to come up with a reliable way to calculate the “basis” for each sentence’s classification, which is a somewhat nebulous concept and therefore something we are still discussing. In general, it is possible to determine the weight that our model places on each of the features, but we would need to also understand the boundary used for each feature in order to provide useful information about a specific sentence. For example, consider a feature like the intensity of the sentiment score for a given sentence: we might be able to determine that our model places a higher-than-average weight on this feature, but we would need information about whether a higher or lower sentiment score is more likely to lead to classification as part of the summary in order to display to the user whether or not that had led to the specific sentence’s labelling. In addition, the high number of features we have in our feature set threatens to overwhelm any interface we include them in.</p><p>If individual features for sentences cannot be applied, another approach we have considered is displaying information such as the topic segmentation that has been applied or which sentences have been modified based on our preprocessing. Doing so would allow the user of our demo to easily understand how our model responds to certain types of data, which would also allow us to potentially debug our model as we make improvements over the next few weeks.</p><h4><strong>Process of Chat Integration</strong></h4><p>Because a large part of our overall project plan is to incorporate both chatlog and email data, a lot of our effort over the past few weeks has been in standardizing our feature set and project pipeline to be able to support chat data. While a big portion of that has been focused on parsing and preprocessing in order to be able to train and evaluate on chat data, this past week we have been running tests to understand the differences between the different types of data and the limitations of using the enormous chatlog dataset.</p><p>In particular, we noticed that despite having so much data available, the chatlog dataset was effectively unusable as a training set when using a Naive Bayes model. Although that model had previously been most effective for almost all of our feature sets, we noticed that when applied to the chatlog data it had the distinct tendency to produce summaries in which 0 (or very, very few) sentences were selected. This problem did not show up using Decision Trees, which had decent results based on both ROUGE scores and human evaluation.</p><p>Although we are still not entirely sure about the cause of the issue with Naive Bayes, one possible explanation is that the number of sentences included in the reference summary for each training thread is so small that the model ended up having the best chance of classifying a sentence correctly by simply discluding every sentence. It is possible that the structural differences between the Naive Bayes and Decision Tree models caused the latter model to create trees of such a depth that they were able to learn the difference between included and excluded sentences even with so few examples. We definitely have more analysis to do in the coming weeks to understand this disparity better, but more than anything else it alerted us to the fact that the vastness of the chatlog data is a double-edged sword — although it provides more data on which to train, it also brings a new problem of extremely sparse reference summaries.</p><h4><strong>Fixing using Regression SVM</strong></h4><p>Normally, using Decision Trees over Naive Bayes would not be a major setback, because although Naive Bayes performed slightly better for most applications in the email dataset they were relatively comparable. However, with the introduction of the compression ratio that we discussed in last week’s blog post, we found that additional work was necessary to use the compression ratio with the chatlog data. Because the Naive Bayes regression implementation we had been using never labelled sentences as being part of the summary during our testing, we eventually decided to incorporate SKLearn’s SVM Regression model in order to provide regression functionality for the chatlog data and enable us to manually tune the compression ratio.</p><h4><strong>Participant Tracking</strong></h4><p>In an effort to capture more conversation-specific aspects of the data, we added a feature to take into account the author of a sentence when vectorizing. The author frequency feature is calculated by taking the count of contributions from the sentence’s author to the thread and normalizing it by the total number of sentences. This measure represents the amount of weight a participant has in a conversation which can translate to indicating how important the contributions of specific participants are.</p><h4><strong>Discourse Tracking</strong></h4><p>To track conversation flow, we also added a feature to give more conversational context to the current sentence. The previous TF-ISF feature is the TF-ISF score of the chunk that the sentence is in reply to, giving it more information about the conversation up to the current point. If a sentence is in reply to an important chunk, it may indicate that the sentence should also be included in the summary.</p><h4><strong>Plans for Abstractive Summarization</strong></h4><p>To tackle our stretch goal of generating abstractive summaries, we would most likely take the approach of using the extracted sentences along with corresponding metadata as a starting point as we have mentioned before. More specifically, we would like to capture the authors of each sentence so we can create sentences that do a better job of describing the conversation (for example, “Person A said &lt;extracted content&gt;. Person B then replied…” and so on).</p><p>We have also thought about various strategies to generate more natural text from the extracted sentences. These include training and using a language model on the abstractive summary annotations that some of our datasets have, looking at techniques for sentence compression, and applying tense correction.</p><p>Sentence compression would help us progress beyond needing to use direct quotes from the corpus in our summary by being able to get a short and sweet version of the sentence that still retains its main meaning and purpose. This could mean, for example, reducing a sentence like “I would really like to have a delicious cup of coffee” to simply “I want coffee.”</p><p>Applying tense correction would partner with the idea of including who said what in the abstractive summary. For example, if Person A says “I want coffee” adding the author attribution would result in a sentence like “Person A said I want coffee.” To make this a more natural sentence, we can correct the first person “I” to a third person “they” — resulting in “Person A said they want coffee” which would read better in an abstractive summary.</p><h4><strong>Plans for Semantic Features</strong></h4><p>Something we have noticed about our current feature set is that it does not include any features based off of semantic properties of the sentences. Being able to determine the purpose of a sentence within a chunk or thread would be really helpful information for deciding its importance to the conversation. For example, sentences in an email can be broken down into categories like ‘Greeting,’ ‘Background / Context,’ ‘Problem,’ ‘Elaboration,’ ‘Solution,’ and ‘Sign-off.’ Some of the more obvious uses of these categories would be inferring that Greeting and Sign-off are not meaningful content in the conversation and should not be included in a summary.</p><p>To do this, we would like to look more into incorporating Rhetorical Structure Theory (RST), particularly in reference to the relations between sentences in a chunk, to identify the category of a sentence. We can also approach this feature by looking for certain cue words (perhaps words like “because,” “if,” “since,” “so”) to categorize the sentence.</p><p>Overall, we’ve had a lot of fun (and learned a lot!) working on this model, and we hope you enjoyed reading about it too!</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=d4957f6e802" width="1"/></div>
-    </content>
-    <updated>2018-05-23T06:58:26Z</updated>
-    <category term="nlp"/>
-    <author>
-      <name>Viterbi Or Not To Be</name>
-    </author>
-    <source>
-      <id>https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2</id>
-      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*wiisg40Bu4z11RTWJ66mnA.png</logo>
-      <link href="https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2" rel="alternate" type="text/html"/>
-      <link href="https://medium.com/feed/@viterbi.or.not" rel="self" type="application/rss+xml"/>
-      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
-      <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
-      <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-06-23T10:30:25Z</updated>
+      <updated>2018-06-23T11:00:05Z</updated>
     </source>
   </entry>
 
@@ -102,7 +79,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-06-23T10:30:27Z</updated>
+      <updated>2018-06-23T11:01:28Z</updated>
     </source>
   </entry>
 
@@ -131,7 +108,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-06-23T10:30:25Z</updated>
+      <updated>2018-06-23T11:01:26Z</updated>
     </source>
   </entry>
 
@@ -156,7 +133,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-06-23T10:30:22Z</updated>
+      <updated>2018-06-23T11:00:24Z</updated>
     </source>
   </entry>
 
@@ -181,7 +158,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-06-23T10:30:24Z</updated>
+      <updated>2018-06-23T11:00:26Z</updated>
     </source>
   </entry>
 
@@ -204,7 +181,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-06-23T10:30:05Z</updated>
+      <updated>2018-06-23T11:00:06Z</updated>
     </source>
   </entry>
 
@@ -227,7 +204,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-06-23T10:30:05Z</updated>
+      <updated>2018-06-23T11:00:05Z</updated>
     </source>
   </entry>
 
@@ -251,7 +228,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-06-23T10:30:27Z</updated>
+      <updated>2018-06-23T11:01:29Z</updated>
     </source>
   </entry>
 
@@ -501,7 +478,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-06-23T10:30:21Z</updated>
+      <updated>2018-06-23T11:00:23Z</updated>
     </source>
   </entry>
 
@@ -525,30 +502,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-06-23T10:30:04Z</updated>
-    </source>
-  </entry>
-
-  <entry>
-    <id>https://medium.com/p/29b207b75065</id>
-    <link href="https://medium.com/@viterbi.or.not/advanced-model-2-part-1-29b207b75065?source=rss-c522ef075bb3------2" rel="alternate" type="text/html"/>
-    <title>Advanced Model #2, Part 1</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>This week, we started working on our second advanced model attempt! The chatlog data is fully integrated this time, though we are still working on making our model effective across all types of text conversation. In addition to finishing construction of our proposed pipeline, we’ve also upgraded almost all of the previously existing components (pre-processor, feature vectorizer, model) to make the first big steps towards completing our final advanced model.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*FIza3SY9EreLeCf1."/>Pipeline for integrating different datasets with a common feature set into our model, now completed!</figure><h4><strong>Adding the Chatlog Dataset — For Real This Time!</strong></h4><p>Achieving one of our major goals for the advanced model, we have finished integrating chatlog data into our model! This involved a considerable amount more effort than we anticipated because the chat data ended up being much more noisy and varied than the email data, leading to a significant portion of our time being spent re-formatting and parsing the original data files to get it into the same input structure as the email data.</p><p>Even in our initial testing, the impact from adding chatlog data has been noticeable. There are two major benefits that we have identified for the importance of incorporating this second data source. The first, and perhaps most obvious, is that it expands the domain in which our model is able to operate — because conversation data in the modern age increasingly happens over both email and chat, it increases the helpfulness of our model to be able to produce summaries for chatlogs as well.</p><p>However, the other benefit is that the chatlog dataset has considerably more data points available than the email dataset, perhaps due to the nature of chat as a noisy, casual medium. A single email thread consists of about 80 sentences on average, and we only have 32 email threads to train with when we are using an 80% / 20% split in k-fold cross validation. That means the email data has only about 2500 sentences of training data.</p><p>By contrast, the chatlog dataset is considerably larger. Again using 80% of the data as training data, we have 1118 threads of about 1200 sentences each, meaning the chatlog data has about 1,341,600 sentences or approximately 500 times the data points that were previously available. Through the use of this added data, our goal is ultimately to improve the performance of our model on a smaller dataset, such as email, solely by virtue of the massively increased amount of training data that is available by combining different data types.</p><p>Of course, to make this arrangement work, it is necessary to use a universal feature set that can apply to any type of data. That way, the model is trained on the same set of features regardless of how the data was originally structured, and it has universal applicability for any future datasets that might be added. One of the more unique aspects of our project is this combination of different text conversation mediums and the utility of our features across all conversation types.</p><h4><strong>Text Segmentation</strong></h4><p>An interesting challenge we encountered while incorporating both email and chat data was finding analogous parts and features between the two formats. Email threads were easily separated into emails, but chatlogs being one long, unstructured flow of conversation made it more difficult to process. To help with this problem, we added preprocessing of chatlogs into Longest Contiguous Messages (LCM). To capture LCM, we concatenated subsequent messages of the same user and identified a boundary when the user changes or when a period is encountered.</p><p>The effect of this incorporation was to create email-like “chunks” of the conversation, which we were then able to use for certain document-dependent features like TF-ISF that rely on having messages segmented into individual documents.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*gW-GdW9aTe7v05OL."/>A before (left) and after (right) of applying LCM on a chat excerpt, taken from Sood et. al.</figure><h4><strong>Input Structure</strong></h4><p>To improve the context our features are able to operate with, we changed the input format of our data to have one more level of granularity. In our previous iterations of the model, our input structure was a list of threads, each thread being a list of sentences. Our new input format has one more nested layer — each thread is now a list of ‘chunks’ and each chunk is a list of sentences. For emails, a chunk is naturally a single email in the thread. For chatlogs, a chunk is determined by LCM text segmentation, with each chunk consisting of the contiguous messages by a single user.</p><p>This changes the sentence position feature to mean the sentence position within a chunk rather than within the whole thread, which we believe is more relevant to the sentence’s importance. This also allows us to add a “position from end of the chunk” feature which is helpful for eliminating ending lines (like sign-offs or parting words) and other features that might depend on chunk granularity context.</p><h4><strong>Results of Cross-Training</strong></h4><p>In order to examine the efficacy of our multi-dataset training approach, we ran some experiments to look at the ROUGE scores that are produced. Our first attempt was to use the Naive Bayes model in order to try this cross-training approach, as it had generally been the most successful in prior experiments. Unfortunately, we discovered that the Naive Bayes model performed extremely poorly in many combinations — after training on the chat data and evaluating on email data, for example, it would cause the vast majority of the email summaries to be blank after determining that every single sentence sentence should be classified as not being included in the summary. However, we were able to use the Decision Tree model instead to produce promising results. We are still attempting to determine the cause of this discrepancy, although one possibility might be that the Naive Bayes model ascribed too much significance to a certain feature that is significantly different between chat and email, such as sentence length or some quirk of proper punctuation.</p><p>The following table shows our results while training using the chat and evaluating using the email data, with self-trained email data provided as a comparison. In order to determine the effect of data size on the ROUGE score, we experimented with varying sizes of chat examples:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*pXyyq6x_CVDaNGxx3DpsSw.png"/>Results of various cross-training configurations using email and chat data</figure><p>As can be seen from the above table, from a ROUGE score standpoint, the effect of training on more data is considerably more important than the effect of training on the same type of data as is being used for evaluation. Having 12,000 sentences upon which to train causes the model’s ROUGE scores to shoot up significantly higher than having 2,500 sentences, regardless of the type of data.</p><p>Another thing we have been experimenting with is training on both types of data before evaluating on a single type of data. In this case, it would mean training on both email and chat before evaluating on either email or chat data. The theoretical advantage of this approach would be that it maximizes the amount of available data, and if there are significant differences between the types of data, it would be sure to incorporate the type of data that the model will be evaluated on.</p><p>However, in practical use, it seems as though training on multiple data sources will not contribute significantly to the success of our model because of the fact that the chatlog dataset so completely eclipses the amount of data available in the email dataset. Therefore, from a numerical perspective, training on both types of data would add only a 0.2% increase in data from training on just the chatlog data. In addition, it stands to reason that having such a numerical disadvantage means any significant benefit from training on the same type of data that the model is being evaluated on would be negligible. We are continuing to develop this capability, but for the time being it seems like a low priority.</p><h4><strong>Topic Segmentation</strong></h4><p>In addition to segmenting by the author of contiguous chat messages, we also wanted to add a new feature for our model that incorporates the changing of topics throughout a message. The idea behind this feature is to use the changing structure of text to determine the boundaries between different topics through an existing algorithm for topic detection called TextTiling (More detail can be found in the <a href="http://www.aclweb.org/anthology/J97-1003">paper describing TextTiling</a>). We used an implementation of TextTiling found within NLTK.</p><p>While the paper we used for our baseline model mentioned using TextTiling, they only used the algorithm as a preliminary attempt to segment the chatlog into different chunks. We found that approach to be ineffective, likely because the chunks in an email thread (emails) are separated by author, while TextTiling topics cover multiple authors but cover a single topic, and therefore the two are largely incomparable. To support our concept of a universal feature set, we instead used TextTiling as a separate feature, offering context for sentences.</p><p>Currently, our models are capable of using TextTiling in order to determine the position of a sentence within a topic and incorporate the relative position within the topic as a feature. Unfortunately, we have only been able to successfully run TextTiling for tiny datasets so far due to errors that manifest for noisier data, and as a result we are not ready to report results using it.</p><h4><strong>Compression Ratio</strong></h4><p>One of the major problems we noted in the summaries our model was generating was that while they scored well in ROUGE metrics, the model seemed to place importance on too many sentences and the summaries themselves often ended up too long to be practical. Indeed, summaries for some threads would be composed of over 50% of the “actual” contents of the thread (the parts that were kept after preprocessing), making our summaries close to general reproductions of the original text.</p><p>As a solution, we experimented with using a regression model instead of a classifier, giving each sentence a score rather than a binary 1 or 0 (include in the summary or not). With a regression model, we gain the ability to control the compression ratio by changing the threshold of score we accept to include in the summary.</p><h4><strong>Results of Compression Ratio</strong></h4><p>With these updates to our model, we experimented with tuning regression the running using the new possible training and validation configurations to get the following results.</p><p>We first conducted an experiment with the threshold for our regression model to determine the optimal threshold value:</p><pre>python main.py bc3/full --type email --model regression_br --threshold &lt;t value&gt;</pre><p>For those following along at home, the above command is what we used to generate the values for the following table.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*cNtKD45MlqM822FrIv3R1w.png"/>Results of experimenting with the threshold value using the regression model</figure><p>Based on the results, we chose a threshold of 0.3 to continue with. The following table compares the regression model with the Naive Bayes classifier using the full email dataset:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*dixp1JhnxIxOVdM3DZ97_A.png"/>Comparison between our best regression model and classifier model</figure><p>In general, the “best” regression model did not have an enormous impact on the ROUGE scores as compared to the best results from the classification models (Naive Bayes), increasing some ROUGE metrics slightly and decreasing others. However, because the regression model allows configuration of the number of sentences that are output by changing the threshold hyperparameter, it adds an additional capability to the model whereby a user can select an optimal “size” of summary.</p><p>We developed this feature in response to the problem of “reproducing” the original text in our summaries, and by human standards it seems to be a big improvement. Consider the following email thread summary, produced using our Naive Bayes classifier model:</p><pre>Chris Lilley, Brian Stell and others have been discussing the rash of irate, &amp;quot;get me off this list&amp;quot; mesages the listserv has received, lately.</pre><pre>Well, folks: YOU CAN'T UNSUBSCRIBE FROM THIS LIST!</pre><pre>I've tried for 2 months to get off this list, I've followed the rules, I've tried variations of the theme, looking for some hidden code--all to no avail.</pre><pre>So, the last resort of those who have tried everything else is to post to the list they want to be rid of.</pre><pre>PLEASE GET ME OFF THIS LIST@!%$#$/-\%</pre><pre>Well, that explains a lot!</pre><pre>I've been trying for awhile too, and I can't seem to get off.</pre><pre>Please remain calm.</pre><pre>Our automated list manager works very well.</pre><pre>Sometimes there are problems due to:</pre><pre>- you being subscribed under another name/address --</pre><pre>this was the case for the first among the two recent messages.</pre><pre>Well, after receiving a message that informed me of this, I responded with an unsubscribe e-mail with my unaliased e-mail address, and today received an automated response informing me that your software could not find my name on your list.</pre><pre>I am very calm.</pre><pre>Thanks for the helpful info, but I just received a message saying that I have been removed from the list.</pre><pre>Because I posted my difficulties to the list.</pre><pre>Sorry I had to burden you all with my problems, but as you can see, it worked.</pre><pre>Sam Berlow</pre><pre>UNSUBSCRIBE.SIGROLLY</pre><p>By contrast, here is the summary for the same email thread, but using a Bayesian Ridge regression model and incorporating a threshold of 0.55 in order to produce a much smaller summary:</p><pre>Chris Lilley, Brian Stell and others have been discussing the rash of irate, “get me off this list” mesages the listserv has received, lately.</pre><pre>I've tried for 2 months to get off this list, I've followed the rules, I've tried variations of the theme, looking for some hidden code--all to no avail.</pre><pre>Well, after receiving a message that informed me of this, I responded with an unsubscribe e-mail with my unaliased e-mail address, and today received an automated response informing me that your software could not find my name on your list.</pre><pre>Thanks for the helpful info, but I just received a message saying that I have been removed from the list.</pre><p>The difference is quite pronounced, with almost half the sentences in the former being removed when a regression model and higher threshold is used. However, from a human perspective, the second summary is nearly just as informative, and in fact there are several extraneous sentences in the first summary that are dropped. Because the ROUGE scores are roughly the same in both cases, but the second summary is somewhat better from a human viewpoint, we would consider the use of a compression ratio to be a success in improving our model.</p><h4><strong>Next Steps</strong></h4><p>So far we’ve trained on single data sources (email or chat) before evaluation since we weren’t quite able to get training on both sources at once working yet in this part 1 attempt. We aim to fix this next week and be able to train on multiple data sources and fine tune the cross-training.</p><p>We think there is a lot of potential in features based on topic segmentation, semantic meaning, and the conversation-specific aspect of the authorship of a sentence. So, we also aim to finish our implementation of TextTiling-based feature, a feature that incorporates Rhetorical Structure Theory (RST) output, and feature that includes information from tracking the contributions of different participants throughout the conversation.</p><p>After completing these improvements, we would like to take a crack at our stretch goal of generating abstractive summaries and make a demo of our summarizer on a chat interface!</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=29b207b75065" width="1"/></div>
-    </content>
-    <updated>2018-05-17T06:56:06Z</updated>
-    <category term="nlp"/>
-    <author>
-      <name>Viterbi Or Not To Be</name>
-    </author>
-    <source>
-      <id>https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2</id>
-      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*wiisg40Bu4z11RTWJ66mnA.png</logo>
-      <link href="https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2" rel="alternate" type="text/html"/>
-      <link href="https://medium.com/feed/@viterbi.or.not" rel="self" type="application/rss+xml"/>
-      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
-      <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
-      <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-06-23T10:30:25Z</updated>
+      <updated>2018-06-23T11:00:04Z</updated>
     </source>
   </entry>
 
@@ -582,7 +536,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-06-23T10:30:28Z</updated>
+      <updated>2018-06-23T11:01:30Z</updated>
     </source>
   </entry>
 
@@ -607,7 +561,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-06-23T10:30:22Z</updated>
+      <updated>2018-06-23T11:00:24Z</updated>
     </source>
   </entry>
 
@@ -656,7 +610,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-06-23T10:30:27Z</updated>
+      <updated>2018-06-23T11:01:28Z</updated>
     </source>
   </entry>
 
@@ -684,7 +638,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-06-23T10:30:25Z</updated>
+      <updated>2018-06-23T11:01:26Z</updated>
     </source>
   </entry>
 
@@ -708,7 +662,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-06-23T10:30:28Z</updated>
+      <updated>2018-06-23T11:01:29Z</updated>
     </source>
   </entry>
 
@@ -731,7 +685,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-06-23T10:30:23Z</updated>
+      <updated>2018-06-23T11:00:25Z</updated>
     </source>
   </entry>
 
@@ -754,7 +708,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-06-23T10:30:05Z</updated>
+      <updated>2018-06-23T11:00:06Z</updated>
     </source>
   </entry>
 
@@ -920,7 +874,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-06-23T10:30:21Z</updated>
+      <updated>2018-06-23T11:00:23Z</updated>
     </source>
   </entry>
 
@@ -944,7 +898,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-06-23T10:30:04Z</updated>
+      <updated>2018-06-23T11:00:04Z</updated>
     </source>
   </entry>
 
@@ -967,7 +921,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-06-23T10:30:05Z</updated>
+      <updated>2018-06-23T11:00:05Z</updated>
     </source>
   </entry>
 
@@ -1014,7 +968,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-06-23T10:30:28Z</updated>
+      <updated>2018-06-23T11:01:30Z</updated>
     </source>
   </entry>
 
@@ -1037,7 +991,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-06-23T10:30:23Z</updated>
+      <updated>2018-06-23T11:00:25Z</updated>
     </source>
   </entry>
 
@@ -1068,7 +1022,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-06-23T10:30:25Z</updated>
+      <updated>2018-06-23T11:01:26Z</updated>
     </source>
   </entry>
 
@@ -1092,7 +1046,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-06-23T10:30:27Z</updated>
+      <updated>2018-06-23T11:01:29Z</updated>
     </source>
   </entry>
 
@@ -1119,7 +1073,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-06-23T10:30:27Z</updated>
+      <updated>2018-06-23T11:01:28Z</updated>
     </source>
   </entry>
 
@@ -1144,30 +1098,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-06-23T10:30:22Z</updated>
-    </source>
-  </entry>
-
-  <entry>
-    <id>https://medium.com/p/d7a06e892cdd</id>
-    <link href="https://medium.com/@viterbi.or.not/advanced-model-1-part-2-d7a06e892cdd?source=rss-c522ef075bb3------2" rel="alternate" type="text/html"/>
-    <title>Advanced Model #1, Part 2</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>Welcome back to Advanced Model #1 and thanks for sticking with us! This week, we’ve gotten some promising results in our first advanced model attempt and made a lot of progress with the incorporation of a second data source, although there is still work to be done toward fully integrating the chatlog data into a single model. In this post, we’ll go over what we’ve done since last week and give some numbers as well as example summaries from this model, then start laying out what we would like to achieve for Advanced Model #2.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*AsUzi76WPSKaMji6."/>Our project roadmap and where we are at now, highlighted in orange</figure><h4><strong>Preprocessing</strong></h4><p>We decided to use preprocessing instead of features for some of the attributes of our data after discovering that our feature sets failed to focus solely on the conversation in some data types and instead gave false importance to format-specific patterns such as quoted text in emails. We eventually settled on the following distinction:</p><ul><li>Attributes of the data that existed at the conversation-level should be features: that is, anything universally applicable to textual conversations in general was implemented as a feature for the model</li><li>Attributes of the data at the data source-level should be preprocessed. This allowed us to share features across different data types (for example, using tf-idf across both emails and chatlogs) while minimizing the number of “dead” features (for example, simply assigning a constant value to a feature for detecting email signatures when vectorizing the chatlog data).</li></ul><p>The preprocessing we decided to do falls under the following categories:</p><p><strong>Identifying format-specific content:</strong> Quirks of the data format can sometimes present problems for our model, for example, we noticed separator lines composed of all dashes or symbols as well as email signatures (left example below) were making it into the summaries.</p><p><strong>Removing quoted email text:</strong> The email dataset contains quoted text of previous emails in the thread when there is an email reply, causing duplication of sentences in the summaries because the model seems to want to include the important sentence as much as possible. An example of a generated summary with the problem is in the right example below.</p><p>After initially parsing the data, we do this preprocessing step to identify such sentences using simple regular expression rules and remove them before computing feature vectors.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*vUpBdbFjg5Exfd-8."/>An email signature (left) and quoted text (right) in generated summaries before adding preprocessing</figure><h4><strong>Adding the Chatlog Dataset — New Pipeline</strong></h4><p>One of our major goals for the advanced model was to incorporate the chatlog dataset we identified early on in the project. Of course, having the capability to automatically generate summaries for chat conversations expands the usefulness and possible applications of our model: although email threads are incredibly common in today’s world, chat communication is also experiencing an incredible rise in popularity. Furthermore, as chat communications tend toward a large number of participants and a model of very frequent responses, our analysis is that chat data summaries have the potential to be even more useful than their email counterparts.</p><p>However, our goal with incorporating the chatlog data is ultimately to combine it with the email data in order to be able to train our model on both data types at once. To do this, we saw the need to create a common list of features that can be applied to any data input, allowing the model to train on both sources of data indiscriminately. As the Sood et. al. paper suggests, training on both sets of data has the potential to improve the resulting summaries of the model for each type of data separately, although the paper in question does not specify their results beyond the notion that they were promising in a preliminary examination.</p><p>The end goal for our system is illustrated below:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*YodqfIjCDfX5xJLfNG_JFQ.png"/>Pipeline for integrating different datasets with a common feature set into our model</figure><p>The blended colors represent the notion of common features, achieved through separate pre-processing and vectorizing of each data source but used in a single shared model.</p><p>To achieve this, we needed to do a major restructuring of our codebase, and it is unfortunately the case that a huge portion of our time this week was spent improving old code to make it more modular and compatible with these new requirements. What was once a single script to parse, process, vectorize, and train on a single dataset had to be broken apart into different modules for each of those tasks that could implement a common interface. In addition, with the growing number of options and tasks that had to be supported, we discovered it was necessary to entirely separate the concerns of processing text and handling configuration: to that end, we created a new, much more robust command-line interface and broke all other components into individual directories with as much code factoring as possible.</p><p>As a result of our design process and refactor, we currently have almost all of the infrastructure necessary for incorporating the chatlog data and training our model on all of the available data before evaluating on a single source. As we mentioned above, however, there were several challenges with parsing the chatlog data, namely the messy nature of the chats and the number of possible edge cases present in such a large dataset. Therefore, we are still in the process of finishing the parser component, but once it is complete we should be able to use both types of data in Advanced Model #2 and report on the impact that it makes. See our progress so far with this pipeline structure on our <a href="https://github.com/viterbi-or-not-to-be/viterbi-or-not-to-be/tree/master/conversation">GitHub repository</a>!</p><h4><strong>Results</strong></h4><p>Through the addition of the preprocessing step, we have greatly improved our ROUGE scores and become competitive with the advanced model in the Sood et. al. paper. Here are the results of our advanced models, using all of the features we have discussed so far and with the preprocessing step:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*iDsZaXOhuHshbaFWXFlPvQ.png"/>Results of the three advanced model types</figure><p>These results are significantly better than our baseline, and we believe our model is generally pretty good at picking up on which sentences are important to keep! To more directly see the impact of preprocessing, we compared the results of the Naive Bayes model with and without preprocessing:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*BBrr-Z2ilFTbK8xi-t2SPg.png"/>Comparison between our advanced model with preprocessing and without preprocessing</figure><p>The model without preprocessing does decently, but the preprocessing definitely contributes significantly to our advanced model performance. To show our progress since the baseline model, this compares the results of the Naive Bayes baseline models with those of our current Naive Bayes model:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*M_zctk4dPmVbmVHeHmRYYQ.png"/>Comparison between our advanced model and our baselines</figure><p>Both ROUGE-1 and ROUGE-2 have stepped up by several percentage points, but the most significant increase is seen in the ROUGE-L improvement. Finally, our model compared with the model in the Sood et. al. paper:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*Ty7sqP2swRfdf1UGw7wb_g.png"/>Comparison between our advanced model and the Sood et. al. model</figure><p>As you can see, our ROUGE-L score is slightly lower but our ROUGE-1 and ROUGE-2 scores are higher! We’ve previously discussed the drawbacks of ROUGE―there is no definitively better type of ROUGE metric and ROUGE in general is not necessarily a reliable indicator of how good the generated summaries really are, so we are wary about quantifying our model’s performance in comparison to the Sood et. al. model’s performance based just on ROUGE scores. However, we haven’t been able to find any examples of the summaries generated by their model so this is all we have to go off of for now.</p><h4><strong>Example Summary and Analysis</strong></h4><p>Because ROUGE provides relatively unreliable metrics for evaluation of our model’s summaries, we have also turned to human evaluation. One of the summaries that our model was able to generate based off an input email thread, using all of the preprocessing and extra features that we have built, is reproduced below in its original condition except for display-motivated truncation:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*BMVwYccbvULdQcwp."/>Comparison between human annotated reference summary (left) and summary generated by our advanced model (right)</figure><p>This summary is fairly representative of the summaries that are being generated, and compared to the results we saw from our baseline models it is clearly doing better in terms of human evaluation. The sentences highlighted in green are those that are shared between the reference annotation and our system’s generated summary — interestingly, all but one of the sentences in the reference summary were successfully captured by our system. Therefore, reading through the summary generated by our system gives a strong impression of the topics that were discussed in the thread, and seemingly gives a human reader all the information that is needed.</p><p>However, there are certainly aspects of the current summaries produced by the model that are lacking. In the summary given above, all 6 sentences that were truncated for display purposes at the ellipsis and the four additional non-green sentences displayed were not included in the reference summary. This summary comes from a thread with only 31 sentences after preprocessing, meaning that while our model successfully captured all of the sentences marked as important by a human, it did so at the cost of incorporating an enormous percentage of unnecessary extra text that serves to make the summary less of a “summary” while adding relatively little content. To address this, we will need to figure out how to reward the model for producing more concise summaries, or to incorporate a “compression factor” that allows producing a summary with the k most relevant sentences for some value of the hyperparameter k. Another issue is highlighted in red above — while we added preprocessing to remove email signatures based on a set of heuristics, to avoid deleting important content we made the preprocessor act conservatively when uncertain, and as a result some signatures like in the example above made their way into the summaries. Although other features would ideally prevent these signatures from appearing in many cases, we will need to improve our preprocessing heuristics in order to target these kinds of medium-specific text examples before moving on to incorporate additional types of data.</p><h4><strong>Next Steps</strong></h4><p>To entirely finish Advanced Model #1, we would like to complete the process of incorporating chatlog data and then transition into work on Advanced Model #2 by continuing to explore and add conversation-specific features. We also want to address the excessive lengthiness problem we found in the generated summaries by doing something to limit the number of sentences the model is allowed to select for the extractive summary.</p><p>Beyond these immediate steps, we would love to be able to take a stab at abstractive summarization! It’s a really challenging but rewarding conversation summarization problem that we will need to put some more thought into to attempt. We’ve preliminarily determined that we can make an attempt using the extractive output from our current model along with some other contextual metadata from the conversation data (for example, authors of the chosen sentences), to get a start on an abstractive summary. In general, we think this will require more modeling of entity relationships and text generation.</p><p>Overall, we’re excited with what our model has been able to do so far and optimistic about what we’ll be able to achieve with Advanced Model #2, so stay tuned!</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=d7a06e892cdd" width="1"/></div>
-    </content>
-    <updated>2018-05-09T06:33:15Z</updated>
-    <category term="nlp"/>
-    <author>
-      <name>Viterbi Or Not To Be</name>
-    </author>
-    <source>
-      <id>https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2</id>
-      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*wiisg40Bu4z11RTWJ66mnA.png</logo>
-      <link href="https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2" rel="alternate" type="text/html"/>
-      <link href="https://medium.com/feed/@viterbi.or.not" rel="self" type="application/rss+xml"/>
-      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
-      <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
-      <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-06-23T10:30:25Z</updated>
+      <updated>2018-06-23T11:00:24Z</updated>
     </source>
   </entry>
 
@@ -1431,7 +1362,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-06-23T10:30:21Z</updated>
+      <updated>2018-06-23T11:00:23Z</updated>
     </source>
   </entry>
 
@@ -1454,7 +1385,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-06-23T10:30:05Z</updated>
+      <updated>2018-06-23T11:00:06Z</updated>
     </source>
   </entry>
 
@@ -1477,7 +1408,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-06-23T10:30:05Z</updated>
+      <updated>2018-06-23T11:00:05Z</updated>
     </source>
   </entry>
 
@@ -1501,7 +1432,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-06-23T10:30:04Z</updated>
+      <updated>2018-06-23T11:00:04Z</updated>
     </source>
   </entry>
 
@@ -1528,29 +1459,6 @@
   </entry>
 
   <entry>
-    <id>https://medium.com/p/4626fe37cadb</id>
-    <link href="https://medium.com/@viterbi.or.not/advanced-model-1-part-1-4626fe37cadb?source=rss-c522ef075bb3------2" rel="alternate" type="text/html"/>
-    <title>Advanced Model #1, Part 1</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*_Pn2CYQZkoIzZYLwVPV2MA.png"/></figure><p>Work on our advanced model is underway! To recap, we aim to upgrade our baseline model by including other forms of conversational data (chatlogs and meeting transcripts in addition to the email data we have been using) into our training and adding features that target characteristics specific to conversational text.</p><h4>Extensibility and Other Datasets</h4><p>To achieve this, we first worked on restructuring our baseline code to be extensible to allow addition of inputs from other datasets and to allow different methods of feature extraction based on the dataset. We’ve started splitting our baseline code into smaller parts (parser, feature extractor, model) and creating a structure for the new code segments and datasets. We’ve also parsed one additional data type (GNUe chatlogs) and begun the process of integrating the data into the structure. Unfortunately, we have not yet been able to produce summaries using this dataset — while we have the parser working, several of our features and evaluation scripts do not translate easily to the new formatting and we are still working on refactoring our codebase to handle it. As we complete our first advanced model, bringing these new data sources into the fold will be a top priority so that we can begin to compare the differences between the dataset and work toward our stretch goal of training on both datasets in order to improve performance on each.</p><h4>Preprocessing</h4><p>Looking at the generated summaries from our baseline model, we found a few mistakes that could be easily avoided using automated preprocessing. The summaries often included quoted replies, email signatures, and other insignificant lines that could be eliminated by looking at simple characteristics of the sentence (for example, a line or sentence ending in a comma usually indicates that it is a greeting or closing clause). We previously added a feature based on the sentence starting with a ‘&gt;’ character to eliminate sentences that were quotes from previous emails in the thread, which improved performance. We are now moving this to the preprocessing step. The preprocessing will occur during after parsing the dataset, but before feature extraction, and because it is highly specific to the types of data we are parsing it will have to be implemented separately for both email and chat data.</p><p>Another addition we have been looking into has been detection of email signatures. While we have not yet created a very successful system for this, we have some ideas on how to proceed as we finish our first advanced model. We have already tried adding a feature for a sentence’s proximity to the end of an email, but unfortunately it was not very successful in removing signatures. Therefore, we are hoping that preprocessing will fit the task better — for example, we might examine the email for the last contiguous block of non-empty lines, and remove them under the assumption that the email signature will always be at the end and will never be useful in a summary. But this comes with its own challenges, as some emails in the dataset (and in general use) do not have a signature, and thus the last contiguous block might be content or even the entire email in some cases. One idea we have to combat this would be application of a language model to the sentences in a contiguous chunk. If a language model (such as an n-gram model) were trained on the English language and exhibited a high perplexity when looking at a given sentence, it might be safe to say that it is not prose and is instead a collection of names, emails, or organization names as one might expect to see in a signature. Be sure to check back in our Part 2 blog post after we have implemented this preprocessing and reported on the results!</p><h4>Conversation-Specific Features</h4><p>We started our foray into conversation-specific features with the those listed in the complete features set (beyond the basic set in our baseline) in the Sood et. al. paper, before expanding upon this set with our own contributions that target email data specifically. So far, we’ve implemented the following features based on the paper —</p><p><strong>Is Question:</strong> Important issues and concerns are often expressed in the form of questions. To take advantage of this idea, this feature represents whether or not (1 or 0) the sentence is a question. When training using this feature, we found that</p><p><strong>Sentiment Score: </strong>Based on the idea that strong sentiments and opinions are important to a conversation, this feature captures the sentiment of a sentence. The score is determined by taking the difference between the positive and negative and score for each word in the sentence, then adding up the scores of all the words in the sentence and normalizing by the number of words in the sentence.</p><p>In addition to the features in the Sood et. al. paper, we came up with some more feature ideas based on our error analysis of the baseline model —</p><p><strong>Numbers:</strong> Even with the ‘Special Terms’ feature, our baseline model often missed lines containing numbers or statistics that we would want to preserve in a summary because they were short or eliminated by the importance of other features. In order to address this shortcoming, this feature uses a simple regular expression mechanism to determine the occurrences of numeric data in a sentence.</p><p><strong>URLs:</strong> The baseline model also often missed URLs, which are typically important information and usually contained in the summary annotations of the dataset. This feature would address this problem by using a regular expression to determine how many URLs are contained in the sentence.</p><h4>Results</h4><p>At first, we tested the features that were described in the Sood et. al. paper, evaluating them on the Naive Bayes model that we had found to be most generally successful in our previous baseline experimentation. As corroborated by the paper’s findings, we discovered that these features were somewhat impactful in improving the performance of our model, at least as far as ROUGE scores were concerned:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*X9KXUGGowXEptmVn3kv-jg.png"/>Results of the model with the conversation-specific features from Sood et. al. compared with the baseline</figure><p>Noticeably, the addition of these conversation features was strictly better for ROUGE evaluation. Both the question feature and sentiment feature were roughly equivalent, although we noticed that when we subjected the summaries to human evaluation it was easier to notice an improvement from the question feature. Many of the important sentences in the reference summaries seem to have been questions, perhaps because asking a question is such a common way to transition to a new topic in an email thread. As a result, we found that this feature helped populate our summaries with many of the questions from the reference summaries, establishing clear boundaries. Even if some of the sentences in our summaries were less impactful, having the questions made a big difference for a human reader because it was possible to get the general idea of the thread from the questions alone. As an example, this is one of our generated summaries, compared with a reference:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*ONLBMtMpzebsdPUa1AzWBQ.png"/>Comparison of reference summary (left) to our generated summary (right) using the Is Question feature</figure><p>It is noticeable that the questions add a significant amount of relevance to our summary, although there is still work to be done as far as capturing the shorter, choppier, but still more important non-question sentences.</p><p>However, because another significant goal of our advanced model is to explore other conversation-specific features not addressed in the research paper, we did some additional exploration on our own to find features that could take our model’s performance beyond the results of Sood et. al., even if only for email data. So far, we have found two that improved our ROUGE metrics while also seeming to make more relevant summaries by detecting numbers and detecting URLs in a given sentence. Our results are as follows:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*xiga8kKb3O5cYHYP2sDbTQ.png"/>Results of the model with our conversation-specific features compared with the baseline</figure><p>Using the numbers feature in particular, we found that our model was able to outperform the baseline considerably, although upon human examination we had trouble determining exactly why this had happened as the summaries did not capture that many numbers. However, as far as human examination went, we discovered that the URL feature made a clear impact, adding a considerable number of important URLs to our summaries that had originally been passed over by the model even though human annotators had marked them as being especially important.</p><p>Finally, we tried all of these new features together to see how they compared to the baseline:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*l7tr_T6H5jnqWRbSf7NeGA.png"/>Results of the model with the all of the additional features discussed compared with the baseline</figure><p>Ultimately, while these features were relatively few in number, their use of conversation-specific data clearly led to a great deal of performance increase for our model.</p><h4>Next Steps</h4><p>For Part 2 of our advanced model, we would like to finish restructuring and incorporating the other datasets into our model input. Because one of our stretch goals is to be able to find a way to incorporate multiple types of data into a single model, we are hoping to do this in a way that allows us to compute the same (or at least similar) features for each type of data.</p><p>Another goal is to implement the preprocessing steps described above as a part of dataset parsing. Significantly, there are some advanced preprocessing techniques described by the Sood et. al. paper that deal with chat data specifically, so we hope to incorporate those once the chat data is working correctly. Finally, we want to continue adding features — although it is certainly unlikely that all of the features we try will be as successful as the ones described above, we hope that this project will culminate in a thorough examination of the impacts that various features can make, so we will continue to explore in this regard as we finish up our first advanced model.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=4626fe37cadb" width="1"/></div>
-    </content>
-    <updated>2018-05-03T06:56:41Z</updated>
-    <category term="nlp"/>
-    <author>
-      <name>Viterbi Or Not To Be</name>
-    </author>
-    <source>
-      <id>https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2</id>
-      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*wiisg40Bu4z11RTWJ66mnA.png</logo>
-      <link href="https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2" rel="alternate" type="text/html"/>
-      <link href="https://medium.com/feed/@viterbi.or.not" rel="self" type="application/rss+xml"/>
-      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
-      <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
-      <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-06-23T10:30:24Z</updated>
-    </source>
-  </entry>
-
-  <entry>
     <id>https://medium.com/p/d73810e0c390</id>
     <link href="https://medium.com/@be.li.nda/nlp-capstone-blog-6-overfitting-of-neural-baseline-and-advanced-model-d73810e0c390?source=rss-fad49d942bf3------2" rel="alternate" type="text/html"/>
     <title>NLP Capstone Blog #6: Overfitting and Advanced Model I</title>
@@ -1571,7 +1479,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-06-23T10:30:22Z</updated>
+      <updated>2018-06-23T11:00:24Z</updated>
     </source>
   </entry>
 
@@ -1597,7 +1505,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-06-23T10:30:23Z</updated>
+      <updated>2018-06-23T11:00:25Z</updated>
     </source>
   </entry>
 
@@ -1624,7 +1532,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-06-23T10:30:27Z</updated>
+      <updated>2018-06-23T11:01:29Z</updated>
     </source>
   </entry>
 
@@ -1649,7 +1557,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-06-23T10:30:25Z</updated>
+      <updated>2018-06-23T11:01:26Z</updated>
     </source>
   </entry>
 
@@ -2127,7 +2035,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-06-23T10:30:21Z</updated>
+      <updated>2018-06-23T11:00:22Z</updated>
     </source>
   </entry>
 
@@ -2151,7 +2059,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-06-23T10:30:27Z</updated>
+      <updated>2018-06-23T11:01:29Z</updated>
     </source>
   </entry>
 
@@ -2174,7 +2082,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-06-23T10:30:05Z</updated>
+      <updated>2018-06-23T11:00:06Z</updated>
     </source>
   </entry>
 
@@ -2197,7 +2105,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-06-23T10:30:04Z</updated>
+      <updated>2018-06-23T11:00:04Z</updated>
     </source>
   </entry>
 
@@ -2220,7 +2128,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-06-23T10:30:05Z</updated>
+      <updated>2018-06-23T11:00:05Z</updated>
     </source>
   </entry>
 
@@ -2270,7 +2178,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-06-23T10:30:25Z</updated>
+      <updated>2018-06-23T11:01:26Z</updated>
     </source>
   </entry>
 
@@ -2297,7 +2205,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-06-23T10:30:27Z</updated>
+      <updated>2018-06-23T11:01:29Z</updated>
     </source>
   </entry>
 
@@ -2322,30 +2230,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-06-23T10:30:22Z</updated>
-    </source>
-  </entry>
-
-  <entry>
-    <id>https://medium.com/p/a21b51cdd27c</id>
-    <link href="https://medium.com/@viterbi.or.not/baseline-model-2-a21b51cdd27c?source=rss-c522ef075bb3------2" rel="alternate" type="text/html"/>
-    <title>Baseline Model #2</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*M0h3Wof_sgtxGwgnT2IncQ.png"/>Bassline = Baseline?</figure><p>This week, we completed the baseline portion of our project (see the roadmap below!) by finishing the implementation of our various baseline models and evaluating their performance with the goal of providing context for the rest of the project. In last week’s blog post, we described the process of replicating the findings of a related research paper using a single model, and incorporating only features that apply to text summarization in general. This week, we expanded upon that start by adding an additional simple, single-feature baseline and by evaluating our implementation using other models as well! Finally, we built upon our codebase from last week with various bugfixes and feature additions, such as implementing k-fold cross validation for more reliable metrics.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*K0NWdjTpiYezkyqh34fdow.png"/>Roadmap of our project — At this point, we’ve completed the first big block, highlighted in orange!</figure><h4>Simple Baseline</h4><p>The simplest baseline we put together used only the sentence length feature, a very basic but often reliable measure of sentence importance, with a Naive Bayes model.</p><h4>More Realistic Baselines</h4><p>The more realistic and comprehensive baseline models that we implemented use the full “basic feature set” described in our <a href="https://medium.com/@viterbi.or.not/baseline-model-1-a6690114c441">last blog post</a> with Naive Bayes, Decision Tree, and Multilayer Perceptron models. The comprehensive Naive Bayes baseline is the same as the baseline model described in our previous post — the main progress on this week’s baselines is the addition of a simple feature to catch email lines that are quoted replies (a problem we found in a lot of the summaries generated by our models) as well as experimentation with the different types of models.</p><h4>Results and Evaluation</h4><p>As expected, the simple Naive Bayes baseline performed pretty poorly. The models using all of the features in the basic set all performed similarly well, with slight fluctuations in which ROUGE metric they did better in (seen in the table below). Overall, we found that our Naive Bayes model performed competitively with the other models in ROUGE-L and the best in ROUGE-1 and ROUGE-2, though most importantly, we thought the summaries generated by Naive Bayes were the most satisfactory when actually reading them.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*Hv_d7fQj-ATlUEaV79Moiw.png"/>Table comparing the performances of the various baseline models we implemented, the best performing in each ROUGE metric highlighted in orange</figure><p>Our best baseline model does better than the corresponding model in <a href="http://web2py.iiit.ac.in/research_centres/publications/download/inproceedings.pdf.8b32440f2dc771c4.323031325f414e445f43616d6572612e706466.pdf">Summarizing Online Conversations: A Machine Learning Approach</a> in the ROUGE-1 and ROUGE-2 metrics<strong>, </strong>but does significantly worse in the ROUGE-L metric. However, it is not clear which of the ROUGE metrics is more “important” to score well in, and it is hard to do a complete comparison between our model and theirs without a sample of the summaries generated by their model (which is not provided in the paper).</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*sFxZT2d-C_jKMnFxTWUHuA.png"/>Table comparing the performance of the our best baseline model with the corresponding model in <a href="http://web2py.iiit.ac.in/research_centres/publications/download/inproceedings.pdf.8b32440f2dc771c4.323031325f414e445f43616d6572612e706466.pdf"><strong>Summarizing Online Conversations: A Machine Learning Approach</strong></a>, the best performing in each ROUGE metric highlighted in orange</figure><p>In an effort to better understand what these automated metrics are measuring, here are descriptions of what ROUGE-L and ROUGE-N (ROUGE-1 and ROUGE-2) measure —</p><p><strong>ROUGE-L: </strong>Based on Longest Common Subsequence statistics, identifies longest co-occurring in sequence n-grams.</p><p><strong>ROUGE-1: </strong>Unigram overlap between system and reference summaries.</p><p><strong>ROUGE-2: </strong>Bigram overlap between system and reference summaries.</p><p>ROUGE-L and ROUGE-N clearly measure summary quality very differently, and rather than increase together, the metrics vary greatly and sometimes change inversely. While performing a mini ablation study with our baselines, we noticed that removing certain features increased ROUGE-L but cause large drops in both ROUGE-1 and ROUGE-2, as well as generated less satisfactory summaries (judged by us reading the generated summaries).</p><p>Because ROUGE does not necessarily reliably measure the quality of a conversation summary, human monitoring of generated summaries and error analysis are crucial to this project.</p><h4>Error Analysis</h4><p>So, although we used the ROUGE metrics for our model in order to compare it to our baseline research paper, we put an emphasis on human evaluation due to the inability of ROUGE to capture all the elements of successful summarization. Namely, although ROUGE is capable of determining whether the words and subsequences used in a summary match the human-annotated reference, it cannot capture critical aspects of the text such as its coverage of the source document’s most important points or whether it makes logical sense when read.</p><p>Upon reading through the summaries produced by our model, we discovered an interesting mix of results. Several sentences that appeared key to establishing the email thread’s topic were included in the summary by the baseline, indicating that its features for topic identification and term similarity were contributing in a positive manner. However, although it is expected that any extractive summary will produce grammatically imperfect results, there were noticeably major issues with the formation of our baseline model’s summaries.</p><p>An excerpt of one fairly representative summary produced by our model appears below, unedited except for truncation and formatting for clarity. This is a summary of an email chain concerning accessible technology from the BC3 corpus:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*JGjecxwGpwd-rxwnf_t_Cw.png"/>Comparison with reference summary</figure><p>As one can see, only the first two sentences (green) of this particular summary match the human-annotated summary; the rest (red) diverge and never again are the same sentences shared. This trend is seen across most of the summaries produced by our baseline model, where early sentences tend to be shared — one hypothesis is that the first email in a thread has clear significance in establishing that thread’s topic, while subsequent emails are less certain, leading to divergence between the model and human understanding.</p><p>Beyond the matching of sentences, there are certain aspects of the summary that, through a human evaluation, can be identified as clearly not belonging in the summary:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*ni7uIemzWgCsW4Yvh0jlwA.png"/>Email-specific formatting leads to summarization mistakes</figure><p>In this example, there are sequences of text that are directly repeated (orange). This occurs due to emails having quoted text from previous emails in their message bodies, and as the general text summarization features attribute the same likelihood of being relevant to the summary to both versions of the text based solely on content (and not, for instance, sentence position), it makes sense that both would be included. Doing so seems not to vastly impact the ROUGE score, but provides another example of the importance of human evaluation because it seems reasonable that no human would prefer to have those repetitions in a summary. Another example of the baseline model’s errors can be found in the email signature present in the summary (blue), which a human reader would clearly not find meaningful for the summary.</p><p>Both of these mistakes can be attributed to the fact that our baseline model uses general features for text summarization, and does not factor in conversation-specific features such as recognizing an email signature as being irrelevant to the topics being discussed. Once we begin work on our minimum viable product, we expect it to perform much better in this category, because we will have the chance to add these features.</p><p>Finally, the following examples show cases in which our model makes the opposite mistake from above, failing to capture portions of the original conversation that are important to the summary through human eyes. As expected, both of the common cases of failure we identified seem to stem from the fact that the missed content is formatted in a different way than normal text.</p><p>For the same conversation as above, the following shows just the URLs that were included in a human-annotated summary. Highlighted in green are the URLs which our baseline model also included in its generated summary:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*P9C4OsXf9w3KK4ishqa9Tg.png"/>Almost all important URLs are not captured by the baseline model</figure><p>As one can see, the baseline model had a 10% success rate in identifying URLs from the email thread that the human annotator deemed as important. In a thread that primarily dealt with identifying resources from the internet, having these URLs in a summary would be highly desirable, so we consider this to be a major failing of the baseline model. Because URLs are much different from typical text, using general text summarization features likely led to this absence because there are no features that can ascribe importance to URLs based purely off their general format.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*Wfd7cl-8KZ36YvAWXG4wHw.png"/>Structured data, such as ordered lists, are not captured</figure><p>As another example, the following is a comparison between our baseline model and a human-annotated reference summary for a different conversation that includes discussion of poll results:</p><p>Although the baseline model does relatively well in identifying sentences related to the discussion of the poll results, its summary is noticeably lacking the results themselves. We hypothesize that the general text summarization features are insufficient to detect numerical data or items that are presented in a list, such as the one above, and therefore because the actual text within each poll result item is very generic the baseline model was unable to successfully select them for the summary.</p><p>Ultimately, these few examples are not enough to capture the exact failings of our baseline model, but by analyzing them in conjunction with the other summaries generated for our validation set, we were able to get an impression of the types of improvements that will be needed. In our next step of including conversation-specific features, we plan to make our top priority addressing structured data unique to emails by creating features to target email summaries, quoted text (and repeated text in general), and certain entities such as URLs or lists.</p><h4>Steps Towards an Advanced Model</h4><p>Keeping the weaknesses of our baseline in mind, our next steps towards creating a more advanced conversation summarization model (and approaching our Minimum Viable Product!) include the following:</p><p><strong>Incorporate conversation-specific features</strong></p><ul><li>We would like to explore using topic segmentation to preprocess conversation data and potentially improve model performance.</li><li>We would also like to add features that incorporate detection of<strong> structured data</strong> (URLs, Lists, Numbers), <strong>sentiment scores</strong> of sentences, and <strong>discourse markers</strong> (defining the purpose of a sentence in the text, for example, identifying a sentence as an email signature).</li></ul><p><strong>Train the models on other datasets</strong></p><ul><li>We will need preprocess the other datasets and restructure some of our code to handle input of the other datasets.</li><li>We anticipate some challenges based on the differences of the other datasets — the chatlog data will require much more preprocessing and meeting transcripts will likely have different vocabulary (i.e. no URLs, fewer abbreviations) which may impact our feature engineering process.</li></ul><p>Check back next week to see our initial work on the most exciting part — the advanced model!</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=a21b51cdd27c" width="1"/></div>
-    </content>
-    <updated>2018-04-25T06:29:12Z</updated>
-    <category term="nlp"/>
-    <author>
-      <name>Viterbi Or Not To Be</name>
-    </author>
-    <source>
-      <id>https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2</id>
-      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*wiisg40Bu4z11RTWJ66mnA.png</logo>
-      <link href="https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2" rel="alternate" type="text/html"/>
-      <link href="https://medium.com/feed/@viterbi.or.not" rel="self" type="application/rss+xml"/>
-      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
-      <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
-      <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-06-23T10:30:25Z</updated>
+      <updated>2018-06-23T11:00:24Z</updated>
     </source>
   </entry>
 
@@ -2368,7 +2253,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ning Hong on Medium</subtitle>
       <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-06-23T10:30:05Z</updated>
+      <updated>2018-06-23T11:00:06Z</updated>
     </source>
   </entry>
 
@@ -2391,7 +2276,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-06-23T10:30:23Z</updated>
+      <updated>2018-06-23T11:00:25Z</updated>
     </source>
   </entry>
 
@@ -2415,7 +2300,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-06-23T10:30:28Z</updated>
+      <updated>2018-06-23T11:01:29Z</updated>
     </source>
   </entry>
 
@@ -2559,7 +2444,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-06-23T10:30:21Z</updated>
+      <updated>2018-06-23T11:00:23Z</updated>
     </source>
   </entry>
 
@@ -2605,7 +2490,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-06-23T10:30:28Z</updated>
+      <updated>2018-06-23T11:01:30Z</updated>
     </source>
   </entry>
 
@@ -2629,7 +2514,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-06-23T10:30:04Z</updated>
+      <updated>2018-06-23T11:00:04Z</updated>
     </source>
   </entry>
 
@@ -2674,7 +2559,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-06-23T10:30:05Z</updated>
+      <updated>2018-06-23T11:00:05Z</updated>
     </source>
   </entry>
 
@@ -2702,7 +2587,176 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-06-23T10:30:25Z</updated>
+      <updated>2018-06-23T11:01:26Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>tag:blogger.com,1999:blog-5600014144802012716.post-2741407940361589303</id>
+    <link href="https://nlpcapstonesemparse.blogspot.com/2018/04/blog-4-strawman-i.html" rel="alternate" type="text/html"/>
+    <title>Blog 4: Strawman I</title>
+    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">I'm implementing the parser within the the wikitables semantic parser(Neural Semantic parsing with type constraints by Krishnamurthy et al) since both are solving similar tasks and it'd be a cool result if the same architecture worked for both tasks. The similarity is that both tasks need to generate the logical form which incorporates elements of a context. For wikitables its cell and column names and for this task its variable and method names.<br/><br/>Results:<br/><br/><ul><li>Wikitables framework - 4% accuracy.</li><li>Wikitables framework + parent states - 12% accuracy.</li></ul><div><br/></div><div>The wikitables baseline performs poorly and integrating the parent production rule used as input to the decoder cell in the java paper but not the wikitables paper results in a eight percent improvement. This is since the java production rule sequences are much longer and cannot just rely on the previous rule.</div><div> </div><br/>These results demonstrate that while that tasks are similar there are some key differences in the datasets that won't allow the exact same architecture to be used. Nonetheless, I will still be implementing the java parser within the wikitables framework incorporating necessary elements to boost performance.<br/><br/>My code is here:<br/><b>https://github.com/rajasagashe/allennlp/tree/enviro-linking</b></div>
+    </summary>
+    <updated>2018-04-19T19:13:00Z</updated>
+    <author>
+      <name>nlpcapstone</name>
+      <email>noreply@blogger.com</email>
+    </author>
+    <source>
+      <id>tag:blogger.com,1999:blog-5600014144802012716</id>
+      <author>
+        <name>nlpcapstone</name>
+        <email>noreply@blogger.com</email>
+      </author>
+      <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
+      <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
+      <title>NlpCapstone</title>
+      <updated>2018-06-23T11:00:04Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>https://medium.com/p/be87c31976b7</id>
+    <link href="https://medium.com/@halden.lin/nlp-capstone-04-first-steps-be87c31976b7?source=rss-2759d54493c0------2" rel="alternate" type="text/html"/>
+    <title>NLP Capstone | 04: First Steps</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p><em>previous posts: </em><a href="https://medium.com/@halden.lin/nlp-capstone-01-options-ee873b6885d5"><em>01</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5"><em>02</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-03-project-proposal-7d8e9ec1a8e3"><em>03</em></a></p><p>Nearing 4 weeks in — I’ve finally got a foothold in the development process. Over this past week I’ve been looking through TensorBoard and TensorFlow source-code and documentation in an attempt to develop a foundation for plugin development.</p><p><strong>Notable Resources:</strong></p><ul><li><a href="https://www.tensorflow.org/programmers_guide/summaries_and_tensorboard">TensorBoard Documentation</a></li><li><a href="https://github.com/tensorflow/tensorboard">TensorBoard Source Code</a> and <a href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins">Existing Plugins</a></li><li><a href="https://github.com/tensorflow/tensorboard-plugin-example/blob/master/README.md">Developing a TensorBoard Plugin</a> (a simple example)</li></ul><h4>Completed Milestones:</h4><ol><li>Understand the structure of a TensorBoard Plugin, specifically how the architecture of the Attention Plugin should look like.</li><li>Design and write the data fetching layer.</li></ol><h4>Plugin Architecture</h4><p>In TensorFlow, data from iterations of training / evaluation is stored as a set of <strong>summaries</strong>. These can take the form of any tensor, including text, image, scalars, or time series. These are written to disk as the computation graph is executed. Each ‘summary’ takes the form of a <a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/framework/summary.proto">Summary protocol buffer</a>, which holds, in addition to the data stored, critical identifying information (tags and metadata). A plugin can then read summaries associated with particular tags and sessions from disk to serve to the TensorBoard front-end via a plugin back-end, where a visualization is rendered.</p><p>Following <a href="https://github.com/tensorflow/tensorboard-plugin-example/blob/master/README.md"><em>Developing a TensorBoard plugin</em></a><em>, </em>the Attention Plugin with have three primary components:</p><ol><li>Data API layer. This is what allows users to capture relevant summaries from within their models.</li><li>Plugin backend, which serves said summaries.</li><li>Frontend, where the visualizations are displayed.</li></ol><p>Unlike commonly used plugins such as the <a href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/scalar]">scalar</a> and <a href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/histogram">histogram</a> plugins, the Attention Plugin consumes 3 distinct values: the input text, the decoded output text, and the attention matrix that correlates the two. Initially, I attempted to store these all in a single Summary protobuf, where the first two rows of the encapsulating matrix would contain the text, and the rest would contain the attention weights. This results in a mixing of string and float types in a single Tensor, which is not valid (to my knowledge) in TensorFlow. I then realized I could store these separately, each in their own summary, and retrieve them via an identifying name. The resulting architecture is shown in the diagram below.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*QK7USkxsSC3u6F0LKbKWXQ.png"/>The architecture of the Attention Plugin.</figure><p>I decided to make the output text an optional summary, as models don’t necessarily need to decode (via Viterbi, Beam Search, or otherwise) an output sequence while training. The input text and attention matrix are still valuable, as summary statistics (e.g. coverage, important words, etc) can be gleamed without the decoded text.</p><h4>Data API Layer</h4><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*0m1-fllpNYMP666FhR0nbA.png"/>Data API Layer highlighted in green.</figure><p>As the TensorBoard authors suggest, the data API layer, defined in attention_summary.py, provides two methods for creating Summary protobufs, which can then be written to disk via a FileWriter. The first is via a TensorFlow op, which can be thought of as a node in the computation graph, that produces a Summary when the graph is executed. The second is by directly creating the protobuf, which allows for data to be saved outside the execution of a TensorFlow session. I’ve implemented both of these. There is a separate method for each of the three datum used by the plugin (input text, output text, attention matrix), and each of the three summary datum are tagged differently (e.g. name/attention_input_summary, name/attention_output_summary) in order to allow for distinguishable retrieval later.</p><p>An example of the usage of both methods can be found in attention_demo.py.</p><h4>Next Steps</h4><p>I suspect the work completed this week was the biggest hurdle in terms of time:code ratio. I would not be surprised if I had to revisit the work done here in order to clean things up or fix small bugs. However, with this understanding and architecture nailed down, I expect implementation of the rest of the plugin will come at a faster pace. With that said, three tasks stand as immediate goals for the next week.</p><ol><li>Modify my forked repository of the summarization model created by <a href="https://arxiv.org/pdf/1704.04368.pdf">See et al.</a> (original found <a href="https://github.com/abisee/pointer-generator">here</a>) to produce and save the appropriate summaries for the Attention Plugin. I’ve already started looking into this, and expect to have to fiddle around with the training / evaluation scheme in order to grab an appropriate amount of data.</li><li>Implement the backend of the Attention Plugin.</li><li>Begin prototyping visualizations (pen &amp; paper) and acquire preliminary feedback.</li></ol><p>Until next time.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=be87c31976b7" width="1"/></div>
+    </content>
+    <updated>2018-04-19T06:33:40Z</updated>
+    <category term="nlp"/>
+    <category term="visualization"/>
+    <category term="machine-learning"/>
+    <category term="data-visualization"/>
+    <category term="computer-science"/>
+    <author>
+      <name>Halden Lin</name>
+    </author>
+    <source>
+      <id>https://medium.com/@halden.lin?source=rss-2759d54493c0------2</id>
+      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*Hzu2ZqgloT0I1F6Kwg8OPA.jpeg</logo>
+      <link href="https://medium.com/@halden.lin?source=rss-2759d54493c0------2" rel="alternate" type="text/html"/>
+      <link href="https://medium.com/feed/@halden.lin" rel="self" type="application/rss+xml"/>
+      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
+      <subtitle>Stories by Halden Lin on Medium</subtitle>
+      <title>Stories by Halden Lin on Medium</title>
+      <updated>2018-06-23T11:01:28Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>tag:blogger.com,1999:blog-3753031463594823927.post-8569998071322028844</id>
+    <link href="https://cse481n.blogspot.com/2018/04/blog-post-4.html" rel="alternate" type="text/html"/>
+    <title>Blog Post #4</title>
+    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div dir="ltr" id="docs-internal-guid-7937c8af-d777-ed0f-f77b-cf09623b985e" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">A big part of our work for setting up a baseline is the creation of a reasonably good dataset for training and evaluating extractive text summarization. Our goal was to build a dataset with all sentences from the articles marked with binary labels indicating whether or not they were part of the extracted summary.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">We used the DailyMail and CNN story dataset, which is meant for abstractive summarization, to build our own dataset. The data set includes automatically-parsed lines from news articles, as well as a few bullet point highlights for each article. These highlights are not sentences directly from the article, but are overall a decent indicator and considered to be one of the most useable datasets out there (if for no other reason than sheer volume of data).</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">To build our data set, we used a toy metric roughly based off of ROUGE-N, with the understanding that we would only need a way of relative ranking for each sentence.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">The procedure to generate the data set was as follows:</span></div><ol style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Read in a single .story file from the abstractive dataset into highlights and sentences.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Post-process sentences- in the original data, new lines do not correspond exactly with sentence endings. Additionally, some sentences are originally split arbitrarily by new lines. We do an additional split by the regex (?&lt;=[.?!])\s+ (whitespace with period, question mark, or exclamation mark lookbehind), but sentence “re-joining” is off by default, as some sentences in the original dataset do not end with punctuation.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Score each sentence with our metric.</span></div></li><ol style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Tokenize each sentence and highlight.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Build unigram, bigram, and trigram lists.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Count the number of matches between the sentence and all the highlights, giving more weight to bigram and trigram matches and also weighting by word length.</span></div></li></ol><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Sort sentences by score.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Let S be the number of sentences and H be the number of highlights. The algorithm picks up to min(1, floor(S/2)) sentences as part of the summary. It picks at least the H sentences with the highest scores. After sentence H is picked, subsequent sentences will only be picked if their score was at least (80+3*X)% of the previously-picked sentence’s score, where X is the number of sentences currently picked. This is effectively a fairly arbitrary metric to pick the most likely sentences roughly in accordance with the size of the abstractive summary, while also allowing for particularly similar sentences to both be chosen for completeness.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">All data input and output with UTF-8 encoding.</span></div></li></ol><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Output format:</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">&lt;#&gt; &lt;SENTENCE PLAINTEXT&gt;</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;"># is either 0 = normal sentence in the article, 1 = sentence chosen as part of extractive summary, 2 = original abstractive summary (should not be touched by model, only left there for human reference). </span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Overall, we think our data set is generally reasonable and makes sense. Nonetheless, there are a number of weaknesses with both extractive models in general and this specific type of dataset (including some problems which derive from the original abstractive dataset).</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Key weaknesses of data set:</span></div><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">In the original data, highlights do not always correspond to actual information in the article. For example, this short story has four highlights that are all new information: 008fc24ca9f4c48a54623bef423a3f2f8db8451a.story.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Frequent formatting problems - sentences that don’t terminate with punctuation, repeated sentences, bugged unicode characters, etc.</span></div></li></ul><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Key weaknesses specific to extractive summarization:</span></div><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Articles that are particularly short are effectively impossible to meaningfully summarize with extractive techniques.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Some sentences in articles contain the same content with slightly different wording. In these cases, we decided to choose both sentences, with the idea that post-processing could take care of highly-similar sentences, but a model could not be expected to accurately distinguish between two such sentences if they have different labels.</span></div></li></ul><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">The Baseline Model:</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">For our baseline combinatorial approach, we did a simple Maximum Coverage Problem implementation. The Maximum Coverage Problem is a classic NP-complete problem. Given a collection of n sets, the goal is to maximize the number of chosen (or “covered”) elements while only choosing k of the sets (where k &lt; n). It’s very straightforward to reduce summarization to this problem. The sentences in the document are the sets, and the vocabulary of the document represents the “universe”, or the elements in the sets. The goal is to cover as many words as possible while picking the same number of sentences as in the labelled summary. The intuition is that sentences with more words capture more semantic meaning, and once a word is listed in the summary, that word need not be considered again. This reduction makes some intuitive sense, but two main aspects must be refined. First, not all words are equally meaningful. Some words, like “a”, “the”, or “and”, have little semantic content, while named entities and other important words have much higher semantic content. Second, we should at least account for sentence lengths -- instead of constraining the algorithm to pick the same number of sentences, we should constrain it to the same word count. This two additional criteria turn the problem into the Budgeted Maximum Coverage Problem: elements in the sets have specified values, and the sets have specified costs. The new objective is to maximize the total value of the covered elements while remaining with a given budget.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Of course, this problem is NP-complete, so it may seem like a strange choice to model summarization with. There are two approaches to this. First, a simple greedy algorithm achieves an approximation of ~63%, which means that the greedy algorithm is guaranteed to get at least 63% of the value of the optimal solution. For the standard MCP, the greedy algorithm just chooses the set with the most uncovered elements until no more sets are allowed. For the budgeted MCP, the approximation algorithm is slightly more complex. See Khuller et al. for a detailed look at it -- the algorithm is slightly more work, but still very understandable, and achieves the same approximation bound.  We can also formulate the problem as an Integer Linear Program (ILP) and use an ILP solver to generate optimal solutions on realistic instance sizes. This works because the documents and sentences are both small.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">For now, we are using the greedy algorithm for the standard MCP. As a simple metric, we used the number of correct chosen sentences divided by the number of chosen sentences in total (correct means that the gold standard also picked that sentence). With a basic MCP approach, we had an accuracy of 0.218. This was measured on a small sample of 2000 stories. In order to approximate a weighting scheme, we use a stop list to simply remove common articles and other semantically empty words. With this small modification, we had an accuracy of 0.2328.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">We plan to extend this to a better baseline model in the next few days. We will formulate the problem as an ILP and pass it to an ILP solver for an optimal solution. We will also implement a more sophisticated weighting scheme. One idea is to use some of the labelled data as training data (right now, we don’t train) to build a weight matrix for common words -- we can build this matrix with a logistic regression, using n-gram (probably unigram) similarity as the loss function.This will hopefully give us a more reasonable baseline model.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Evaluation Framework:</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">For now, we’re using a simple accuracy metric. We plan to switch to ROUGE, which counts n-gram similarity (ROUGE measures recall, not precision). We will work with the ROUGE-2.0 Java package or pyrouge, depending on which language we are working with. </span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">So to summarize our goals for the next week, we will improve this baseline model by formulating the problem as an ILP and we may implement a weighting scheme (if that’s too complicated, we’ll save it for the advanced model). We will also build a baseline neural model. Then, we’ll flesh out our evaluation framework using ROUGE metrics, train/test using more of the corpus, and have detailed error analysis.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">References:</span></div><div dir="ltr"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Khuller, S., Moss, A., &amp; Naor, J. (Seffi). (1999). The Budgeted Maximum Coverage Problem. </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: italic; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Inf. Process. Lett.</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">, </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: italic; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">70</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">(1), 39–45. https://doi.org/10.1016/S0020-0190(99)00031-9</span></div></div>
+    </summary>
+    <updated>2018-04-18T06:25:00Z</updated>
+    <author>
+      <name>Ron &amp;amp; Aditya</name>
+      <email>noreply@blogger.com</email>
+    </author>
+    <source>
+      <id>tag:blogger.com,1999:blog-3753031463594823927</id>
+      <author>
+        <name>Ron &amp;amp; Aditya</name>
+        <email>noreply@blogger.com</email>
+      </author>
+      <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
+      <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
+      <title>PrimeapeNLP</title>
+      <updated>2018-06-23T11:01:27Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>https://medium.com/p/15357a82fe06</id>
+    <link href="https://medium.com/nlp-capstone-blog/first-impressions-baselines-and-the-evaluation-framework-15357a82fe06?source=rss----9ba3897b6688---4" rel="alternate" type="text/html"/>
+    <title>First Impressions: Baselines and the Evaluation Framework</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>Ultimately, our goal is to go beyond basic language modeling and create a new text generation architecture conducive to producing technical definitions. To get a feel for the data though, we approach it with familiar, simple baselines that give us a foundation in which we can improve from.</p><p>The baselines that we’ve experimented with are</p><ul><li><strong>Vanilla RNN:</strong> Hidden states as a function of the input and the previous hidden state, with Tanh activation (in particular, we’re using the <a href="https://medium.com/@tamdangnadmat/first-impressions-baselines-and-the-evaluation-framework-15357a82fe06">Elman Network</a>).</li><li><strong>GRU:</strong> An RNN architecture that learns to throttle the influence and usage of particular parameters on inference using a gating mechanism.</li><li><strong>LSTM: </strong>Another RNN architecture that specializes in intelligently remembering relevant details and forgetting irrelevant details through several gating mechanisms and a “cell state” in addition to the conventional hidden states. <a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/">Here’s more detail</a> about this particular kind of RNN.</li></ul><p>All baselines were trained as language models with cross entropy loss and were used to get a sense of how learnable the language of the Semantic Scholar dataset is. The metrics we are focusing on now are</p><ul><li><strong>Perplexity: </strong>A measure of how “confused” the model is at any point it’s attempting to predict the next word.</li><li><strong>Feature extraction through hidden states:</strong> Can the hidden states be used as features for a classification task?</li></ul><p>Our first metric is fairly straightforward; we calculate the aggregate sum of log probabilities for every word in the corpus and normalize by the size of the corpus.</p><p>Our second metric however, is inspired by Dieng et al.’s method for sentiment analysis in <a href="https://www.semanticscholar.org/paper/TopicRNN%3A-A-Recurrent-Neural-Network-with-Semantic-Dieng-Wang/412068c7e8e77b73add471789d58df3d2f3e08d8">TopicRNN</a>, in which the final hidden states after a forward pass of the model on a movie review were used to predict positive or negative sentiment using a single-layer neural network. We aim to adopt this metric from a multi-class classification perspective in which the passages we use are excerpts of research documents with an omitted, technical term. The question we aim to answer with this metric is “is the model capable of representing semantics in a latent space?”</p><p>Our labels will then be a defined set of these omitted, technical terms, and our goal will then be to predict them given the hidden states of the passage via a two-layer neural network. The framework for this evaluation metric can be found in <a href="https://github.com/NLP-Capstone-Project/machine-dictionary/tree/evaluation">this branch</a> of our codebase.</p><h4>Why we chose these metrics</h4><p>Our task is fairly novel given the way we’re approaching it, so currently no dataset exists that pairs domain-specific words with definitions that are to the caliber of research technicality. Because of this, metrics that depend on gold standards such as ROUGE and BLEU are currently out of reach at this time.</p><p>There’s a chance we’ll experiment with these metrics if we can find a labeled dataset to supplement Semantic Scholar’s Open Research Corpus. We are also considering using the publications themselves as the gold standards, which may be helpful since a desirable trait of our model would be its ability to produce language similar to that of the corpus.</p><h3>Challenges Encountered while Baselining</h3><p>In establishing our baselines and metrics, there were several issues we ran into, both in training.</p><h4>Dealing with a larger corpus</h4><p>Given that our baselines are language models, and that our later prototype models will most likely contain an LM component, we have to deal with efficient learning given there are several million documents to process.</p><p>For efficient backpropagation, we opted to introduce a “backpropagation through time” as a hyperparameter defaulted at 50, which specifies the number of words we allow the model to see before updating our parameters.</p><p>Currently, batching is supported by our codebase but was not used in our initial experiments. Given that it takes roughly one minute for the GPUs on the cloud to process a single publication, we plan to concatenate document vectors and reshape into batch-by-length tensors in the future.</p><h4>Sorting By Domain</h4><p>We’d like our model to be trained on a single domain/field of study for our future case studies comparing dictionaries built on one domain versus others. This is further motivated by some of our experiment results discussed later, how loss tends to spike between documents.</p><p>Currently, the Semantic Scholar Open Research Corpus doesn’t include anything in the set of JSON fields that we could find for filtering the data. However, we’ve been assured by AllenNLP researchers that its possible to sort the data by research domain. We may performing another round of baseline experiments once we’ve sorted the data, but for now the results below are on publications of mixed domains.</p><h3>Experimental Results</h3><p>The Semantic Scholar Open Research Corpus provides a sample subset of its dataset: a JSON file containing 4000 entries. Within each entry, the URL of the publication’s online PDF is provided. We use a GET request to <a href="https://github.com/allenai/science-parse">AI2’s Science Parse</a> service to extract the PDF contents.</p><p>From there, we run our experiments on 121 of the 4000 extracted documents, stopping training early at 15 documents and calculated perplexity on a validation set of 30 documents. The total vocabulary used was 11,330 words. Words outside of this vocabulary are replaced with an unknown token at training and test time.</p><p>Loss is calculated and normalized on the last 50 words the model is trained on.</p><ul><li><strong>Elman RNN:</strong> Perplexity of 250.25 with an average loss of 7.908 over the last 50 words.</li><li><strong>GRU:</strong> Perplexity of 265.50 with an average loss of 7.085 over the last 50 words</li><li><strong>LSTM:</strong> Perplexity of 261.95 with an average loss of 6.588 over the last 50 words</li></ul><p>Perplexities calculated using untrained models (with randomized parameters) were several orders of magnitude larger than the ones listed above, so it’s good to know that our baseline models can learn a significant amount of surface-level patterns with such a small subset of the corpus.</p><p>In terms of feature extraction and classification, the framework has been implemented but the data for this has not been created yet. We plan on evaluating our baselines along with our final model on this metric using publications from Semantic Scholar after establishing a vocabulary of semantically significant technical terms and creating the dataset using those terms. This will involve iterating over documents and replacing occurrences of these technical terms with a specialized, unknown token that won’t aid in inference.</p><h3>Conclusion</h3><p>Our methods helped us familiarize ourselves with the data as well as handle significant amounts of overhead in terms of processing the data, toggling between different models, and integration of our evaluation metrics in an organized fashion.</p><p>We are excited to see how novel architectures tailored to the task perform on these metrics!</p><p>To keep up to date with our progress in baselining, evaluation, and other things, you can watch <a href="https://github.com/NLP-Capstone-Project/">this repository</a>.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=15357a82fe06" width="1"/><hr/><p><a href="https://medium.com/nlp-capstone-blog/first-impressions-baselines-and-the-evaluation-framework-15357a82fe06">First Impressions: Baselines and the Evaluation Framework</a> was originally published in <a href="https://medium.com/nlp-capstone-blog">NLP Capstone Blog</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p></div>
+    </content>
+    <updated>2018-04-18T05:40:07Z</updated>
+    <category term="capstone"/>
+    <category term="machine-learning"/>
+    <category term="deep-learning"/>
+    <category term="nlp"/>
+    <author>
+      <name>Tam Dang</name>
+    </author>
+    <source>
+      <id>https://medium.com/nlp-capstone-blog?source=rss----9ba3897b6688---4</id>
+      <logo>https://cdn-images-1.medium.com/proxy/1*TGH72Nnw24QL3iV9IOm4VA.png</logo>
+      <link href="https://medium.com/nlp-capstone-blog?source=rss----9ba3897b6688---4" rel="alternate" type="text/html"/>
+      <link href="https://medium.com/feed/nlp-capstone-blog" rel="self" type="application/rss+xml"/>
+      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
+      <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
+      <title>NLP Capstone Blog - Medium</title>
+      <updated>2018-06-23T11:00:25Z</updated>
+    </source>
+  </entry>
+
+  <entry xml:lang="en">
+    <id>http://mathstoc.wordpress.com/?p=314</id>
+    <link href="https://mathstoc.wordpress.com/2018/04/18/nlp-capstone-post-3-baseline-and-midi-frustration/" rel="alternate" type="text/html"/>
+    <title>NLP Capstone Post #4: Baseline and MIDI Frustration</title>
+    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">Baseline model Our baseline approach is taken from Daniil Pakhomov’s excellent blog post[1]. In this post, two separate RNNs are trained as generators: one for lyrical content and one for music content (in piano roll format). We will begin by using his trained lyrical model, and attempt to do conditional sampled character generation given a … <a class="more-link" href="https://mathstoc.wordpress.com/2018/04/18/nlp-capstone-post-3-baseline-and-midi-frustration/">Continue reading <span class="screen-reader-text">NLP Capstone Post #4: Baseline and MIDI Frustration</span></a></div>
+    </summary>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><h1><b>Baseline model</b></h1>
+<p><span style="font-weight: 400;">Our baseline approach is taken from Daniil Pakhomov’s excellent blog post[1]. In this post, two separate RNNs are trained as generators: one for lyrical content and one for music content (in piano roll format). We will begin by using his trained lyrical model, and attempt to do conditional sampled character generation given a starting sequence of characters. We loaded the already trained models from the blog post and generated lyrics according to the style of a given songwriter and with a given seed word. The lyrics are generated via a character-level LSTM and generates the next character conditioned on the preceding characters and choice of songwriter. The model is trained on a corpus of song lyrics, where naturally the “correct” character to generate is the next character in the lyrics. Essentially the same mechanism is applied to the musical note generation.</span></p>
+<p><span style="font-weight: 400;">The characters are encoded as a one-hot vector over all letters in the English alphabet plus space, comma, etc. Piano rolls already come in an encoding amenable to feeding into RNNs, modulo additional zero padding to ensure every time slice of every piano role has the same dimension. In particular, at each time step (discretized in an appropriately fine-grained way), we have an indicator 0-1 vector on which notes are currently activated.</span></p>
+<p><span style="font-weight: 400;">Here is a song generated in the style of “Queen” with the starting seed sequence of characters “Music”:</span></p>
+<blockquote>
+<p style="text-align: center;"><i>Music savor valerite – yah  </i></p>
+<p style="text-align: center;"><i>Imabribot, bind me – I – well  </i></p>
+<p style="text-align: center;"><i>All going down to L</i></p>
+<p style="text-align: center;"><i>At the eyes of the universe  </i></p>
+<p style="text-align: center;"><i>Agree, five to the Slim  </i></p>
+<p style="text-align: center;"><i>I just want to convincide  </i></p>
+<p style="text-align: center;"><i>We wash stars and quiet Ich  </i></p>
+<p style="text-align: center;"><i>You had a dirty old baby  </i></p>
+<p style="text-align: center;"><i>We won’t  </i></p>
+<p style="text-align: center;"><i>We does nothing no one ezy? follohin?  </i></p>
+<p style="text-align: center;"><i>Sometimes we get down and ooh  </i></p>
+<p style="text-align: center;"><i>Nothing do you see all night  </i></p>
+<p style="text-align: center;"><i>  </i></p>
+<p style="text-align: center;"><i>This is my pries  </i></p>
+<p style="text-align: center;"><i>  </i></p>
+<p style="text-align: center;"><i>Joyful the world  </i></p>
+<p style="text-align: center;"><i>Does their beams  </i></p>
+<p style="text-align: center;"><i>Surgeon makes the scule la beat  </i></p>
+<p style="text-align: center;"><i>Walking out on my pocket ride  </i></p>
+<p style="text-align: center;"><i>My faulty power  </i></p>
+<p style="text-align: center;"><i>I wear from the ston</i></p>
+</blockquote>
+<p><span style="font-weight: 400;">Eventually, since we are actually interested in converting the musical information into plausible lyrics, we will need to modify this baseline in the natural way to take as input time slices of the musical instrumentation in piano roll format and predict characters (or syllables) that are to be enunciated simultaneously with the played notes. In this manner, the lyrics come already aligned in a natural way, and the words can be extracted by compressing the letters occurring between spaces.</span></p>
+<h1><b>Dataset parsing</b></h1>
+<p><span style="font-weight: 400;">The MIDI format has an unfortunate number of unexpected caveats. We have spent a majority of our time so far cleaning the data and attempting to use it in existing Python libraries that handle MIDI. A brief description of MIDI[2] covers some of the challenges:</span></p>
+<ul>
+<li style="font-weight: 400;"><span style="font-weight: 400;">MIDI is made up of a series of messages, such as notes, instruments, and tempo changes. Additional metadata messages exist called meta messages, which can contain text content such as the song title (and lyrics!). In our dataset, lyrics are provided either as “text” messages or as “lyrics” messages.</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Messages are grouped into different tracks, often representing separate instruments. Metadata sometimes is located in its own track, and lyrics are sometimes found in a different track from the rest of the metadata.</span></li>
+<li style="font-weight: 400;"><span style="font-weight: 400;">Durations in the MIDI format are specified as a delta-time relative to the most recent frame. Delta times are in a unit called a tick. Ticks are defined in the file header as a division of the quarter note. The header also defines the number of ticks per frame, which is what the deltas are relative to. Beats per minute (bpm) messages adjust the speed of playback throughout the song.</span></li>
+</ul>
+<p><span style="font-weight: 400;">The most promising library so far is PrettyMIDI[3], which handles most of the unexpected behavior of the basic MIDI format. This library wraps MIDI messages into structured python objects, and provides a conversion from MIDI into piano roll format. Piano roll in this case is a numpy array of shape (num_notes, num_frames). This allows us to input the musical data directly into an RNN. The units are also converted into absolute seconds, as opposed to relative durations. PrettyMIDI can additionally handle embedded lyrics, but this has proven to be a challenge due to the variety of annotation styles in our dataset. About 200 of our 900 files have parsed lyric data properly, so continuing to clean our data is a high priority.</span></p>
+<h1><strong>U</strong>pd<strong>ate</strong></h1>
+<p><span style="font-weight: 400;">Unfortunately, we have found the Kara1k dataset[4] to be inapplicable to our project, as the raw sequence of musical notes and lyrical content are not provided, only metadata that the dataset developers have extracted.</span></p>
+<h1>References</h1>
+<p><span style="font-weight: 400;">[1] </span><a href="http://warmspringwinds.github.io/pytorch/rnns/2018/01/27/learning-to-generate-lyrics-and-music-with-recurrent-neural-networks/"><span style="font-weight: 400;">http://warmspringwinds.github.io/pytorch/rnns/2018/01/27/learning-to-generate-lyrics-and-music-with-recurrent-neural-networks/</span></a></p>
+<p><span style="font-weight: 400;">[2] </span><a href="http://www.music.mcgill.ca/~ich/classes/mumt306/StandardMIDIfileformat.html"><span style="font-weight: 400;">http://www.music.mcgill.ca/~ich/classes/mumt306/StandardMIDIfileformat.html</span></a></p>
+<p><span style="font-weight: 400;">[3] </span><a href="http://craffel.github.io/pretty-midi/"><span style="font-weight: 400;">http://craffel.github.io/pretty-midi/</span></a></p>
+<p><span style="font-weight: 400;">[4] </span><a href="http://yannbayle.fr/karamir/kara1k.php"><span style="font-weight: 400;">http://yannbayle.fr/karamir/kara1k.php</span></a></p></div>
+    </content>
+    <updated>2018-04-18T04:58:56Z</updated>
+    <category term="NLP Capstone"/>
+    <author>
+      <name>Nicholas Ruhland</name>
+    </author>
+    <source>
+      <id>https://mathstoc.wordpress.com</id>
+      <logo>https://s0.wp.com/i/buttonw-com.png</logo>
+      <link href="https://mathstoc.wordpress.com/category/nlp-capstone/feed/" rel="self" type="application/rss+xml"/>
+      <link href="https://mathstoc.wordpress.com" rel="alternate" type="text/html"/>
+      <link href="https://mathstoc.wordpress.com/osd.xml" rel="search" title="Mathematical Distractions" type="application/opensearchdescription+xml"/>
+      <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
+      <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
+      <title>NLP Capstone – Mathematical Distractions</title>
+      <updated>2018-06-23T11:01:30Z</updated>
     </source>
   </entry>
 </feed>
