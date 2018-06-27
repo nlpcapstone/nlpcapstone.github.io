@@ -57,19 +57,6 @@
     </foaf:member>
     <foaf:member>
       <foaf:Agent>
-        <foaf:name>Belinda Li &lt;br/&gt; Team Sentimentity</foaf:name>
-        <foaf:weblog>
-          <foaf:Document rdf:about="https://medium.com/@be.li.nda?source=rss-fad49d942bf3------2">
-            <dc:title>Stories by Belinda Zou Li on Medium</dc:title>
-            <rdfs:seeAlso>
-              <rss:channel rdf:about="https://medium.com/feed/@be.li.nda"/>
-            </rdfs:seeAlso>
-          </foaf:Document>
-        </foaf:weblog>
-      </foaf:Agent>
-    </foaf:member>
-    <foaf:member>
-      <foaf:Agent>
         <foaf:name>Tam Dang, Karishma Mandyam &lt;br/&gt; Team Illimitatum</foaf:name>
         <foaf:weblog>
           <foaf:Document rdf:about="https://medium.com/nlp-capstone-blog?source=rss----9ba3897b6688---4">
