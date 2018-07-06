@@ -70,19 +70,6 @@
     </foaf:member>
     <foaf:member>
       <foaf:Agent>
-        <foaf:name>Tam Dang, Karishma Mandyam &lt;br/&gt; Team Illimitatum</foaf:name>
-        <foaf:weblog>
-          <foaf:Document rdf:about="https://medium.com/nlp-capstone-blog?source=rss----9ba3897b6688---4">
-            <dc:title>NLP Capstone Blog - Medium</dc:title>
-            <rdfs:seeAlso>
-              <rss:channel rdf:about="https://medium.com/feed/nlp-capstone-blog"/>
-            </rdfs:seeAlso>
-          </foaf:Document>
-        </foaf:weblog>
-      </foaf:Agent>
-    </foaf:member>
-    <foaf:member>
-      <foaf:Agent>
         <foaf:name>Aaron Johnston, Lynsey Liu &lt;br/&gt; Team Viterbi Or Not To Be</foaf:name>
         <foaf:weblog>
           <foaf:Document rdf:about="https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2">
