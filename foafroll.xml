@@ -46,10 +46,10 @@
       <foaf:Agent>
         <foaf:name>Boyan Li, Dennis Orzikh, Lanhao Wu &lt;br/&gt; Team Watch Your Language!</foaf:name>
         <foaf:weblog>
-          <foaf:Document rdf:about="http://cse481n-capstone.azurewebsites.net">
-            <dc:title>Team Watch Your Language!</dc:title>
+          <foaf:Document rdf:about="">
+            <dc:title/>
             <rdfs:seeAlso>
-              <rss:channel rdf:about="http://cse481n-capstone.azurewebsites.net/feed/"/>
+              <rss:channel rdf:about=""/>
             </rdfs:seeAlso>
           </foaf:Document>
         </foaf:weblog>

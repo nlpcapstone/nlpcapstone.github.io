@@ -351,265 +351,6 @@
 </div>
 
 
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="http://cse481n-capstone.azurewebsites.net" title="Team Watch Your Language!">Boyan Li, Dennis Orzikh, Lanhao Wu <br/> Team Watch Your Language!</a></h3>
-
-
-<div class="entrygroup" id="http://cse481n-capstone.azurewebsites.net/?p=114">
-<h4 lang="en-US"><a href="http://cse481n-capstone.azurewebsites.net/2018/05/22/adversarial-data-collection-pilot-reddit-comment-storage-design-advanced-attempt-ii-continue/">Adversarial Data Collection Pilot &amp; Reddit Comment Storage Design (Advanced Attempt II Continue)</a></h4>
-<div class="entry">
-<div class="content" lang="en-US">
-<h3>Adversarial Data Collection</h3>
-<h4>Motivation for adversarial Data collection</h4>
-<p><span style="font-weight: 400;">As we had shown previously, our model is very fixated with certain keywords when deciding that something is hate speech. For example, consider this sentence from a support subreddit:</span></p>
-<p>“My wife was raped My wife tonight was raped, she doesn’t want to go to the police.”</p>
-<p><span style="font-weight: 400;">Our best model considers this to be hate with 89% certainty. In particular it thinks the use of “raped” and “wife” (as opposed to “husband”) demonstrates hate speech. We think this has a lot to do with hateful speech online being commonly sexist against women while there isn’t as much obvious sexism against men. </span></p>
-<p><span style="font-weight: 400;">However, we still want it to learn more sophisticated patterns. We decided that the best way to do this would be to find examples that we know are not hateful but that use the same keywords as the sentences the model deems hateful. This would add more uncertainty to the dataset, allowing us to train a more complex model. </span></p>
-<p><span style="font-weight: 400;">Since we do not have any labeled data to choose from, we had to pick some sort of unlabeled data that we know in advance is going to almost always be not hateful. For this purpose, we decided to use news article headlines. Thus, these headlines are our adversarial data. They have the keywords that our model thinks are hateful, but they are almost guaranteed to not be hateful at all. </span></p>
-<p><span style="font-weight: 400;">We considered two choices for collecting news article headlines. We could either use Reddit again, or use the Bing News search API through Azure. With Reddit, we would have to filter out everything except for a whitelist of news congregation subreddits and then search through the titles of the posts there for our keywords. In this type of subreddit, it’s enforced by moderators that the title of the post be the same as the headline of the article being linked. Because of our existing data collection experience, we would not need to learn anything new to go this route. With Bing, we would have to get access to their Search API resource in Azure and then pass it our keywords and manipulate the results. We ended up going with Bing because we decided that, as a search engine, Bing would be better at deciding the most relevant headlines for our keywords and thus provide us with better data for less effort.</span></p>
-<h4>Pilot pipeline</h4>
-<p><span style="font-weight: 400;">First, we want to extract ngrams from reddit posts that are labeled as hate by our current best model. These ngrams would later be ranked using document frequencies, and the most frequent ngrams would be used to search for news titles through Bing Search API.</span></p>
-<p><span style="font-weight: 400;">We used the model with gru seq2vec encoder, 50d glove twitter embeddings, and ELMo, trained on combined twitter dataset to make predictions on 18k collected reddit posts (removing all posts with less than 4 tokens after preprocessing). We then extracted all posts labeled “hate” by this model. A total number of 3410 posts were labeled “hate”. Then we extracted all 1-3 ngrams after removing stop words and punctuations but keeping the special character apostrophe (‘) in place because there are words like can’t, won’t, don’t, etc. The output file contains multiple lines of lists. Each list consists of all 1-3 grams of a posts classified as “hate”, and each line is for each post.</span></p>
-<p><span style="font-weight: 400;">After we generated a list of ngrams for each post, we need to process it to get ngrams that our model feels really hateful. Therefore, we decided to find the most frequent ngrams that appeared in all posts that are labeled as hate.</span></p>
-<p><span style="font-weight: 400;">First, we need to do some data preprocessing.</span></p>
-<ol>
-<li style="font-weight: 400;"><span style="font-weight: 400;">We turned all words into lowercase and removed all non-alphabetic characters (including numbers) except punctionations within word like “can’t”. </span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Then we split each ngram into words, for each word, we used NLTK toolkit to tag it, and lemmatized back to the stem form. </span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Lastly, we decided to remove all unigrams after previous steps, because we found unigrams less descriptive comparing to bigram or trigrams.</span></li>
-</ol>
-<p><span style="font-weight: 400;">Then we compute the document frequency, and come up with a list of top 100 ngrams for us to explore on search engine.</span></p>
-<p><span style="font-weight: 400;">For example, our ngrams looks like [“year old”, “what’s difference”, “year ago”, “old girl”, “year old girl”, “walk bar” ….]. We are aware that words like “year old”, “year old girl” looks really similar, and we would like to combine them, however, because this requires a lot more engineering and this is a pilot, we think it would be worth doing as a future work.</span></p>
-<p><span style="font-weight: 400;">Once we have the ngrams we want to use as keywords for finding headlines, we send them through Bing’s news search feature. This required some experimenting to get right because if you just give Bing the keywords it will find articles that have them in the body, or sometimes just on the same website as the article. We had to make sure to use the “intitle:” restriction for each keyword of the ngram in question. As well, we found that Bing will silently filter out keywords that it thinks are offensive. For example, if you just search for articles with “intitle: jew” it removes that keyword and does an empty news search instead, which just returns the most recent articles published. This led to us doing a second round of filtering on top of the Bing results to make sure the sentences we give to the model actually have the keywords we want to test it against. As well, because our Azure tier doesn’t include Bing search, we had to use a 7-day free trial. For future work on this project we would have to change our Azure tier to keep using Bing, or we would have to switch to using Reddit for article headlines.</span></p>
-<p><span style="font-weight: 400;">In the end we took the top 100 ngrams from the hate predicted posts and got up to 20 articles for each one. This resulted in almost 900 article headlines. However, when we ran these through our model we only got 73 of them labeled hate. This was an unexpected result, because we were expecting these headlines to confuse the model. On further investigation, we realized that because of Bing’s built in silent filtering, we were much less likely to get headlines that had these potentially controversial phrases in them. This happens even with safe-search turned off. If we had known about this when we were first brainstorming, we would have probably gone with using Reddit to get headlines instead.</span></p>
-<p><span style="font-weight: 400;">Here are a few of the headlines that made it through Bing’s silent filter that the model did think were hate speech:</span></p>
-<ul>
-<li><em>Teen scarred for life after masked thug hurled acid over her in racially-motivated attack because she dated a black guy</em></li>
-<li><em>I had to brutally murder the black gay guy because he hit on me</em></li>
-<li><em>Starbucks drops the Jewish group Anti-Defamation League from its racial bias training after activists criticized their support of Israel and their failure to endorse Black …</em></li>
-<li><em>Neo-Nazi who beat a black man with a 2-by-4 in Charlottesville pleads guilty</em></li>
-<li><em>Kansas Cops Detain Black Man Because Of Vegetation On His Windshield</em></li>
-<li><em>Can a Black Person Truly Love Black People if They Date Outside the Race?</em></li>
-<li><em>Community responds after woman calls police on black people barbecuing</em></li>
-<li><em>University survey asking if students want to know whether ‘black people hate America’ draws ire</em></li>
-<li><em>Community responds after woman calls police on black people barbecuing</em></li>
-<li><em>Oakland Residents Throw “BBQing While Black” Party After White Woman Called Police on Black Men for Grilling</em></li>
-<li><em>3 are arrested in the stabbing of black man that officials call a hate crime</em></li>
-<li><em>WATCH: Racist campers call black man a ‘n*gger’ 30 times after he asks them to leave his street</em></li>
-<li><em>Understanding why you don’t call a black man a boy</em></li>
-<li><em>Woman can’t get DirecTV to cancel service</em></li>
-<li><em>Why you can’t get ‘Chelsea Dagger’ out of your head</em></li>
-<li><em>Madonna: I Can’t Get Taylor Swift’s Songs Out of My Head</em></li>
-<li><em>Spieth can’t seem to get anything right at Sawgrass</em></li>
-<li><em>‘I hate her, can’t stand the b’: Daniel Heazlewood jailed for 11 years for killing his mother</em></li>
-<li><em>You Can’t Tell Kids to ‘Just Say No’ to Legal Weed</em></li>
-</ul>
-<p><span style="font-weight: 400;">It’s clear that these were chosen based on keyword matching. We hope that including them in the training dataset in the future could make the model better, but we might have to iterate on this process using Reddit for headlines instead if we want more and better adversarial data.</span></p>
-<h4>future work</h4>
-<p><span style="font-weight: 400;">As mentioned above, currently we are using the most common non-trivial ngrams in all posts that are classified as hateful. However, we talked about another interesting way: found ngrams that have greatest ratio of df in predicted hate posts to df in predicted none posts. By doing so, we would be more sure about these ngrams’ contribution to the hatefulness of the post. This is a data processing step we can do in a future iteration to increase the adversarial impact of the data, since right now it is actually mostly clear to the model that these headlines should be labeled none.</span></p>
-<p><span style="font-weight: 400;">Also, from our chosen ngrams, we found a lot of words that looks really similar. For example, we may have “year old” and “year old girl” appear at the same time, we can use other techniques to get rid one of them, like stemming and lemmatization . However, it might be computational challenging because of the large amount of ngrams we have. We think this is definitely a direction to look into.</span></p>
-<p><span style="font-weight: 400;">Currently we are still working with unlabeled data, so we just used everything the model predicted as hate. Once our initial set of reddit data is labeled we could use that to make better decisions about what ngrams to use, such as by leaving out ngrams from true positives and true negatives from the start, and just dealing with the examples the model gets wrong. </span></p>
-<p><span style="font-weight: 400;">Finally, we would like to try out other ways to collect headlines in the future, especially if there is no way around Bing’s silent filter. Using Reddit news subreddits like described up above is a possible alternative.</span></p>
-<h3>Context extraction for Reddit Comment Design</h3>
-<p><span style="font-weight: 400;">Here we present a high-level idea about how to store Reddit comment objects in DBMS for future context retrieval.  This is a substantial project on its own, therefore the implementation might not happen this quarter. We hope our exploration on this subject would pave the path for future work. </span></p>
-<p><span style="font-weight: 400;">Last week, we presented an interesting paper, Anyone Can Become a Troll:</span><span style="font-weight: 400;"><br />
-</span><span style="font-weight: 400;">Causes of Trolling Behavior in Online Discussions by Cheng et. al. To recap, the paper concludes that Negative Mood and Negative Discussion Context are the two causes of trolling behavior online. Moreover, the paper states that when training and evaluating a logistic regression classifier, “features relating to discussion context are most informative” (Cheng et. al.). </span></p>
-<p><span style="font-weight: 400;">This gives us an idea that could potentially improve our model performance on reddit comments. Since a reddit post/discussion format is very much like CNN.com’s comment section where the post takes the role of an article, and all subsequent comments either spawn directly from the post or from previous comments, we believe the context of comments would also be a very useful feature for us to use when we use reddit comment data in the future (note: we are collecting reddit posts at this moment, but the data collection pipeline could easily be ported to reddit comments). </span></p>
-<p><span style="font-weight: 400;">A reddit comment JSON object looks like this in the comment dumps we get from pushshift.io: </span></p>
-<pre><span style="font-weight: 400;">{
-    'author': 'LysergicOracle',</span>
-
-<span style="font-weight: 400;">    'author_flair_css_class': None,</span>
-
-<span style="font-weight: 400;">    'author_flair_text': None,</span>
-
-<span style="font-weight: 400;">    'body': '&lt;3',</span>
-
-<span style="font-weight: 400;">    'can_gild': True,</span>
-
-<span style="font-weight: 400;">    'controversiality': 0,</span>
-
-<span style="font-weight: 400;">    'created_utc': 1512086400,</span>
-
-<span style="font-weight: 400;">    'distinguished': None,</span>
-
-<span style="font-weight: 400;">    'edited': False,</span>
-
-<span style="font-weight: 400;">    'gilded': 0,</span>
-
-<span style="font-weight: 400;">    'id': 'dql1dzn',</span>
-
-<span style="font-weight: 400;">    'is_submitter': False,</span>
-
-<span style="font-weight: 400;">    'link_id': 't3_7go27t',</span>
-
-<span style="font-weight: 400;">    'parent_id': 't1_dql0d4o',</span>
-
-<span style="font-weight: 400;">    'permalink': '/r/freefolk/comments/7go27t/jonerys_first_fight_306_ac_colorized/dql1dzn/',</span>
-
-<span style="font-weight: 400;">    'retrieved_on': 1514212661,</span>
-
-<span style="font-weight: 400;">    'score': 2,</span>
-
-<span style="font-weight: 400;">    'stickied': False,</span>
-
-<span style="font-weight: 400;">    'subreddit': 'freefolk',</span>
-
-<span style="font-weight: 400;">    'subreddit_id': 't5_37tpy',</span>
-
-<span style="font-weight: 400;">    'subreddit_type': 'public',</span>
-<span style="font-weight: 400;">}</span></pre>
-<p><span style="font-weight: 400;">Here we get a comment from subreddit freefolks and the comment’s content is ‘&lt;3’. “link_id” is the id of the post under which this comment is posted, and “parent_id” is the id of the comment or post under which this comment is posted. In the case where the current comment is a top-level comment (directly posted under the post, with no parent comment), “link_id” and “parent_id” would be the same. We can also use “created_utc” to figure out which comment was created first if they are siblings, thus knowing which comment could have had an influence on the other.  </span></p>
-<p><span style="font-weight: 400;">To recreate the discussion context of a comment, we are thinking of two kinds of queries: 1) queries that find all “ancestor comments” of the current comment; 2) queries that finds all “sibling comments” that were posted at an earlier timestamp than the current comment. Then we can incorporate the level of negativity of these comments as features when learning or making predictions of the current comment.</span></p>
-<p><span style="font-weight: 400;">To store these comment objects in a DBMS for fast retrieval and context construction, we did some research on which DBMS to use. There are many DBMS systems out there that support JSON datatype, but the two we mainly looked at were MongoDB and PostgreSQL. Both of them are open source projects. MongoDB supports native JSON storage and has its own set of query commands. PostgreSQL was initially designed to be a SQL database, but it has supported JSON datatype for a few years. While both were valid choices, PostgreSQL supports SQL like query language on JSON data. It also supports recursive queries, which is perfect for the purpose of context tree construction. Therefore, we decided PostgreSQL is a better choice for Reddit comment storage.</span></p>
-<p><span style="font-weight: 400;">For future work, we would spin up a PostgreSQL server and write a client-side package for comment context retrieval.</span></p>
-<h3>Advanced Model Attempt Update</h3>
-<p><span style="font-weight: 400;">Last week, we implemented an attention LSTM model and we reported that there was a bug in pytorch. However, after doing some checking, we realized that there was a dimension error on our side.</span></p>
-<p><span style="font-weight: 400;">Now we have complete statistics for our attention LSTM/GRU model:</span></p>
-<p><span style="font-weight: 400;">All models are trained and evaluated on twitter Waseem dataset.</span></p>
-<table>
-<tbody>
-<tr>
-<td>50d</td>
-<td>LSTM w/o ELMo</td>
-<td>LSTM w/ ELMo</td>
-<td>GRU w/o ELMo</td>
-<td>GRU w/ ELMo</td>
-</tr>
-<tr>
-<td>F1</td>
-<td>0.7907</td>
-<td>0.7879</td>
-<td>0.7823</td>
-<td>0.7770</td>
-</tr>
-<tr>
-<td>Precision</td>
-<td>0.7961</td>
-<td>0.8018</td>
-<td>0.7781</td>
-<td>0.7851</td>
-</tr>
-<tr>
-<td>Recall</td>
-<td>0.7862</td>
-<td>0.7784</td>
-<td>0.7875</td>
-<td>0.7708</td>
-</tr>
-<tr>
-<td>Accuracy</td>
-<td>0.8194</td>
-<td>0.8207</td>
-<td>0.8056</td>
-<td>0.8091</td>
-</tr>
-</tbody>
-</table>
-<table>
-<tbody>
-<tr>
-<td>100d</td>
-<td>LSTM w/o ELMo</td>
-<td>LSTM w/ ELMo</td>
-<td>GRU w/o ELMo</td>
-<td>GRU w/ ELMo</td>
-</tr>
-<tr>
-<td>F1</td>
-<td>0.7907</td>
-<td>0.7864</td>
-<td>0.7913</td>
-<td>0.7931</td>
-</tr>
-<tr>
-<td>Precision</td>
-<td>0.8076</td>
-<td>0.7873</td>
-<td>0.7931</td>
-<td>0.7999</td>
-</tr>
-<tr>
-<td>Recall</td>
-<td>0.7798</td>
-<td>0.7854</td>
-<td>0.7895</td>
-<td>0.7876</td>
-</tr>
-<tr>
-<td>Accuracy</td>
-<td>0.8242</td>
-<td>0.8132</td>
-<td>0.8180</td>
-<td>0.8221</td>
-</tr>
-</tbody>
-</table>
-<table>
-<tbody>
-<tr>
-<td>200d</td>
-<td>LSTM w/o ELMo</td>
-<td>LSTM w/ ELMo</td>
-<td>GRU w/o ELMo</td>
-<td>GRU w/ ELMo</td>
-</tr>
-<tr>
-<td>F1</td>
-<td>0.7944</td>
-<td>0.7745</td>
-<td>0.7948</td>
-<td>0.7725</td>
-</tr>
-<tr>
-<td>Precision</td>
-<td>0.7902</td>
-<td>0.7870</td>
-<td>0.7874</td>
-<td>0.8001</td>
-</tr>
-<tr>
-<td>Recall</td>
-<td>0.7995</td>
-<td>0.7659</td>
-<td>0.8074</td>
-<td>0.7580</td>
-</tr>
-<tr>
-<td>Accuracy</td>
-<td>0.8166</td>
-<td>0.8091</td>
-<td>0.8132</td>
-<td>0.8132</td>
-</tr>
-</tbody>
-</table>
-<p><span style="font-weight: 400;">From our results, we see a very consistent performance (~0.79 F1 score) when attention is used. And it seems ELMo, in this case, does not introduce any help. </span></p>
-<p><span style="font-weight: 400;">The reason might be attention with ELMo need much more data in order to have a performance improvement. We will train on the combined dataset in the coming days and update our statistics.</span></p>
-<h3>Work Cited</h3>
-<p><a href="https://files.clr3.com/papers/2017_anyone.pdf"><span style="font-weight: 400;">Cheng, Justin et al. “Anyone Can Become a Troll: Causes of Trolling Behavior in Online Discussions.” CSCW : proceedings of the Conference on Computer-Supported Cooperative Work. Conference on Computer-Supported Cooperative Work 2017 (2017): 1217-1230.</span></a></p></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="http://cse481n-capstone.azurewebsites.net/2018/05/22/adversarial-data-collection-pilot-reddit-comment-storage-design-advanced-attempt-ii-continue/">by Team Watch Your Language! at May 23, 2018 02:11 AM</a>
-</p>
-</div>
-</div>
-
-
 </div>
 
 </div>
@@ -953,181 +694,6 @@
 </div>
 
 
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="http://cse481n-capstone.azurewebsites.net" title="Team Watch Your Language!">Boyan Li, Dennis Orzikh, Lanhao Wu <br/> Team Watch Your Language!</a></h3>
-
-
-<div class="entrygroup" id="http://cse481n-capstone.azurewebsites.net/?p=105">
-<h4 lang="en-US"><a href="http://cse481n-capstone.azurewebsites.net/2018/05/15/advanced-attempt-ii-2/">Advanced Attempt II</a></h4>
-<div class="entry">
-<div class="content" lang="en-US">
-<h3>Data Collection</h3>
-<p><span style="font-weight: 400;">In our last post, we described our final collection of Reddit sentences that we would send for labeling. We decided to add subreddit metadata to each sentence before sending it off, but this created an unexpected slight setback because of the way we spliced posts into sentences after throwing away all of the metadata associated with the original dump. We did finish connecting each sentence to its originating subreddit however, and from doing so discovered a slight issue with our data. It turned out that from doing the hate lexicon matching described earlier, we got a few posts that looked like: “[uncensored-r/Bitcoin] &lt;</span><i><span style="font-weight: 400;">some original post</span></i><span style="font-weight: 400;">&gt; The following post by vichuu is being replicated because the post has been silently removed.” In the end we decided to add the subreddit “noncensored_bitcoin” to our blacklist and removed all its sentences from our dataset, but this decreased our dataset size to ~18k, down 2k from the last blog post. </span></p>
-<p><span style="font-weight: 400;">In our sixth blog post we showed the top 10 subreddits for quantity of posts. Here are the top 10 subreddits just in our dataset. </span></p>
-<p><span style="font-weight: 400;">As expected, we have a lot of MeanJoke sentences as well as sentences from other joke subreddits that probably have similar language structure. The inclusion of the hate lexicon set of sentences most likely helped bring diversity to this final set of sentences. Otherwise, it looks like a good collection of discussion subreddits. As well, since there are 18k sentences and the top 10 subreddits only sum to ~6000 of them we once again see the sparse nature of our data’s origins. </span></p>
-<table>
-<tbody>
-<tr>
-<td>Subreddit</td>
-<td>Number of Sentences</td>
-</tr>
-<tr>
-<td>MeanJokes</td>
-<td>2964</td>
-</tr>
-<tr>
-<td>AskReddit</td>
-<td>706</td>
-</tr>
-<tr>
-<td>Jokes</td>
-<td>565</td>
-</tr>
-<tr>
-<td>darkjokes</td>
-<td>387</td>
-</tr>
-<tr>
-<td>depression</td>
-<td>284</td>
-</tr>
-<tr>
-<td>relationships</td>
-<td>280</td>
-</tr>
-<tr>
-<td>DebateConservatives</td>
-<td>253</td>
-</tr>
-<tr>
-<td>offmychest</td>
-<td>227</td>
-</tr>
-<tr>
-<td>raisedbynarcissists</td>
-<td>168</td>
-</tr>
-<tr>
-<td>relationship_advice</td>
-<td>166</td>
-</tr>
-</tbody>
-</table>
-<h3>Advanced Model Attempt</h3>
-<p><span style="font-weight: 400;">We implemented a new model which incorporates attention.</span></p>
-<p><span style="font-weight: 400;">The way we did it is by writing an seq2seq (in this case, is LSTM) encoder with attention and then take the last dimension of each sequence as our vector representation of the whole sentence.</span></p>
-<p><span style="font-weight: 400;">For example, if we have (batch_size, sentence_length, dim), our vector representation will become (batch_size, dim).</span></p>
-<p><span style="font-weight: 400;">After that, we passed it through a 2-layer feedforward neural network and map the output to a 2-dimensional vector which represents each class (hate, none in this case). Then we do a softmax and pick the one with the highest probability as our prediction.</span></p>
-<p><b>Statistics</b></p>
-<table>
-<tbody>
-<tr>
-<td><span>50d</span></td>
-<td><span>Without ELMo</span></td>
-</tr>
-<tr>
-<td><span>F1</span></td>
-<td><span>0.7907</span></td>
-</tr>
-<tr>
-<td><span>Precision</span></td>
-<td><span>0.7961</span></td>
-</tr>
-<tr>
-<td><span>Recall</span></td>
-<td><span>0.7862</span></td>
-</tr>
-<tr>
-<td><span>Accuracy</span></td>
-<td><span>0.8194</span></td>
-</tr>
-</tbody>
-</table>
-<p> </p>
-<table>
-<tbody>
-<tr>
-<td><span>100d</span></td>
-<td><span>Without ELMo</span></td>
-</tr>
-<tr>
-<td><span>F1</span></td>
-<td><span>0.7907</span></td>
-</tr>
-<tr>
-<td><span>Precision</span></td>
-<td><span>0.8076</span></td>
-</tr>
-<tr>
-<td><span>Recall</span></td>
-<td><span>0.7798</span></td>
-</tr>
-<tr>
-<td><span>Accuracy</span></td>
-<td><span>0.8242</span></td>
-</tr>
-</tbody>
-</table>
-<p> </p>
-<table>
-<tbody>
-<tr>
-<td><span>200d</span></td>
-<td><span>Without ELMo</span></td>
-</tr>
-<tr>
-<td><span>F1</span></td>
-<td><span>0.7944</span></td>
-</tr>
-<tr>
-<td><span>Precision</span></td>
-<td><span>0.7902</span></td>
-</tr>
-<tr>
-<td><span>Recall</span></td>
-<td><span>0.7995</span></td>
-</tr>
-<tr>
-<td><span>Accuracy</span></td>
-<td><span>0.8166</span></td>
-</tr>
-</tbody>
-</table>
-<p><b>Unexpected Problem encountered:</b></p>
-<p><span style="font-weight: 400;">There was a bug in pytorch saying “fn” is undefined when we want to train LSTM with ELMo using CUDA, and we have no luck on fixing that. After googling it, it turns out to be a problem related to pytorch 0.3.1 and it’s fixed in a later version like 0.4.0. Since Allennlp requires pytorch 0.3.1, we may have to try something else instead.</span></p>
-<p><span style="font-weight: 400;">We will try to use GRU instead (hopefully it works) and report all metrics in detail in next week’s blog post.</span></p>
-<h3>Demo Frontend</h3>
-<p><span style="font-weight: 400;">Previously, we used default AllenNLP frontend for demoing purpose. Although it was easy to set up and use by us the developers who knew exactly what numbers we are looking for, it was not intuitive to use at all for other people. The default demo page looked like this:</span></p>
-<p><img alt="" class="alignnone size-full wp-image-107" height="922" src="http://cse481n-capstone.azurewebsites.net/wp-content/uploads/2018/05/old_demo.png" width="2712" /></p>
-<p><span style="font-weight: 400;">In order to make the demo page more straightforward, we decided to only keep the most relevant fields of the model output: predicted label and class probabilities. Since it is also interesting to see how prediction changes every time a new word is entered, we designed the page to make a prediction everytime a blank space or ENTER is entered in the text input box (in addition to the Predict button being hit). Our new demo page looked like this (serving a different model):</span></p>
-<p><img alt="" class="alignnone size-full wp-image-108" height="1034" src="http://cse481n-capstone.azurewebsites.net/wp-content/uploads/2018/05/new_demo.png" width="2758" /></p>
-<p><span style="font-weight: 400;">As shown above, while the overall page format looked the same (the left half is input, the right half is output), the output display changed quite a bit. The predicted label is nicely put into a sentence and highlighted under “Prediction”, and the class probabilities are in a table with the “Hate probability” entry highlighted under “Summary Breakdown”. We also added hate probability visualization at the end. A linear gradient from bright green to red represented hate probability from 0% to 100%, a dark vertical line representing the predicted hate probability of the current sentence, and a small label under the dark line showing the hate probability. </span></p>
-<p><span style="font-weight: 400;">Not only is the new demo page easier to read and see the changes when each word is entered, this simple output display could potentially be ported to AMT surveys in the future if we want turkers to come up with hard to detect examples.</span></p>
-<h3>Next Steps:</h3>
-<p>On the data collection front, we will push forward in the process of getting our reddit dataset labeled.  For modeling, we would perform more hyperparameter tuning and error analysis as well as incorporating ELMo into the current model, and hopefully, we get to explore potential ways to make neural nets work with relatively small datasets like these twitter datasets that we have.</p></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="http://cse481n-capstone.azurewebsites.net/2018/05/15/advanced-attempt-ii-2/">by Team Watch Your Language! at May 16, 2018 03:27 AM</a>
-</p>
-</div>
-</div>
-
-
 </div>
 
 </div>
@@ -1465,279 +1031,6 @@ I'm focusing now on combining coding patterns from the new class at test time wi
 
 
 
-<h3><a href="http://cse481n-capstone.azurewebsites.net" title="Team Watch Your Language!">Boyan Li, Dennis Orzikh, Lanhao Wu <br/> Team Watch Your Language!</a></h3>
-
-
-<div class="entrygroup" id="http://cse481n-capstone.azurewebsites.net/?p=82">
-<h4 lang="en-US"><a href="http://cse481n-capstone.azurewebsites.net/2018/05/08/advanced-attempt-ii/">Advanced Attempt I Continues</a></h4>
-<div class="entry">
-<div class="content" lang="en-US">
-<h3>Data Collection</h3>
-<p><span style="font-weight: 400;">Since our last blog post we have settled on using Dice Index with a cutoff of .5 for including post sentences in our dataset. This final dataset was generated by running similarity between 24574 “hateful” sentences (r/MeanJokes posts and sentences from the general set that were matched by the hate lexicon described previously) and 8,662,875 general Reddit sentences that were from subreddits that were not black-listed. With a .5 cutoff only 2308 of the “hateful” sentences were matched with general reddit posts other than themselves. There were 16940 such general posts. This gives us a total dataset of ~19k potentially interesting sentences to use for the pilot program. </span></p>
-<p><span style="font-weight: 400;">An interesting observation from running this is just how sparse the data truly is. Reddit is very diverse and its various communities use very different language from each other. Only .2% of all posts were within .5 Dice Index of the “hateful” posts. With .7 Dice Index it was .01% with only 1000 matched sentences. However, this is just from one month of Reddit data. If we need to increase the cutoff or just get more examples in the future, there are many more dumps we could use to get us enough data to feed our neural net models. </span></p>
-<p><span style="font-weight: 400;">What follows are some examples from the dataset and how our current best model performs on them.</span></p>
-<ul>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Matched by hate lexicon, presumably from a support subreddit: “My wife was raped My wife tonight was raped, she doesn’t want to go to the police.” labeled hate with 88% certainty</span>
-<ul>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Similar post: “I don’t want to go. My wife is being guilted into going.” labeled none with 78% certainty</span></li>
-</ul>
-</li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Matched by hate lexicon: “It really fucks with me and makes me feel like a slave.” labeled none with 62% certainty</span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Matched by hate lexicon: “Saying the word ”gentleman” is not sexist is like saying the word ”nigger” is not racist.” labeled hate with 95% certainty</span>
-<ul>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Similar post: “Saying a word such as Nigger isn’t racist. It’s only racist when aimed at a person.” labeled hate with 94% certainty</span></li>
-</ul>
-</li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Matched by hate lexicon: “I denied it, would say “I can’t believe that pathetic faggot would make something like that up”.” labeled hate with 99% certainty (model doesn’t understand what quotes are)</span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">From r/MeanJokes: “What do you call a 5 year old with no friends? A sandy hook survivor.” labeled none with 83% accuracy (model doesn’t know current events)</span></li>
-</ul>
-<p><span style="font-weight: 400;">Here are some more examples of issues:</span></p>
-<p><span style="font-weight: 400;">We did use December after all:</span></p>
-<p><img alt="" class="alignnone size-full wp-image-85" height="835" src="http://cse481n-capstone.azurewebsites.net/wp-content/uploads/2018/05/b4-p1.png" width="1033" /></p>
-<p><span style="font-weight: 400;">People like to repost mean jokes with variations:</span></p>
-<p><img alt="" class="alignnone size-full wp-image-86" height="127" src="http://cse481n-capstone.azurewebsites.net/wp-content/uploads/2018/05/b4-p2.png" width="974" /></p>
-<p> </p>
-<h3>Advanced Model Attempt 2:</h3>
-<p><span style="font-weight: 400;">Last week we explored a new model that uses CNN as encoder, however, we had little luck on making it work better. This week we tried to take contextual information into account using ELMo provided by Allennlp.</span></p>
-<p><span style="font-weight: 400;">In short, ELMo enables us to adjust our word/character embedding based on words/characters nearing it. Comparing to the pure Glove embedding we used before, ELMo enables us to take context into consideration which is meaningful as illustrated in our results.</span></p>
-<p><span style="font-weight: 400;">During our experiments, we used the </span><a href="http://allennlp.org/elmo"><span style="font-weight: 400;">pretrained ELMo embeddings</span></a><span style="font-weight: 400;"> (1-layer) provided by Allennlp. The ELMo embeddings and glove embeddings were concatenated before being passed through an NN seq2vec encoder.</span></p>
-<ul>
-<li><span style="font-weight: 400;">Setup 1: gru + 1 layer feed forward with 50 dimension glove embedding, trained and evaluated on twitter_waseem dataset</span></li>
-</ul>
-<table>
-<tbody>
-<tr>
-<td></td>
-<td><span style="font-weight: 400;">Without ELMo</span></td>
-<td><span style="font-weight: 400;">With ELMo</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">F1</span></td>
-<td><span style="font-weight: 400;">0.7940</span></td>
-<td><span style="font-weight: 400;">0.7982</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Precision</span></td>
-<td><span style="font-weight: 400;">0.8022</span></td>
-<td><span style="font-weight: 400;">0.7979</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Recall</span></td>
-<td><span style="font-weight: 400;">0.7876</span></td>
-<td><span style="font-weight: 400;">0.7986</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Accuracy</span></td>
-<td><span style="font-weight: 400;">0.8235</span></td>
-<td><span style="font-weight: 400;">0.8228</span></td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><span style="font-weight: 400;">Setup 2: gru + 1 layer feed forward with 50 dimension glove embedding, trained on combined dataset, evaluated on twitter dataset</span><br />
-<table>
-<tbody>
-<tr>
-<td></td>
-<td><span style="font-weight: 400;">Without ELMo</span></td>
-<td><span style="font-weight: 400;">With ELMo</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">F1</span></td>
-<td><span style="font-weight: 400;">0.7788</span></td>
-<td><span style="font-weight: 400;">0.8047</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Precision</span></td>
-<td><span style="font-weight: 400;">0.7979</span></td>
-<td><span style="font-weight: 400;">0.8029</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Recall</span></td>
-<td><span style="font-weight: 400;">0.7672</span></td>
-<td><span style="font-weight: 400;">0.8065</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Accuracy</span></td>
-<td><span style="font-weight: 400;">0.8152</span></td>
-<td><span style="font-weight: 400;">0.8276</span></td>
-</tr>
-</tbody>
-</table>
-</li>
-<li><span style="font-weight: 400;">Setup 3: gru + 1 layer feed forward with 200 dimension glove embedding, trained and evaluated on twitter_waseem dataset</span><br />
-<table>
-<tbody>
-<tr>
-<td></td>
-<td><span style="font-weight: 400;">Without ELMo</span></td>
-<td><span style="font-weight: 400;">With ELMo</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">F1</span></td>
-<td><span style="font-weight: 400;">0.7915</span></td>
-<td><span style="font-weight: 400;">0.8027</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Precision</span></td>
-<td><span style="font-weight: 400;">0.7908</span></td>
-<td><span style="font-weight: 400;">0.8067</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Recall</span></td>
-<td><span style="font-weight: 400;">0.7923</span></td>
-<td><span style="font-weight: 400;">0.7993</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Accuracy</span></td>
-<td><span style="font-weight: 400;">0.8166</span></td>
-<td><span style="font-weight: 400;">0.8290</span></td>
-</tr>
-</tbody>
-</table>
-</li>
-<li><span style="font-weight: 400;">Setup 4: gru + 1 layer feed forward with 200 dimension glove embedding, trained on combined dataset and evaluated on twitter dataset</span><br />
-<table>
-<tbody>
-<tr>
-<td></td>
-<td>Without ELMo</td>
-<td>With ELMo</td>
-</tr>
-<tr>
-<td>F1</td>
-<td>0.7953</td>
-<td>0.7813</td>
-</tr>
-<tr>
-<td>Precision</td>
-<td>0.7997</td>
-<td>0.8044</td>
-</tr>
-<tr>
-<td>Recall</td>
-<td>0.7914</td>
-<td>0.7681</td>
-</tr>
-<tr>
-<td>Accuracy</td>
-<td>0.8228</td>
-<td>0.8187</td>
-</tr>
-</tbody>
-</table>
-<p><span style="font-weight: 400;">From the aboving statistics, we can see that ELMo does help us on getting a better result. It seems with ELMo, our model has a noticeable </span><span style="font-weight: 400;">improvement on Recall </span><span style="font-weight: 400;">when training on combined dataset. And precision and accuracy remains about the same with a little bit fluctuation.</span></p>
-<p><span style="font-weight: 400;">We think with context taken into consideration, our model now is better at telling sentences that intend to be hateful but with few or no clearly hateful words or phrases. We will talk more about it in the following part.</span></p>
-<p><span style="font-weight: 400;">Next we will do some error analysis on our new models:</span></p>
-<p><span style="font-weight: 400;">First, we will check how ELMo helps on correcting mistakes we had in our models without ELMo:</span></p>
-<p><span style="font-weight: 400;">Recall these examples from our baseline model blog posts:</span></p>
-<p><span style="font-weight: 400;">False Negatives:</span></p>
-<ol>
-<li style="font-weight: 400;"><span style="font-weight: 400;">@RichardDawkins @AbuelitoSerge Really, Muslims understand this. They just want to be able to use the name “racism” to shut us up.</span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">@RTUKnews An Islamist human rights group? LOL. Now there is a contradiction in terms.</span></li>
-</ol>
-<p> </p></li>
-</ul>
-<p><span style="font-weight: 400;">False Positives:</span></p>
-<p><span style="font-weight: 400;">3. @Strubbestition Name one thing that is not an opinion but is still sexist. I will wait.</span></p>
-<p><span style="font-weight: 400;">4. @Bipartisanism @AllooCharas Terrorism involves a political or religious objective to the terror. Most mass murderers have personal objectives</span></p>
-<p><span style="font-weight: 400;">In our new model with ELMo, we now correctly classifies 1 and 2. However, We still think 3 and 4 to be hateful while they aren’t.</span></p>
-<table>
-<tbody>
-<tr>
-<td></td>
-<td>Hate prob</td>
-<td>None prob</td>
-<td>Correct?</td>
-</tr>
-<tr>
-<td>1</td>
-<td>0.8673</td>
-<td>0.1327</td>
-<td>yes</td>
-</tr>
-<tr>
-<td>2</td>
-<td>0.8408</td>
-<td>0.1592</td>
-<td>yes</td>
-</tr>
-<tr>
-<td>3</td>
-<td>0.6350</td>
-<td>0.3650</td>
-<td>no</td>
-</tr>
-<tr>
-<td>4</td>
-<td>0.7003</td>
-<td>0.2997</td>
-<td>no</td>
-</tr>
-</tbody>
-</table>
-<p><span style="font-weight: 400;">From the aboving results, we can see that with ELMo, our model does a better job on classifying things that means bad while has nothing really bad. From the class probabilities, we can tell our model is pretty confident about its prediction.</span></p>
-<p><span style="font-weight: 400;">Since we still misclassified those two non-hateful sentences, this may introduce a concern that our model may have a tendency to predict everything as hateful. However, we didn’t observe a noticeable drop in precision or accuracy as they remains about the same. We think it is safe to conclude that by using ELMo embeddings, our model makes some improvements.</span></p>
-<p><span style="font-weight: 400;">Next we will did some error analysis on our new model. However, after reading through the error sentence files, we discovered a lot of them looks like to the noise of the original dataset. For example, “islam must be outlawed.” is labeled as none as gold label in original dataset and actually our model did a great job on classifying it as hateful.</span></p>
-<p><span style="font-weight: 400;">Finally, we also tried ELMo on our preliminary CNN model:</span></p>
-<p><span style="font-weight: 400;">With the same setting as previous, we do observe some improvement on our CNN model, however, comparing to other gru models we have, CNN one shows no improvement but the training time is way much longer.</span></p>
-<table>
-<tbody>
-<tr>
-<td></td>
-<td><span style="font-weight: 400;">Without ELMo</span></td>
-<td><span style="font-weight: 400;">With ELMo</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">F1</span></td>
-<td><span style="font-weight: 400;">0.7745</span></td>
-<td><span style="font-weight: 400;">0.7987</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Precision</span></td>
-<td><span style="font-weight: 400;">0.7616</span></td>
-<td><span style="font-weight: 400;">0.8014</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Recall</span></td>
-<td><span style="font-weight: 400;">0.7879</span></td>
-<td><span style="font-weight: 400;">0.7963</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Accuracy</span></td>
-<td><span style="font-weight: 400;">0.8084</span></td>
-<td><span style="font-weight: 400;">0.8248</span></td>
-</tr>
-</tbody>
-</table>
-<h3>Next Step:</h3>
-<p><span style="font-weight: 400;">Our next steps for Data Collection are going to be to get the posts formatted for Mechanical Turk and begin the process of getting our Reddit data labeled.</span></p>
-<p>For Modeling, we want to try and incorporate attention into our model and see if that improves our model’s performance.</p>
-<h6 style="text-align: left;"><em><strong><span style="color: #000000;">We have a running demo available on our blog in the RUNNING DEMO section of the sidebar.</span></strong></em></h6></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="http://cse481n-capstone.azurewebsites.net/2018/05/08/advanced-attempt-ii/">by Team Watch Your Language! at May 09, 2018 06:07 AM</a>
-</p>
-</div>
-</div>
-
-
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
 <h3><a href="https://medium.com/@hongnin1?source=rss-c450eb982161------2" title="Stories by Ning Hong on Medium">Zichun Liu, Ning Hong, Sujie Zhou <br/> Team The Bugless</a></h3>
 
 
@@ -2023,493 +1316,6 @@ I'm focusing now on combining coding patterns from the new class at test time wi
 
 <p class="date">
 <a href="https://deeplearningturingtest.wordpress.com/2018/05/02/advanced-model-attempt-1-part-1/">by ananthgo at May 02, 2018 06:38 AM</a>
-</p>
-</div>
-</div>
-
-
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
-<h3><a href="http://cse481n-capstone.azurewebsites.net" title="Team Watch Your Language!">Boyan Li, Dennis Orzikh, Lanhao Wu <br/> Team Watch Your Language!</a></h3>
-
-
-<div class="entrygroup" id="http://cse481n-capstone.azurewebsites.net/?p=64">
-<h4 lang="en-US"><a href="http://cse481n-capstone.azurewebsites.net/2018/05/01/advanced-attempt-i/">Advanced Attempt I</a></h4>
-<div class="entry">
-<div class="content" lang="en-US">
-<h3><b>Data Collection: </b></h3>
-<p><span style="font-weight: 400;">We have made a lot of progress increasing our data quality since the last blog post. We have fine-tuned our filtering parameters and experimented with a few different definitions for set similarity. On top of Jaccard Index, we tried Dice Index and Cosine Similarity. We found that depending on the threshold, these different methods gave very similar results, but Dice Index seemed to provide the highest quality sentences while being more tolerant of long sentences (unlike Jaccard, which favored short sentences). Although it’s very picky, we’re certain that due to the huge amount of raw Reddit data we have we can still get a dataset big enough to train our complex neural nets.</span></p>
-<p><span style="font-weight: 400;">As an example of our improvement, consider this example from the last post:</span></p>
-<pre><span style="font-weight: 400;">MeanJokes Post: “Don’t be offended but Fuck you”
-</span>Similar Post: “fuck Foligno”
-Similar Post: “fuck narek”
-Similar Post: “fuck”
-Similar Post: “Fuck me?”
-Similar Post: “Fuck me”
-Similar Post: “fuck me”
-Similar Post: “Fuck it”
-Similar Post: “Fuck”
-Similar Post: “Who the fuck are you?”</pre>
-<p><span style="font-weight: 400;">Now our output would look like:</span></p>
-<pre><span style="font-weight: 400;">MeanJokes Post: Don't be offended but Fuck you
-</span>Similar Post: why the fuck does he have to talk in a screaming voice
-Similar Post 171137: "Officer, I have no idea what in the fuck you're talking about.
-Similar Post 92163: Or maybe you just fuck me in public for all too see.
-Similar Post 18052: "you know, I'm finally happy". UGH, fuck off.
-Similar Post 2567: So reddit, that's my fuck up. Any advice if any of you are in HR?
-Similar Post 160778: Now I'm questining what numbers are real and what was put down to fuck with me and what's serious.
-Similar Post 210956: And when i ask him about it, he cusses me out (tells me to fuck off) and i just die/break down internally.</pre>
-<p><span style="font-weight: 400;">As well, since Dice is so picky and because the MeanJokes set tends to have a very particular structure to all its posts, we are also adding in some other obviously offensive posts to use for our set similarity step. We’re using a hate speech lexicon developed by Tom Davidson (linked below) to extract hateful posts from the general Reddit set. We will concatenate this with the MeanJokes set before running Set Similarity against all of the posts again, hopefully giving us a wider range of language structure for our dataset. </span></p>
-<p><span style="font-weight: 400;">Our final improvement was discovering that a handful of subreddits contribute a majority of the noise in our data. This noise is mostly of two varieties: 1. Personal ads for intimate encounters and 2. Trading requests, for both physical and virtual items. A handful of these subreddits are very activate and are surprisingly a large chunk of Reddit’s posts, although none of them ever get nearly enough upvotes to be noticed by the average user. </span></p>
-<p><span style="font-weight: 400;">So in order to combat having a lot of posts of this sort in our dataset:</span></p>
-<p><img alt="" class="alignnone wp-image-65" height="144" src="http://cse481n-capstone.azurewebsites.net/wp-content/uploads/2018/05/Picture1-300x110.png" width="393" /></p>
-<p><span style="font-weight: 400;">We have put together a blacklist of subs and filtered them out of the posts we consider for set similarity.</span></p>
-<table style="height: 620px;" width="414">
-<tbody>
-<tr>
-<td><span style="font-weight: 400;">100k posts</span></td>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Top 10 Black List</span></td>
-<td></td>
-<td><span style="font-weight: 400;">Top 10 White List</span></td>
-<td></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">RocketLeagueExchange’</span></td>
-<td><span style="font-weight: 400;">1860</span></td>
-<td><span style="font-weight: 400;">AskReddit’</span></td>
-<td><span style="font-weight: 400;">5978</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">A5XHE’</span></td>
-<td><span style="font-weight: 400;">1373</span></td>
-<td><span style="font-weight: 400;">Showerthoughts’</span></td>
-<td><span style="font-weight: 400;">1709</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">dirtykikpals’</span></td>
-<td><span style="font-weight: 400;">1128</span></td>
-<td><span style="font-weight: 400;">The_Donald’</span></td>
-<td><span style="font-weight: 400;">850</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">dirtypenpals’</span></td>
-<td><span style="font-weight: 400;">870</span></td>
-<td><span style="font-weight: 400;">teenagers’</span></td>
-<td><span style="font-weight: 400;">720</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">DirtySnapchat’</span></td>
-<td><span style="font-weight: 400;">792</span></td>
-<td><span style="font-weight: 400;">GlobalOffensiveTrade’</span></td>
-<td><span style="font-weight: 400;">681</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">dirtyr4r’</span></td>
-<td><span style="font-weight: 400;">438</span></td>
-<td><span style="font-weight: 400;">Bitcoin’</span></td>
-<td><span style="font-weight: 400;">651</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">AppNana’</span></td>
-<td><span style="font-weight: 400;">372</span></td>
-<td><span style="font-weight: 400;">relationships’</span></td>
-<td><span style="font-weight: 400;">586</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Roleplaykik’</span></td>
-<td><span style="font-weight: 400;">368</span></td>
-<td><span style="font-weight: 400;">FIFA’</span></td>
-<td><span style="font-weight: 400;">558</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">buildapc’</span></td>
-<td><span style="font-weight: 400;">364</span></td>
-<td><span style="font-weight: 400;">explainlikeimfive’</span></td>
-<td><span style="font-weight: 400;">500</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">AgeplayPenPals’</span></td>
-<td><span style="font-weight: 400;">329</span></td>
-<td><span style="font-weight: 400;">Fireteams’</span></td>
-<td><span style="font-weight: 400;">469</span></td>
-</tr>
-</tbody>
-</table>
-<p><span style="font-weight: 400;"><br />
-Running the filter on 100k posts, we can see that most of the most common subreddits that remained are conversational in nature, while those that were removed would not make very useful sentences.</span></p>
-<p> </p>
-<h3><b>Advanced Model Attempt: </b></h3>
-<h4><span style="font-weight: 400;">Combining Datasets: </span></h4>
-<p><span style="font-weight: 400;">In our last blog post, we mentioned our concern about the small size of </span><span style="font-weight: 400;">Waseem’s twitter dataset</span><span style="font-weight: 400;">. This week, we combined that dataset with another twitter hate speech dataset made by Thomas Davidson. The Davidson dataset contains 24,802 labeled tweets. Each tweet is coded by at least 3 CrowdFlower users. Each row contains 5 columns:</span></p>
-<table style="height: 336px;" width="584">
-<tbody>
-<tr>
-<td>count</td>
-<td>number of CrowdFlower users who coded each tweet (min is 3, sometimes more users coded a tweet when judgments were determined to be unreliable by CF).</td>
-</tr>
-<tr>
-<td>hate_speech</td>
-<td>number of CF users who judged the tweet to be hate speech.</td>
-</tr>
-<tr>
-<td>offensive_language</td>
-<td>number of CF users who judged the tweet to be offensive.</td>
-</tr>
-<tr>
-<td>neither</td>
-<td>number of CF users who judged the tweet to be neither offensive nor non-offensive.</td>
-</tr>
-<tr>
-<td>class</td>
-<td>class label for majority of CF users. 0 – hate speech 1 – offensive language 2 – neither</td>
-</tr>
-</tbody>
-</table>
-<p><span style="font-weight: 400;">Davidson et. al. used the following definition for hate speech: language that is used to expresses hatred towards a targeted group or is intended to be derogatory, to humiliate, or to insult the members of the group. According to the paper, </span><span style="font-weight: 400;">“only 5% of tweets were coded by the majority of coders”</span><span style="font-weight: 400;">. If we directly combine Waseem Data with this we might get a even more skewed class distribution (31% ‘hate’, 69% ‘none’). Therefore, we decided to change the class labels of Davidson a little bit: if all CF users unanimously coded a tweet hate_speech or offensive_language, the tweet would be labeled ‘hate’; otherwise, the tweet would be labeled ‘none’. The modified Davidson dataset has a class distribution of 76% ‘hate’ and 24% ‘none’. Then we combined these two datasets (removed duplicate tweets if there are any). The new combined dataset has 40,509 tweets and a class distribution of 59% ‘hate’ and 41% ‘none. The combined dataset is much larger than the altered Waseem dataset (~15k tweets) and the labels are more balanced. </span></p>
-<p><span style="font-weight: 400;">We do have the concern whether this more these more generously labeled ‘hate’ tweets are noisy. However, because the Waseem dataset is also more generous to ‘none’ labels (as long as the tweet is neither racist or sexist), we believe they would have some counter effect on each other. After all, data noise is very unlikely to be completely removed. </span></p>
-<h4><span style="font-weight: 400;">Preprocessing: </span></h4>
-<p><span style="font-weight: 400;">Since the model we tried requires each sentence to have at least 4 tokens, we decided to ignore sentences with less than 4 tokens after pre-processing.</span></p>
-<h4><span style="font-weight: 400;">The effectiveness of Combined Dataset:</span></h4>
-<p><span style="font-weight: 400;">To illustrate the effectiveness of the combined dataset, we chose the best NN model set up from baseline II to train on Waseem dataset and combined dataset separately and evaluated the two trained models on Waseem dev data. We decided not to evaluate on test data yet because we don’t want any leaked info from test.</span></p>
-<p><span style="font-weight: 400;">Set up — embedding: 50 dimensional glove twitter embeddings, encoder: 1 layer GRU</span></p>
-<ul>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Trained on Waseem Dataset, epoch chosen: 13</span></li>
-</ul>
-<table>
-<tbody>
-<tr>
-<td></td>
-<td><span style="font-weight: 400;">Waseem-Dev</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Accuracy </span></td>
-<td><span style="font-weight: 400;">0.8235</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Precision</span></td>
-<td><span style="font-weight: 400;">0.8022</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Recall</span></td>
-<td><span style="font-weight: 400;">0.7876</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">F1</span></td>
-<td><span style="font-weight: 400; color: #ff0000;">0.7940</span></td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Trained on Combined Dataset, epoch chosen: 16</span></li>
-</ul>
-<table>
-<tbody>
-<tr>
-<td></td>
-<td><span style="font-weight: 400;">Waseem-Dev</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Accuracy </span></td>
-<td><span style="font-weight: 400;">0.8152</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Precision</span></td>
-<td><span style="font-weight: 400;">0.7979</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Recall</span></td>
-<td><span style="font-weight: 400;">0.7672</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">F1</span></td>
-<td><span style="font-weight: 400; color: #ff0000;">0.7788</span></td>
-</tr>
-</tbody>
-</table>
-<p><span style="font-weight: 400;">Although the two models had the same setup, the one trained on the combined dataset got performance close to the one trained on the original Waseem dataset despite the fact that we now have really different class distributions in the two datasets. </span></p>
-<h4><span style="font-weight: 400;">Retrain Some Baseline Models on Combined Dataset:</span></h4>
-<p><span style="font-weight: 400;">Here we retained some baseline models with different set ups on the combined dataset and evaluated them on both Waseem dev data and combined dev data.</span></p>
-<ul>
-<li>
-<ul>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Model1 — embedding: 50 dimensional glove twitter embeddings, encoder: 1 layer GRU, epoch chosen: 16</span><br />
-<table>
-<tbody>
-<tr>
-<td></td>
-<td><span style="font-weight: 400;">Combined-dev</span></td>
-<td><span style="font-weight: 400;">Waseem-dev</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Accuracy</span></td>
-<td><span style="font-weight: 400;">0.8665</span></td>
-<td><span style="font-weight: 400;">0.8152</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Precision</span></td>
-<td><span style="font-weight: 400;">0.8614</span></td>
-<td><span style="font-weight: 400;">0.7979</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Recall</span></td>
-<td><span style="font-weight: 400;">0.8628</span></td>
-<td><span style="font-weight: 400;">0.7672</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">F1</span></td>
-<td><span style="font-weight: 400;">0.8621</span></td>
-<td><span style="color: #ff0000;">0.7788</span></td>
-</tr>
-</tbody>
-</table>
-</li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>
-<ul>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Model2 — embedding: 50 dimensional glove twitter embeddings, encoder: 1 layer LSTM, epoch chosen: 19</span><br />
-<table>
-<tbody>
-<tr>
-<td></td>
-<td><span style="font-weight: 400;">Combined-dev</span></td>
-<td><span style="font-weight: 400;">Waseem-dev</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Accuracy</span></td>
-<td><span style="font-weight: 400;">0.8625</span></td>
-<td><span style="font-weight: 400;">0.8091</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Precision</span></td>
-<td><span style="font-weight: 400;">0.8577</span></td>
-<td><span style="font-weight: 400;">0.7875</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Recall</span></td>
-<td><span style="font-weight: 400;">0.8578</span></td>
-<td><span style="font-weight: 400;">0.7648</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">F1</span></td>
-<td><span style="font-weight: 400;">0.8578</span></td>
-<td><span style="color: #ff0000;">0.7739</span></td>
-</tr>
-</tbody>
-</table>
-<p><span style="font-weight: 400;"> Model3 — embedding: 50 dimensional glove twitter embeddings, encoder: 1 layer BiGRU, epoch chosen: 16</span></p></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>
-<ul>
-<li style="font-weight: 400;">
-<table>
-<tbody>
-<tr>
-<td></td>
-<td><span style="font-weight: 400;">Combined-dev</span></td>
-<td><span style="font-weight: 400;">Waseem-dev</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Accuracy</span></td>
-<td><span style="font-weight: 400;">0.8618</span></td>
-<td><span style="font-weight: 400;">0.8104</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Precision</span></td>
-<td><span style="font-weight: 400;">0.8567</span></td>
-<td><span style="font-weight: 400;">0.7916</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Recall</span></td>
-<td><span style="font-weight: 400;">0.8575</span></td>
-<td><span style="font-weight: 400;">0.7620</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">F1</span></td>
-<td><span style="font-weight: 400;">0.8571</span></td>
-<td><span style="color: #ff0000;">0.7732</span></td>
-</tr>
-</tbody>
-</table>
-<p><span style="font-weight: 400;">Model4 — embedding: 100 dimensional glove twitter embeddings, encoder: 1 layer GRU, epoch chosen: 11</span></p></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>
-<ul>
-<li style="font-weight: 400;">
-<table>
-<tbody>
-<tr>
-<td></td>
-<td><span style="font-weight: 400;">Combined-dev</span></td>
-<td><span style="font-weight: 400;">Waseem-dev</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Accuracy</span></td>
-<td><span style="font-weight: 400;">0.8651</span></td>
-<td><span style="font-weight: 400;">0.8194</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Precision</span></td>
-<td><span style="font-weight: 400;">0.8605</span></td>
-<td><span style="font-weight: 400;">0.7971</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Recall</span></td>
-<td><span style="font-weight: 400;">0.8603</span></td>
-<td><span style="font-weight: 400;">0.7834</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">F1</span></td>
-<td><span style="font-weight: 400;">0.8604</span></td>
-<td><span style="color: #ff0000;">0.7894</span></td>
-</tr>
-</tbody>
-</table>
-</li>
-</ul>
-</li>
-</ul>
-<h4><span style="font-weight: 400;">Model:</span></h4>
-<p><span style="font-weight: 400;">Our first Advanced model will be a CNN model.</span></p>
-<h5><span style="font-weight: 400;">The intuition of choosing this model:</span></h5>
-<p><span style="font-weight: 400;">CNN provides us a convenient way to extract the most important information within the given fragment of a sentence through filters and max pooling. We found it might be a worth trying model on our task.</span></p>
-<p><span style="font-weight: 400;">Our model looks like:</span></p>
-<p><img alt="" class="alignnone wp-image-67" height="158" src="http://cse481n-capstone.azurewebsites.net/wp-content/uploads/2018/05/Picture2-300x116.png" width="409" /></p>
-<pre><span style="font-weight: 400;">Image credit:</span><span style="font-weight: 400;">Gambäck, B., &amp; Sikdar, U.K. (2017). Using Convolutional Neural Networks to Classify Hate-Speech.</span></pre>
-<ul>
-<li>
-<ul>
-<li>
-<ol>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Preprocess all words and encode them using pretrained glove embeddings.</span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Feed result into a convolution neural network, taking 2, 3 and 4-grams into consideration. Output dimension is 28, 26 for English alphabets, 1 for digits and 1 for all other symbols. </span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Feed result into a 2-layer feed-forward neural net, with dimension (28, 2)  and dropout (0.3, 0.3)</span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Softmax on the result and pick the major class</span></li>
-</ol>
-</li>
-</ul>
-</li>
-</ul>
-<p><span style="font-weight: 400;">With not much tuning, here’s what our best model looks like:</span></p>
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><span style="font-weight: 400;">200 dimension embedding, filters=100, trained on Waseem twitter dataset</span></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<table>
-<tbody>
-<tr>
-<td></td>
-<td><span style="font-weight: 400;">Waseem dev</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">F1</span></td>
-<td><span style="font-weight: 400;">0.79169</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Recall</span></td>
-<td><span style="font-weight: 400;">0.78274</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Precision</span></td>
-<td><span style="font-weight: 400;">0.80086</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Accuracy</span></td>
-<td><span style="font-weight: 400;">0.82142</span></td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li>
-<ul>
-<li>
-<ul>
-<li><span style="font-weight: 400;">200 dimension embedding, filters=100, trained on the combined dataset</span></li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p><span style="color: #ff0000;">*revised, due to an imperfection in the combined dataset, there was a mistake in numbers</span></p>
-<table>
-<tbody>
-<tr>
-<td></td>
-<td><span style="font-weight: 400;">combined dev</span></td>
-<td><span style="font-weight: 400;">Waseem dev</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">F1</span></td>
-<td><span style="font-weight: 400; color: #ff0000;">0.85983</span></td>
-<td><span style="color: #ff0000;">0.77451</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Recall</span></td>
-<td><span style="font-weight: 400; color: #ff0000;">0.86029</span></td>
-<td><span style="font-weight: 400; color: #ff0000;">0.76156</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Precision</span></td>
-<td><span style="font-weight: 400; color: #ff0000;">0.85937</span></td>
-<td><span style="font-weight: 400; color: #ff0000;">0.78791</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Accuracy</span></td>
-<td><span style="font-weight: 400; color: #ff0000;">0.86437</span></td>
-<td><span style="font-weight: 400; color: #ff0000;">0.80837</span></td>
-</tr>
-</tbody>
-</table>
-<p><del><span style="font-weight: 400;">With no doubt, our combined dataset provides a huge boost on performance on original Waseem twitter dataset.</span></del></p>
-<p><span style="color: #ff0000;">From the above results, it seems CNN hasn’t show an improvement on our job. We think doing more hyper parameter tuning should give us some improvement. Furthermore, we would like to incorporate Elmo to see if that will help us our not.</span></p>
-<p><del><span style="font-weight: 400;">However, we do have some concern about our models: almost all of the best models we have with a large number of filters have their best epoch generally to be the first few epochs. We are a little bit concerned about that since that may be a sign of overfitting.</span></del></p>
-<p><span style="color: #ff0000;">Since our result hasn’t show any improvement, we think it’s more appropriate to do error analysis once we gain some improvement.</span></p>
-<p><del><span style="font-weight: 400;">Therefore, before we start to do any error analysis, we would like to do a little bit more hyperparameters since we haven’t really try different drop out rate or other output dimension values other than the one specified in the paper we referenced.</span></del></p>
-<h3><span style="font-weight: 400;">Next Step:</span></h3>
-<p><span style="font-weight: 400;">First, we will dig deeper on the model we have right now. We will first play with its parameters and then conduct error analysis on it.</span></p>
-<p><span style="font-weight: 400;">As suggested in previous blog post feedback, we would like to try Elmo and see how much can we improve with it. Furthermore, we would like to try things like character level embedding as well as another very interesting model which combines CNN with GRU to make prediction.</span></p>
-<h3><span style="font-weight: 400;">Work Cited:</span></h3>
-<p><a href="https://www.semanticscholar.org/paper/Hateful-Symbols-or-Hateful-People%3F-Predictive-for-Waseem-Hovy/df704cca917666dace4e42b4d3a50f65597b8f06">Waseem, Zeerak and Dirk Hovy. “Hateful Symbols or Hateful People? Predictive Features for Hate Speech Detection on Twitter.” SRW@HLT-NAACL (2016).</a></p>
-<p><a href="https://www.semanticscholar.org/paper/Automated-Hate-Speech-Detection-and-the-Problem-of-Davidson-Warmsley/6ccfff0d7a10bf7046fbfd109b301323293b67da">Davidson, Thomas J et al. “Automated Hate Speech Detection and the Problem of Offensive Language.” ICWSM (2017).</a></p>
-<p><a href="https://www.semanticscholar.org/paper/Using-Convolutional-Neural-Networks-to-Classify-Gamb%C3%A4ck-Sikdar/0dca29b6a5ea2fe2b6373aba9fe0ab829c06fd78">Gambäck, Björn and Utpal Kumar Sikdar. “Using Convolutional Neural Networks to Classify Hate-Speech.” (2017).</a></p>
-<p> </p></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="http://cse481n-capstone.azurewebsites.net/2018/05/01/advanced-attempt-i/">by Team Watch Your Language! at May 02, 2018 06:17 AM</a>
 </p>
 </div>
 </div>
@@ -2924,159 +1730,6 @@ I fixed the performance issues, and I have been working on adding enhancements t
 
 
 
-<h3><a href="http://cse481n-capstone.azurewebsites.net" title="Team Watch Your Language!">Boyan Li, Dennis Orzikh, Lanhao Wu <br/> Team Watch Your Language!</a></h3>
-
-
-<div class="entrygroup" id="http://cse481n-capstone.azurewebsites.net/?p=51">
-<h4 lang="en-US"><a href="http://cse481n-capstone.azurewebsites.net/2018/04/24/more-data-collection-and-baseline/">More Data Collection and Baseline</a></h4>
-<div class="entry">
-<div class="content" lang="en-US">
-<h3><span style="font-weight: 400;">Data Collection: </span></h3>
-<p><span style="font-weight: 400;">In the last blog we discussed the challenges of trying to find general Reddit posts that were similar to the collected MeanJokes posts. Even limiting to posts with Jaccard Similarity &gt; .3 a lot of the data looked like the following:</span></p>
-<pre><span style="font-weight: 400;">MeanJokes Post: “Don’t be offended but Fuck you”
-    Similar Post: “fuck Foligno”
-    Similar Post: “fuck narek”
-    Similar Post: “fuck"
-    Similar Post: “Fuck me?”
-    Similar Post: “Fuck me”
-    Similar Post: “fuck me”
-</span>    Similar Post: “Fuck it”
-    Similar Post: “Fuck”
-    Similar Post: “Who the fuck are you?”</pre>
-<p><span style="font-weight: 400;">These wouldn’t be very interesting examples to eventually train a model on. We also noticed that because of the nature of Jaccard Similarity and the sparsity of language in our collected Reddit posts, most of the posts that matched our MeanJokes posts would be very short, containing one or two key phrases from the MJ post. Posts made to Reddit are typically either very long or very short, so to make use of those long posts we decided to split them up by sentence and consider every sentence individually. We would also filter out sentences that are below a certain number of tokens, so that we avoid examples like the above.</span></p>
-<pre><span style="font-weight: 400;">MeanJokes Post: “How is ScizorSci like Hoss McDank? They’re both faggots!”
-</span>    Similar Post: “How long was he like that?”
-    Similar Post: “More like CRAPitalism (this but unironically)
-    Similar Post: “Volcanoes are like earth pimples”
-    Similar Post: “I cried like a bitch”
-    Similar Post: “She doesn’t like jewelry”
-    Similar Post: “Everyone was like daaaaayum”
-    Similar Post: “Don’t speak to me like that”
-    Similar Post: “Don’t like the smell of this at all”
-    Similar Post: “A few others I like are”
-    Similar Post: “It’s like I’m on fire”</pre>
-<p><span style="font-weight: 400;">These are better than the previous examples but still the similarities are very shallow. Most of the matches are just because there were one or two content phrases that matched between them. This could be expected from having a Jaccard Index cutoff as low as .3, since usually you want one that is somewhere above .7, but the language used in these posts is too sparse to be this picky and still have enough data to train a neural network. </span></p>
-<p><span style="font-weight: 400;">We could possibly try similarity on word embeddings or sentence embeddings, but we liked using Jaccard Index because we actually care about the specific words used and not just the semantic meaning. </span></p>
-<p><span style="font-weight: 400;">Our main issue ended up being that we assumed most posts would be conversationally structured with short-ish text, when in reality we found that posts are either really short, some collection of tags for indexing or trading, really long posts with at least a paragraph of text about some abstract subject, or requests for sexual favors. Overall this makes general reddit posts quite different from r/meanjokes, so at the surface level jaccard index won’t really do much, and furthermore general reddit posts won’t be conversational in structure the way r/meanjokes posts are. For these reasons we will have to move on to looking at comments instead, since we believe that they will be more conversational than posts. We originally wanted to use posts instead of comments since posts are contextually self-containing while comments are typically responses to multi-person conversations. However, we ended up splitting posts into independent sentences anyway, so this reasoning for avoiding comments became moot.</span></p>
-<h3><b>Baseline Model:</b></h3>
-<p><span style="font-weight: 400;">This week, we developed a baseline Neural Network model using allennlp. The model architecture is simple. We used pretrained </span><a href="https://nlp.stanford.edu/projects/glove/"><span style="font-weight: 400;">glove twitter word embeddings</span></a><span style="font-weight: 400;">, encode each tweet with a recurrent neural network (e.g. RNN, LSTM, GRU) sequence to vector encoder, and finally feed the vector into a feed-forward network with softmax at the end. We experimented with glove twitter word embeddings with 50 dimensions. We also tried different flavors of 1 layer recurrent neural network sequence to vector encoders, more specifically, GRU, LSTM, BiLSTM, and RNN. By the time this blog is written, we have yet performed extensive hyperparameter tuning. </span></p>
-<p><span style="font-weight: 400;">Among the 4 different model setups that we tried, one of the models (Model1) got the highest accuracy, recall, and f1 score on test data, while another model (Model2) got the highest precision on test data. Below are their performances on dev and test dataset. </span></p>
-<ul>
-<li><span style="font-weight: 400;">Model1 — embedding: 50-dimensional glove twitter embeddings, encoder: 1 layer GRU, epoch chosen: 20</span></li>
-</ul>
-<table>
-<tbody>
-<tr>
-<td></td>
-<td><span style="font-weight: 400;">Dev</span></td>
-<td><span style="font-weight: 400;">Test</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Accuracy </span></td>
-<td><span style="font-weight: 400;">0.8245</span></td>
-<td><span style="font-weight: 400;">0.8181</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Precision</span></td>
-<td><span style="font-weight: 400;">0.7934</span></td>
-<td><span style="font-weight: 400;">0.7896</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Recall</span></td>
-<td><span style="font-weight: 400;">0.7995</span></td>
-<td><span style="font-weight: 400;">0.7947</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">F1</span></td>
-<td><span style="font-weight: 400;">0.7964</span></td>
-<td><span style="font-weight: 400;">0.7921</span></td>
-</tr>
-</tbody>
-</table>
-<ul>
-<li><span style="font-weight: 400;">Model2: — embedding: 50 dimensional glove twitter embeddings, encoder: 1 layer BiLSTM, epoch chosen: 5</span><br />
-<table>
-<tbody>
-<tr>
-<td></td>
-<td><span style="font-weight: 400;">Dev</span></td>
-<td><span style="font-weight: 400;">Test</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Accuracy </span></td>
-<td><span style="font-weight: 400;">0.8409</span></td>
-<td><span style="font-weight: 400;">0.8175</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Precision</span></td>
-<td><span style="font-weight: 400;">0.8239</span></td>
-<td><span style="font-weight: 400;">0.8004</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">Recall</span></td>
-<td><span style="font-weight: 400;">0.7909</span></td>
-<td><span style="font-weight: 400;">0.7627</span></td>
-</tr>
-<tr>
-<td><span style="font-weight: 400;">F1</span></td>
-<td><span style="font-weight: 400;">0.8070</span></td>
-<td><span style="font-weight: 400;">0.7811</span></td>
-</tr>
-</tbody>
-</table>
-</li>
-</ul>
-<p><span style="font-weight: 400;">These two models’ setups are almost the same except for model1 uses a GRU encoder while model2 uses an BiLSTM encoder. Surprisingly, Model1 ends up having better overall performance on test data than the ones with more complex encoders like BiLSTM. </span></p>
-<h4><span style="font-weight: 400;">Error Analysis:</span></h4>
-<p><span style="font-weight: 400;">We will use the Model2’s errors in our error analysis:</span></p>
-<p><span style="font-weight: 400;">First we will look into sentences that are hateful but our model classified as none:</span></p>
-<ol>
-<li style="font-weight: 400;">@RichardDawkins @AbuelitoSerge Really, Muslims understand this. They just want to be able to use the name “racism” to shut us up.</li>
-<li style="font-weight: 400;">@RTUKnews An Islamist human rights group? LOL. Now there is a contradiction in terms.</li>
-</ol>
-<p><span style="font-weight: 400;">From the above examples, we found that our model is not good at understanding the underlying meaning of a sentence. For example, the 2rd one implies Islamist doesn’t care about human rights, which is attacking Islam people. However, since this sentence does not have any words that are very sensitive, our model considered it as OK instead of hateful.</span></p>
-<p><span style="font-weight: 400;">Here are some other sentences that are not hateful but our model classified then as hateful:</span></p>
-<ol>
-<li style="font-weight: 400;">@Strubbestition Name one thing that is not an opinion but is still sexist. I will wait.</li>
-<li style="font-weight: 400;">@Bipartisanism @AllooCharas Terrorism involves a political or religious objective to the terror.Most mass murderers have personal objectives</li>
-</ol>
-<p><span style="font-weight: 400;">On the other hand, we found a trend that sentences including words like “sexist”, “crime” are classified as hateful disregarding what exactly the post means. For a concrete example, the 3rd sentence from 2nd group is not saying anything hateful but our model considered it as hateful. We suspect that because “murderers” appeared in that sentence and in our training data and most other sentences with such word is hateful, our model picked up such pattern and made a wrong decision.</span></p>
-<p><span style="font-weight: 400;">Why we end up have a pretty bad result? We have two possible reasons:</span></p>
-<ol>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Our dataset used is really small (15k sentences in total) and dataset itself is really noisy. For example, “@dgbattaglia Saw this this morning… http://t.co/9YUwOuZugw” is somehow labeled as hateful as true label in original dataset.</span></li>
-<li style="font-weight: 400;"><span style="font-weight: 400;">Our model is not expressive enough to recognize more complicated patterns. This also has something to do with the dataset. With such a small dataset, we cannot really train a deep or more complicated model.</span></li>
-</ol>
-<h4><span style="font-weight: 400;">Next Steps: </span></h4>
-<p><span style="font-weight: 400;">What we are seeing in training is is this general pattern. We suspect it is because the dataset we have (around 15k tweets) is too small for a neural network model. We would want to try combine another </span><a href="https://github.com/t-davidson/hate-speech-and-offensive-language"><span style="font-weight: 400;">twitter hate speech dataset (by Thomas Davidson et. al.)</span></a><span style="font-weight: 400;"> and Waseem’s twitter dataset and train different neural net models on the combined dataset. </span><span style="font-weight: 400;"><br />
-</span></p>
-<p><img alt="" class="alignnone wp-image-54" height="192" src="http://cse481n-capstone.azurewebsites.net/wp-content/uploads/2018/04/P3-300x138.png" width="417" /></p>
-<h4><span style="font-weight: 400;">Data Sources: </span></h4>
-<p><a href="https://www.semanticscholar.org/paper/Hateful-Symbols-or-Hateful-People%3F-Predictive-for-Waseem-Hovy/df704cca917666dace4e42b4d3a50f65597b8f06">Waseem, Zeerak and Dirk Hovy. “Hateful Symbols or Hateful People? Predictive Features for Hate Speech Detection on Twitter.” SRW@HLT-NAACL (2016).</a></p>
-<p><a href="https://www.semanticscholar.org/paper/Automated-Hate-Speech-Detection-and-the-Problem-of-Davidson-Warmsley/6ccfff0d7a10bf7046fbfd109b301323293b67da">Davidson, Thomas J et al. “Automated Hate Speech Detection and the Problem of Offensive Language.” ICWSM (2017).</a></p></div>
-
-
-
-
-
-
-
-<p class="date">
-<a href="http://cse481n-capstone.azurewebsites.net/2018/04/24/more-data-collection-and-baseline/">by Team Watch Your Language! at April 25, 2018 05:00 AM</a>
-</p>
-</div>
-</div>
-
-
-
-</div>
-<div class="channelgroup">
-
-
-
-
-
-
-
 <h3><a href="https://mathstoc.wordpress.com" title="NLP Capstone – Mathematical Distractions">Kuikui Liu, Nicholas Ruhland <br/> Team INLP</a></h3>
 
 
@@ -3261,6 +1914,174 @@ I fixed the performance issues, and I have been working on adding enhancements t
 </div>
 
 </div>
+<div class="daygroup">
+<h2>April 19, 2018</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://nlpcapstonesemparse.blogspot.com/" title="NlpCapstone">Rajas Agashe <br/> Team Han Flying Solo</a></h3>
+
+
+<div class="entrygroup" id="tag:blogger.com,1999:blog-5600014144802012716.post-2741407940361589303">
+<h4><a href="https://nlpcapstonesemparse.blogspot.com/2018/04/blog-4-strawman-i.html">Blog 4: Strawman I</a></h4>
+<div class="entry">
+<div class="content">
+I'm implementing the parser within the the wikitables semantic parser(Neural Semantic parsing with type constraints by Krishnamurthy et al) since both are solving similar tasks and it'd be a cool result if the same architecture worked for both tasks. The similarity is that both tasks need to generate the logical form which incorporates elements of a context. For wikitables its cell and column names and for this task its variable and method names.<br /><br />Results:<br /><br /><ul><li>Wikitables framework - 4% accuracy.</li><li>Wikitables framework + parent states - 12% accuracy.</li></ul><div><br /></div><div>The wikitables baseline performs poorly and integrating the parent production rule used as input to the decoder cell in the java paper but not the wikitables paper results in a eight percent improvement. This is since the java production rule sequences are much longer and cannot just rely on the previous rule.</div><div> </div><br />These results demonstrate that while that tasks are similar there are some key differences in the datasets that won't allow the exact same architecture to be used. Nonetheless, I will still be implementing the java parser within the wikitables framework incorporating necessary elements to boost performance.<br /><br />My code is here:<br /><b>https://github.com/rajasagashe/allennlp/tree/enviro-linking</b></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://nlpcapstonesemparse.blogspot.com/2018/04/blog-4-strawman-i.html">by nlpcapstone (noreply@blogger.com) at April 19, 2018 07:13 PM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/@halden.lin?source=rss-2759d54493c0------2" title="Stories by Halden Lin on Medium">Halden Lin <br/> Team undef.</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/be87c31976b7">
+<h4><a href="https://medium.com/@halden.lin/nlp-capstone-04-first-steps-be87c31976b7?source=rss-2759d54493c0------2">NLP Capstone | 04: First Steps</a></h4>
+<div class="entry">
+<div class="content">
+<p><em>previous posts: </em><a href="https://medium.com/@halden.lin/nlp-capstone-01-options-ee873b6885d5"><em>01</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5"><em>02</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-03-project-proposal-7d8e9ec1a8e3"><em>03</em></a></p><p>Nearing 4 weeks in — I’ve finally got a foothold in the development process. Over this past week I’ve been looking through TensorBoard and TensorFlow source-code and documentation in an attempt to develop a foundation for plugin development.</p><p><strong>Notable Resources:</strong></p><ul><li><a href="https://www.tensorflow.org/programmers_guide/summaries_and_tensorboard">TensorBoard Documentation</a></li><li><a href="https://github.com/tensorflow/tensorboard">TensorBoard Source Code</a> and <a href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins">Existing Plugins</a></li><li><a href="https://github.com/tensorflow/tensorboard-plugin-example/blob/master/README.md">Developing a TensorBoard Plugin</a> (a simple example)</li></ul><h4>Completed Milestones:</h4><ol><li>Understand the structure of a TensorBoard Plugin, specifically how the architecture of the Attention Plugin should look like.</li><li>Design and write the data fetching layer.</li></ol><h4>Plugin Architecture</h4><p>In TensorFlow, data from iterations of training / evaluation is stored as a set of <strong>summaries</strong>. These can take the form of any tensor, including text, image, scalars, or time series. These are written to disk as the computation graph is executed. Each ‘summary’ takes the form of a <a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/framework/summary.proto">Summary protocol buffer</a>, which holds, in addition to the data stored, critical identifying information (tags and metadata). A plugin can then read summaries associated with particular tags and sessions from disk to serve to the TensorBoard front-end via a plugin back-end, where a visualization is rendered.</p><p>Following <a href="https://github.com/tensorflow/tensorboard-plugin-example/blob/master/README.md"><em>Developing a TensorBoard plugin</em></a><em>, </em>the Attention Plugin with have three primary components:</p><ol><li>Data API layer. This is what allows users to capture relevant summaries from within their models.</li><li>Plugin backend, which serves said summaries.</li><li>Frontend, where the visualizations are displayed.</li></ol><p>Unlike commonly used plugins such as the <a href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/scalar]">scalar</a> and <a href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/histogram">histogram</a> plugins, the Attention Plugin consumes 3 distinct values: the input text, the decoded output text, and the attention matrix that correlates the two. Initially, I attempted to store these all in a single Summary protobuf, where the first two rows of the encapsulating matrix would contain the text, and the rest would contain the attention weights. This results in a mixing of string and float types in a single Tensor, which is not valid (to my knowledge) in TensorFlow. I then realized I could store these separately, each in their own summary, and retrieve them via an identifying name. The resulting architecture is shown in the diagram below.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*QK7USkxsSC3u6F0LKbKWXQ.png" />The architecture of the Attention Plugin.</figure><p>I decided to make the output text an optional summary, as models don’t necessarily need to decode (via Viterbi, Beam Search, or otherwise) an output sequence while training. The input text and attention matrix are still valuable, as summary statistics (e.g. coverage, important words, etc) can be gleamed without the decoded text.</p><h4>Data API Layer</h4><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*0m1-fllpNYMP666FhR0nbA.png" />Data API Layer highlighted in green.</figure><p>As the TensorBoard authors suggest, the data API layer, defined in attention_summary.py, provides two methods for creating Summary protobufs, which can then be written to disk via a FileWriter. The first is via a TensorFlow op, which can be thought of as a node in the computation graph, that produces a Summary when the graph is executed. The second is by directly creating the protobuf, which allows for data to be saved outside the execution of a TensorFlow session. I’ve implemented both of these. There is a separate method for each of the three datum used by the plugin (input text, output text, attention matrix), and each of the three summary datum are tagged differently (e.g. name/attention_input_summary, name/attention_output_summary) in order to allow for distinguishable retrieval later.</p><p>An example of the usage of both methods can be found in attention_demo.py.</p><h4>Next Steps</h4><p>I suspect the work completed this week was the biggest hurdle in terms of time:code ratio. I would not be surprised if I had to revisit the work done here in order to clean things up or fix small bugs. However, with this understanding and architecture nailed down, I expect implementation of the rest of the plugin will come at a faster pace. With that said, three tasks stand as immediate goals for the next week.</p><ol><li>Modify my forked repository of the summarization model created by <a href="https://arxiv.org/pdf/1704.04368.pdf">See et al.</a> (original found <a href="https://github.com/abisee/pointer-generator">here</a>) to produce and save the appropriate summaries for the Attention Plugin. I’ve already started looking into this, and expect to have to fiddle around with the training / evaluation scheme in order to grab an appropriate amount of data.</li><li>Implement the backend of the Attention Plugin.</li><li>Begin prototyping visualizations (pen &amp; paper) and acquire preliminary feedback.</li></ol><p>Until next time.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=be87c31976b7" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@halden.lin/nlp-capstone-04-first-steps-be87c31976b7?source=rss-2759d54493c0------2">by Halden Lin at April 19, 2018 06:33 AM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
+<div class="daygroup">
+<h2>April 18, 2018</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2" title="Stories by Viterbi Or Not To Be on Medium">Aaron Johnston, Lynsey Liu <br/> Team Viterbi Or Not To Be</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/a6690114c441">
+<h4><a href="https://medium.com/@viterbi.or.not/baseline-model-1-a6690114c441?source=rss-c522ef075bb3------2">Baseline Model #1</a></h4>
+<div class="entry">
+<div class="content">
+<figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*bGQmjLRpsY3UnYhK6e8Lyg.png" /></figure><p>This week, we implemented our <a href="https://github.com/viterbi-or-not-to-be/viterbi-or-not-to-be/tree/master/baseline">first baseline model</a> for conversation summarization. In order to create a baseline that would be useful to build off of and compare our future results to, we decided to base this model off the Naive Bayes implementation described in the paper <a href="http://web2py.iiit.ac.in/research_centres/publications/download/inproceedings.pdf.8b32440f2dc771c4.323031325f414e445f43616d6572612e706466.pdf"><strong>Summarizing Online Conversations: A Machine Learning Approach</strong></a>.</p><p>To begin with, we identified the W3C Email Threads dataset as a useful starting point because of the fact that we have access to multiple email datasets, and because the paper mentioned above indicated that chatlog data would require a great deal of additional preprocessing to be able to manipulate. By comparison, the email data is fairly simple to interpret because it is rare for a single sender to convey their portion of a message across multiple emails, and the writing is generally more grammatically well-formed. The experiments in the paper run on the <a href="https://flossmole.org/content/software-archaeology-gnue-irc-data-summaries">GNUe Archives</a> and the <a href="https://www.cs.ubc.ca/cs-research/lci/research-groups/natural-language-processing/bc3.html">BC3 Corpus</a> (annotated W3C Email Threads).</p><p>The paper also uses <a href="https://www.cs.waikato.ac.nz/ml/weka/">Weka Toolkit</a> for all of its model implementations, so we initially aimed to use Weka as well to reproduce our baseline. However, we encountered a few challenges while starting out with Weka that ultimately led to our abandoning the platform in favor of a more flexible Python implementation. The email data is in XML format, whereas Weka appears to work best with a format called ARFF, and in our preliminary examination we found ARFF to be fairly difficult to map directly to XML. In particular, ARFF’s apparent inability to handle dynamic-length data types or nested relations made it challenging to plan around — this was a problem because for each training example (email thread) in our dataset, we have a variable-length amount of information (number of emails, number of sentences per email, number of words per sentence, etc.). Without usage of dynamic-length data coupled with a toolset/interface more suited to data mining and application of basic, pre-made machine learning models than detailed feature engineering, we found Weka specifically difficult to use for feature extraction.</p><p>Instead, we ended up deciding to implement the baseline model in Python — including parsing the XML from our chosen dataset, extracting features, and using SciKit-Learn to train a Naive Bayes model to form the baseline itself. Since our aim with the baseline was to re-implement at least part of the work done by the <a href="http://web2py.iiit.ac.in/research_centres/publications/download/inproceedings.pdf.8b32440f2dc771c4.323031325f414e445f43616d6572612e706466.pdf"><strong>Summarizing Online Conversations: A Machine Learning Approach</strong></a> paper, we also chose to set up evaluation that would mirror their evaluation techniques, and settled on using a previously-written implementation of ROUGE for the task. Re-implementing the baseline model in Python based on previous work took more effort than using Weka would have, but was advantageous in that it helped us understand the specific challenges of the task and resulted in somewhat extensible code we can adapt for later phases of the project.</p><h4><strong>Feature Selection</strong></h4><p>The Feature Selection section of the paper notes a “basic feature set,” which refers to features that are “not specific to conversations and consider the conversation as a simple piece of text.” For our baseline, we decided to target only the basic features to establish the difference that can be made by using conversation-specific features. Based on this basic set, our Naive Bayes baseline incorporates the following features —</p><p><strong>Mean TF-IDF: </strong>Term frequency-inverse document frequency (TF-IDF) characterizes frequency of a word and reflects its importance to an email thread. Calculating TF-IDF results in a vector of word frequencies per email, and we take the mean of the values in the vector for the mean TF-IDF feature.</p><p><strong>Mean TF-ISF: </strong>Similar to TF-IDF but at a different granularity, term frequency-inverse sentence frequency (TF-ISF) characterizes frequency of a word and reflects its importance to an email. Calculating TF-ISF results in a vector of word frequencies per sentence, and we take the mean of the values in the vector for the mean TF-ISF feature.</p><p><strong>Sentence Length: </strong>Number of characters in the sentence.</p><p><strong>Sentence Position: </strong>Index of the sentence within the email.</p><p><strong>Similarity to Title: </strong>We represent the name of an email thread as a TF-ISF title vector, in the same form as described earlier (without taking the mean). This feature is then the result of the cosine similarity between the TF-ISF vector for a sentence and the title vector.</p><p><strong>Centroid Coherence: </strong>We represent the centroid of an email thread as the average of the TF-ISF sentence vectors. This feature is then the result of the cosine similarity between the averaged centroid vector and the sentence vector.</p><p><strong>Special Terms: </strong>Numbers and proper nouns are deemed as ‘special terms.’ This feature is the count of special terms in a sentence normalized (divided) by the number of special terms in the email thread.</p><h4><strong>Results and Evaluation</strong></h4><p>After implementing our baseline model, we used the ROUGE package to evaluate its summarization on a variety of metrics. We split the data into training and testing segments, placing 80% of email threads in the training set and 20% in the testing set. We then used our model and features to generate summaries and used ROUGE-L to measure their performance. After computing the average ROUGE-L, ROUGE-1, and ROUGE-2 F1 scores across all the email threads in the testing set, we produced the following results (along with the results reported in the baseline paper for comparison):</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*vjlGJvdBn_k4obtMdkGdIA.png" />Mean F1 scores for various ROUGE metrics, compared to the results from <a href="http://web2py.iiit.ac.in/research_centres/publications/download/inproceedings.pdf.8b32440f2dc771c4.323031325f414e445f43616d6572612e706466.pdf"><strong>Summarizing Online Conversations: A Machine Learning Approach</strong></a></figure><h4><strong>Error Analysis</strong></h4><p>It is certainly helpful to have a set of metrics like ROUGE to establish a comparison between our model and existing models, but for a task such as automatic summarization it is an unfortunate reality that no existing metrics really come close to fully capturing the “success” of a summary. Comparing the compositions of two summaries provides valuable insight into the performance of a model, but ultimately a great deal of the usefulness of a summary revolves around its ability to convey the information contained in a conversation without needless filler and in a logical, simple format. Because there are no metrics that can describe how well a summary captured the topics in a conversation or how understandable it is, we will have to rely heavily on human interpretation to judge the success of our model.</p><p>For our baseline, we took a look at the generated summaries and discovered that while the general topic of each email thread is easily discernible, it is sometimes difficult to follow the course of the discussion. In addition, we found that our summaries were especially susceptible to the inclusion of “fluff” — short, choppy sentences or signature elements with no relevance to the actual contents of the summary that simply obstructed the reader. Perhaps our future attempts will have to target this with features specifically designed to identify things like email signatures or greetings, to help distinguish between these sources of “fluff” and the actual content of each email. Notably, this is not an issue that chatlog data suffers from, because there are typically fewer signatures or static portions of chats to ignore.</p><p>Our analysis is exemplified by the sample summary and its annotated counterpart below:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*ycgusov-GEUfQm7C." />Summary for an email thread generated by our baseline model</figure><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*aOxikqivuOMXLgnM." />Summary for the same email thread from the dataset annotation</figure><h4><strong>Future Improvements</strong></h4><p>Although our baseline model provided a useful point of comparison for future efforts, we were not able to entirely replicate the results of the paper we based it off of. Despite using the same features that they described, we achieved a significantly lower mean ROUGE-L F1 score of 0.409 as compared to their 0.245 for the same dataset. As a result, it seems that an important next step would be to identify the discrepancies between our implementation and theirs to try and faithfully reproduce their results before moving on to other models.</p><p>One possible issue we identified with our model could be the lack of a topic boundary preprocessing step as found in the research paper. Although their description made it seem as though the technique mainly applied to chatlog data, it is possible that performing such a preprocessing step would bring our model’s performance closer to theirs. The paper describes two different approaches at a very high level, so further research and experimentation would be needed to determine a reasonable implementation to perform such a task. In addition, there were various parameters left out of the paper’s description that could affect the model’s performance, such as ROUGE evaluation parameters and the implementation of Naive Bayes, which could have made an impact.</p><p>After finishing our baseline implementation, we plan to implement further models to address this task. The paper we previously mentioned uses a number of other approaches, so one direction we plan to move in is selecting other potentially effective models from their list and implementing them (decision trees look the most promising and would require very little modification to the code). Afterwards, we plan to address the other datasets, and then move into feature engineering and tweaking our implementations to produce our minimum viable product.</p><h4>Code</h4><p>As mentioned in our first blog post, the full code for our project is <a href="https://github.com/viterbi-or-not-to-be/viterbi-or-not-to-be">available on Github</a>, which currently includes usage instructions located in the README.md file for the baseline directory that can guide a user through the process of setting up the model, producing summaries, and running the ROUGE evaluation. We certainly have a long way to go in terms of code organization and cleanliness, but this baseline implementation at least allows for a preliminary examination of the task and produces the results necessary to interpret the rest of our model approaches with appropriate context.</p><p>Edited 4/24 to add baseline dog.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=a6690114c441" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@viterbi.or.not/baseline-model-1-a6690114c441?source=rss-c522ef075bb3------2">by Viterbi Or Not To Be at April 18, 2018 06:55 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://cse481n.blogspot.com/" title="PrimeapeNLP">Ron Fan, Aditya Saraf <br/> Team PrimeapeNLP</a></h3>
+
+
+<div class="entrygroup" id="tag:blogger.com,1999:blog-3753031463594823927.post-8569998071322028844">
+<h4><a href="https://cse481n.blogspot.com/2018/04/blog-post-4.html">Blog Post #4</a></h4>
+<div class="entry">
+<div class="content">
+<div dir="ltr" id="docs-internal-guid-7937c8af-d777-ed0f-f77b-cf09623b985e" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">A big part of our work for setting up a baseline is the creation of a reasonably good dataset for training and evaluating extractive text summarization. Our goal was to build a dataset with all sentences from the articles marked with binary labels indicating whether or not they were part of the extracted summary.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">We used the DailyMail and CNN story dataset, which is meant for abstractive summarization, to build our own dataset. The data set includes automatically-parsed lines from news articles, as well as a few bullet point highlights for each article. These highlights are not sentences directly from the article, but are overall a decent indicator and considered to be one of the most useable datasets out there (if for no other reason than sheer volume of data).</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">To build our data set, we used a toy metric roughly based off of ROUGE-N, with the understanding that we would only need a way of relative ranking for each sentence.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">The procedure to generate the data set was as follows:</span></div><ol style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Read in a single .story file from the abstractive dataset into highlights and sentences.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Post-process sentences- in the original data, new lines do not correspond exactly with sentence endings. Additionally, some sentences are originally split arbitrarily by new lines. We do an additional split by the regex (?&lt;=[.?!])\s+ (whitespace with period, question mark, or exclamation mark lookbehind), but sentence “re-joining” is off by default, as some sentences in the original dataset do not end with punctuation.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Score each sentence with our metric.</span></div></li><ol style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Tokenize each sentence and highlight.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Build unigram, bigram, and trigram lists.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Count the number of matches between the sentence and all the highlights, giving more weight to bigram and trigram matches and also weighting by word length.</span></div></li></ol><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Sort sentences by score.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Let S be the number of sentences and H be the number of highlights. The algorithm picks up to min(1, floor(S/2)) sentences as part of the summary. It picks at least the H sentences with the highest scores. After sentence H is picked, subsequent sentences will only be picked if their score was at least (80+3*X)% of the previously-picked sentence’s score, where X is the number of sentences currently picked. This is effectively a fairly arbitrary metric to pick the most likely sentences roughly in accordance with the size of the abstractive summary, while also allowing for particularly similar sentences to both be chosen for completeness.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">All data input and output with UTF-8 encoding.</span></div></li></ol><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Output format:</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">&lt;#&gt; &lt;SENTENCE PLAINTEXT&gt;</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;"># is either 0 = normal sentence in the article, 1 = sentence chosen as part of extractive summary, 2 = original abstractive summary (should not be touched by model, only left there for human reference). </span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Overall, we think our data set is generally reasonable and makes sense. Nonetheless, there are a number of weaknesses with both extractive models in general and this specific type of dataset (including some problems which derive from the original abstractive dataset).</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Key weaknesses of data set:</span></div><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">In the original data, highlights do not always correspond to actual information in the article. For example, this short story has four highlights that are all new information: 008fc24ca9f4c48a54623bef423a3f2f8db8451a.story.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Frequent formatting problems - sentences that don’t terminate with punctuation, repeated sentences, bugged unicode characters, etc.</span></div></li></ul><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Key weaknesses specific to extractive summarization:</span></div><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Articles that are particularly short are effectively impossible to meaningfully summarize with extractive techniques.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Some sentences in articles contain the same content with slightly different wording. In these cases, we decided to choose both sentences, with the idea that post-processing could take care of highly-similar sentences, but a model could not be expected to accurately distinguish between two such sentences if they have different labels.</span></div></li></ul><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">The Baseline Model:</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">For our baseline combinatorial approach, we did a simple Maximum Coverage Problem implementation. The Maximum Coverage Problem is a classic NP-complete problem. Given a collection of n sets, the goal is to maximize the number of chosen (or “covered”) elements while only choosing k of the sets (where k &lt; n). It’s very straightforward to reduce summarization to this problem. The sentences in the document are the sets, and the vocabulary of the document represents the “universe”, or the elements in the sets. The goal is to cover as many words as possible while picking the same number of sentences as in the labelled summary. The intuition is that sentences with more words capture more semantic meaning, and once a word is listed in the summary, that word need not be considered again. This reduction makes some intuitive sense, but two main aspects must be refined. First, not all words are equally meaningful. Some words, like “a”, “the”, or “and”, have little semantic content, while named entities and other important words have much higher semantic content. Second, we should at least account for sentence lengths -- instead of constraining the algorithm to pick the same number of sentences, we should constrain it to the same word count. This two additional criteria turn the problem into the Budgeted Maximum Coverage Problem: elements in the sets have specified values, and the sets have specified costs. The new objective is to maximize the total value of the covered elements while remaining with a given budget.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Of course, this problem is NP-complete, so it may seem like a strange choice to model summarization with. There are two approaches to this. First, a simple greedy algorithm achieves an approximation of ~63%, which means that the greedy algorithm is guaranteed to get at least 63% of the value of the optimal solution. For the standard MCP, the greedy algorithm just chooses the set with the most uncovered elements until no more sets are allowed. For the budgeted MCP, the approximation algorithm is slightly more complex. See Khuller et al. for a detailed look at it -- the algorithm is slightly more work, but still very understandable, and achieves the same approximation bound.  We can also formulate the problem as an Integer Linear Program (ILP) and use an ILP solver to generate optimal solutions on realistic instance sizes. This works because the documents and sentences are both small.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">For now, we are using the greedy algorithm for the standard MCP. As a simple metric, we used the number of correct chosen sentences divided by the number of chosen sentences in total (correct means that the gold standard also picked that sentence). With a basic MCP approach, we had an accuracy of 0.218. This was measured on a small sample of 2000 stories. In order to approximate a weighting scheme, we use a stop list to simply remove common articles and other semantically empty words. With this small modification, we had an accuracy of 0.2328.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">We plan to extend this to a better baseline model in the next few days. We will formulate the problem as an ILP and pass it to an ILP solver for an optimal solution. We will also implement a more sophisticated weighting scheme. One idea is to use some of the labelled data as training data (right now, we don’t train) to build a weight matrix for common words -- we can build this matrix with a logistic regression, using n-gram (probably unigram) similarity as the loss function.This will hopefully give us a more reasonable baseline model.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Evaluation Framework:</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">For now, we’re using a simple accuracy metric. We plan to switch to ROUGE, which counts n-gram similarity (ROUGE measures recall, not precision). We will work with the ROUGE-2.0 Java package or pyrouge, depending on which language we are working with. </span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">So to summarize our goals for the next week, we will improve this baseline model by formulating the problem as an ILP and we may implement a weighting scheme (if that’s too complicated, we’ll save it for the advanced model). We will also build a baseline neural model. Then, we’ll flesh out our evaluation framework using ROUGE metrics, train/test using more of the corpus, and have detailed error analysis.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">References:</span></div><div dir="ltr"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Khuller, S., Moss, A., &amp; Naor, J. (Seffi). (1999). The Budgeted Maximum Coverage Problem. </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: italic; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Inf. Process. Lett.</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">, </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: italic; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">70</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">(1), 39–45. https://doi.org/10.1016/S0020-0190(99)00031-9</span></div></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://cse481n.blogspot.com/2018/04/blog-post-4.html">by Ron &amp;amp; Aditya (noreply@blogger.com) at April 18, 2018 06:25 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/nlp-capstone-blog?source=rss----9ba3897b6688---4" title="NLP Capstone Blog - Medium">Tam Dang, Karishma Mandyam <br/> Team Illimitatum</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/15357a82fe06">
+<h4><a href="https://medium.com/nlp-capstone-blog/first-impressions-baselines-and-the-evaluation-framework-15357a82fe06?source=rss----9ba3897b6688---4">First Impressions: Baselines and the Evaluation Framework</a></h4>
+<div class="entry">
+<div class="content">
+<p>Ultimately, our goal is to go beyond basic language modeling and create a new text generation architecture conducive to producing technical definitions. To get a feel for the data though, we approach it with familiar, simple baselines that give us a foundation in which we can improve from.</p><p>The baselines that we’ve experimented with are</p><ul><li><strong>Vanilla RNN:</strong> Hidden states as a function of the input and the previous hidden state, with Tanh activation (in particular, we’re using the <a href="https://medium.com/@tamdangnadmat/first-impressions-baselines-and-the-evaluation-framework-15357a82fe06">Elman Network</a>).</li><li><strong>GRU:</strong> An RNN architecture that learns to throttle the influence and usage of particular parameters on inference using a gating mechanism.</li><li><strong>LSTM: </strong>Another RNN architecture that specializes in intelligently remembering relevant details and forgetting irrelevant details through several gating mechanisms and a “cell state” in addition to the conventional hidden states. <a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/">Here’s more detail</a> about this particular kind of RNN.</li></ul><p>All baselines were trained as language models with cross entropy loss and were used to get a sense of how learnable the language of the Semantic Scholar dataset is. The metrics we are focusing on now are</p><ul><li><strong>Perplexity: </strong>A measure of how “confused” the model is at any point it’s attempting to predict the next word.</li><li><strong>Feature extraction through hidden states:</strong> Can the hidden states be used as features for a classification task?</li></ul><p>Our first metric is fairly straightforward; we calculate the aggregate sum of log probabilities for every word in the corpus and normalize by the size of the corpus.</p><p>Our second metric however, is inspired by Dieng et al.’s method for sentiment analysis in <a href="https://www.semanticscholar.org/paper/TopicRNN%3A-A-Recurrent-Neural-Network-with-Semantic-Dieng-Wang/412068c7e8e77b73add471789d58df3d2f3e08d8">TopicRNN</a>, in which the final hidden states after a forward pass of the model on a movie review were used to predict positive or negative sentiment using a single-layer neural network. We aim to adopt this metric from a multi-class classification perspective in which the passages we use are excerpts of research documents with an omitted, technical term. The question we aim to answer with this metric is “is the model capable of representing semantics in a latent space?”</p><p>Our labels will then be a defined set of these omitted, technical terms, and our goal will then be to predict them given the hidden states of the passage via a two-layer neural network. The framework for this evaluation metric can be found in <a href="https://github.com/NLP-Capstone-Project/machine-dictionary/tree/evaluation">this branch</a> of our codebase.</p><h4>Why we chose these metrics</h4><p>Our task is fairly novel given the way we’re approaching it, so currently no dataset exists that pairs domain-specific words with definitions that are to the caliber of research technicality. Because of this, metrics that depend on gold standards such as ROUGE and BLEU are currently out of reach at this time.</p><p>There’s a chance we’ll experiment with these metrics if we can find a labeled dataset to supplement Semantic Scholar’s Open Research Corpus. We are also considering using the publications themselves as the gold standards, which may be helpful since a desirable trait of our model would be its ability to produce language similar to that of the corpus.</p><h3>Challenges Encountered while Baselining</h3><p>In establishing our baselines and metrics, there were several issues we ran into, both in training.</p><h4>Dealing with a larger corpus</h4><p>Given that our baselines are language models, and that our later prototype models will most likely contain an LM component, we have to deal with efficient learning given there are several million documents to process.</p><p>For efficient backpropagation, we opted to introduce a “backpropagation through time” as a hyperparameter defaulted at 50, which specifies the number of words we allow the model to see before updating our parameters.</p><p>Currently, batching is supported by our codebase but was not used in our initial experiments. Given that it takes roughly one minute for the GPUs on the cloud to process a single publication, we plan to concatenate document vectors and reshape into batch-by-length tensors in the future.</p><h4>Sorting By Domain</h4><p>We’d like our model to be trained on a single domain/field of study for our future case studies comparing dictionaries built on one domain versus others. This is further motivated by some of our experiment results discussed later, how loss tends to spike between documents.</p><p>Currently, the Semantic Scholar Open Research Corpus doesn’t include anything in the set of JSON fields that we could find for filtering the data. However, we’ve been assured by AllenNLP researchers that its possible to sort the data by research domain. We may performing another round of baseline experiments once we’ve sorted the data, but for now the results below are on publications of mixed domains.</p><h3>Experimental Results</h3><p>The Semantic Scholar Open Research Corpus provides a sample subset of its dataset: a JSON file containing 4000 entries. Within each entry, the URL of the publication’s online PDF is provided. We use a GET request to <a href="https://github.com/allenai/science-parse">AI2’s Science Parse</a> service to extract the PDF contents.</p><p>From there, we run our experiments on 121 of the 4000 extracted documents, stopping training early at 15 documents and calculated perplexity on a validation set of 30 documents. The total vocabulary used was 11,330 words. Words outside of this vocabulary are replaced with an unknown token at training and test time.</p><p>Loss is calculated and normalized on the last 50 words the model is trained on.</p><ul><li><strong>Elman RNN:</strong> Perplexity of 250.25 with an average loss of 7.908 over the last 50 words.</li><li><strong>GRU:</strong> Perplexity of 265.50 with an average loss of 7.085 over the last 50 words</li><li><strong>LSTM:</strong> Perplexity of 261.95 with an average loss of 6.588 over the last 50 words</li></ul><p>Perplexities calculated using untrained models (with randomized parameters) were several orders of magnitude larger than the ones listed above, so it’s good to know that our baseline models can learn a significant amount of surface-level patterns with such a small subset of the corpus.</p><p>In terms of feature extraction and classification, the framework has been implemented but the data for this has not been created yet. We plan on evaluating our baselines along with our final model on this metric using publications from Semantic Scholar after establishing a vocabulary of semantically significant technical terms and creating the dataset using those terms. This will involve iterating over documents and replacing occurrences of these technical terms with a specialized, unknown token that won’t aid in inference.</p><h3>Conclusion</h3><p>Our methods helped us familiarize ourselves with the data as well as handle significant amounts of overhead in terms of processing the data, toggling between different models, and integration of our evaluation metrics in an organized fashion.</p><p>We are excited to see how novel architectures tailored to the task perform on these metrics!</p><p>To keep up to date with our progress in baselining, evaluation, and other things, you can watch <a href="https://github.com/NLP-Capstone-Project/">this repository</a>.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=15357a82fe06" width="1" /><hr /><p><a href="https://medium.com/nlp-capstone-blog/first-impressions-baselines-and-the-evaluation-framework-15357a82fe06">First Impressions: Baselines and the Evaluation Framework</a> was originally published in <a href="https://medium.com/nlp-capstone-blog">NLP Capstone Blog</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/nlp-capstone-blog/first-impressions-baselines-and-the-evaluation-framework-15357a82fe06?source=rss----9ba3897b6688---4">by Tam Dang at April 18, 2018 05:40 AM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
 
 
 <div class="sidebar">
@@ -3277,7 +2098,7 @@ I fixed the performance issues, and I have been working on adding enhancements t
 <a href="https://medium.com/feed/@be.li.nda" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="https://medium.com/@be.li.nda?source=rss-fad49d942bf3------2" title="Stories by Belinda Zou Li on Medium">Belinda Li <br/> Team Sentimentity</a>
 </li>
 <li>
-<a href="http://cse481n-capstone.azurewebsites.net/feed/" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="http://cse481n-capstone.azurewebsites.net" title="Team Watch Your Language!">Boyan Li, Dennis Orzikh, Lanhao Wu <br/> Team Watch Your Language!</a>
+<a href="" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a class="message" title="internal server error">Boyan Li, Dennis Orzikh, Lanhao Wu <br/> Team Watch Your Language!</a>
 </li>
 <li>
 <a href="https://medium.com/feed/@halden.lin" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="https://medium.com/@halden.lin?source=rss-2759d54493c0------2" title="Stories by Halden Lin on Medium">Halden Lin <br/> Team undef.</a>
@@ -3310,7 +2131,7 @@ I fixed the performance issues, and I have been working on adding enhancements t
 
 <p>
 <strong>Last updated:</strong><br>
-July 13, 2018 04:00 PM<br>
+July 13, 2018 04:30 PM<br>
 <em>All times are UTC.</em><br>
 
 <!--
