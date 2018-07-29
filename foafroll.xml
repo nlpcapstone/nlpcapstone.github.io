@@ -137,10 +137,10 @@
       <foaf:Agent>
         <foaf:name>Halden Lin &lt;br/&gt; Team undef.</foaf:name>
         <foaf:weblog>
-          <foaf:Document rdf:about="https://medium.com/@halden.lin?source=rss-2759d54493c0------2">
-            <dc:title>Stories by Halden Lin on Medium</dc:title>
+          <foaf:Document rdf:about="">
+            <dc:title/>
             <rdfs:seeAlso>
-              <rss:channel rdf:about="https://medium.com/feed/@halden.lin"/>
+              <rss:channel rdf:about=""/>
             </rdfs:seeAlso>
           </foaf:Document>
         </foaf:weblog>
