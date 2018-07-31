@@ -2,12 +2,11 @@
 <opml version="1.1">
   <head>
     <title>NLP Capstone Spring 2018</title>
-    <dateModified>Tue, 31 Jul 2018 03:08:10 GMT</dateModified>
+    <dateModified>Tue, 31 Jul 2018 04:07:36 GMT</dateModified>
     <ownerName>Nelson Liu</ownerName>
     <ownerEmail>nfliu[at]cs.washington.edu</ownerEmail>
   </head>
   <body>
-    <outline type="rss" text="Boyan Li, Dennis Orzikh, Lanhao Wu &lt;br/&gt; Team Watch Your Language!" title="Team Watch Your Language!" xmlUrl="http://cse481n-capstone.azurewebsites.net/feed/"/>
     <outline type="rss" text="Belinda Li &lt;br/&gt; Team Sentimentity" title="Stories by Belinda Zou Li on Medium" xmlUrl="https://medium.com/feed/@be.li.nda"/>
     <outline type="rss" text="Tam Dang, Karishma Mandyam &lt;br/&gt; Team Illimitatum" title="NLP Capstone Blog - Medium" xmlUrl="https://medium.com/feed/nlp-capstone-blog"/>
     <outline type="rss" text="Aaron Johnston, Lynsey Liu &lt;br/&gt; Team Viterbi Or Not To Be" title="Stories by Viterbi Or Not To Be on Medium" xmlUrl="https://medium.com/feed/@viterbi.or.not"/>
