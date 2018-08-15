@@ -91,6 +91,74 @@
 </div>
 
 
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://deeplearningturingtest.wordpress.com" title="NLP Capstone Project Updates – Ananth">Ananth Gottumukkala <br/> Team Turing Test</a></h3>
+
+
+<div class="entrygroup" id="http://deeplearningturingtest.wordpress.com/?p=27">
+<h4 lang="en"><a href="https://deeplearningturingtest.wordpress.com/2018/05/23/advanced-model-attempt-2-part-2/">Advanced Model Attempt 2 (Part 2)</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<p>This week I further tuned my hyperparameters and increased the exploration rate of my model so the slot-filling Q-values were fixed for all my questions. This made sure that my slot filling accuracy is perfect (when there’s no dropout). After tweaking the model, I tested and recorded the number of games it won using both the database it trained on as well as another random database of 100 people.</p>
+<p>Training Database: Model won 90/100 games.</p>
+<p>Validation Database: Model won 87/100 games.</p>
+<p>As expected, the validation accuracy is not too far behind the training accuracy. While the NLU component of the model is just as accurate for both databases, the order of questions is more tailored towards the training database so the sequence of questions might be a bit inefficient for the other database meaning some additional games must have been lost on time. The reference paper I based this model on was trained using speech utterances and that model got about a 92% win rate (although they didn’t specify whether the database they evaluated on was different from the one they trained on). Therefore, my model is not quite as well trained as theirs but it’s still not too far behind in accuracy.</p>
+<p>Now that I have my minimal action plan working, this week I’ll work on my final report and presentation as well as try to make this model work for a more generic dialogue scenario as a possible demo.</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://deeplearningturingtest.wordpress.com/2018/05/23/advanced-model-attempt-2-part-2/">by ananthgo at May 23, 2018 06:34 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://teamoverfit.blogspot.com/" title="NLP Capstone">Pinyi Wang, Dawei Shen, Xukai Liu <br/> Team Overfit</a></h3>
+
+
+<div class="entrygroup" id="tag:blogger.com,1999:blog-9203775015655831448.post-7864337718441481784">
+<h4><a href="https://teamoverfit.blogspot.com/2018/05/9-milestone-advanced-model-attempt-2.html">#9 Milestone: Advanced model attempt #2 (continued)</a></h4>
+<div class="entry">
+<div class="content">
+<h2 style="height: 0px;"><span>Team Overfit</span></h2><h3><span><br /></span></h3><h3><span>Project repo: <span style="font-size: 18.72px;"><a href="https://github.com/pinyiw/nlpcapstone-teamoverfit">https://github.com/pinyiw/nlpcapstone-teamoverfit</a></span></span></h3><h4><span>Team members: Dawei Shen, Pinyi Wang, Xukai Liu</span></h4><div style="text-align: start; text-indent: 0px;"><div style="margin: 0px;"><div><span><b>Blog Post: #9: 05/22/2018</b></span></div><div><span><span><b><br /></b></span></span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Social Media Predicts Stock Price (StartUp Mode)</span><br /><span><br /></span><span><b>What We Did:</b></span><br /><ul><li><span>Use news data and write preprocessor</span></li><ul><li><span>The drawback of News Tweets</span></li><ul><li><span><span id="docs-internal-guid-883230d4-8b20-8c22-2807-843c883c978c"><span>Too short for each tweet and not informative enough for the model to learn from it.</span></span></span></li><li><span><span><span id="docs-internal-guid-af2383c6-8b20-b2a3-a62a-455584d56812"><span style="vertical-align: baseline;">Some news tweets don’t summarize well for the real content and cause misleading predictions.</span></span></span></span></li><li><span><span><span style="vertical-align: baseline;"><span id="docs-internal-guid-e02be321-8b21-0416-2fa0-ef6480c92d92"><span style="vertical-align: baseline;">The sources of such news tweets are mostly unauthorized.</span></span></span></span></span></li></ul><li><span><span style="white-space: pre-wrap;"><span id="docs-internal-guid-e9f853fe-8b21-3a41-e15b-561e8b9a7498"><span style="vertical-align: baseline;">Therefore, we decided to move on and explore new news sources which are authorized as our input.</span></span></span></span></li><li><span><span style="white-space: pre-wrap;"><span style="vertical-align: baseline;"><span id="docs-internal-guid-00d89dbe-8b21-6184-8856-59ddaaef7254"><span style="vertical-align: baseline;">We used the financial news published everyday and crawl the content directly, instead of using the titles. This will increase the input size for each news. However, it helps the model to gain more information from each single news.</span></span></span></span></span></li><li><span><span style="white-space: pre-wrap;"><span style="vertical-align: baseline;"><span style="vertical-align: baseline;"><span id="docs-internal-guid-a49c91be-8b21-8bf2-9b24-72087904ee5d"><span style="vertical-align: baseline;">The link to the source we use: </span><span style="color: #1155cc; vertical-align: baseline;"><a href="https://intrinio.com/tutorial/file_download#News">https://intrinio.com/tutorial/file_download#News</a></span></span></span></span></span></span></li></ul><li><span><span style="white-space: pre-wrap;">Model Optimization</span></span></li><ul><li><span><span style="white-space: pre-wrap;"><span id="docs-internal-guid-d56ee8ab-8b21-eec9-1c8a-26602af6d372"><span style="vertical-align: baseline;">Add learning rate decay to our training</span></span></span></span></li><ul><li><span><span style="white-space: pre-wrap;"><span style="vertical-align: baseline;">This helps the model to converge smoothly at the end of training</span></span></span></li></ul><li><span><span style="white-space: pre-wrap;"><span id="docs-internal-guid-cd723ea4-8b22-d2e3-4c18-27df8c103e58"><span style="vertical-align: baseline;">Investigate the correlation between sentiment analysis of Tweets and stock price movement</span></span></span></span></li><ul><li><span><span style="white-space: pre-wrap;"><span style="vertical-align: baseline;">We categorize the attitudes in each tweets and news, which increase our feature size</span></span></span></li><li><span><span style="white-space: pre-wrap;"><span style="vertical-align: baseline;"><span id="docs-internal-guid-ac7fa55e-8b23-3684-d1f2-4eda487b4e92"><span style="vertical-align: baseline;">Also, we compare the overall attitudes of all tweets and news each day with the prediction made by the model and the real stock price.</span></span></span></span></span></li></ul></ul><li><span><span style="white-space: pre-wrap;"><span id="docs-internal-guid-56177478-8b23-82ae-6d6a-d780f77fdf2a"><span style="vertical-align: baseline;">Visualize and investigate our prediction/training to have better understanding of our model</span></span></span></span></li><ul><li><span><span style="white-space: pre-wrap;"><span style="vertical-align: baseline;">Find out the top k words that have most weight for a given day</span></span></span></li><ul><li><span><span style="white-space: pre-wrap;"><span style="vertical-align: baseline;">Most of them do not seem to relate to stock price movement</span></span></span></li></ul><li><span><span style="white-space: pre-wrap;"><span id="docs-internal-guid-51b8e57b-8b23-fc01-5457-d60abea87f96"><span style="vertical-align: baseline;">Compare the prediction/target graph for each epochs to see if the predictions are improving/converging</span></span></span></span></li><li><span><span style="white-space: pre-wrap;"><span style="vertical-align: baseline;">Graphs:</span></span></span></li></ul></ul><a href="https://2.bp.blogspot.com/-cvX-eD-CWqI/WwTph39sPdI/AAAAAAAAAAY/p-YRfgomFu0oyiXeSsMXTRAhNRQ4FbPGgCEwYBhgL/s1600/final.png" style="clear: left; margin-bottom: 1em; margin-right: 1em;"><img border="0" height="133" src="https://2.bp.blogspot.com/-cvX-eD-CWqI/WwTph39sPdI/AAAAAAAAAAY/p-YRfgomFu0oyiXeSsMXTRAhNRQ4FbPGgCEwYBhgL/s640/final.png" width="640" /></a><br /><div><span><span style="white-space: pre-wrap;"><b>Possible Next steps</b></span></span></div><div><ul><li><span><span style="white-space: pre-wrap;">Predict more stock prices in the further future rather than just the next day.</span></span></li><li><span><span style="white-space: pre-wrap;">Implement an application to help optimize investment strategy</span></span></li></ul></div><ul><ul></ul></ul></div></div></div></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://teamoverfit.blogspot.com/2018/05/9-milestone-advanced-model-attempt-2.html">by Team Overfit (noreply@blogger.com) at May 23, 2018 04:11 AM</a>
+</p>
+</div>
+</div>
+
+
 </div>
 
 </div>
@@ -130,6 +198,141 @@
 
 <p class="date">
 <a href="https://mathstoc.wordpress.com/2018/05/17/nlp-capstone-post-8-training-challenges/">by Nicholas Ruhland at May 17, 2018 05:55 AM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
+<div class="daygroup">
+<h2>May 16, 2018</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="http://sarahyu.weebly.com/cse-481n" title="Sarah yu - CSE 481N">Sarah Yu <br/> Team Jekyll-Hyde</a></h3>
+
+
+<div class="entrygroup" id="http://sarahyu.weebly.com/cse-481n/advanced-model-attempt-2">
+<h4><a href="http://sarahyu.weebly.com/cse-481n/advanced-model-attempt-2">Advanced Model Attempt #2</a></h4>
+<div class="entry">
+<div class="content">
+<div class="paragraph">Wow, can't believe we're already in week 8! <br /><br />This past week, I've worked on shifting my project from not having a neural component, to well, having one. With inspiration from the work of Ghosh et al. in <em>Affect-LM: A Neural Language Model for Customizable Affective Text Generation, </em>I've extended my project (and am encroaching on stretch goal territory) to include a neural language model for reddit post generation***. The idea would be to train a model on reddit posts out of five categories - F30 (mood [affective] disorders), F40<font color="#515151"> (Anxiety, dissociative, stress-related, somatoform and other nonpsychotic mental disorders), X71 (Intentional Self Harm), F10 (addiction categories), and neurotypical advice - and use that model for post generation, based on the specified target type, i.e. generate a F30 reddit post. <br /><br /></font><br /></div></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="http://sarahyu.weebly.com/cse-481n/advanced-model-attempt-2">May 16, 2018 11:19 PM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/@halden.lin?source=rss-2759d54493c0------2" title="Stories by Halden Lin on Medium">Halden Lin <br/> Team undef.</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/33072535817f">
+<h4><a href="https://medium.com/@halden.lin/nlp-capstone-08-human-summaries-33072535817f?source=rss-2759d54493c0------2">NLP Capstone | 08: Human Summaries</a></h4>
+<div class="entry">
+<div class="content">
+<p><em>previous posts: </em><a href="https://medium.com/@halden.lin/nlp-capstone-01-options-ee873b6885d5"><em>01</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5"><em>02</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-03-project-proposal-7d8e9ec1a8e3"><em>03</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-04-first-steps-be87c31976b7"><em>04</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-05-experimenting-306dca636d3a"><em>05</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-06-uncertainty-6f773ae418d0"><em>06</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-07-formalizing-a2d837ecf66b"><em>07</em></a></p><p>I’ll keep this blogpost short — my current undertakings are in-progress and it might be a week or more before they are realized. To preface:</p><ol><li>Visualizing human summaries</li><li>Improving the visualization.</li></ol><h3>Visualizing Human Summaries</h3><p>When I was presenting my project update last week, Prof. Choi asked a very interesting question. What if we could use this visualization tool to not only understand how the model is generating summaries, but also how human summaries are produced and how the two compare?</p><p>I’ll briefly explain the thought behind this.</p><p>Visualizations provide a mapping from raw data (in this case, attention weights and input / output tokens) to visual encodings. These visual encodings are valuable in that they allow us as humans to perceive the data in a meaningful way. For example, the attention visualizer I am working on allows us to identify overall patterns in the attention of the model.</p><p>How do we interpret human written summaries, i.e. their relation to the source text? Perhaps we scan the document and attempt to match paragraphs or sentences to sentences in the summary. This can be compared to the ‘attention’ our minds use to generate the summary. If we can visualize this mapping, perhaps in a more refined and detailed manner (i.e. token by token) then we should be able to compare the human summaries with the machine generated summaries, right? And then one may be able to identify what the human summaries have that the machine summaries do not, or visa versa. The hope is that if we can enable this kind of comparison, researchers may be better equipped to improve their models by using these insights.</p><p>So far, I’ve experimented with two methods for generating this ‘attention’ from human summary to source text.</p><h4>Word Similarity</h4><p>The first approach that sprung to mind was to use word similarity as a proxy for ‘attention’. To do this, I used <a href="https://nlp.stanford.edu/projects/glove/">pre-trained GloVe embeddings</a> and the <a href="https://radimrehurek.com/gensim/">Gensim API</a> to calculate word similarities between each input token / output token pair. <a href="https://spacy.io/">SpaCy</a> was used to tokenize the sequences. The result is a matrix of weights, similar to attention distribution, albeit not normalized per output token (with attention, for a given output token the aggregate over all input tokens is 1). As the example below shows, this method falls flat, as output tokens are matched to input tokens regardless of context. This means it makes little sense to compare these weights to attention.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*D6pMsnZjlNiz1XJyN5xcBQ.png" />The word ‘the’ is matched with nearly every token in the input sequence, likely a result of its extreme commonness and proximity to most words in embedding space.</figure><h4>Summarization Model</h4><p>The second method I considered was one suggested by Ari. Here, we use the same model used to generate the machine summaries. The difference is that at each decoder time-step, instead of feeding in the previous <strong>predicted</strong> token, we feed in the previous <strong>actual</strong> token. This means that instead of having a decoding pipeline that looks like this:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*N-til0kZzQeAVI3zkoDKVg.jpeg" /></figure><p>Where y-hats represent predicted output tokens, we have one that looks like this:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*H7nMlelojnzNkfthS2ljAg.jpeg" /></figure><p>Where y (no hat) represents true output token (the token from the human summary). This is a process similar to the one taken during training of generative encoder-decoder models.</p><p>By grabbing attention distributions just as we had with the machine summaries, we hope to get an approximation of the attention distributions for the human summaries — we are essentially feeding the model the answer. However, there is a catch, and an important one. Because attention weights are used to create a context vector that is then fed into the <strong>next</strong> decoder unit to predict the <strong>next </strong>word, we run into an issue when the next word is predicted incorrectly. Turns out, this happens often under the model being used (from <a href="https://github.com/abisee/pointer-generator">See et al.</a>). This actually makes sense, as the model has been shown to produce largely <strong>extractive </strong>summaries, and so one would expect the model to, at each time-step, attempt to produce the next word in the source text that follows the word fed to it. With <strong>abstractive</strong> summaries, this is not often the optimal choice. This results in attention weights that make little sense, as seen below.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*c5KuVp0qzjkcQxNAJSfYLw.png" />According to this, ‘manager’ was the focal point of attention when producing the word ‘were’. It would seem that the model intended to predict ‘manager’, and so when we map this attention weight to the human token, we run into an issue.</figure><p>Here’s the problem. The model is trained to use attention weights to <strong>generate </strong>an output token. What we want is the opposite. We want the attention <strong>given</strong> an output token — use the output token to generate the attention weights. This poses a significant challenge.</p><h4>So How Else?</h4><p>So neither of these methods seem to produce anything meaningful. I’m not ready to give up though — this is an intriguing problem. In the next week I’ll be brainstorming other methods. One that might have some traction is to use a few heuristics to approximate ‘attention’ using word similarities in conjunction with context. For example, by imposing a penalty on the weight if the context of the output token is dissimilar to the word ‘attended’ to in the source text. Much more work to be done here.</p><h3>Improving the visualization</h3><p>This section will be short. There are a few problems I looked into in the past week.</p><ol><li>Implement divided edge bundling, as produced by <a href="http://vis.stanford.edu/files/2011-DividedEdgeBundling-InfoVis.pdf">Selassie et al. (2011)</a>. I described this briefly in my previous blog post. The obstacle here is that there is not available d3 implementation of the algorithm. In fact, the only implementation I could find available was <a href="https://github.com/kakearney/divedgebundle-pkg">one for Matlab</a>, produced by <a href="http://kellyakearney.net/">Kelly Kearny (University of Washington)</a>. This might prove more difficult than the remaining time in this quarter allows, but I’ve started the process anyways and will see where it takes me.</li><li>Highlighting extraction. That is, making it apparent in the visualization when the model is simply copying. I’ve been playing around with things such as color to encode this, but haven’t settled on anything I like.</li></ol><p>More work to come!</p><h4>References</h4><ol><li><a href="https://arxiv.org/pdf/1704.04368.pdf">See, Abigail et al. “Get To The Point: Summarization with Pointer-Generator Networks.” <em>ACL</em> (2017).</a></li><li><a href="http://vis.stanford.edu/files/2011-DividedEdgeBundling-InfoVis.pdf">Selassie, David et al. “Divided Edge Bundling for Directional Network Data.” <em>IEEE Transactions on Visualization and Computer Graphics</em> 17 (2011): 2354–2363.</a></li></ol><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=33072535817f" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@halden.lin/nlp-capstone-08-human-summaries-33072535817f?source=rss-2759d54493c0------2">by Halden Lin at May 16, 2018 06:58 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://deeplearningturingtest.wordpress.com" title="NLP Capstone Project Updates – Ananth">Ananth Gottumukkala <br/> Team Turing Test</a></h3>
+
+
+<div class="entrygroup" id="http://deeplearningturingtest.wordpress.com/?p=25">
+<h4 lang="en"><a href="https://deeplearningturingtest.wordpress.com/2018/05/16/advanced-model-attempt-2-part-1/">Advanced Model Attempt 2 (Part 1)</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<p>This week I was able to greatly improve upon the results from last week. Last week my average reward got to about -23 at best, but this week by tweaking my reward function I was able to greatly speed up convergence and bump my model up to about +70 reward on average. I made my reward function more strict about interpreting the user response correctly by giving a +6 reward for correct interpretation, -6 reward for the opposite interpretation and 0 reward for interpreting as unknown (model is unsure).</p>
+<p>One way I tried to improve over last week was reducing my CNN architecture to simplify the state representation, but surprisingly this had the opposite effect of underfitting on the user responses and misinterpreting them more. In fact, I later found out that my reward function was the main reason my model didn’t converge and in the end I actually ended up increasing the number of filters in my CNN architecture.</p>
+<p>At this point, my model is able to win between 3 and 4 out of 5 games on average because there is 1 out of my 31 questions for which it learned the wrong Q values, probably due to insufficient exposure to the right answer, so I’ll increase the amount of exploration the model takes until these values are straightened out and the model wins 5 out of 5 games. Then I’ll evaluate the model performance on a separate database of 100 different people. While I expect the end result to be the same (winning 100% of games), I expect the model to take longer to win on average because the order of questions it asks to eliminate people is tailored towards the training database.</p>
+<p>My goals for this week are reporting more exact quantitative results of model performance in terms of games won and reward gained, both on the training database and a validation database of 100 different people. Furthermore, I’ll experiment with a slightly more complicated dialogue scenario but I probably won’t go too deep considering I only have about a week left.</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://deeplearningturingtest.wordpress.com/2018/05/16/advanced-model-attempt-2-part-1/">by ananthgo at May 16, 2018 06:55 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://teamoverfit.blogspot.com/" title="NLP Capstone">Pinyi Wang, Dawei Shen, Xukai Liu <br/> Team Overfit</a></h3>
+
+
+<div class="entrygroup" id="tag:blogger.com,1999:blog-9203775015655831448.post-3973266691169482239">
+<h4><a href="https://teamoverfit.blogspot.com/2018/05/8-milestone-advanced-model-attempt-2.html">#8 Milestone: Advanced model attempt #2</a></h4>
+<div class="entry">
+<div class="content">
+<h2 style="height: 0px;"><span>Team Overfit</span></h2><h3><span><br /></span></h3><h3><span>Project repo: <span style="font-size: 18.72px;"><a href="https://github.com/pinyiw/nlpcapstone-teamoverfit">https://github.com/pinyiw/nlpcapstone-teamoverfit</a></span></span></h3><h4><span>Team members: Dawei Shen, Pinyi Wang, Xukai Liu</span></h4><div style="text-align: start; text-indent: 0px;"><div style="margin: 0px;"><div><span><b>Blog Post: #8: 05/15/2018</b></span></div><div><span><span><b><br /></b></span></span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Social Media Predicts Stock Price (StartUp Mode)</span><br /><span><br /></span><span>This week, we weren't able to make our model make better prediction on stock price movement.</span><br /><h3><span>We have tried:</span></h3><ul><li><span>Improve initialization weights and bias</span></li><ul><li><span>Increase standard deviation so that the initial price prediction varies more preventing the model to be stuck at local minima</span></li><li><span>Decrease bias so that the initial prediction are closer to the expected, and therefore, converge faster</span></li></ul><li><span>Tune hyperparameters of LSTM and try out different settings of data</span></li><ul><li><span>Number of time steps of RNN</span></li><li><span>Size of dictionary</span></li><ul><li><span>Remove vocab that have high document frequency</span></li></ul><li><span>Number of LSTM hidden units</span></li><li><span>Number of RNN layers</span></li><li><span>Learning rate</span></li><li><span>Dropout layer</span></li></ul><li><span>Visualize and investigate our prediction/training to have better understanding of our model</span></li><ul><li><span>Find out the top k words that have most weight for a given day</span></li><ul><li><span>Most of them do not seem to relate to stock price movement</span></li></ul><li><span>Compare the prediction/target graph for each epochs to see if the predictions are improving/convergin</span></li></ul></ul><h3><span>In progress and next steps:</span></h3><div><ul><li><span>Find good news data and write preprocessor</span></li><li><span>Research on better featurizations</span></li><li><span>Research on better model</span></li><li><span>Add learning rate decay to our training</span></li><li><span>Investigate the correlation between sentiment analysis of Tweets and stock price movement</span></li></ul></div></div></div></div></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://teamoverfit.blogspot.com/2018/05/8-milestone-advanced-model-attempt-2.html">by Team Overfit (noreply@blogger.com) at May 16, 2018 06:37 AM</a>
 </p>
 </div>
 </div>
@@ -187,6 +390,112 @@
 
 <p class="date">
 <a href="https://mathstoc.wordpress.com/2018/05/10/nlp-capstone-post-7-tsl-pipeline/">by Nicholas Ruhland at May 10, 2018 06:56 AM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
+<div class="daygroup">
+<h2>May 09, 2018</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://deeplearningturingtest.wordpress.com" title="NLP Capstone Project Updates – Ananth">Ananth Gottumukkala <br/> Team Turing Test</a></h3>
+
+
+<div class="entrygroup" id="http://deeplearningturingtest.wordpress.com/?p=23">
+<h4 lang="en"><a href="https://deeplearningturingtest.wordpress.com/2018/05/09/advanced-model-attempt-1-part-2/">Advanced Model Attempt 1 (Part 2)</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<p>This week I completely finished the model end-to-end and programmed the rules of the dialogue/game. The input to the model is created as follows: the user response is broken up into individual words and converted into a matrix of word embeddings. That matrix is run through a CNN before being fed into the LSTM and finally the policy networks to compute the Q values for user actions (questions to the user) and hypothesis actions (updates to the database). The model I created closely follows the one in this paper: <a href="https://arxiv.org/abs/1606.02560" rel="nofollow">https://arxiv.org/abs/1606.02560</a></p>
+<p>I was able to run the simulation on my computer and debug a few issues with the model before starting the actual training session. Furthermore, I moved the model to Azure, set up the SQL database on the remote computer, and am currently running the simulation on tensorflow-gpu.</p>
+<p>The initial results are not too great but somewhat promising. The model assigns +30 reward for winning, -30 for losing, -5 for bad guesses and +1 if it correctly understands the user response and performs the right action on the database. My model started out with an average of -30 reward for an entire game (it almost never took the same action that the user said and then abruptly lost) and after about 100,000 time steps that average has decreased to -23. This tells me the model is eventually learning how to understand the user responses but the convergence is still a lot slower than I expected.</p>
+<p>As a side note, while it seems silly to try classifying user responses into buckets like ‘Yes’, ‘No’, ‘Unknown’ instead of training a separate classifier, the goal is to build a model that can be generalized to more complex dialogue types where there are more nuanced actions that heavily depend on dialogue state, not just the current user response.</p>
+<p>The main difference between my model and the model in the paper (barring any bugs I am unaware of) is how the user response is represented. In both models, the model tries to combine NLU and dialog state tracking into one end-to-end model and the user response sentence representation is crucial in determining the dialogue state at any given time step. The paper creates a very short bag of bigrams feature vector (of about 30 features) from the sentence whereas I create glove vectors (embedding dimension = 50) for each word and run them through a CNN to get an output of 250-300 features.</p>
+<p>The paper made it sound like they got the model to converge and play the game well after about 120000 time steps. To play the game well, the model needs to correctly understand what action should be done on the database based on the user response. My guess is their model converges much faster and can learn to make the right action much faster than mine because of their simpler state representation. Once the model learns how to correctly interpret the user response, it becomes much easier to learn how to win from any given dialogue state. This allows the model to generalize to people it hasn’t seen because the model only learns what actions to take based on the dialogue state, not on the attributes of any given person.</p>
+<p>My goal for next week is to try tuning my model to converge faster. My main plan will be to shorten and simplify the state representation to be more like the paper’s (although it will still be different since the paper used utterance embeddings for speech, not word embeddings). If the model somehow works well after tuning, I will look into trying to train the model on more complex user responses where the set of actions to take are more qualitative than yes and no.</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://deeplearningturingtest.wordpress.com/2018/05/09/advanced-model-attempt-1-part-2/">by ananthgo at May 09, 2018 06:58 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://teamoverfit.blogspot.com/" title="NLP Capstone">Pinyi Wang, Dawei Shen, Xukai Liu <br/> Team Overfit</a></h3>
+
+
+<div class="entrygroup" id="tag:blogger.com,1999:blog-9203775015655831448.post-6866691098285474093">
+<h4><a href="https://teamoverfit.blogspot.com/2018/05/7-milestone-advanced-model-attempt-1.html">#7 Milestone: Advanced model attempt #1 (continued)</a></h4>
+<div class="entry">
+<div class="content">
+<h2 style="height: 0px;"><span>Team Overfit</span></h2><h3><span><br /></span></h3><h3><span>Project repo: <span style="font-size: 18.72px;"><a href="https://github.com/pinyiw/nlpcapstone-teamoverfit">https://github.com/pinyiw/nlpcapstone-teamoverfit</a></span></span></h3><h4><span>Team members: Dawei Shen, Pinyi Wang, Xukai Liu</span></h4><div style="text-align: start; text-indent: 0px;"><div style="margin: 0px;"><div><span><b>Blog Post: #7: 05/09/2018</b></span></div><div><span><span><b><br /></b></span></span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Social Media Predicts Stock Price (StartUp Mode)</span><br /><br /><span><span style="white-space: pre;"><b>Try Out Logistic Regression To Tune LSTM</b></span></span><br /><ul><li><span><span style="white-space: pre;"><b><span id="docs-internal-guid-bd404b7a-43cb-ecd9-d5e4-fdaf1add2bb5" style="font-weight: normal;"><span>From our previous model, which we classify the stock price movement as UP/DOWN/STAY, we noticed that during training often the loss will converge in less than 5 epochs and the predictions are either all UPs or all STAYs depending on the range of percent difference we classified as STAY. It seems like the model wasn’t able to learn much from the input data.</span></span></b></span></span></li><li><span><span style="white-space: pre;"><b><span style="font-weight: normal;"><span><span id="docs-internal-guid-bd404b7a-43cc-42d1-70ab-45794e67af61"><span style="vertical-align: baseline;">Then, we tried to use logistic regression by making our RNN only has one output node and remove the softmax function. We also changed the loss function from Cross-Entropy to mean squared loss. This helps to predict the percentage of change of the stock price directly.</span></span></span></span></b></span></span></li><li><span><span style="white-space: pre;"><b><span style="font-weight: normal;"><span><span style="vertical-align: baseline;"><span id="docs-internal-guid-bd404b7a-43cc-6947-13f3-a833249311ac"><span style="vertical-align: baseline;">With the new training method, the model can now predict a specific stock price for a day given input data. Then, according to the stock price predicted, we can further categorize the prediction into UP/DOWN/STAY and use our previous evaluation function to determine the accuracy of our model.</span></span></span></span></span></b></span></span></li></ul><div><span><span style="white-space: pre-wrap;"><b>Select and Add Competitors Stock Price to Tune LSTM</b></span></span></div><div><ul><li><span><span style="white-space: pre-wrap;"><span id="docs-internal-guid-bd404b7a-43cd-277f-263a-f85ae0ec0c14"><span style="vertical-align: baseline;">For company Apple, we selected company Samsung’s and Huawei’s stock prices as part of input data to train the model, because this two big company also produce mobile phones and are the biggest competitors for Apple in the industry.</span></span></span></span></li><li><span><span style="white-space: pre-wrap;"><span style="vertical-align: baseline;"><span id="docs-internal-guid-bd404b7a-43cd-46f5-47b8-55814d42e5b3"><span style="vertical-align: baseline;">For company Tesla, we selected company Toyota for the similar reason as for Apple.</span></span></span></span></span></li></ul><div><span><span style="white-space: pre-wrap;"><b>Results</b></span></span></div></div><div><ul><li><span><span style="white-space: pre-wrap;"><span id="docs-internal-guid-bd404b7a-43cd-a926-74ae-e30f944bf03e"><span style="vertical-align: baseline;">After we have improved the model and the training process, it no longer generates the same classification for all input. It now does try to predict the stock price percent difference and has reasonable results.</span></span></span></span></li><li><span><span style="white-space: pre-wrap;"><span style="vertical-align: baseline;"><span id="docs-internal-guid-bd404b7a-43cd-bab2-93f6-880e4aaa0b8c"><span style="vertical-align: baseline;">The prediction accuracy for Apple will be around </span><span style="font-weight: 700; vertical-align: baseline;">55.5</span><span style="vertical-align: baseline;">% if we choose </span><span style="font-style: italic; vertical-align: baseline;">‘+/-0.5% change of the stock price</span><span style="vertical-align: baseline;"> as </span><span style="font-style: italic; vertical-align: baseline;">‘STAY’.</span></span></span></span></span></li><li><span><span style="white-space: pre-wrap;"><span style="vertical-align: baseline;"><span style="font-style: italic; vertical-align: baseline;"><span id="docs-internal-guid-bd404b7a-43cd-d22c-ec0c-0e76e203c53a"><span style="font-style: normal; vertical-align: baseline;">The prediction accuracy for Apple will be above </span><span style="font-style: normal; font-weight: 700; vertical-align: baseline;">44.4</span><span style="font-style: normal; vertical-align: baseline;">% if we choose </span><span style="vertical-align: baseline;">‘+/-1.0% change of the stock price’</span><span style="font-style: normal; vertical-align: baseline;"> as </span><span style="vertical-align: baseline;">‘STAY’.</span></span></span></span></span></span></li></ul><div><span><span style="white-space: pre-wrap;"><b>What to Investigate for the Next Week</b></span></span></div></div><div><ul><li><span><span style="white-space: pre-wrap;">Try to use CNN as model.</span></span></li><li><span><span style="white-space: pre-wrap;">Instead of using Tweets, try using financial news as input.</span></span></li><li><span><span style="white-space: pre-wrap;">Try out different embedding methods.</span></span></li><li><span><span style="white-space: pre-wrap;"><span id="docs-internal-guid-bd404b7a-43ce-cc90-1d5a-b707d0e7eb84"><span style="vertical-align: baseline;">Apply F1 Scores. For the evaluation, we would like to know:</span></span></span></span></li><ul><li><span><span style="white-space: pre-wrap;"><span style="vertical-align: baseline;">The rate of stocks are marked ‘UP’/’DOWN’/’STAY’ that are predicted correctly as ‘UP’/’DOWN’/’STAY’ separately.</span></span></span></li><li><span><span style="white-space: pre-wrap;"><span style="vertical-align: baseline;"><span id="docs-internal-guid-bd404b7a-43ce-fb74-a644-3c307522369d"><span style="vertical-align: baseline;">The rate of stocks are marked ‘UP’/’DOWN’/’STAY’ that are predicted wrongly as ‘UP’/’DOWN’’STAY’</span></span></span></span></span></li></ul></ul></div></div></div></div></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://teamoverfit.blogspot.com/2018/05/7-milestone-advanced-model-attempt-1.html">by Team Overfit (noreply@blogger.com) at May 09, 2018 06:54 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://medium.com/@halden.lin?source=rss-2759d54493c0------2" title="Stories by Halden Lin on Medium">Halden Lin <br/> Team undef.</a></h3>
+
+
+<div class="entrygroup" id="https://medium.com/p/a2d837ecf66b">
+<h4><a href="https://medium.com/@halden.lin/nlp-capstone-07-formalizing-a2d837ecf66b?source=rss-2759d54493c0------2">NLP Capstone | 07: Formalizing</a></h4>
+<div class="entry">
+<div class="content">
+<p><em>previous posts: </em><a href="https://medium.com/@halden.lin/nlp-capstone-01-options-ee873b6885d5"><em>01</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5"><em>02</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-03-project-proposal-7d8e9ec1a8e3"><em>03</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-04-first-steps-be87c31976b7"><em>04</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-05-experimenting-306dca636d3a"><em>05</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-06-uncertainty-6f773ae418d0"><em>06</em></a></p><p>A couple of developments since I last posted:</p><ol><li>I’m now more formally receiving guidance from Kanit (Ham) Wongsuphasawat and Tongshuang (Sherry) Wu of the Interactive Data Lab. Special thanks to them for helping me thus far!</li><li><a href="https://medium.com/@halden.lin/nlp-capstone-06-uncertainty-6f773ae418d0">Last week</a> I was uncertain as to the future direction of this project. After much deliberation and several conversations, I’ve decided to remain on the tool-based approach originally conceived. There are a couple reasons for this. First, the user study I proposed has, at least from an NLP perspective, limited novelty. What’s more, learning from the study by modifying the underlying model would require time that would likely fall outside of the quarter. Second, carrying out this study would involve significant logistical work (again, a time constraint). Finally, in beginning to formalize this visualization tool, I’ve become more excited in its potential as a useful part of a researcher’s debugging pipeline. In any case, any model modifications I may make as part of the user study would difficult without a similar tool.</li><li>As mentioned, I’ve been formalizing this tool in a React application, iterating on the exploration I’ve done with prototypes in the weeks previous. The rest of this post will describe my work here.</li></ol><h4>Starting with Text</h4><p>First things first: text brushing is critical in understanding the attention each output token, or a series of output tokens, pays to the source text. In the gif below, the left side holds the source text (along with a mini-map to prevent the need of scrolling to understand the overall distribution of attention), while the right holds the summary. Selection and brushing have been implemented, as in the prototypes of last week, albeit cleaned up.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/999/1*LKOEMB1cwvp2qXRy58_-4w.gif" />Cleaned up selection and brushing, in addition to a minimap for long input sequences.</figure><h4><strong>Challenges with Text (Future Work):</strong></h4><ol><li>Sentence / paragraph level structure is lost via tokenizing. This is an artifact of the tokenization process performed prior to feeding text into models.</li><li>Lowercase and always-on spacing between tokens makes text difficult to read. For now, I’ve been dealing this with a few hand-coded rules. For example, removing spaces before punctuation, and capitalizing the first word after end of sentence punctuation.</li></ol><p>I’ll need to keep brainstorming to find methods for addressing these issues.</p><h4>How do we enable identification of patterns?</h4><p>While selection and brushing over the text is valuable in allowing users to understand attention for specific words or phrases, it falls short in enabling big-picture identification of patterns. Without brushing over each token and / or sentence (and memorizing coverage along the way), the closest users may get is the aggregate view (when nothing is selected) in which <strong>what</strong> is being attended to is apparent, but not <strong>how.</strong> That is to say, it is not apparent which tokens / phrases in the summary attend to which tokens / phrases in the source text. In particular, below is a growing list of goals for this visualization.</p><ol><li><strong>Enable identification of coverage</strong>. For words / phrases / sentences, where is the attention being paid, and by what?</li><li><strong>Enable identification of missing coverage</strong>. What is being unattended to that should be?</li><li><strong>Enable identification of extraction vs abstraction</strong>. Where is copying occuring? Where is true abstraction occuring?</li></ol><p>If this tool can accomplish these items, I believe it will be a good start in proving its value.</p><p>With this in mind, we need some sort of visualization to accompany the two blocks of text. As previously mentioned, heat-maps may not be the best solution.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*Kd4lr3ZZmOZ6ffMdp82PJg.gif" />Interactive heat-map, as prototyped previously.</figure><p>Lag is apparent (likely a result of the large number of elements drawn), and even ignoring this, the tiles become extremely small as the input / output sequences grow, making it difficult to pick out even high attention weights. More visual weight is needed for significant attention weights, which is difficult to accomplish as x and y space is already taken by the input / output token position.</p><p><strong>So where else can we look?</strong></p><h4>Flowmaps</h4><p>Looking back at my project proposal, I saw this visualization made by Rikters et al. (2017).</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*uP_-gGiPkv6YMFYz." />An example of a flow-map from machine translation [Rikters et al. 2017].</figure><p>I thought this might be worth exploring, so I attempted to create something similar.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*SxZUaHFYssV5JtXo." />A flowmap displaying all edges is problematic. This doesn’t scale either.</figure><p>Unsurprisingly, there are far too many edges to display without significant overlap and occlusion. Summarization rears its head again as a challenge with its large input sequences.</p><p><strong>How do we remedy this?</strong></p><p>One observation is that high attention weights are fairly sparse (as evident by the aggregate on the source text above). What if we filtered out these insignificant weights? A naive approach is to take the top <em>k </em>percent of weights and display only those.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*I4jiiM98R88ZfMKz." />A flowmap showing only the top 1% of weights.</figure><p>The above example is displaying only the top 1% of attention weights. Edges have both their width and opacity scaled by their weight within this 1% domain. Significant (wide) weights are clearly identifiable. Thinner lines, faint (or nearly invisible) lines can also be seen, indicating that the much more significant weights have been preserved. Four distinct ‘rays’ can be seen, seemingly corresponding to the four sentence of the summary.</p><p>Selection and brushing seemed like intuitive follow-ups for interaction to enable more detailed / accurate pattern identification.</p><p><strong>Selection</strong></p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1000/1*U8_42zGX24nN8iB7Wo-zPw.gif" />Selection over the flowmap, both over the output nodes as well as the output text.</figure><p>Selection allows users to orient themselves in the flowmap, picking out which edges correspond to which input / output tokens.</p><p><strong>Brushing</strong></p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1000/1*1t7BRJX9g2k80B67IFQ4lw.gif" />Brushing over the flowmap allows for windowed pattern identification.</figure><p>Brushing enables accurate pattern identification. In the example above, brushing over the distinct rays allows us to see the almost entirely extractive nature of the summary — there is a clear 1:1 mapping from input to output that is implied by the clean structure of the rays, and confirmed upon inspecting the corresponding input / output tokens for these rays.</p><h4><strong>Challenges with Flowmaps (Future Work):</strong></h4><ol><li><strong>Selecting a top k% is not ideal — it does not generalize well.</strong> In the pathological case, where attention is evenly distributed for all tokens, we lose a lot of valuable information. A potential band-aid to this is to allow users to select the percentage of weights displayed, but this may be dangerous as high percentages can crash the browser. Perhaps a more elegant solution would be to perform clustering on the weights. I’ll need to do more research here.</li><li><strong>Overlapping paths can make reading the flowmap difficult.</strong> The example shown above is fairly clean, direction flows, for the most part, in a single direction. You could imagine, however that if a summary is extremely abstractive, pulling from all over the source, there might be significant overlap in edges, decreasing legibility. A potential solution to this is edge bundling, where edges going in similar directions are pulled together to preserve pattern recognition.</li></ol><p>A good starting point for exploration here is the paper <a href="http://vis.stanford.edu/files/2011-DividedEdgeBundling-InfoVis.pdf"><em>Divided Edge Bundling for Directional Network Data</em></a> by Selassie, Heller, &amp; Heer (2011). In this, the authors describe a method for bundling, divided edge bundling, that holds characteristics I believe are important for my own visualization.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*Ma6OlxvATqGNHbyu." />Different techniques applied to a network of GitHub contributions along the west coast of the United States [Selassie, Heller, &amp; Heer 2011].</figure><p>In the coming weeks I hope to dive into these techniques and explore their impact on the flowmap I’ve developed thus far.</p><h4>In Summary</h4><p>Still a lot of work to do! Here are my goals for the next week.</p><ol><li>Improve flowmap visualization.</li><li>Find examples that cover the problem space (e.g. low coverage, abstraction, extraction).</li><li>Keep brainstorming.</li><li>Optimize code.</li></ol><p>Things are getting interesting!</p><h4>References</h4><ol><li><a href="https://ufal.mff.cuni.cz/pbml/109/art-rikters-fishel-bojar.pdf">Rikters, Matīss, Mark Fishel, and Ondřej Bojar. “Visualizing neural machine translation attention and confidence.” <em>The Prague Bulletin of Mathematical Linguistics</em> 109.1 (2017): 39–50.</a></li><li><a href="http://vis.stanford.edu/files/2011-DividedEdgeBundling-InfoVis.pdf">Selassie, David et al. “Divided Edge Bundling for Directional Network Data.” <em>IEEE Transactions on Visualization and Computer Graphics</em> 17 (2011): 2354–2363.</a></li></ol><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=a2d837ecf66b" width="1" /></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://medium.com/@halden.lin/nlp-capstone-07-formalizing-a2d837ecf66b?source=rss-2759d54493c0------2">by Halden Lin at May 09, 2018 06:48 AM</a>
 </p>
 </div>
 </div>
@@ -264,6 +573,145 @@
 </div>
 
 
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://deeplearningturingtest.wordpress.com" title="NLP Capstone Project Updates – Ananth">Ananth Gottumukkala <br/> Team Turing Test</a></h3>
+
+
+<div class="entrygroup" id="http://deeplearningturingtest.wordpress.com/?p=21">
+<h4 lang="en"><a href="https://deeplearningturingtest.wordpress.com/2018/05/02/advanced-model-attempt-1-part-1/">Advanced Model Attempt 1 (Part 1)</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<p>This week I created and populated my SQL database with the birth year, birth place, industry, gender, profession, and continent information corresponding to 100 random famous people spanning across all time periods. Furthermore, I created a little over 30 questions that the model can ask as well as the corresponding SQL queries for each question. During each game for the simulation, the user will randomly pick a person for the model to guess and the model picks from a list of these questions to ask. Then, the query corresponding to this question is used to extract the truth value of the question from the database (Yes, No, Unknown). This answer is used as the response to simulate a real person giving that answer through user input. Now that the code has been written to interact with the database, the model can now fully create the observation at any point, which is the input vector to the DRQN. Next, I will hardcode the sample rewards as well as the rules of the game (maximum 20 questions, rewards for winning/losing/wrong guess, terminating game, etc.). This week I will be focusing on getting the simulation to run end-to-end, use tensorflow-gpu, and do hyperparameter tuning.</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://deeplearningturingtest.wordpress.com/2018/05/02/advanced-model-attempt-1-part-1/">by ananthgo at May 02, 2018 06:38 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://teamoverfit.blogspot.com/" title="NLP Capstone">Pinyi Wang, Dawei Shen, Xukai Liu <br/> Team Overfit</a></h3>
+
+
+<div class="entrygroup" id="tag:blogger.com,1999:blog-9203775015655831448.post-3361785683406757277">
+<h4><a href="https://teamoverfit.blogspot.com/2018/05/6-milestone-advanced-model-attempt-1.html">#6 Milestone: Advanced model attempt #1</a></h4>
+<div class="entry">
+<div class="content">
+<h2 style="height: 0px;"><span>Team Overfit</span></h2><h3><span><br /></span></h3><h3><span>Project repo: <span style="font-size: 18.72px;"><a href="https://github.com/pinyiw/nlpcapstone-teamoverfit">https://github.com/pinyiw/nlpcapstone-teamoverfit</a></span></span></h3><h4><span>Team members: Dawei Shen, Pinyi Wang, Xukai Liu</span></h4><div style="text-align: start; text-indent: 0px;"><div style="margin: 0px;"><div><span><b>Blog Post: #6: 05/01/2018</b></span></div><div><span><span><b><br /></b></span></span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Social Media Predicts Stock Price (StartUp Mode)</span><br /><br /><span><span style="white-space: pre;">This week, we added more data source and have finer process of the data. We also convert </span></span><br /><span><span style="white-space: pre;">Keras model to Tensorflow for better future improvement.   </span></span><br /><span><span style="white-space: pre;"><br /></span></span><span><b>Keras to TensorFlow</b></span><br /><ul><li><span>We updated our code from using Keras to Tensorflow which helps to do more improvement on model. For example, TensorFlow is a lower level library which allow us to have more control over the variables we used as the input and output. For example, if we want to try with more complicated input with adding the voerall market stock price and the competitors' stock prices, TensorFlow will be more helpful.</span></li></ul><div><span><b>Add One More Target Company: Tesla</b></span></div><div><ul><li><span>As there are too many Tweets that have tagged #Apple but are unrelated to the company Apple, we need to filter out such tweets. However, if we apply the model on the company Tesla, who's company name is uniquer than 'Apple' and has its products naming closer to its company name, the Tweets and news that have tagged #Tesla will contain much less noisy information and thus improve the prediction to its stock price.</span></li></ul><div><span><b>Try Out Different Layers Structure to Tune LSTM</b></span></div></div><div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><ul><span id="docs-internal-guid-1d495372-1f45-7a06-476d-fd5b4661d619"><li><span><span style="white-space: pre-wrap;">Add the NASDAQ index to the input</span></span></li><ul><li><span><span style="white-space: pre-wrap;">The composition of the NASDAQ Composite is heavily weighted towards information technology companies. Therefore, company Apple’s and Tesla’s stock prices may be influenced by the Nasdaq index.</span></span></li></ul><li><span><span style="white-space: pre-wrap;">Add a 'STAY' category as the output prediction of stock price</span></span></li><ul><li><span><span>If the change of the stock price for the next day is within 1%, we will mark the stock price of that day as a ‘STAY’. Otherwise, we mark it as ‘UP’ or ‘DOWN’</span></span></li></ul><li><span><span style="white-space: pre-wrap;">Lemmatization &amp; Stemming</span></span></li><ul><li><span><span style="white-space: pre-wrap;">Lemmatization and stemming help collect the same words with different tenses together, which reduce the total vocabulary size.</span></span></li></ul></span></ul><div><span id="docs-internal-guid-1d495372-1f45-7a06-476d-fd5b4661d619"><span><span style="white-space: pre-wrap;"><b>Update Of Evaluation Plan</b></span></span></span><br /><span><span style="white-space: pre-wrap;"><b><br /></b></span></span></div><div><span id="docs-internal-guid-1d495372-1f45-7a06-476d-fd5b4661d619"><span><span style="white-space: pre-wrap;"><b>Results &amp; Error Analysis</b></span></span></span></div><div><ul><span id="docs-internal-guid-1d495372-1f45-7a06-476d-fd5b4661d619"><li><span><span style="white-space: pre-wrap;">After we have improved the model and the training process, the prediction accuracy for Apple will be above 85% if we choose '<i>+/-1% change of the stock price</i>' as 'STAY'.</span></span></li><li><span><span style="white-space: pre-wrap;">The prediction accuracy for Apple will be above 60% if we choose '<i>+/-1% change of the stock price</i>' as 'STAY'.</span></span></li></span></ul></div><div><span id="docs-internal-guid-1d495372-1f45-7a06-476d-fd5b4661d619"><span><span style="white-space: pre-wrap;"><b>What To Investigate For The Next Week</b></span></span></span></div><div><ul><span id="docs-internal-guid-1d495372-1f45-7a06-476d-fd5b4661d619"><li><span><span style="white-space: pre-wrap;">Apply F1 scores. For the evaluation ,we would like to know:</span></span></li><ul><li><span><span style="white-space: pre-wrap;">The rate of stocks are marked 'UP/DOWN/STAY' that are predicted correctly as 'UP/DOWN/STAY' separately.</span></span></li><li><span><span style="white-space: pre-wrap;">The rate of stocks are marked 'UP/DOWN/STAY' that are predicted wrongly as 'UP/DOWN/STAY' separately.</span></span></li></ul><li><span><span style="white-space: pre-wrap;">Add competitors' stock prices to the input</span></span></li></span></ul></div><div></div></div></div></div></div></div></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://teamoverfit.blogspot.com/2018/05/6-milestone-advanced-model-attempt-1.html">by Team Overfit (noreply@blogger.com) at May 02, 2018 05:53 AM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
+<div class="daygroup">
+<h2>May 01, 2018</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="http://sarahyu.weebly.com/cse-481n" title="Sarah yu - CSE 481N">Sarah Yu <br/> Team Jekyll-Hyde</a></h3>
+
+
+<div class="entrygroup" id="http://sarahyu.weebly.com/cse-481n/advanced-model-attempt-1">
+<h4><a href="http://sarahyu.weebly.com/cse-481n/advanced-model-attempt-1">Advanced Model Attempt #1 (Act 1)</a></h4>
+<div class="entry">
+<div class="content">
+<div class="paragraph">The first part of implementing my advanced model attempt was to work on implementing the IDP Algorithm presented in  Monroe, B. L., Colaresi, M. P., &amp; Quinn, K. M. (2008). <em>Fightin' words: Lexical feature selection and evaluation for identifying the content of political conflict. </em><font size="2">Political Analysis, 16(4), 372-403. </font><br /><br />In doing so, I was able to find the weighted log odds ratio of each word present in both ND and NT posts, ultimately showing which type of subreddit each word was 'more affiliated' with. The findings were as one might expect, especially with my previous baselines and were in line with the results from those. As seen below we see some familiar words within the ND (I, you, <strong>she</strong>​) and NT (http) - so sorry for the ugly terminal output, but I need to find a prettier CSV presentation:</div>  <div><div class="wsite-multicol"><div class="wsite-multicol-table-wrap"> 	<table class="wsite-multicol-table"> 		<tbody class="wsite-multicol-tbody"> 			<tr class="wsite-multicol-tr"> 				<td class="wsite-multicol-col" style="width: 50%; padding: 0 15px;"> 					 						  <div><div class="wsite-image wsite-image-border-none " style="padding-top: 10px; padding-bottom: 10px; margin-left: 0; margin-right: 0; text-align: center;"> <a> <img alt="Picture" src="http://sarahyu.weebly.com/uploads/2/4/3/0/24307463/screen-shot-2018-05-02-at-12-42-36-am_orig.png" style="width: auto;" /> </a> <div style="display: block; font-size: 90%;"></div> </div></div>   					 				</td>				<td class="wsite-multicol-col" style="width: 50%; padding: 0 15px;"> 					 						  <div><div class="wsite-image wsite-image-border-none " style="padding-top: 10px; padding-bottom: 10px; margin-left: 0; margin-right: 0; text-align: center;"> <a> <img alt="Picture" src="http://sarahyu.weebly.com/uploads/2/4/3/0/24307463/screen-shot-2018-05-02-at-12-43-09-am_orig.png" style="width: auto;" /> </a> <div style="display: block; font-size: 90%;"></div> </div></div>   					 				</td>			</tr> 		</tbody> 	</table> </div></div></div>  <div class="paragraph">This was a good first step, and will need some more work hashing out some final implementation details, but my next step in making this an actual advanced model, is to now utilize some of that reddit data that I've been harvesting for the past week or so. With that, we have a lot more data and might need to make some changes on the subreddit subsets depending on how the data has developed (changes in sentence length and number of total number of posts in each subreddit). Off to more data!!!</div></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="http://sarahyu.weebly.com/cse-481n/advanced-model-attempt-1">May 01, 2018 07:00 AM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
+<div class="daygroup">
+<h2>April 26, 2018</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://deeplearningturingtest.wordpress.com" title="NLP Capstone Project Updates – Ananth">Ananth Gottumukkala <br/> Team Turing Test</a></h3>
+
+
+<div class="entrygroup" id="http://deeplearningturingtest.wordpress.com/?p=18">
+<h4 lang="en"><a href="https://deeplearningturingtest.wordpress.com/2018/04/26/strawman-baseline-2-same-drqn-model-with-a-different-policy/">Strawman/Baseline 2: Same DRQN Model with a Different Policy</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<p>I decided to narrow the scope of my problem by changing the types of questions asked to the user to be only yes/no questions. This simplifies interpreting the user response into a classification task. More specifically, the questions will be about figuring out the attributes of any entities brought up in the text.  Therefore, I will use a relational database to store the accumulated entity-attribute relationships instead of a semantic network since it will be easier to extract quantifiable features by performing specific queries. In addition to asking the user questions, I decided to involve database queries in the training process. This way the model can query the database about any inferences or guesses it has about the attributes of an entity, and the database can return a list of entities that fit the hypothesis. Then, the model is given a reward based on how much it was able to narrow down the list of entities. This allows the model to get frequent reward signals from the database to speed up training.</p>
+<p>Because of this change, my model architecture has also changed. The DRQN will now take as inputs the action from the previous time step (one-hot vector), the user response (word embeddings passed through CNN), and the database response (number of entities the previous query narrowed it down to). In addition, the outputs to the LSTM at each time step will feed into A+1 policy networks where A = number of attributes. The first A policy networks are needed because the model needs to learn how to guess each attribute independently. The last policy network determines which question the model will ask the user. So far I have implemented most of this architecture but still need to add in the policy networks and debug.</p>
+<p>Finally, I will implement a question simulator to randomly pick an entity and have the model guess what it is, similar to 20 questions. During this simulation, rewards will be automatically given every time the model queries the database and whenever the game ends (win or loss). Furthermore, a small penalty is given for a wrong guess. By implementing this simulator, the need for user input to give rewards is eliminated and this should completely automate and greatly speed up training.</p>
+<p>My goal for next week is to finish implementing and debugging the model to start this training simulation.</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://deeplearningturingtest.wordpress.com/2018/04/26/strawman-baseline-2-same-drqn-model-with-a-different-policy/">by ananthgo at April 26, 2018 06:58 AM</a>
+</p>
+</div>
+</div>
+
+
 </div>
 
 </div>
@@ -295,6 +743,38 @@
 
 <p class="date">
 <a href="https://medium.com/@halden.lin/nlp-capstone-05-experimenting-306dca636d3a?source=rss-2759d54493c0------2">by Halden Lin at April 25, 2018 06:48 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://teamoverfit.blogspot.com/" title="NLP Capstone">Pinyi Wang, Dawei Shen, Xukai Liu <br/> Team Overfit</a></h3>
+
+
+<div class="entrygroup" id="tag:blogger.com,1999:blog-9203775015655831448.post-597849658553454254">
+<h4><a href="https://teamoverfit.blogspot.com/2018/04/5-milestone-strawmanbaseline-ii.html">#5 Milestone: Strawman/Baseline II</a></h4>
+<div class="entry">
+<div class="content">
+<h2 style="height: 0px;"><span>Team Overfit</span></h2><h3><span><br /></span></h3><h3><span>Project repo: <span style="font-size: 18.72px;"><a href="https://github.com/pinyiw/nlpcapstone-teamoverfit">https://github.com/pinyiw/nlpcapstone-teamoverfit</a></span></span></h3><h4><span>Team members: Dawei Shen, Pinyi Wang, Xukai Liu</span></h4><div style="text-align: start; text-indent: 0px;"><div style="margin: 0px;"><div><span><b>Blog Post: #5: 04/24/2018</b></span></div><div><span><span><b><br /></b></span></span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Social Media Predicts Stock Price (StartUp Mode)</span><br /><span><br /></span><span><span id="docs-internal-guid-8a395488-fb3a-d9a7-cec2-8d3cb31f0a59"><span>This week, we tried to use tf-idf and seq2vec to process news headlines as input to our LSTM </span></span></span><span>model to predict UP/DOWN for APPLE stock price.</span><br /><span><br /></span><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span><b>Data Preprocessing</b></span><br /><br /><ul><li><span>Crawling historical news headlines from Twitter</span></li><li><span>Categorize tweets with date and correlated stock price</span></li><li><span>Cleanup unrelated data</span></li><li><span>Map vocabulary to index with removing words that appear less than 3 times in the tweet news corpus.</span></li></ul><div><span><b>Seq2One with TF-IDF</b></span></div><div><ul><li><span>TF-IDF</span></li><ul><li><span>Correlate word frequencies with price changes (convert words into normalized frequency count vector)</span></li></ul><li><span>Seq2One</span></li><ul><li><span>Correlate average word embeddings with price changes (convert words into normalized embedding vector)</span></li></ul><li><span>Bidirectional RNN</span></li><ul><li><span>Enhance the performance by knowing before and after prices</span></li></ul></ul><div><span><b>Evaluation</b></span></div></div><div><ul><li><span>Accuracy on predicting Up or Down</span></li><li><span>Accuracy on predicting Stock Price (TODO)</span></li></ul><div><span><b>Result</b></span></div></div><div><ul><li><span>TF-IDF: 60.7% accuracy predictin UP/DOWN on test set with 273 total data points and 9/1 train-test split</span></li><li><span>Seq2Vec: 53.6% accuracy predicting UP/DOWN on test set with 273 total data points and 9/1 train-test split</span></li></ul><div><span><b>Error Analysis</b></span></div></div><div><ul><li><span><b>Things that may impair the precision of prediction</b></span></li><ul><li><span>Words with high frequency but have low effect on stock prices:</span></li><ul><li><span>A, is, of, for, the</span></li><li><span>Tweets talking about fruit <i>apple</i> instead of the company</span></li></ul><li><span>Tweets news that have high frequency but low effect on stock prices and news that may have high effect on stock prices but with low frequencies</span></li><li><span>Losing information of each single tweet as we have combined all tweets in a day together to form a word frequency vector and do the prediction</span></li></ul><li><span><b>Things that could be done to improve the performance</b></span></li><ul><li><span>Add the overall market stock price as part of the input because it usually also has big impact on a single companies stock price.</span></li><li><span>Crawl more data for more companies and longer duration</span></li><li><span>Add financial</span></li><li><span>Add the competitor companies stock prices and tweets news as part of the input.</span></li></ul></ul></div></div></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span id="docs-internal-guid-8a395488-fb3c-6f01-c575-279c6f3d6421"></span></div></div></div></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://teamoverfit.blogspot.com/2018/04/5-milestone-strawmanbaseline-ii.html">by Team Overfit (noreply@blogger.com) at April 25, 2018 05:20 AM</a>
 </p>
 </div>
 </div>
@@ -392,6 +872,45 @@
 
 </div>
 <div class="daygroup">
+<h2>April 20, 2018</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://deeplearningturingtest.wordpress.com" title="NLP Capstone Project Updates – Ananth">Ananth Gottumukkala <br/> Team Turing Test</a></h3>
+
+
+<div class="entrygroup" id="http://deeplearningturingtest.wordpress.com/?p=16">
+<h4 lang="en"><a href="https://deeplearningturingtest.wordpress.com/2018/04/20/strawman-baseline-1-deep-recurrent-q-network/">Strawman/Baseline 1: Deep Recurrent Q Network</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<p>For this week, I decided to first develop the RL model for asking questions. I chose to try a Deep Recurrent Q Network (DRQN) first (and the policy gradient method later) using the following repository as a starting point:</p>
+<p><a href="https://github.com/awjuliani/DeepRL-Agents/blob/master/Deep-Recurrent-Q-Network.ipynb" rel="nofollow">https://github.com/awjuliani/DeepRL-Agents/blob/master/Deep-Recurrent-Q-Network.ipynb</a></p>
+<p>This repository implements the DRQN for games by using LSTM cells to encode sequential information as successive frames are passed in for each time step. These frames are then passed through a CNN, then the LSTM cell, and then output the Q values. In the code I replaced where the input image (frame) is passed into the DRQN with the 2D word embedding matrix (GloVe vector for each word in sentence) and passed it straight into the CNN. I also gave a default reward of 0 to the model and managed to run the model without errors.</p>
+<p>My goal for next week is to change the reward allocation to be user input, hardcode all the question templates, and begin training the model.</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://deeplearningturingtest.wordpress.com/2018/04/20/strawman-baseline-1-deep-recurrent-q-network/">by ananthgo at April 20, 2018 06:47 AM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
+<div class="daygroup">
 <h2>April 19, 2018</h2>
 
 <div class="channelgroup">
@@ -430,6 +949,38 @@
 <div class="daygroup">
 <h2>April 18, 2018</h2>
 
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://cse481n.blogspot.com/" title="PrimeapeNLP">Ron Fan, Aditya Saraf <br/> Team PrimeapeNLP</a></h3>
+
+
+<div class="entrygroup" id="tag:blogger.com,1999:blog-3753031463594823927.post-8569998071322028844">
+<h4><a href="https://cse481n.blogspot.com/2018/04/blog-post-4.html">Blog Post #4</a></h4>
+<div class="entry">
+<div class="content">
+<div dir="ltr" id="docs-internal-guid-7937c8af-d777-ed0f-f77b-cf09623b985e" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">A big part of our work for setting up a baseline is the creation of a reasonably good dataset for training and evaluating extractive text summarization. Our goal was to build a dataset with all sentences from the articles marked with binary labels indicating whether or not they were part of the extracted summary.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">We used the DailyMail and CNN story dataset, which is meant for abstractive summarization, to build our own dataset. The data set includes automatically-parsed lines from news articles, as well as a few bullet point highlights for each article. These highlights are not sentences directly from the article, but are overall a decent indicator and considered to be one of the most useable datasets out there (if for no other reason than sheer volume of data).</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">To build our data set, we used a toy metric roughly based off of ROUGE-N, with the understanding that we would only need a way of relative ranking for each sentence.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">The procedure to generate the data set was as follows:</span></div><ol style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Read in a single .story file from the abstractive dataset into highlights and sentences.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Post-process sentences- in the original data, new lines do not correspond exactly with sentence endings. Additionally, some sentences are originally split arbitrarily by new lines. We do an additional split by the regex (?&lt;=[.?!])\s+ (whitespace with period, question mark, or exclamation mark lookbehind), but sentence “re-joining” is off by default, as some sentences in the original dataset do not end with punctuation.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Score each sentence with our metric.</span></div></li><ol style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Tokenize each sentence and highlight.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Build unigram, bigram, and trigram lists.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Count the number of matches between the sentence and all the highlights, giving more weight to bigram and trigram matches and also weighting by word length.</span></div></li></ol><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Sort sentences by score.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Let S be the number of sentences and H be the number of highlights. The algorithm picks up to min(1, floor(S/2)) sentences as part of the summary. It picks at least the H sentences with the highest scores. After sentence H is picked, subsequent sentences will only be picked if their score was at least (80+3*X)% of the previously-picked sentence’s score, where X is the number of sentences currently picked. This is effectively a fairly arbitrary metric to pick the most likely sentences roughly in accordance with the size of the abstractive summary, while also allowing for particularly similar sentences to both be chosen for completeness.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">All data input and output with UTF-8 encoding.</span></div></li></ol><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Output format:</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">&lt;#&gt; &lt;SENTENCE PLAINTEXT&gt;</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;"># is either 0 = normal sentence in the article, 1 = sentence chosen as part of extractive summary, 2 = original abstractive summary (should not be touched by model, only left there for human reference). </span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Overall, we think our data set is generally reasonable and makes sense. Nonetheless, there are a number of weaknesses with both extractive models in general and this specific type of dataset (including some problems which derive from the original abstractive dataset).</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Key weaknesses of data set:</span></div><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">In the original data, highlights do not always correspond to actual information in the article. For example, this short story has four highlights that are all new information: 008fc24ca9f4c48a54623bef423a3f2f8db8451a.story.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Frequent formatting problems - sentences that don’t terminate with punctuation, repeated sentences, bugged unicode characters, etc.</span></div></li></ul><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Key weaknesses specific to extractive summarization:</span></div><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Articles that are particularly short are effectively impossible to meaningfully summarize with extractive techniques.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Some sentences in articles contain the same content with slightly different wording. In these cases, we decided to choose both sentences, with the idea that post-processing could take care of highly-similar sentences, but a model could not be expected to accurately distinguish between two such sentences if they have different labels.</span></div></li></ul><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">The Baseline Model:</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">For our baseline combinatorial approach, we did a simple Maximum Coverage Problem implementation. The Maximum Coverage Problem is a classic NP-complete problem. Given a collection of n sets, the goal is to maximize the number of chosen (or “covered”) elements while only choosing k of the sets (where k &lt; n). It’s very straightforward to reduce summarization to this problem. The sentences in the document are the sets, and the vocabulary of the document represents the “universe”, or the elements in the sets. The goal is to cover as many words as possible while picking the same number of sentences as in the labelled summary. The intuition is that sentences with more words capture more semantic meaning, and once a word is listed in the summary, that word need not be considered again. This reduction makes some intuitive sense, but two main aspects must be refined. First, not all words are equally meaningful. Some words, like “a”, “the”, or “and”, have little semantic content, while named entities and other important words have much higher semantic content. Second, we should at least account for sentence lengths -- instead of constraining the algorithm to pick the same number of sentences, we should constrain it to the same word count. This two additional criteria turn the problem into the Budgeted Maximum Coverage Problem: elements in the sets have specified values, and the sets have specified costs. The new objective is to maximize the total value of the covered elements while remaining with a given budget.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Of course, this problem is NP-complete, so it may seem like a strange choice to model summarization with. There are two approaches to this. First, a simple greedy algorithm achieves an approximation of ~63%, which means that the greedy algorithm is guaranteed to get at least 63% of the value of the optimal solution. For the standard MCP, the greedy algorithm just chooses the set with the most uncovered elements until no more sets are allowed. For the budgeted MCP, the approximation algorithm is slightly more complex. See Khuller et al. for a detailed look at it -- the algorithm is slightly more work, but still very understandable, and achieves the same approximation bound.  We can also formulate the problem as an Integer Linear Program (ILP) and use an ILP solver to generate optimal solutions on realistic instance sizes. This works because the documents and sentences are both small.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">For now, we are using the greedy algorithm for the standard MCP. As a simple metric, we used the number of correct chosen sentences divided by the number of chosen sentences in total (correct means that the gold standard also picked that sentence). With a basic MCP approach, we had an accuracy of 0.218. This was measured on a small sample of 2000 stories. In order to approximate a weighting scheme, we use a stop list to simply remove common articles and other semantically empty words. With this small modification, we had an accuracy of 0.2328.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">We plan to extend this to a better baseline model in the next few days. We will formulate the problem as an ILP and pass it to an ILP solver for an optimal solution. We will also implement a more sophisticated weighting scheme. One idea is to use some of the labelled data as training data (right now, we don’t train) to build a weight matrix for common words -- we can build this matrix with a logistic regression, using n-gram (probably unigram) similarity as the loss function.This will hopefully give us a more reasonable baseline model.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Evaluation Framework:</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">For now, we’re using a simple accuracy metric. We plan to switch to ROUGE, which counts n-gram similarity (ROUGE measures recall, not precision). We will work with the ROUGE-2.0 Java package or pyrouge, depending on which language we are working with. </span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">So to summarize our goals for the next week, we will improve this baseline model by formulating the problem as an ILP and we may implement a weighting scheme (if that’s too complicated, we’ll save it for the advanced model). We will also build a baseline neural model. Then, we’ll flesh out our evaluation framework using ROUGE metrics, train/test using more of the corpus, and have detailed error analysis.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">References:</span></div><div dir="ltr"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Khuller, S., Moss, A., &amp; Naor, J. (Seffi). (1999). The Budgeted Maximum Coverage Problem. </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: italic; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Inf. Process. Lett.</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">, </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: italic; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">70</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">(1), 39–45. https://doi.org/10.1016/S0020-0190(99)00031-9</span></div></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://cse481n.blogspot.com/2018/04/blog-post-4.html">by Ron &amp;amp; Aditya (noreply@blogger.com) at April 18, 2018 06:25 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
 <div class="channelgroup">
 
 
@@ -497,6 +1048,38 @@
 
 <p class="date">
 <a href="https://mathstoc.wordpress.com/2018/04/18/nlp-capstone-post-3-baseline-and-midi-frustration/">by Nicholas Ruhland at April 18, 2018 04:58 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://teamoverfit.blogspot.com/" title="NLP Capstone">Pinyi Wang, Dawei Shen, Xukai Liu <br/> Team Overfit</a></h3>
+
+
+<div class="entrygroup" id="tag:blogger.com,1999:blog-9203775015655831448.post-1250926726356516395">
+<h4><a href="https://teamoverfit.blogspot.com/2018/04/4-milestone-strawmanbaseline-i.html">#4 Milestone: Strawman/Baseline I</a></h4>
+<div class="entry">
+<div class="content">
+<h2 style="height: 0px;"><span>Team Overfit</span></h2><h3><span><br /></span></h3><h3><span>Project repo: <span style="font-size: 18.72px;"><a href="https://github.com/pinyiw/nlpcapstone-teamoverfit">https://github.com/pinyiw/nlpcapstone-teamoverfit</a></span></span></h3><h4><span>Team members: Dawei Shen, Pinyi Wang, Xukai Liu</span></h4><div style="text-align: start; text-indent: 0px;"><div style="margin: 0px;"><div><span><b>Blog Post: #4: 04/17/2018</b></span></div><div><span><span><b><br /></b></span></span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Social Media Predicts Stock Price (StartUp Mode)</span><br /><br /><span>This week, we experimented with crawling data by querying from Twitter website, but we had some struggles finding the meaningful data set. Firstly, the Twitter API does not support fetching tweets prior than 7 days, so we have to write bash scripts and use a crawler to strip data from website, which is comparatively slower.</span><br /><span id="docs-internal-guid-945a652a-d716-7ba2-4653-bdd5ec706d01"><a href="https://github.com/Jefferson-Henrique/GetOldTweets-python"><span>https://github.com/Jefferson-Henrique/GetOldTweets-python</span></a></span><br /><span><br /></span><span>We tried to query keywords like Apple, iPhone, iPad. Lots of tweets we got are not in English, so we used language detection tools to filter out tweets in other languages. Unfortunately, there are too much giveaway and advertisement flooding on the platform. Some examples are:</span><br /><blockquote class="tr_bq"><span>"Microsoft planning to launch Surface Pro 6 in first quarter of 2017"</span></blockquote><blockquote class="tr_bq"><span>"KFire TV Giveaway: Win a Microsoft Bluetooth Mouse. http://kodifiretvstick.com"</span></blockquote><blockquote class="tr_bq"><span>"Microsoft Releases The 'Studio', Its First Desktop Computer"</span></blockquote><blockquote class="tr_bq"><span>"Like - free microsoft points world http://freemicrosoftpointsworld.weebly.com/"</span></blockquote><span>Therefore, for out strawman model #1 we decide to use the relative news headlines under twitter search query.</span><br /><span><br /></span><span>We searched companies' names like Google, Microsoft, Tesla to find relative new headlines and use unigram (bag of words) to put it in a decision tree model with random forest mechanism to predict the price go UP or DOWN. We had mixed results using this model. This is just our first attempt to see whether the twitter data is useful to predict the movement of future stock prices.</span><br /><span><br /></span><span>AAPL GOOG MSFT AMZN</span><br /><span>53.66% 58.53% 56.10% 37.50%</span><br /><span><br /></span><span>Next week, we'll try to use deep neural network as predictive model and expand our input to the user feedback of the product from general users.</span><br /><blockquote class="tr_bq"></blockquote><blockquote class="tr_bq"></blockquote><blockquote class="tr_bq"></blockquote><blockquote class="tr_bq"></blockquote><blockquote class="tr_bq"></blockquote></div></div></div></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://teamoverfit.blogspot.com/2018/04/4-milestone-strawmanbaseline-i.html">by Team Overfit (noreply@blogger.com) at April 18, 2018 04:47 AM</a>
 </p>
 </div>
 </div>
@@ -616,6 +1199,68 @@
 
 
 
+<h3><a href="https://deeplearningturingtest.wordpress.com" title="NLP Capstone Project Updates – Ananth">Ananth Gottumukkala <br/> Team Turing Test</a></h3>
+
+
+<div class="entrygroup" id="http://deeplearningturingtest.wordpress.com/?p=14">
+<h4 lang="en"><a href="https://deeplearningturingtest.wordpress.com/2018/04/11/project-proposal-question-based-knowledge-representation/">Project Proposal: Question-Based Knowledge Representation</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<p><strong>Project Objective:</strong> The objective of this project is to create a model that can build a representation of the knowledge it’s gathered by reading the input text line by line and asking appropriate clarifying questions to a human for further insight.</p>
+<p><strong>Literature Survey:</strong></p>
+<ul>
+<li><cite class="formatted-citation formatted-citation--style-mla">Williams, Jason D. et al. “Hybrid Code Networks: practical and efficient end-to-end dialog control with supervised and reinforcement learning.” <em>ACL</em> (2017).</cite></li>
+<li>
+<div class="padded"><cite class="formatted-citation formatted-citation--style-mla">Zhang, Qianqian et al. “A Review on Entity Relation Extraction.” <em>2017 Second International Conference on Mechanical, Control and Computer Engineering (ICMCCE)</em> (2017): 178-183.</cite></div>
+</li>
+<li>Arvind Neelakantan’s Doctoral Disseration: <em>Knowledge Representation and Reasoning with Deep Neural Networks (2017)</em></li>
+<li>
+<div class="padded"><cite class="formatted-citation formatted-citation--style-mla">Zhao, Tiancheng and Maxine Eskénazi. “Towards End-to-End Learning for Dialog State Tracking and Management using Deep Reinforcement Learning.” <em>SIGDIAL Conference</em> (2016).</cite></div>
+</li>
+</ul>
+<p><strong>Minimal Viable Action Plan:</strong> My minimum action plan would be to implement and train an RL model to ask certain question template(s) as clarification as it processes input text line by line. Then a human (myself) would assign a reward to indicate the quality of the question and give a brief answer to the question. This brief answer would then be used to expand the model’s stored knowledge representation and the assigned reward would be used to train the RL model. This series of exchanges is treated like a one-on-one conversation even if it’s more like a one-sided lecture.</p>
+<p><strong>Stretch Goals:</strong> Stretch goals include extracting features from the existing knowledge base and feeding those into the model to further improve the relevancy of questions (for example not asking questions that the model should already know). Another stretch goal would be to translate the knowledge representation back into everyday English text for tasks such as answering reading comprehension questions. This can be done either by training a Machine Translation model, using a parser like ANTLR, or some other method.</p>
+<p><strong>Proposed Methodologies:</strong> My proposed methodologies follows a similar outline as given by Williams et al. in their paper on Hybrid Code Networks (HCNs).</p>
+<ul>
+<li>The input text is read in line-by-line and goes through various preprocessing steps like entity extraction, word embeddings layer, sentiment analysis, bag of words, etc. These features are concatenated and fed into the model.</li>
+<li>In the HCN paper, the model was an RNN followed by a softmax layer (probability distribution over the various actions to take).
+<ul>
+<li>In this problem, the “actions” to take are the different types of question templates to ask so copying this model and substituting their action templates with my question templates would work.</li>
+</ul>
+</li>
+<li>An alternative approach would be to build a Deep Q Network model with an LSTM (or GRU) layer at the end, so the network would update the Q values for each question type that can be asked (and the one with the highest Q value can be greedily selected). For clarification, each input sentence would represent a time step.</li>
+<li>After a question type is selected with either of the 2 approaches above, nouns need to be substituted in to form an actual question (as in the HCN paper). For example, a question template might be “Is there a relationship between ______ and ______?” and the two blanks need to be filled in with nouns. If the substitution results in a good question, a good reward is assigned and otherwise, a very negative reward is assigned. If it’s a good question, then an answer is given to update the knowledge representation.
+<ul>
+<li>Some possible ways to create this knowledge representation is to use lists, trees, semantic networks, production rules, logical propositions and/or other existing NLP knowledge representation models (I haven’t decided on one yet).</li>
+</ul>
+</li>
+</ul>
+<p><strong>Available Resources/Databases:</strong> To train the model, any reading comprehension dataset like MS Marco (Microsoft), SQuAD (Stanford), RACE, etc. can be used. If my project is successful enough, I can even use these datasets for evaluation.</p>
+<p><strong>Evaluation Plan:</strong> If I only finish my minimum viable action plan, I’m not sure how I can qualitatively assess my knowledge representation except by comparing the representation against the information I wanted to be recorded (or have other people judge what knowledge should be stored). On the other hand, if I finish my stretch goals (translating knowledge representation to English) I can try to use the knowledge representation to train on and respond to queries in a reading comprehension dataset (which would be a much more qualitative evaluation).</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://deeplearningturingtest.wordpress.com/2018/04/11/project-proposal-question-based-knowledge-representation/">by ananthgo at April 11, 2018 06:59 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
 <h3><a href="https://mathstoc.wordpress.com" title="NLP Capstone – Mathematical Distractions">Kuikui Liu, Nicholas Ruhland <br/> Team INLP</a></h3>
 
 
@@ -685,12 +1330,111 @@
 </div>
 
 
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://cse481n.blogspot.com/" title="PrimeapeNLP">Ron Fan, Aditya Saraf <br/> Team PrimeapeNLP</a></h3>
+
+
+<div class="entrygroup" id="tag:blogger.com,1999:blog-3753031463594823927.post-4531878816260312232">
+<h4><a href="https://cse481n.blogspot.com/2018/04/blog-post-3.html">Blog Post #3</a></h4>
+<div class="entry">
+<div class="content">
+<h1 dir="ltr" id="docs-internal-guid-ea0c9d97-b369-9237-6f13-3675807d7a60" style="line-height: 1.38; margin-bottom: 6pt; margin-top: 20pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 20pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Project Objectives</span></h1><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Single document summarization (SDS) is one of the remaining challenging problems in natural language processing. Novel methods are presented frequently in new papers, but they often do not include specific code allowing for reproducibility and are evaluated on specific datasets that make comparisons between models meaningless and difficult.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">There are many approaches to SDS, but they can be broadly divided into combinatorial approaches and neural approaches. Neural approaches build a neural architecture, such as a seq2seq/encoder-decoder model or single sequence RNNs. Combinatorial approaches will either try to frame the problem as an optimization problem, and then use an ILP solver, or frame the problem as a classic NP-hard problem, like Knapsack or Maximum Coverage. We want to explore both approaches, and compare their performance on the same dataset.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">SDS is comprised of two tasks: extractive summarization and abstractive summarization. Extractive summarization compiles a summary by selecting sentences from the document’s text while abstractive summarization generates text for the summary (sentences that may not have been present in the document’s text). While abstractive summarization might have more intuitive appeal, our project will focus on extractive summarization to enable meaningful comparisons between neural and combinatorial approaches (combinatorial approaches often must be extractive).</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">In this project, we plan to implement at least one neural and one combinatorial model for extractive single document summarization. We hope to establish some meaningful ways to compare the differences between selections made by the different types of models. Our primary goal is to better understand the strengths and weaknesses of neural and combinatorial models for single document summarization - a particular important aspect of SDS given the general roughness of existing evaluation metrics. We will gauge our progress based on reaching acceptable performance on commonly-used evaluation metrics when we implement models.</span></div><h1 dir="ltr" style="line-height: 1.38; margin-bottom: 6pt; margin-top: 20pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 20pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Methodology</span></h1><h3 dir="ltr" style="line-height: 1.38; margin-bottom: 4pt; margin-top: 16pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 13.999999999999998pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Minimal Viable Action Plan</span></h3><ol style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Build our data set using existing data. Specifically, convert data better suited for training abstractive summarization models into data that can be used for extractive summarization..</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Implement a simple combinatorial model (for example, we can do a simple maximum coverage problem, where we set up the “universe” to be the vocabulary of the document, and treat the sentences as sets of words).</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Implement a simple neural model (just treat the problem as a generic binary classification problem).</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Train models on identical data sets and do a baseline comparison -- how well does a simple neural model do vs. a simple combinatorial model? This doesn’t tell us much about the relative strengths of the two approaches (we can’t quantify “simple”), but with some error analysis, we might be able to see what sentences neural models are misidentifying vs. what sentences combinatorial models are misidentifying.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Build at least one state-of-the-art combinatorial model (adapting from a recent paper). We have two candidate papers: Hirao et al.’s Tree Knapsack approach and Durrett et al.’s Compression/Anaphoricity</span></div></li></ol><br /><h3 dir="ltr" style="line-height: 1.38; margin-bottom: 4pt; margin-top: 16pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 13.999999999999998pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Stretch Goals</span></h3><ol style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Design our own model that is a combination of the strong points of the combinatorial and neural models. Ideally, our model would be as good as or better than the existing models we implemented on the quantitative and qualitative metrics we use.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Alternatively, we can use ideas from one domain to improve an aspect of a SOTA model in the other domain. For example, we might learn that neural models are great at dealing with named entities, and so incorporate a neural layer in a combinatorial model (perhaps by allowing the output of the neural layer to determine the weights of named entities).</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Design a common system for comparing performance of extractive summarization models. Rather than a differentiable evaluation metric, we think it may be useful to choose a set of “tough” documents to summarize and bundle them together with specific reasons for their difficulty, so that researchers may more easily identify weaknesses in models they are working on.</span></div></li></ol><h1 dir="ltr" style="line-height: 1.38; margin-bottom: 6pt; margin-top: 20pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 20pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Available Resources</span></h1><h3 dir="ltr" style="line-height: 1.38; margin-bottom: 4pt; margin-top: 16pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 13.999999999999998pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Dataset/Evaluation</span></h3><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">For this problem, we will be using the DailyMail/CNN dataset. From our initial research, this seems to be the standard dataset for both document summarization as well as basic reading comprehension. The dataset has 400,000 articles, and includes both the full text of the article as well as bullet point “highlights”. For reading comprehension, an important word is omitted from the highlights and the machine is asked to fill in the blank. For text summarization, the bullet points are considered the “gold standard” summaries -- machine generated summaries are evaluated against the bullet points, typically</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;"> </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">using ROUGE metrics</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;"> </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">(Lin, 2004). While this works fine for abstractive summarization, this training corpus is not annotated enough for extractive summarization. More specifically, extractive summarization requires sentence level binary annotations, to indicate whether each sentence does or doesn’t belong in the summary. So we need to first convert the bullet points into more fine grained annotations.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">We’ve looked at two papers which briefly touched on this. Nallapati et. al. used a greedy approach, where they added one sentence at a time to the extractive summary while seeking to maximize the Rouge score with respect to the abstractive summary (the bullet points). They also tried to use an RNN decoder in combination with the abstractive summaries to train the extractive model without using sentence-level annotations. However, this approach was slightly less successful than estimating sentence-level annotations. Cheng and Lapata used a different approach - they created a “rule-based system that determines whether a given sentence matches a highlight...The rules take into account the position of the sentence in the document, the unigram and bigram overlap between document sentences and highlights, [and] the number of entities appearing in the highlight and in the document sentence”. It’s not 100% clear what rules the authors used, but according to Nallapati et. al., the rule-based approach found a better “ground-truth” than the greedy approach.</span></div><h3 dir="ltr" style="line-height: 1.38; margin-bottom: 4pt; margin-top: 16pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 13.999999999999998pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">GitHub Repositories</span></h3><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Some researchers publish the code they used in their paper on GitHub. We can use repos for quick comparisons or to see how they design their code.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><a href="https://github.com/abisee/pointer-generator" style="text-decoration: none;"><span>https://github.com/abisee/pointer-generator</span></a><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">: This repo is for See et al.’s Pointer-Generator neural model.</span></div><br /><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><a href="https://github.com/cheng6076/NeuralSum" style="text-decoration: none;"><span>https://github.com/cheng6076/NeuralSum</span></a><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">: This repo is for Cheng and Lapata’s neural model, that combines a sentence level RNN with a word level CNN.</span></div><h1 dir="ltr" style="line-height: 1.38; margin-bottom: 6pt; margin-top: 20pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 20pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Related Work and References</span></h1><br /><div dir="ltr"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Cheng, J., &amp; Lapata, M. (2016). Neural Summarization by Extracting Sentences and Words. </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: italic; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">arXiv:1603.07252 [Cs]</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">. Retrieved from http://arxiv.org/abs/1603.07252</span></div><div dir="ltr"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Durrett, G., Berg-Kirkpatrick, T., &amp; Klein, D. (2016). Learning-Based Single-Document Summarization with Compression and Anaphoricity Constraints. </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: italic; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">arXiv:1603.08887 [Cs]</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">. Retrieved from http://arxiv.org/abs/1603.08887</span></div><div dir="ltr"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Hirao, T., Yoshida, Y., Nishino, M., Yasuda, N., &amp; Nagata, M. (2013). Single-Document Summarization as a Tree Knapsack Problem. In </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: italic; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Proceedings of the 2013 Conference on Empirical Methods in Natural Language Processing</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;"> (pp. 1515–1520). Seattle, Washington, USA: Association for Computational Linguistics. Retrieved from http://www.aclweb.org/anthology/D13-1158</span></div><div dir="ltr"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Lin, C.-Y. (2004). ROUGE: A Package for Automatic Evaluation of Summaries. In S. S. Marie-Francine Moens (Ed.), </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: italic; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Text Summarization Branches Out: Proceedings of the ACL-04 Workshop</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;"> (pp. 74–81). Barcelona, Spain: Association for Computational Linguistics.</span></div><div dir="ltr"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Nallapati, R., Zhai, F., &amp; Zhou, B. (2016). SummaRuNNer: A Recurrent Neural Network based Sequence Model for Extractive Summarization of Documents. </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: italic; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">arXiv:1611.04230 [Cs]</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">. Retrieved from http://arxiv.org/abs/1611.04230</span></div><div dir="ltr"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">See, A., Liu, P. J., &amp; Manning, C. D. (2017). Get To The Point: Summarization with Pointer-Generator Networks. </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: italic; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">arXiv:1704.04368 [Cs]</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 10pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">. Retrieved from http://arxiv.org/abs/1704.04368</span></div></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://cse481n.blogspot.com/2018/04/blog-post-3.html">by Ron &amp;amp; Aditya (noreply@blogger.com) at April 11, 2018 06:33 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://teamoverfit.blogspot.com/" title="NLP Capstone">Pinyi Wang, Dawei Shen, Xukai Liu <br/> Team Overfit</a></h3>
+
+
+<div class="entrygroup" id="tag:blogger.com,1999:blog-9203775015655831448.post-5878905571398539101">
+<h4><a href="https://teamoverfit.blogspot.com/2018/04/3-project-proposal.html">#3 Project Proposal</a></h4>
+<div class="entry">
+<div class="content">
+<h2 style="height: 0px;"><span>Team Overfit</span></h2><h3><span><br /></span></h3><h3><span>Project repo: <span style="font-size: 18.72px;"><a href="https://github.com/pinyiw/nlpcapstone-teamoverfit">https://github.com/pinyiw/nlpcapstone-teamoverfit</a></span></span></h3><h4><span>Team members: Dawei Shen, Pinyi Wang, Xukai Liu</span></h4><span><br /></span><br /><div></div><span><br /></span><br /><div style="text-align: start; text-indent: 0px;"><div style="margin: 0px;"><div><span><b>Blog Post: #3: 04/10/2018</b></span></div><div><span><span><b><br /></b></span></span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Social Media Predicts Stock Price (StartUp Mode)</span></div><div><span><span><b id="docs-internal-guid-213a19db-b353-3e4c-1df6-5dd289daeb8b" style="font-weight: normal;"><br /></b></span></span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>There are vast amount of new information related to companies listed on the stock market appears instantly, with immediate impact on stock prices. Our project is for monitoring those text on the social media platform and extract the key information that have impact on the stock prices and predict its future.</span><br /><span><br /></span></div><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span>Background and Project objectives </span></div><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><span><a href="https://www.investopedia.com/terms/s/stockmarket.asp">Stock Market</a> refers to the collection of markets and exchanges where the issuing and trading of equities, bonds and other sorts of securities takes place.</span></li><li><span>Social media, such as Twitter, often reflects how people think about a company and therefore can be used as an indicator of the changes of stock price in the near future.</span></li><li><span>Traditionally, analytics use statistical model built on past stock prices and recent news to forecast stock prices. We would like apply Machine Learning and Natural Language Processing models on social media to see if it has enough information for us to make good prediction of future stock price.</span></li></ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"></ul><div><span><span><b style="font-weight: normal;"><br /></b></span></span></div><span><b>Proposed methodologies</b><span style="white-space: pre;"><b><br /></b></span></span><br /><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><b><span>Dataset:</span></b></li><ul><li><span><span style="background-color: white; color: black; vertical-align: baseline; white-space: pre;">Twitter data: </span><span style="background-color: white; color: #1155cc; vertical-align: baseline; white-space: pre;"><a href="https://developer.twitter.com/en/docs">https://developer.twitter.com/en/docs</a></span></span></li></ul></ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"><ul style="margin-bottom: 0pt; margin-top: 0pt;"><ul><li><span>Preprocess twitter data:</span></li></ul></ul><ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"><ul><li><span>Tokenization</span></li></ul></ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"><ul><li><span>Stemming</span></li></ul></ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"><ul><li><span>Lemmatization</span></li></ul></ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"><ul style="margin-bottom: 0pt; margin-top: 0pt;"></ul></ul><li><span><span style="background-color: white; color: black; vertical-align: baseline; white-space: pre;">Bloomberg financial news dataset: </span><span style="background-color: white; color: #1155cc; vertical-align: baseline; white-space: pre;"><a href="https://github.com/philipperemy/financial-news-dataset">https://github.com/philipperemy/financial-news-dataset</a></span></span></li></ul></ul><span><b>Minimal viable action plan</b></span><br /><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><span>Forecast companies’ stock price changes (UP, DOWN, STAY) </span></li></ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><b><span>Model</span></b></li></ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><span>N-gram with appropriate smoothing as baseline</span></li></ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><span>Use RNN/LSTM/GRU as model</span></li></ul><li><b><span>User Interface</span></b></li></ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><span>Command line REPL</span></li></ul></ul><span><b>Stretch goals</b></span><br /><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><span>We could implement LSTM/GRU model to extract important information from the text in the preprocess</span></li></ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><span>Forecast the approximate future stock price for a company given a future date</span></li></ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><span>Auto trader bot that can take streaming tweets from twitter api and update the model prediction </span></li></ul><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><span>Fusion with 8-K reports to elevate the accuracy</span></li></ul><span><b>Evaluation plan</b></span><br /><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><span>F-1 score for (UP/DOWN)</span></li><li><span>Loss functions for comparing predictions and expectations.</span></li><li><span>Evaluate on time required to do a prediction.</span></li></ul></div><div style="margin: 0px;"><span><b style="white-space: pre;">Reference</b></span><br /><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li><span><span style="background-color: white; color: black; vertical-align: baseline; white-space: pre;">On the Importance of Text Analysis for Stock Price Prediction: </span><a href="https://nlp.stanford.edu/pubs/lrec2014-stock.pdf"><span style="background-color: white; color: #1155cc; vertical-align: baseline; white-space: pre;">https://nlp.stanford.edu/pubs/lrec2014-stock.pdf</span></a></span></li><li><span><span style="color: black; vertical-align: baseline; white-space: pre-wrap;">Stock Trend Prediction Using News Sentiment Analysis: </span><span style="color: #1155cc; vertical-align: baseline; white-space: pre-wrap;"><a href="https://arxiv.org/pdf/1607.01958.pdf">https://arxiv.org/pdf/1607.01958.pdf</a></span></span></li></ul><div style="font-family: times;"></div></div></div></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://teamoverfit.blogspot.com/2018/04/3-project-proposal.html">by Team Overfit (noreply@blogger.com) at April 11, 2018 06:10 AM</a>
+</p>
+</div>
+</div>
+
+
 </div>
 
 </div>
 <div class="daygroup">
 <h2>April 06, 2018</h2>
 
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://deeplearningturingtest.wordpress.com" title="NLP Capstone Project Updates – Ananth">Ananth Gottumukkala <br/> Team Turing Test</a></h3>
+
+
+<div class="entrygroup" id="http://deeplearningturingtest.wordpress.com/?p=12">
+<h4 lang="en"><a href="https://deeplearningturingtest.wordpress.com/2018/04/06/warm-up-testing-a-codebase/">Warm Up: Testing a Codebase</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<p>I installed both the Tensorflow and Pytorch API’s since I’m not sure which framework I will use yet. Then, I downloaded the following repository which implemented Hybrid Code Networks for Dialog State tracking in its respective research paper.</p>
+<p>Code base URL: <a href="https://github.com/voicy-ai/DialogStateTracking" rel="nofollow">https://github.com/voicy-ai/DialogStateTracking</a></p>
+<p>Research Paper URL: <a href="https://www.semanticscholar.org/paper/Hybrid-Code-Networks%3A-practical-and-efficient-with-Williams-Asadi/0645905d70caf180433145be09c9af266a85c863" rel="nofollow">https://www.semanticscholar.org/paper/Hybrid-Code-Networks%3A-practical-and-efficient-with-Williams-Asadi/0645905d70caf180433145be09c9af266a85c863</a></p>
+<p>Their implementation uses Keras (built on Tensorflow) to build the network. The model stores a predetermined set of action templates to execute based on what the user requests. By feeding in features like the previous action taken, a bag of words vector, an entity tracking feature vector, etc. their RNN outputs a softmax distribution over the possible action templates. The action taken is the one with the highest probability. Because the conversation is restricted to a particular domain such as searching for a restaurant, the model performed well when I ran and tested it. The model generally recognized the type of request I was making, but its responses were extremely robotic and towards the end, gave me yes or no questions to answer to narrow down what action it should take. My goal is to generalize the type of information the model can store between time steps to be able to provide responses for requests outside of a restricted domain (like searching for a restaurant in this case).</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://deeplearningturingtest.wordpress.com/2018/04/06/warm-up-testing-a-codebase/">by ananthgo at April 06, 2018 06:58 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
 <div class="channelgroup">
 
 
@@ -716,6 +1460,38 @@
 
 <p class="date">
 <a href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5?source=rss-2759d54493c0------2">by Halden Lin at April 06, 2018 06:53 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://cse481n.blogspot.com/" title="PrimeapeNLP">Ron Fan, Aditya Saraf <br/> Team PrimeapeNLP</a></h3>
+
+
+<div class="entrygroup" id="tag:blogger.com,1999:blog-3753031463594823927.post-2253300890173394060">
+<h4><a href="https://cse481n.blogspot.com/2018/04/blog-post-2.html">Blog Post #2</a></h4>
+<div class="entry">
+<div class="content">
+<div>We’ve mostly settled on working on a single document summarization task. We want to pick a type of document to work on summarizing, although we haven’t decided on one specific category yet. </div><br /> <div>While we narrow down the details of the project, we have been reading a number of papers and other resources to become more familiar with the subject. We have setup PyTorch on our machines, which we are both familiar with, as well as Tensorflow, which we are still playing around with. We’ve found some interesting repositories on GitHub related to SDS that we are trying out: </div> <br /> <div><a href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss">https://github.com/tensorflow/models/tree/master/research/textsum</a><br /> <a href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss">https://github.com/gregdurrett/berkeley-doc-summarizer</a><br /> <a href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss">https://github.com/chakki-works/sumeval</a><br /> <a href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss">https://github.com/ceteri/pytextrank</a><br /> <a href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss">https://github.com/adamfabish/Reduction</a><br /></div> <br /><div>Not all of these tools use machine learning - many seem to be heuristic-based sentence extractors. Nonetheless, it is interesting to consider their ideas in the context of neural network approaches. </div><br /> <div>One of the reasons we chose to attack this problem is that there is a rich literature to consult; this problem has been worked on in one form or another since 1958 [1]. As one would imagine, this means that there have been many different approaches to this problem, to varying degrees of success. But unlike other problems, where all current approaches are based on deep learning, there is active research into non-neural solutions to SDS. </div><br /> <div>Many researchers have tried to solve SDS with combinatorial optimization, reducing it to the Knapsack problem, the Maximum Coverage problem, or the Budgeted Median problem. For example, the Maximum Coverage problem is: given a number k and a collection S, of m sets, choose less than k sets in S that maximize the number of covered elements. To frame SDS as a Maximum Coverage problem, you break the document into “conceptual units”. Conceptual units are supposed to represent a single concept - for example, “the man bought a book” and the “the man read a book”. But it’s not clear at what granularity these conceptual units should be defined. One easy (but not especially effective) solution is to simply make each word a conceptual unit. Then, the document = S, and each sentence is a set of words inside S. The problem is now to pick k sentences from the document that maximize the word coverage in the document [2]. </div><br /> <div>One example of a recent non-neural approach is from a paper published 5 years ago [3]. The paper solves SDS by reducing it to the so-called Tree Knapsack Problem. We’ve haven’t fully wrapped our heads around the Tree Knapsack problem (it’s actually not that easy to quickly state), but the researchers’ basically involved representing a document as a Rhetorical Structure Theory-based discourse tree (RST-DT) by “select[ing] textual units according to a preference ranking”. The researchers’ first transform the RST-DT into a dependency-based discourse tree (DEP-DT) in order to get a tree that contains textual units on all nodes (RST-DT only have textual units as leaves), and then trim the DEP-DT using the Tree Knapsack problem.  </div><br /> <div>We aim to find a suitable corpus, and implement multiple models directly from these papers as our baseline models. Hopefully, that will give us insight that’ll help us formulate the problem differently. We also want to explore some neural architectures for single document summarization.  </div><br /> <div>We also have to consider whether we want to build an extractive or abstractive text summarization - the former collects a set of sentences or phrases that summarize the document while the latter tries to “learn the internal language representation to generate more human-like summaries, paraphrasing the intent of the original text” [4]. We’re leaning towards an extractive model, although we may try both. </div><br /> <div>[1] = <a target="">https://onlinelibrary.wiley.com/doi/pdf/10.1002/9781119004752.ch3</a> <br />[2] = <a target="">http://www.anthology.aclweb.org/E/E09/E09-1089.pdf</a> <br /> [3] = <a target="">https://www.semanticscholar.org/paper/Single-Document-Summarization-as-a-Tree-Knapsack-Hirao-Yoshida/ed0c8a7ab911cdb30b7e95edada3a55c01eb22c5</a><br /> [4] = <a target="">https://rare-technologies.com/text-summarization-in-python-extractive-vs-abstractive-techniques-revisited/</a></div></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://cse481n.blogspot.com/2018/04/blog-post-2.html">by Ron &amp;amp; Aditya (noreply@blogger.com) at April 06, 2018 06:31 AM</a>
 </p>
 </div>
 </div>
@@ -771,6 +1547,70 @@
 
 <p class="date">
 <a href="https://mathstoc.wordpress.com/2018/04/06/milestone-2-music-as-a-natural-language-task/">by Nicholas Ruhland at April 06, 2018 06:30 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://teamoverfit.blogspot.com/" title="NLP Capstone">Pinyi Wang, Dawei Shen, Xukai Liu <br/> Team Overfit</a></h3>
+
+
+<div class="entrygroup" id="tag:blogger.com,1999:blog-9203775015655831448.post-34377626932024049">
+<h4><a href="https://teamoverfit.blogspot.com/2018/04/2-milestone-warm-up.html">#2 Milestone: Warm up</a></h4>
+<div class="entry">
+<div class="content">
+<h2 style="height: 0px;"><span>Team Overfit</span></h2><h3><span><br /></span></h3><h3><span>Project repo: <span style="font-size: 18.72px;"><a href="https://github.com/pinyiw/nlpcapstone-teamoverfit">https://github.com/pinyiw/nlpcapstone-teamoverfit</a></span></span></h3><h4><span>Team members: Dawei Shen, Pinyi Wang, Xukai Liu</span></h4><br /><div></div><br /><div style="text-align: start; text-indent: 0px;"><div><span><b>Blog Post: #2: 04/05/2018</b></span></div><div><span><b><br /></b></span></div><div style="margin: 0px;"></div><br /><ul><li><span>We first installed Pytorch 3.6 and we tried to run small programs on our local machines.</span></li><li><span>We then explored the usage of the RNN and seq2seq APIs, which we are going to use for most of our projects ideas.</span></li><ul><li><span>We looked through the tutorial of RNNs/LSTMs/GRUs from the previous 447 class.</span></li></ul><ul><li><span id="docs-internal-guid-97b5af9d-9943-133b-4f16-5d4414eefd5d"><span><a href="https://colab.research.google.com/drive/11iLtGFDpnIuHj5B0rQDGG5lqq6BQ8FRh">https://colab.research.google.com/drive/11iLtGFDpnIuHj5B0rQDGG5lqq6BQ8FRh</a></span></span></li></ul><li><span><span style="white-space: pre-wrap;">We tried to set up an Azure instance for GPU computation</span></span></li><ul><li><span><span style="white-space: pre-wrap;">We installed cuda support for the Pytorch package and it ran successfully with Tesla K80</span></span></li></ul><li><span><span style="white-space: pre-wrap;">We revisited the Recurrent Neural Networks, Attention and Reading Comprehension projects from the last quarter and experimented with other Pytorch features related to our project.</span></span></li></ul><br /></div></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://teamoverfit.blogspot.com/2018/04/2-milestone-warm-up.html">by Team Overfit (noreply@blogger.com) at April 06, 2018 04:48 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="http://sarahyu.weebly.com/cse-481n" title="Sarah yu - CSE 481N">Sarah Yu <br/> Team Jekyll-Hyde</a></h3>
+
+
+<div class="entrygroup" id="http://sarahyu.weebly.com/cse-481n/technical-details-blog-post-2">
+<h4><a href="http://sarahyu.weebly.com/cse-481n/technical-details-blog-post-2">Technical Details (Blog Post #2)</a></h4>
+<div class="entry">
+<div class="content">
+<div class="paragraph"><span style="color: rgb(0, 0, 0);">For my project I am planning to do some deep learning at the end if I have time and if the results up to that point lead to that track. (I have pytorch installed from NLP so that's nice to have). <br /><br />With that said, I've been working with the Reddit API's and Reddit datadumps to get started on gathering the necessary data for pursuing the Language Accommodation project. I've been trying to figure out if the best approach is to work with the limited requests, the direct json files, or if some of the data dumps will suffice. I hope to have most of that and some basic data visualizations ready in the next couple of days to inform some of the choices I should make regarding the data (i.e. what time period to gather data from, what subreddits to pull from, etc.)</span><br /></div></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="http://sarahyu.weebly.com/cse-481n/technical-details-blog-post-2">April 06, 2018 12:10 AM</a>
 </p>
 </div>
 </div>
@@ -875,6 +1715,77 @@
 </div>
 
 
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://teamoverfit.blogspot.com/" title="NLP Capstone">Pinyi Wang, Dawei Shen, Xukai Liu <br/> Team Overfit</a></h3>
+
+
+<div class="entrygroup" id="tag:blogger.com,1999:blog-9203775015655831448.post-3003438141513431489">
+<h4><a href="https://teamoverfit.blogspot.com/2018/04/1-initial-project-ideas.html">#1 Initial Project Ideas</a></h4>
+<div class="entry">
+<div class="content">
+<h2 style="height: 0px;"><span style="font-family: Arial, Helvetica, sans-serif;">Team Overfit</span></h2><h3><span style="color: #999999; font-family: Arial, Helvetica, sans-serif;"><br /></span></h3><h3><span style="color: #999999; font-family: Arial, Helvetica, sans-serif;">Project repo: <span style="font-size: 18.72px;"><a href="https://github.com/pinyiw/nlpcapstone-teamoverfit">https://github.com/pinyiw/nlpcapstone-teamoverfit</a></span></span></h3><h4><span style="color: #444444; font-family: Arial, Helvetica, sans-serif;">Team members: Dawei Shen, Pinyi Wang, Xukai Liu</span></h4><div><span style="color: #444444; font-family: Arial, Helvetica, sans-serif;"><b>Blog Post: #1: 04/03/2018</b></span></div><div><span style="color: #444444;"><br /></span></div><div><span style="font-family: Arial, Helvetica, sans-serif;">We are likely going to choose the start-up mode and actually build some cool projects! Here's some of our initial project ideas:</span></div><div><ul><li><span style="font-family: Arial, Helvetica, sans-serif;"><b>Twitter Hate Speech Detection</b></span></li><ul><li><span style="font-family: Arial, Helvetica, sans-serif;"><b>Dataset:</b> <a href="https://github.com/zeerakw/hatespeech">https://github.com/zeerakw/hatespeech</a></span></li><ul><li><span style="font-family: Arial, Helvetica, sans-serif;">This dataset contains the tweets ID that are labelled as either Raicist, Sexist or Neither Racist or Sexist.</span></li></ul><li><span style="font-family: Arial, Helvetica, sans-serif;"><b>Minimal viable plan:</b> We could use LSTM sequence to vector encoding to extract critical features of the tweets. Then, we use RNN and attention mechanism to output the label of the speech and the hate score of tweets in each category.</span></li><li><span style="font-family: Arial, Helvetica, sans-serif;"><b>Stretch goals:</b> </span></li><ul><li><span style="font-family: Arial, Helvetica, sans-serif;">We could experiment with different model configurations to improve the performance of the model.</span></li><li><span style="font-family: Arial, Helvetica, sans-serif;">We could build a twitter bot that can collect reports or hateful speech from user, which can be used to train on, so that the model can adapt the model to the latest slangs.</span></li></ul></ul></ul><span style="font-family: Arial, Helvetica, sans-serif;"><br /></span><ul><li><span style="font-family: Arial, Helvetica, sans-serif;"><b>Virtual Date chat bot</b></span></li><ul><li><span style="font-family: Arial, Helvetica, sans-serif;"><b>Description: </b></span><span id="docs-internal-guid-6febb8b7-8f58-f3ab-f461-d5c0a5077f07"><span style="font-family: Arial; vertical-align: baseline; white-space: pre-wrap;">Use conversations between couples to train a chat bot that user can flirt with when they feel lonely.</span></span></li><li><span><span style="font-family: Arial; vertical-align: baseline; white-space: pre-wrap;"><span id="docs-internal-guid-6febb8b7-8f59-3e54-c748-e595571ddaaa"><span style="font-weight: 700; vertical-align: baseline;">Minimal viable plan:</span><span style="vertical-align: baseline;"> Use neural machine translation and attention mechanism to train a generative chat bot. Some training data can be obtained from romantic movies’ dialogue or from Twitter. The challenge would be how to use NLP to classify whether a conversation is flirt or not.</span></span></span></span></li><li><span><span style="font-family: Arial; vertical-align: baseline; white-space: pre-wrap;"><span><span style="vertical-align: baseline;"><span id="docs-internal-guid-6febb8b7-8f5a-50ce-dc63-78e864ac8b2e"><span style="font-weight: 700; vertical-align: baseline;">Stretch goals:</span><span style="vertical-align: baseline;"> Train the chat bot so that it has consistent personality and have long term memory of chat history.</span></span></span></span></span></span></li></ul></ul><span style="font-family: Arial;"><span style="white-space: pre-wrap;"><br /></span></span><ul><li><span id="docs-internal-guid-6febb8b7-8f5a-cf38-76f0-a21179c20dde"><span style="font-family: Arial; vertical-align: baseline; white-space: pre-wrap;"><b>Detect Violations of Laws (Virtual Lawyer)</b></span></span></li><ul><li><span><span style="font-family: Arial; vertical-align: baseline; white-space: pre-wrap;"><b>Description:</b> The project is to try with different models and learn to detect the laws broke given the description of behaviors or given the sworn testimonies in the court.</span></span></li><li><span><span style="font-family: Arial; vertical-align: baseline; white-space: pre-wrap;"><span id="docs-internal-guid-6febb8b7-8f5b-2fce-e8fd-4e47759e160c"><span style="vertical-align: baseline;"><b>Minimal viable plan:</b> Experiment with LSTM and attention mechanism</span><span style="background-color: white; color: #757575; vertical-align: baseline;">.</span><span style="vertical-align: baseline;"> Given the testimony, detects whether the law is broken.</span></span></span></span></li><li><span style="font-family: Arial, Helvetica, sans-serif;"><b>Stretch goals:</b></span></li><ul><li><span style="font-family: Arial, Helvetica, sans-serif;">Given the testimony, detects and return the list of laws have been broken.</span></li><li><span style="font-family: Arial, Helvetica, sans-serif;">Generate texts to offend the testimony.</span></li><li><span style="font-family: Arial, Helvetica, sans-serif;">Generate texts to defend the testimony.</span></li></ul></ul></ul><span style="font-family: Arial, Helvetica, sans-serif;"><br /></span></div></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://teamoverfit.blogspot.com/2018/04/1-initial-project-ideas.html">by Team Overfit (noreply@blogger.com) at April 04, 2018 06:36 AM</a>
+</p>
+</div>
+</div>
+
+
+
+</div>
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://deeplearningturingtest.wordpress.com" title="NLP Capstone Project Updates – Ananth">Ananth Gottumukkala <br/> Team Turing Test</a></h3>
+
+
+<div class="entrygroup" id="http://deeplearningturingtest.wordpress.com/?p=3">
+<h4 lang="en"><a href="https://deeplearningturingtest.wordpress.com/2018/04/04/the-journey-begins/">Top 3 Project Ideas I’m Excited For</a></h4>
+<div class="entry">
+<div class="content" lang="en">
+<ol>
+<li><strong>Visualizing a text-based description:</strong> Train a model to learn a language to image mapping with simple descriptions. The minimum plan would be to feed the model short text descriptions like “white hat” and “black cat” with their corresponding visual outputs. Then, if the text “white cat” is input at test time, the model should output the cat with the same shade of white as the hat. Stretch goals include visualizing multiple objects in the same picture and/or visualizing them in different spatial orientations with respect to each other (e.g. on top of, inside, underneath, next to, etc.).</li>
+<li><strong>Generating Multimodal Word Embeddings:</strong> The goal is to create word embeddings that describe a word more holistically from multiple modalities like audio and visual inputs. One possible approach is to concatenate pre-trained word embeddings (e.g. GloVe vector) with additional features based on what context the word is in the present sentence. Then, concatenate this with features generated from a deep fully connected layer of a ConvNet where the input is an image of the actual word (e.g. car). Stretch goals include using these augmented embeddings to enhance performance in applications like sentiment analysis or further augmenting these embeddings with audio features of the word being pronounced (which can help distinguish different meanings of the word).</li>
+<li><strong>Dialogue and Information State Tracking:</strong> The goal is to create a model that can either receive contextual information as text or probe the environment with questions and receive an answer as text. This text can either be input into a linear or tree LSTM for entity extraction, coreference resolution, parsing, and/or other algorithms which can extract valuable contextual information. Then, this text can be used to update the current dialogue and/or information state using deep reinforcement learning. The policy then uses the updated state to choose the next action and hopefully keep repeating this until the text is satisfactorily understood. Stretch goals include using this model to answer test questions about the reading material using a machine comprehension model like the ReasoNet architecture.</li>
+</ol>
+<p> </p>
+<p>Git Repo URL: <a href="https://gitlab.cs.washington.edu/ananthgo/cse481n-capstone" rel="nofollow">https://gitlab.cs.washington.edu/ananthgo/cse481n-capstone</a></p>
+<p>This project is in research mode with a heavy focus on making improvements in keeping track of the meaning behind lines of input text.</p></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://deeplearningturingtest.wordpress.com/2018/04/04/the-journey-begins/">by ananthgo at April 04, 2018 05:42 AM</a>
+</p>
+</div>
+</div>
+
+
 </div>
 
 </div>
@@ -914,12 +1825,51 @@
 </div>
 
 </div>
+<div class="daygroup">
+<h2>April 02, 2018</h2>
+
+<div class="channelgroup">
+
+
+
+
+
+
+
+<h3><a href="https://cse481n.blogspot.com/" title="PrimeapeNLP">Ron Fan, Aditya Saraf <br/> Team PrimeapeNLP</a></h3>
+
+
+<div class="entrygroup" id="tag:blogger.com,1999:blog-3753031463594823927.post-6307882466820480344">
+<h4><a href="https://cse481n.blogspot.com/2018/04/blog-post-1.html">Blog Post #1</a></h4>
+<div class="entry">
+<div class="content">
+<div style="font-family: Verdana; text-align: left;">    <div>Temporary GitHub URL: <a href="https://github.com/rococode/primeapeNLP" target="_blank">https://github.com/rococode/primeapeNLP</a></div>    <div>We plan to be in “research mode” for this capstone.</div>    <div style="font-size: 1.1rem;">Three possible ideas:</div>     <div style="font-size: 1.1rem;">1. New evaluation methods for text generation models</div>    <div>There don’t seem to be many good ways to evaluate the output of machine generated text (such as in the problem of creating hotel reviews). We want our models to generate text that’s indistinguishable from human text, but it’s hard to quantify how similar generated text is to human text, so it’s hard to see when progress is being made. However, it feels like the problem of actually generating human-like text should be harder than the problem of just checking if that text seems human. As a baseline approach, we would like to explore building a regression model for the “humanness” of a piece of unfamiliar text.</div>    <div><strong>        M<span style="font-size: 0.7rem; font-weight: normal;">(inimal)</span>        V<span style="font-size: 0.7rem; font-weight: normal;">(iable)</span>        P<span style="font-size: 0.7rem; font-weight: normal;">(lan)</span>    :</strong></div>    <ol>        <li>Build a reasonably large dataset using a combination of web scraping, existing datasets, and existing generative models</li>        <li>Build a regression model with decent performance on training set</li>        <li>Build a regression model with decent performance on development and test sets</li>    </ol>    <div><strong>Stretch goals:</strong></div>    <ol>        <li>Use our model to score various generative models and compare our model’s rankings for these generative models to commonly agreed-upon rankings by researchers</li>        <li>Integrate model scores into a “generate a lot of possibilities, then search for the best one” approach for text generation</li>    </ol>    <div>We would also explore non-neural methods for evaluating Natural Language Generation (NLG). One idea would be to compare the probability distribution of generated sentences to real sentences. A common problem is that generated text repeats the most probable sentences over and over. Thus, the distribution of sentences is front-loaded. We hypothesize that generated text with a sentence distribution that closely mirrors real text would be more difficult to distinguish from real text. However, we first need to investigate what real world sentence distributions look like. It may be likely that individual sentences are not likely to repeat - in that case, the distribution would be more-or-less uniform across all sentences. We may need to come up with a novel method to categorize similar sentences. We would have to decide whether to use semantic similarity or syntactic similarity.</div>    <div><strong>MVP:</strong></div>    <ol>        <li>Gather a data set - perhaps the data set Ari showed us for hotel reviews.</li>        <li>Examine the existing probability distribution at the sentence-level in the corpus. If the distribution is too uniform, design a method to place similar sentences in the same “bucket” and re-compute the probability distribution.</li>        <li>Design metrics to compute the similarity of two distributions; if a model is “good”, the distribution of the generated sentences will match the distribution of the training corpus.</li>        <li>Use our metric to score generated text models found in the literature.</li>    </ol>    <div><strong>Stretch goals:</strong></div>    <ul>        <li>Use insights from our metrics to improve on current approaches to NLG.</li>    </ul>    <div style="font-size: 1.1rem;">2. Single-document summarization</div>    <div>Single document summarization (SDS) models typically label each sentence in the document as in the summary or not in the summary. The problem then becomes a binary classification problem, and many people train a NN with supervised learning. However, there are other non-neural approaches to this problem that have been tried successfully. One paper shows how SDS can be thought of as a tree based Knapsack problem, which is then solved by a Integer Linear Programming (ILP) solver (see: <a href="https://www.semanticscholar.org/paper/Single-Document-Summarization-as-a-Tree-Knapsack-Hirao-Yoshida/ed0c8a7ab911cdb30b7e95edada3a55c01eb22c5">https://www.semanticscholar.org/paper/Single-Document-Summarization-as-a-Tree-Knapsack-Hirao-Yoshida/ed0c8a7ab911cdb30b7e95edada3a55c01eb22c5</a>). We would like to explore both neural models and non-neural approaches to SDS. </div>    <div><strong>MVP:</strong></div>    <ol>        <li>As a baseline approach, build neural models from current papers that solve SDS. Evaluate the performance using F1 as well as ROUGE metrics (see: <a href="https://en.wikipedia.org/wiki/ROUGE_(metric)">https://en.wikipedia.org/wiki/ROUGE_(metric)</a>).</li>        <li>Build neural models from current papers that focus on non-neural approaches, such as the combinatorial approach described above.</li>        <li>Evaluate neural and non-neural approaches: what do these approaches have in common? What key insights are they leveraging? Are there any generalizations of the problem that can be extracted? Hopefully, this study will allow us to either improve the SOTA neural models or fine tune some non-neural approach.</li>    </ol>    <div><strong>Stretch goal:</strong></div>    <ul>        <li>Use insights from our studies to formulate and solve SDS in a unique way. Evaluate our approach using F1 and ROUGE metrics.</li>    </ul>    <div style="font-size: 1.1rem;">3. Multi-span comprehension</div>    <div>Reading comprehension models generally operate by extracting an answer to a question by outputting a start and end index on the original passage. This is not a very human-like way of answering questions, and makes it impossible to generate good answers to some simple factual questions using common sentence structures. We would like to explore ways of answering questions from passages without being limited to a single span from the passage text.</div>    <div><strong>MVP:</strong></div>    <ol>        <li>Implement a baseline model that performs near state of the art levels on the SQuAD dataset.</li>        <li>Build a dataset that requires information from multiple spans to answer the questions well. We will likely create this dataset by hand.</li>        <li>Build a model that answers questions about a passage by generating multiple spans. We envision designing our model to output a sequence of indices such that every pair of indices corresponds to one part of the answer. This model should perform almost as well as the baseline model on SQuAD, since that’s just a specific case (one span) of a multi-span answer.</li>        <li>Build upon the previous model by using the output spans to generate a formal answer through a generative model, using the output spans and the question sentence as inputs.</li>    </ol>    <div><strong>Stretch goal:</strong></div>    <ul>        <li>Optimize model to actually be effective at answering multispan questions. We expect this to be quite difficult, so while building a functioning model is part of the MVP, actually having it perform comparatively well is a stretch goal.</li>    </ul></div></div>
+
+
+
+
+
+
+
+<p class="date">
+<a href="https://cse481n.blogspot.com/2018/04/blog-post-1.html">by Ron &amp;amp; Aditya (noreply@blogger.com) at April 02, 2018 04:32 AM</a>
+</p>
+</div>
+</div>
+
+
+</div>
+
+</div>
 
 
 <div class="sidebar">
 
 <h2>Subscriptions</h2>
 <ul>
+<li>
+<a href="https://deeplearningturingtest.wordpress.com/feed/" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="https://deeplearningturingtest.wordpress.com" title="NLP Capstone Project Updates – Ananth">Ananth Gottumukkala <br/> Team Turing Test</a>
+</li>
 <li>
 <a href="https://medium.com/feed/@halden.lin" title="subscribe"><img src="images/feed-icon-10x10.png" alt="(feed)"></a> <a href="https://medium.com/@halden.lin?source=rss-2759d54493c0------2" title="Stories by Halden Lin on Medium">Halden Lin <br/> Team undef.</a>
 </li>
@@ -939,7 +1889,7 @@
 
 <p>
 <strong>Last updated:</strong><br>
-August 15, 2018 08:37 AM<br>
+August 15, 2018 11:11 AM<br>
 <em>All times are UTC.</em><br>
 
 <!--

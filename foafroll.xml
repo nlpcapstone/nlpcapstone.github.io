@@ -5,6 +5,19 @@
     <foaf:homepage/>
     <foaf:member>
       <foaf:Agent>
+        <foaf:name>Ananth Gottumukkala &lt;br/&gt; Team Turing Test</foaf:name>
+        <foaf:weblog>
+          <foaf:Document rdf:about="https://deeplearningturingtest.wordpress.com">
+            <dc:title>NLP Capstone Project Updates – Ananth</dc:title>
+            <rdfs:seeAlso>
+              <rss:channel rdf:about="https://deeplearningturingtest.wordpress.com/feed/"/>
+            </rdfs:seeAlso>
+          </foaf:Document>
+        </foaf:weblog>
+      </foaf:Agent>
+    </foaf:member>
+    <foaf:member>
+      <foaf:Agent>
         <foaf:name>Sarah Yu &lt;br/&gt; Team Jekyll-Hyde</foaf:name>
         <foaf:weblog>
           <foaf:Document rdf:about="http://sarahyu.weebly.com/cse-481n">
