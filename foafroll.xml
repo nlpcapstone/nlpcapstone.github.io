@@ -135,19 +135,6 @@
     </foaf:member>
     <foaf:member>
       <foaf:Agent>
-        <foaf:name>Halden Lin &lt;br/&gt; Team undef.</foaf:name>
-        <foaf:weblog>
-          <foaf:Document rdf:about="https://medium.com/@halden.lin?source=rss-2759d54493c0------2">
-            <dc:title>Stories by Halden Lin on Medium</dc:title>
-            <rdfs:seeAlso>
-              <rss:channel rdf:about="https://medium.com/feed/@halden.lin"/>
-            </rdfs:seeAlso>
-          </foaf:Document>
-        </foaf:weblog>
-      </foaf:Agent>
-    </foaf:member>
-    <foaf:member>
-      <foaf:Agent>
         <foaf:name>Pinyi Wang, Dawei Shen, Xukai Liu &lt;br/&gt; Team Overfit</foaf:name>
         <foaf:weblog>
           <foaf:Document rdf:about="https://teamoverfit.blogspot.com/">
