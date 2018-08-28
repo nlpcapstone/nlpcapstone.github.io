@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <feed xmlns="http://www.w3.org/2005/Atom" xmlns:planet="http://planet.intertwingly.net/" xmlns:indexing="urn:atom-extension:indexing" indexing:index="no"><access:restriction xmlns:access="http://www.bloglines.com/about/specs/fac-1.0" relationship="deny"/>
   <title>NLP Capstone Spring 2018</title>
-  <updated>2018-08-28T17:30:34Z</updated>
+  <updated>2018-08-28T18:01:31Z</updated>
   <generator uri="http://intertwingly.net/code/venus/">Venus</generator>
   <author>
     <name>Nelson Liu</name>
@@ -52,7 +52,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-08-28T17:30:08Z</updated>
+      <updated>2018-08-28T18:00:08Z</updated>
     </source>
   </entry>
 
@@ -75,7 +75,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-08-28T17:30:30Z</updated>
+      <updated>2018-08-28T18:01:27Z</updated>
     </source>
   </entry>
 
@@ -102,7 +102,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-08-28T17:30:33Z</updated>
+      <updated>2018-08-28T18:01:29Z</updated>
     </source>
   </entry>
 
@@ -131,7 +131,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-08-28T17:30:30Z</updated>
+      <updated>2018-08-28T18:01:27Z</updated>
     </source>
   </entry>
 
@@ -156,7 +156,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-08-28T17:30:28Z</updated>
+      <updated>2018-08-28T18:01:25Z</updated>
     </source>
   </entry>
 
@@ -181,30 +181,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-08-28T17:30:29Z</updated>
-    </source>
-  </entry>
-
-  <entry>
-    <id>https://medium.com/p/97cca6e26c14</id>
-    <link href="https://medium.com/@hongnin1/week-9-milestone-advanced-model-attempt-2-continued-97cca6e26c14?source=rss-c450eb982161------2" rel="alternate" type="text/html"/>
-    <title>Week 9 Milestone: Advanced model attempt #2 (continued)</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>A little recap from our <a href="https://medium.com/@hongnin1/advanced-model-attempt-2-continued-49da49607c01">Advanced model attempt</a> #2.</p><p>During week 7 we implemented BLEU score, which is a crucial indicator of the performance of our prediction. And during this week, we have been trying to improve our performance on primarily BLEU score and training loss. The result is not satisfying yet, but we are getting closer to our goal.</p><p>Earlier we discovered that our BLEU score and training batch loss stopped improving after a few thousand batches. And from Ari’s suggestion, we changed our optimizer from Adam to Stochastic Gradient Descent with learning rate decay, hoping to see the improvements. But we now discovered that it might not be our issue after a week of trying and tuning. Here is the performance we got with SGD:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/796/0*vrNjGo0XJnLzRFO9."/></figure><figure><img alt="" src="https://cdn-images-1.medium.com/max/711/0*UW7xg-U7JSLSfGvh."/></figure><figure><img alt="" src="https://cdn-images-1.medium.com/max/697/0*tASlStdM-dv0Nzkh."/></figure><p>Compared to what we had last week, we didn’t see a dramatic improvement.</p><p>Therefore, we believe that we have issues with other parts of our code. To find out which part causes our issue, we decided to run others’ code and compare the results with ours. Originally, with the same data set, the “<em>Show, Attend and Tell</em>” model (<a href="https://github.com/yunjey/show-attend-and-tell">https://github.com/yunjey/show-attend-and-tell</a>) converged to a slightly higher BLEU score but much lower loss than our implementation. In order to find where the issue came from, we substituted different parts of their model with ours and observed the result. After several trials, we discovered that when we substitute only the model itself (keeping their data pre-processing and train solver), we got similar result to their original model. Thus we drew the conclusion that the issue lies in our data pre-processing implementation.</p><p>The first thing we will do for this week is to address this issue. We will spend more time on investigating the implementation of our data pre-processing and try to find out the issue with that. Secondly, if that can go well, we will try out even more architectures based on the approach introduced by the paper (<a href="https://arxiv.org/pdf/1704.07489.pdf">https://arxiv.org/pdf/1704.07489.pdf</a>) as it doesn’t publish its hyperparameters. Last but not the least, after fixing the issues above we can continue our attempt to add another language encode (inspired by <a href="https://arxiv.org/pdf/1704.07489.pdf">this paper</a>) to improve the fluency of the annotation, as mentioned last time.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=97cca6e26c14" width="1"/></div>
-    </content>
-    <updated>2018-05-23T04:53:36Z</updated>
-    <category term="machine-learning"/>
-    <author>
-      <name>Ning Hong</name>
-    </author>
-    <source>
-      <id>https://medium.com/@hongnin1?source=rss-c450eb982161------2</id>
-      <logo>https://cdn-images-1.medium.com/fit/c/150/150/0*d6QC_ngideag3rTN.</logo>
-      <link href="https://medium.com/@hongnin1?source=rss-c450eb982161------2" rel="alternate" type="text/html"/>
-      <link href="https://medium.com/feed/@hongnin1" rel="self" type="application/rss+xml"/>
-      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
-      <subtitle>Stories by Ning Hong on Medium</subtitle>
-      <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-08-28T17:30:10Z</updated>
+      <updated>2018-08-28T18:01:26Z</updated>
     </source>
   </entry>
 
@@ -227,7 +204,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-08-28T17:30:08Z</updated>
+      <updated>2018-08-28T18:00:08Z</updated>
     </source>
   </entry>
 
@@ -251,7 +228,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-08-28T17:30:34Z</updated>
+      <updated>2018-08-28T18:01:30Z</updated>
     </source>
   </entry>
 
@@ -501,7 +478,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-08-28T17:30:26Z</updated>
+      <updated>2018-08-28T18:01:23Z</updated>
     </source>
   </entry>
 
@@ -525,7 +502,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-08-28T17:30:07Z</updated>
+      <updated>2018-08-28T18:00:07Z</updated>
     </source>
   </entry>
 
@@ -548,7 +525,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-08-28T17:30:30Z</updated>
+      <updated>2018-08-28T18:01:27Z</updated>
     </source>
   </entry>
 
@@ -582,7 +559,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-08-28T17:30:34Z</updated>
+      <updated>2018-08-28T18:01:31Z</updated>
     </source>
   </entry>
 
@@ -607,7 +584,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-08-28T17:30:28Z</updated>
+      <updated>2018-08-28T18:01:25Z</updated>
     </source>
   </entry>
 
@@ -656,7 +633,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-08-28T17:30:33Z</updated>
+      <updated>2018-08-28T18:01:29Z</updated>
     </source>
   </entry>
 
@@ -684,7 +661,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-08-28T17:30:30Z</updated>
+      <updated>2018-08-28T18:01:27Z</updated>
     </source>
   </entry>
 
@@ -708,7 +685,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-08-28T17:30:34Z</updated>
+      <updated>2018-08-28T18:01:30Z</updated>
     </source>
   </entry>
 
@@ -731,30 +708,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-08-28T17:30:29Z</updated>
-    </source>
-  </entry>
-
-  <entry>
-    <id>https://medium.com/p/49da49607c01</id>
-    <link href="https://medium.com/@hongnin1/advanced-model-attempt-2-continued-49da49607c01?source=rss-c450eb982161------2" rel="alternate" type="text/html"/>
-    <title>Advanced model attempt #2 (continued)</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>Recap: Our previous base line and first advanced model attempts can be found <a href="https://medium.com/@hongnin1/advanced-model-attempt-1-continued-b3b687dd74ae">here</a>.</p><p>This week we have made progress on building infrastructure, and we are one big step closer to our finished product. We have accomplished the goals set by our blogpost “advanced model attempt #1” linked above.</p><p>First of all, we have implemented BLEU score on our model to test our model’s performance:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*EGT21AAmeM8LLDzAcgun3Q.png"/></figure><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*fnFU2rf6R0ArMexA13LfXA.png"/>BLEU score on training set</figure><p>Above BLEU score was run on ~1000 training images for 4k iterations.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/424/1*064QGSE0Dn-TWYUNJu06aQ.jpeg"/>BLEU score generated in terminal</figure><p>Above BLEU score was run on ~10,000 images in test set with beam search, which we implemented during this iteration of model advancement. However, we have found that continuing our model training does not decrease our loss nor increasing our BLEU score. While it makes more sense for the loss to decrease as we continue training, our model is not behaving as expected. We are trying out some small changes to our model in the hope that this will fix the problem.</p><p>In addition to this, we have decided to resize the images during data pre-processing instead of cropping the image and then resizing. We have implemented this change because we believe there will be information loss when we crop an image, so in order to preserve all the information we decided to keep the same image by only resize the image. As mentioned by Ari, we have changed our Adam optimizer to Stochastic Gradient Descent with learning rate decay.</p><p>There are two other big improvements we would like to add to our model. First, we would like to use each channel(512) of the VGG output as one attention vector instead of using each pixel(192) from every channel. We have made this change because we believe each channel contains all the information from input image, while one pixel’s information is very limited. Secondly, Inspired by <a href="https://arxiv.org/pdf/1704.07489.pdf">this paper</a>, we would like to add another language encoder to our model in conjunction to the decoder we currently have:for every batch of input, we take turn using the image encoder(what we currently have) and the new language encoder to encode the input and then feed it into our decoder. We expect this to improve the model’s performance by increase the fluency of our annotation because our word embedding does not improve much with our current training method, and by adding another language encoder, word embedding matrix and weight matrix in LSTM will be improved with training.</p><p>The following annotations are generated by our current improved model with beam search:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/224/1*AwpUY7FyQDHo5ykAwixT4Q.jpeg"/></figure><figure><img alt="" src="https://cdn-images-1.medium.com/max/800/1*KDZSwhIKnnybX33r4DjZnQ.jpeg"/></figure><figure><img alt="" src="https://cdn-images-1.medium.com/max/224/1*QJzbzrx1q3PoQu2Ri2zpVw.png"/></figure><figure><img alt="" src="https://cdn-images-1.medium.com/max/800/1*1G0C7WtfZc4Ce3XEteQ3bA.jpeg"/></figure><figure><img alt="" src="https://cdn-images-1.medium.com/max/224/1*kNcdqFe3wTBbu6XjaSf6lw.jpeg"/></figure><figure><img alt="" src="https://cdn-images-1.medium.com/max/800/1*_cX3071uK2D7jYUs6_pRNA.jpeg"/></figure><p>The major improvement we see from these annotations are: first of all, previously generated annotations are not complete sentences whereas sentences now have a proper ending, for example, previously our annotations would be “a group of people walking down a snow covered slope covered slope covered slope.” Also, we reduced the repetition in our annotations. Our annotations are more accurate in general and generally captures the essence of the images.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=49da49607c01" width="1"/></div>
-    </content>
-    <updated>2018-05-16T04:02:31Z</updated>
-    <category term="sketch"/>
-    <author>
-      <name>Ning Hong</name>
-    </author>
-    <source>
-      <id>https://medium.com/@hongnin1?source=rss-c450eb982161------2</id>
-      <logo>https://cdn-images-1.medium.com/fit/c/150/150/0*d6QC_ngideag3rTN.</logo>
-      <link href="https://medium.com/@hongnin1?source=rss-c450eb982161------2" rel="alternate" type="text/html"/>
-      <link href="https://medium.com/feed/@hongnin1" rel="self" type="application/rss+xml"/>
-      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
-      <subtitle>Stories by Ning Hong on Medium</subtitle>
-      <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-08-28T17:30:09Z</updated>
+      <updated>2018-08-28T18:01:26Z</updated>
     </source>
   </entry>
 
@@ -920,7 +874,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-08-28T17:30:26Z</updated>
+      <updated>2018-08-28T18:01:23Z</updated>
     </source>
   </entry>
 
@@ -944,7 +898,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-08-28T17:30:07Z</updated>
+      <updated>2018-08-28T18:00:07Z</updated>
     </source>
   </entry>
 
@@ -967,7 +921,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-08-28T17:30:08Z</updated>
+      <updated>2018-08-28T18:00:08Z</updated>
     </source>
   </entry>
 
@@ -1014,7 +968,7 @@
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-08-28T17:30:34Z</updated>
+      <updated>2018-08-28T18:01:31Z</updated>
     </source>
   </entry>
 
@@ -1037,7 +991,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-08-28T17:30:29Z</updated>
+      <updated>2018-08-28T18:01:26Z</updated>
     </source>
   </entry>
 
@@ -1068,7 +1022,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-08-28T17:30:30Z</updated>
+      <updated>2018-08-28T18:01:27Z</updated>
     </source>
   </entry>
 
@@ -1092,7 +1046,7 @@
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-08-28T17:30:34Z</updated>
+      <updated>2018-08-28T18:01:30Z</updated>
     </source>
   </entry>
 
@@ -1119,7 +1073,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-08-28T17:30:33Z</updated>
+      <updated>2018-08-28T18:01:30Z</updated>
     </source>
   </entry>
 
@@ -1144,7 +1098,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-08-28T17:30:27Z</updated>
+      <updated>2018-08-28T18:01:25Z</updated>
     </source>
   </entry>
 
@@ -1167,7 +1121,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-08-28T17:30:30Z</updated>
+      <updated>2018-08-28T18:01:27Z</updated>
     </source>
   </entry>
 
@@ -1431,30 +1385,7 @@
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-08-28T17:30:26Z</updated>
-    </source>
-  </entry>
-
-  <entry>
-    <id>https://medium.com/p/b3b687dd74ae</id>
-    <link href="https://medium.com/@hongnin1/advanced-model-attempt-1-continued-b3b687dd74ae?source=rss-c450eb982161------2" rel="alternate" type="text/html"/>
-    <title>Advanced model attempt #1 (continued)</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>To recap, this is our baseline approach:</p><p><a href="https://medium.com/@hongnin1/image-annotation-model-baseline-dataset-and-evaluation-framework-d1d1b2d1f34c">Image Annotation Model Baseline, Dataset and Evaluation Framework</a></p><p>Our previous model involves InceptionNet as our CNN encoder and we feed the image vector into LSTM to generate caption. This model we used was heavily based on <a href="https://github.com/tensorflow/models/tree/master/research/im2txt">this model</a>. However we have since then fixed several bugs, improved model’s training speed performance and reduced the training time significantly, at the same time we incorporated more models into our overall model to improve the accuracy.</p><p>First of all, we realized what hindered our training speed is the logging we are doing. We had previously logged every training batch onto TensorBot; our training speed increase by 60% once we started to only update logs on TensorBot every 20 batches.</p><p>In addition to the training speed, we added a single layer neuronetwork to calculate attention weights: We first project input image feature (output from VGG encoder) to the same dimension as the original dimension, then we projected previous hidden state to the same dimension as input feature. Then we added the feature projection and hidden state projection together. We used Relu function as activation function and lastly we reduced the output from Relu function to a one dimensional vector to generate output. In addition to this, we also take one step further on attention by also putting attention on different data points in a single batch, so that the model can learn more from a more important data point. After getting the context matrix from previous steps in attention, we also apply a Beta scale to the matrix, which means that we multiply the matrix by beta vector to get a new context matrix and then generate our final output.</p><p>Coding up our own attention network reduced our training error. In addition to adding attention NN to our model, we also coded a new VGG network for encoding our images, this also significantly improved our model’s accuracy. We have found resources for VGG <a href="http://www.vlfeat.org/matconvnet/pretrained/">here</a>.</p><p>Lastly, we also tried to keep track of the training process by keeping checkpoints during training. Our current rate is one checkpoint every ~50 minutes (800 batches). We are planning on keeping at most 50 checkpoints around to monitor the process in the past 2 days and detect any issue (like overfitting) early.</p><p>For the first couple of months, we have been studying the <a href="https://arxiv.org/pdf/1502.03044.pdf">paper</a> and our baseline model is heavily based on this model <a href="https://github.com/tensorflow/models/tree/master/research/im2txt">here</a>. Now that we have learned all the necessary tool we have coded up most of the model ourselves with some added touch that improved the model’s accuracy. Our git repository: <a href="https://gitlab.cs.washington.edu/sujiez/NLP-481">https://gitlab.cs.washington.edu/sujiez/NLP-481</a></p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=b3b687dd74ae" width="1"/></div>
-    </content>
-    <updated>2018-05-09T03:10:45Z</updated>
-    <category term="machine-learning"/>
-    <author>
-      <name>Ning Hong</name>
-    </author>
-    <source>
-      <id>https://medium.com/@hongnin1?source=rss-c450eb982161------2</id>
-      <logo>https://cdn-images-1.medium.com/fit/c/150/150/0*d6QC_ngideag3rTN.</logo>
-      <link href="https://medium.com/@hongnin1?source=rss-c450eb982161------2" rel="alternate" type="text/html"/>
-      <link href="https://medium.com/feed/@hongnin1" rel="self" type="application/rss+xml"/>
-      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
-      <subtitle>Stories by Ning Hong on Medium</subtitle>
-      <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-08-28T17:30:09Z</updated>
+      <updated>2018-08-28T18:01:23Z</updated>
     </source>
   </entry>
 
@@ -1477,7 +1408,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-08-28T17:30:08Z</updated>
+      <updated>2018-08-28T18:00:08Z</updated>
     </source>
   </entry>
 
@@ -1501,7 +1432,7 @@
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-08-28T17:30:07Z</updated>
+      <updated>2018-08-28T18:00:07Z</updated>
     </source>
   </entry>
 
@@ -1546,7 +1477,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-08-28T17:30:30Z</updated>
+      <updated>2018-08-28T18:01:27Z</updated>
     </source>
   </entry>
 
@@ -1571,7 +1502,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-08-28T17:30:28Z</updated>
+      <updated>2018-08-28T18:01:25Z</updated>
     </source>
   </entry>
 
@@ -1597,7 +1528,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-08-28T17:30:29Z</updated>
+      <updated>2018-08-28T18:01:26Z</updated>
     </source>
   </entry>
 
@@ -1624,7 +1555,7 @@
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-08-28T17:30:33Z</updated>
+      <updated>2018-08-28T18:01:30Z</updated>
     </source>
   </entry>
 
@@ -1649,7 +1580,7 @@
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-08-28T17:30:30Z</updated>
+      <updated>2018-08-28T18:01:27Z</updated>
     </source>
   </entry>
 
@@ -2127,7 +2058,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-08-28T17:30:26Z</updated>
+      <updated>2018-08-28T18:01:23Z</updated>
     </source>
   </entry>
 
@@ -2151,30 +2082,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-08-28T17:30:34Z</updated>
-    </source>
-  </entry>
-
-  <entry>
-    <id>https://medium.com/p/e05ee9a7eaa8</id>
-    <link href="https://medium.com/@hongnin1/image-captioning-model-advanced-model-attempt-1-e05ee9a7eaa8?source=rss-c450eb982161------2" rel="alternate" type="text/html"/>
-    <title>Image Captioning Model: Advanced model attempt #1</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>To recap, this is our baseline approach:</p><p><a href="https://medium.com/@hongnin1/image-annotation-model-baseline-dataset-and-evaluation-framework-d1d1b2d1f34c">Image Annotation Model Baseline, Dataset and Evaluation Framework</a></p><p>For the past week, we have been trying to improve our model’s performance from two different aspect: training speed and model accuracy. In order to improve speed, we further investigated in TensorFlow’s API. We realized that the bottleneck of our model’s performance is in extracting and batching our data. After some research, we have decided to try tf.record (API: <a href="https://www.tensorflow.org/programmers_guide/datasets#consuming_tfrecord_data">https://www.tensorflow.org/programmers_guide/datasets#consuming_tfrecord_data</a>). We are working on using tf.record and tf.dataset to prepare and feed our data as proposed in the link, and we are hoping to see a performance increase (fingers crossed).</p><p>In order to improve model accuracy, we mentioned in previous post that we are working towards finding the right way to calculate attention weights. The APIs we have tried are: <a href="https://www.tensorflow.org/api_docs/python/tf/contrib/seq2seq/BahdanauAttention">https://www.tensorflow.org/api_docs/python/tf/contrib/seq2seq/BahdanauAttention</a> and <a href="https://www.tensorflow.org/programmers_guide/datasets#consuming_tfrecord_data">https://www.tensorflow.org/programmers_guide/datasets#consuming_tfrecord_data</a>, however the way they are calculating attention weights do not align with what the paper did, so we are considering implementing our own small neural network to extract attention weights, but it will take a while. Our teammates are currently working on developing our own neural network for this week and see if it will work. It’s a trail and error process so it might take some time.</p><p>In terms of the model itself, we have previously implemented InceptionNet as our CNN encoder. However we encountered the same problem as we had for calculating attention weights, this InceptionNet is a different implementation from the paper we are basing our model on, so we decided to switch to VGG. We are still trying to find a suitable VGG16 (CNN) implementation with checkpoint and this is what we are currently considering: <a href="https://github.com/machrisaa/tensorflow-vgg">https://github.com/machrisaa/tensorflow-vgg</a></p><p>Overall speaking, our baseline model has a lot of problems we have been fixing for the past week in terms of training speed and attention visualization. Also changing our neural network for CNN encoder is taking a large chunk of our time as well. We are hoping to fix these problems but it might take a while for us to figure out the best approach. We are trying our best and hopefully come up with an even more advanced model sometime soon.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=e05ee9a7eaa8" width="1"/></div>
-    </content>
-    <updated>2018-05-02T04:26:35Z</updated>
-    <category term="machine-learning"/>
-    <author>
-      <name>Ning Hong</name>
-    </author>
-    <source>
-      <id>https://medium.com/@hongnin1?source=rss-c450eb982161------2</id>
-      <logo>https://cdn-images-1.medium.com/fit/c/150/150/0*d6QC_ngideag3rTN.</logo>
-      <link href="https://medium.com/@hongnin1?source=rss-c450eb982161------2" rel="alternate" type="text/html"/>
-      <link href="https://medium.com/feed/@hongnin1" rel="self" type="application/rss+xml"/>
-      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
-      <subtitle>Stories by Ning Hong on Medium</subtitle>
-      <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-08-28T17:30:09Z</updated>
+      <updated>2018-08-28T18:01:30Z</updated>
     </source>
   </entry>
 
@@ -2197,7 +2105,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-08-28T17:30:07Z</updated>
+      <updated>2018-08-28T18:00:07Z</updated>
     </source>
   </entry>
 
@@ -2220,7 +2128,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-08-28T17:30:08Z</updated>
+      <updated>2018-08-28T18:00:08Z</updated>
     </source>
   </entry>
 
@@ -2270,7 +2178,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-08-28T17:30:30Z</updated>
+      <updated>2018-08-28T18:01:27Z</updated>
     </source>
   </entry>
 
@@ -2297,7 +2205,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Halden Lin on Medium</subtitle>
       <title>Stories by Halden Lin on Medium</title>
-      <updated>2018-08-28T17:30:33Z</updated>
+      <updated>2018-08-28T18:01:30Z</updated>
     </source>
   </entry>
 
@@ -2322,7 +2230,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Belinda Zou Li on Medium</subtitle>
       <title>Stories by Belinda Zou Li on Medium</title>
-      <updated>2018-08-28T17:30:28Z</updated>
+      <updated>2018-08-28T18:01:25Z</updated>
     </source>
   </entry>
 
@@ -2345,30 +2253,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
       <title>Stories by Viterbi Or Not To Be on Medium</title>
-      <updated>2018-08-28T17:30:30Z</updated>
-    </source>
-  </entry>
-
-  <entry>
-    <id>https://medium.com/p/fd61ae20a2f1</id>
-    <link href="https://medium.com/@hongnin1/image-annotation-model-improved-baseline-fd61ae20a2f1?source=rss-c450eb982161------2" rel="alternate" type="text/html"/>
-    <title>Image Annotation Model Improved Baseline</title>
-    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>Our original baseline can be found here:</p><p><a href="https://medium.com/@hongnin1/image-annotation-model-baseline-dataset-and-evaluation-framework-d1d1b2d1f34c">Image Annotation Model Baseline, Dataset and Evaluation Framework</a></p><p>There are several major improve we have done to our baseline:</p><ol><li>We added Attention to our deep learning network to improve our decoding scheme: as can be seen in the snapshot below, we decided to change LSTM (previous baseline) to GRU due to performance reasons. We discovered that because our training corpus is extremely large, it takes way to long to train our model using LSTM, hence the switch to GRU.</li></ol><figure><img alt="" src="https://cdn-images-1.medium.com/max/838/0*mAvISRtQGogv4cQ-."/>code block we added for adding attention/GRU</figure><p>2. Now that we are more familiar with TensorFlow (we have been watching tutorials online), we improved our APIs and incorporated better TensorFlow code to make our code base more organized and efficient. More specifically, we added “tf.contrib.seq2seq.GreedyEmbeddingHelper” to help feed data into the network, as well as adding “tf.contrib.seq2seq.BasicDecoder” and “tf.contrib.seq2seq.dynamic_decode” to perform dynamic unroll of RNN when doing decoding.</p><p>3. We had some bugs with our data parsing, and we have spent a large chunk of time debugging and eventually fixed the problem.</p><p>As for evaluation, we dived deep into the code base we found online for evaluation (for more detail see our previous post for baseline) and have decided to use the same evaluation method as the baseline approach because it is pretty established and work pretty well in determining whether an annotation is valid or not by using BLEU score).</p><p>4. We kept trying different attention weights and visualized the attention weight on input graphs.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=fd61ae20a2f1" width="1"/></div>
-    </content>
-    <updated>2018-04-25T05:48:06Z</updated>
-    <category term="machine-learning"/>
-    <author>
-      <name>Ning Hong</name>
-    </author>
-    <source>
-      <id>https://medium.com/@hongnin1?source=rss-c450eb982161------2</id>
-      <logo>https://cdn-images-1.medium.com/fit/c/150/150/0*d6QC_ngideag3rTN.</logo>
-      <link href="https://medium.com/@hongnin1?source=rss-c450eb982161------2" rel="alternate" type="text/html"/>
-      <link href="https://medium.com/feed/@hongnin1" rel="self" type="application/rss+xml"/>
-      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
-      <subtitle>Stories by Ning Hong on Medium</subtitle>
-      <title>Stories by Ning Hong on Medium</title>
-      <updated>2018-08-28T17:30:09Z</updated>
+      <updated>2018-08-28T18:01:27Z</updated>
     </source>
   </entry>
 
@@ -2391,7 +2276,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
       <title>NLP Capstone Blog - Medium</title>
-      <updated>2018-08-28T17:30:29Z</updated>
+      <updated>2018-08-28T18:01:26Z</updated>
     </source>
   </entry>
 
@@ -2415,7 +2300,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://teamoverfit.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://teamoverfit.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NLP Capstone</title>
-      <updated>2018-08-28T17:30:34Z</updated>
+      <updated>2018-08-28T18:01:30Z</updated>
     </source>
   </entry>
 
@@ -2559,7 +2444,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://cse481n-capstone.azurewebsites.net" rel="alternate" type="text/html"/>
       <subtitle>Spring2018 CSE481N Capstone</subtitle>
       <title>Team Watch Your Language!</title>
-      <updated>2018-08-28T17:30:26Z</updated>
+      <updated>2018-08-28T18:01:23Z</updated>
     </source>
   </entry>
 
@@ -2605,7 +2490,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://mathstoc.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <subtitle>A recreational (occasionally research) blog on topics in maths or computer science - by Kuikui</subtitle>
       <title>NLP Capstone – Mathematical Distractions</title>
-      <updated>2018-08-28T17:30:34Z</updated>
+      <updated>2018-08-28T18:01:31Z</updated>
     </source>
   </entry>
 
@@ -2629,7 +2514,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
       <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
       <title>NlpCapstone</title>
-      <updated>2018-08-28T17:30:07Z</updated>
+      <updated>2018-08-28T18:00:07Z</updated>
     </source>
   </entry>
 
@@ -2674,7 +2559,7 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
       <subtitle>Stories by Ryan Pham on Medium</subtitle>
       <title>Stories by Ryan Pham on Medium</title>
-      <updated>2018-08-28T17:30:08Z</updated>
+      <updated>2018-08-28T18:00:08Z</updated>
     </source>
   </entry>
 
@@ -2702,7 +2587,131 @@ Running the filter on 100k posts, we can see that most of the most common subred
       <link href="https://deeplearningturingtest.wordpress.com/osd.xml" rel="search" title="NLP Capstone Project Updates - Ananth" type="application/opensearchdescription+xml"/>
       <link href="https://deeplearningturingtest.wordpress.com/?pushpress=hub" rel="hub" type="text/html"/>
       <title>NLP Capstone Project Updates – Ananth</title>
-      <updated>2018-08-28T17:30:30Z</updated>
+      <updated>2018-08-28T18:01:27Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>tag:blogger.com,1999:blog-5600014144802012716.post-2741407940361589303</id>
+    <link href="https://nlpcapstonesemparse.blogspot.com/2018/04/blog-4-strawman-i.html" rel="alternate" type="text/html"/>
+    <title>Blog 4: Strawman I</title>
+    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml">I'm implementing the parser within the the wikitables semantic parser(Neural Semantic parsing with type constraints by Krishnamurthy et al) since both are solving similar tasks and it'd be a cool result if the same architecture worked for both tasks. The similarity is that both tasks need to generate the logical form which incorporates elements of a context. For wikitables its cell and column names and for this task its variable and method names.<br/><br/>Results:<br/><br/><ul><li>Wikitables framework - 4% accuracy.</li><li>Wikitables framework + parent states - 12% accuracy.</li></ul><div><br/></div><div>The wikitables baseline performs poorly and integrating the parent production rule used as input to the decoder cell in the java paper but not the wikitables paper results in a eight percent improvement. This is since the java production rule sequences are much longer and cannot just rely on the previous rule.</div><div> </div><br/>These results demonstrate that while that tasks are similar there are some key differences in the datasets that won't allow the exact same architecture to be used. Nonetheless, I will still be implementing the java parser within the wikitables framework incorporating necessary elements to boost performance.<br/><br/>My code is here:<br/><b>https://github.com/rajasagashe/allennlp/tree/enviro-linking</b></div>
+    </summary>
+    <updated>2018-04-19T19:13:00Z</updated>
+    <author>
+      <name>nlpcapstone</name>
+      <email>noreply@blogger.com</email>
+    </author>
+    <source>
+      <id>tag:blogger.com,1999:blog-5600014144802012716</id>
+      <author>
+        <name>nlpcapstone</name>
+        <email>noreply@blogger.com</email>
+      </author>
+      <link href="https://nlpcapstonesemparse.blogspot.com/" rel="alternate" type="text/html"/>
+      <link href="https://nlpcapstonesemparse.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
+      <title>NlpCapstone</title>
+      <updated>2018-08-28T18:00:07Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>https://medium.com/p/be87c31976b7</id>
+    <link href="https://medium.com/@halden.lin/nlp-capstone-04-first-steps-be87c31976b7?source=rss-2759d54493c0------2" rel="alternate" type="text/html"/>
+    <title>NLP Capstone | 04: First Steps</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p><em>previous posts: </em><a href="https://medium.com/@halden.lin/nlp-capstone-01-options-ee873b6885d5"><em>01</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-02-getting-started-96fb908765f5"><em>02</em></a><em> </em><a href="https://medium.com/@halden.lin/nlp-capstone-03-project-proposal-7d8e9ec1a8e3"><em>03</em></a></p><p>Nearing 4 weeks in — I’ve finally got a foothold in the development process. Over this past week I’ve been looking through TensorBoard and TensorFlow source-code and documentation in an attempt to develop a foundation for plugin development.</p><p><strong>Notable Resources:</strong></p><ul><li><a href="https://www.tensorflow.org/programmers_guide/summaries_and_tensorboard">TensorBoard Documentation</a></li><li><a href="https://github.com/tensorflow/tensorboard">TensorBoard Source Code</a> and <a href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins">Existing Plugins</a></li><li><a href="https://github.com/tensorflow/tensorboard-plugin-example/blob/master/README.md">Developing a TensorBoard Plugin</a> (a simple example)</li></ul><h4>Completed Milestones:</h4><ol><li>Understand the structure of a TensorBoard Plugin, specifically how the architecture of the Attention Plugin should look like.</li><li>Design and write the data fetching layer.</li></ol><h4>Plugin Architecture</h4><p>In TensorFlow, data from iterations of training / evaluation is stored as a set of <strong>summaries</strong>. These can take the form of any tensor, including text, image, scalars, or time series. These are written to disk as the computation graph is executed. Each ‘summary’ takes the form of a <a href="https://github.com/tensorflow/tensorflow/blob/master/tensorflow/core/framework/summary.proto">Summary protocol buffer</a>, which holds, in addition to the data stored, critical identifying information (tags and metadata). A plugin can then read summaries associated with particular tags and sessions from disk to serve to the TensorBoard front-end via a plugin back-end, where a visualization is rendered.</p><p>Following <a href="https://github.com/tensorflow/tensorboard-plugin-example/blob/master/README.md"><em>Developing a TensorBoard plugin</em></a><em>, </em>the Attention Plugin with have three primary components:</p><ol><li>Data API layer. This is what allows users to capture relevant summaries from within their models.</li><li>Plugin backend, which serves said summaries.</li><li>Frontend, where the visualizations are displayed.</li></ol><p>Unlike commonly used plugins such as the <a href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/scalar]">scalar</a> and <a href="https://github.com/tensorflow/tensorboard/tree/master/tensorboard/plugins/histogram">histogram</a> plugins, the Attention Plugin consumes 3 distinct values: the input text, the decoded output text, and the attention matrix that correlates the two. Initially, I attempted to store these all in a single Summary protobuf, where the first two rows of the encapsulating matrix would contain the text, and the rest would contain the attention weights. This results in a mixing of string and float types in a single Tensor, which is not valid (to my knowledge) in TensorFlow. I then realized I could store these separately, each in their own summary, and retrieve them via an identifying name. The resulting architecture is shown in the diagram below.</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*QK7USkxsSC3u6F0LKbKWXQ.png"/>The architecture of the Attention Plugin.</figure><p>I decided to make the output text an optional summary, as models don’t necessarily need to decode (via Viterbi, Beam Search, or otherwise) an output sequence while training. The input text and attention matrix are still valuable, as summary statistics (e.g. coverage, important words, etc) can be gleamed without the decoded text.</p><h4>Data API Layer</h4><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*0m1-fllpNYMP666FhR0nbA.png"/>Data API Layer highlighted in green.</figure><p>As the TensorBoard authors suggest, the data API layer, defined in attention_summary.py, provides two methods for creating Summary protobufs, which can then be written to disk via a FileWriter. The first is via a TensorFlow op, which can be thought of as a node in the computation graph, that produces a Summary when the graph is executed. The second is by directly creating the protobuf, which allows for data to be saved outside the execution of a TensorFlow session. I’ve implemented both of these. There is a separate method for each of the three datum used by the plugin (input text, output text, attention matrix), and each of the three summary datum are tagged differently (e.g. name/attention_input_summary, name/attention_output_summary) in order to allow for distinguishable retrieval later.</p><p>An example of the usage of both methods can be found in attention_demo.py.</p><h4>Next Steps</h4><p>I suspect the work completed this week was the biggest hurdle in terms of time:code ratio. I would not be surprised if I had to revisit the work done here in order to clean things up or fix small bugs. However, with this understanding and architecture nailed down, I expect implementation of the rest of the plugin will come at a faster pace. With that said, three tasks stand as immediate goals for the next week.</p><ol><li>Modify my forked repository of the summarization model created by <a href="https://arxiv.org/pdf/1704.04368.pdf">See et al.</a> (original found <a href="https://github.com/abisee/pointer-generator">here</a>) to produce and save the appropriate summaries for the Attention Plugin. I’ve already started looking into this, and expect to have to fiddle around with the training / evaluation scheme in order to grab an appropriate amount of data.</li><li>Implement the backend of the Attention Plugin.</li><li>Begin prototyping visualizations (pen &amp; paper) and acquire preliminary feedback.</li></ol><p>Until next time.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=be87c31976b7" width="1"/></div>
+    </content>
+    <updated>2018-04-19T06:33:40Z</updated>
+    <category term="nlp"/>
+    <category term="visualization"/>
+    <category term="machine-learning"/>
+    <category term="data-visualization"/>
+    <category term="computer-science"/>
+    <author>
+      <name>Halden Lin</name>
+    </author>
+    <source>
+      <id>https://medium.com/@halden.lin?source=rss-2759d54493c0------2</id>
+      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*Hzu2ZqgloT0I1F6Kwg8OPA.jpeg</logo>
+      <link href="https://medium.com/@halden.lin?source=rss-2759d54493c0------2" rel="alternate" type="text/html"/>
+      <link href="https://medium.com/feed/@halden.lin" rel="self" type="application/rss+xml"/>
+      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
+      <subtitle>Stories by Halden Lin on Medium</subtitle>
+      <title>Stories by Halden Lin on Medium</title>
+      <updated>2018-08-28T18:01:30Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>https://medium.com/p/a6690114c441</id>
+    <link href="https://medium.com/@viterbi.or.not/baseline-model-1-a6690114c441?source=rss-c522ef075bb3------2" rel="alternate" type="text/html"/>
+    <title>Baseline Model #1</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*bGQmjLRpsY3UnYhK6e8Lyg.png"/></figure><p>This week, we implemented our <a href="https://github.com/viterbi-or-not-to-be/viterbi-or-not-to-be/tree/master/baseline">first baseline model</a> for conversation summarization. In order to create a baseline that would be useful to build off of and compare our future results to, we decided to base this model off the Naive Bayes implementation described in the paper <a href="http://web2py.iiit.ac.in/research_centres/publications/download/inproceedings.pdf.8b32440f2dc771c4.323031325f414e445f43616d6572612e706466.pdf"><strong>Summarizing Online Conversations: A Machine Learning Approach</strong></a>.</p><p>To begin with, we identified the W3C Email Threads dataset as a useful starting point because of the fact that we have access to multiple email datasets, and because the paper mentioned above indicated that chatlog data would require a great deal of additional preprocessing to be able to manipulate. By comparison, the email data is fairly simple to interpret because it is rare for a single sender to convey their portion of a message across multiple emails, and the writing is generally more grammatically well-formed. The experiments in the paper run on the <a href="https://flossmole.org/content/software-archaeology-gnue-irc-data-summaries">GNUe Archives</a> and the <a href="https://www.cs.ubc.ca/cs-research/lci/research-groups/natural-language-processing/bc3.html">BC3 Corpus</a> (annotated W3C Email Threads).</p><p>The paper also uses <a href="https://www.cs.waikato.ac.nz/ml/weka/">Weka Toolkit</a> for all of its model implementations, so we initially aimed to use Weka as well to reproduce our baseline. However, we encountered a few challenges while starting out with Weka that ultimately led to our abandoning the platform in favor of a more flexible Python implementation. The email data is in XML format, whereas Weka appears to work best with a format called ARFF, and in our preliminary examination we found ARFF to be fairly difficult to map directly to XML. In particular, ARFF’s apparent inability to handle dynamic-length data types or nested relations made it challenging to plan around — this was a problem because for each training example (email thread) in our dataset, we have a variable-length amount of information (number of emails, number of sentences per email, number of words per sentence, etc.). Without usage of dynamic-length data coupled with a toolset/interface more suited to data mining and application of basic, pre-made machine learning models than detailed feature engineering, we found Weka specifically difficult to use for feature extraction.</p><p>Instead, we ended up deciding to implement the baseline model in Python — including parsing the XML from our chosen dataset, extracting features, and using SciKit-Learn to train a Naive Bayes model to form the baseline itself. Since our aim with the baseline was to re-implement at least part of the work done by the <a href="http://web2py.iiit.ac.in/research_centres/publications/download/inproceedings.pdf.8b32440f2dc771c4.323031325f414e445f43616d6572612e706466.pdf"><strong>Summarizing Online Conversations: A Machine Learning Approach</strong></a> paper, we also chose to set up evaluation that would mirror their evaluation techniques, and settled on using a previously-written implementation of ROUGE for the task. Re-implementing the baseline model in Python based on previous work took more effort than using Weka would have, but was advantageous in that it helped us understand the specific challenges of the task and resulted in somewhat extensible code we can adapt for later phases of the project.</p><h4><strong>Feature Selection</strong></h4><p>The Feature Selection section of the paper notes a “basic feature set,” which refers to features that are “not specific to conversations and consider the conversation as a simple piece of text.” For our baseline, we decided to target only the basic features to establish the difference that can be made by using conversation-specific features. Based on this basic set, our Naive Bayes baseline incorporates the following features —</p><p><strong>Mean TF-IDF: </strong>Term frequency-inverse document frequency (TF-IDF) characterizes frequency of a word and reflects its importance to an email thread. Calculating TF-IDF results in a vector of word frequencies per email, and we take the mean of the values in the vector for the mean TF-IDF feature.</p><p><strong>Mean TF-ISF: </strong>Similar to TF-IDF but at a different granularity, term frequency-inverse sentence frequency (TF-ISF) characterizes frequency of a word and reflects its importance to an email. Calculating TF-ISF results in a vector of word frequencies per sentence, and we take the mean of the values in the vector for the mean TF-ISF feature.</p><p><strong>Sentence Length: </strong>Number of characters in the sentence.</p><p><strong>Sentence Position: </strong>Index of the sentence within the email.</p><p><strong>Similarity to Title: </strong>We represent the name of an email thread as a TF-ISF title vector, in the same form as described earlier (without taking the mean). This feature is then the result of the cosine similarity between the TF-ISF vector for a sentence and the title vector.</p><p><strong>Centroid Coherence: </strong>We represent the centroid of an email thread as the average of the TF-ISF sentence vectors. This feature is then the result of the cosine similarity between the averaged centroid vector and the sentence vector.</p><p><strong>Special Terms: </strong>Numbers and proper nouns are deemed as ‘special terms.’ This feature is the count of special terms in a sentence normalized (divided) by the number of special terms in the email thread.</p><h4><strong>Results and Evaluation</strong></h4><p>After implementing our baseline model, we used the ROUGE package to evaluate its summarization on a variety of metrics. We split the data into training and testing segments, placing 80% of email threads in the training set and 20% in the testing set. We then used our model and features to generate summaries and used ROUGE-L to measure their performance. After computing the average ROUGE-L, ROUGE-1, and ROUGE-2 F1 scores across all the email threads in the testing set, we produced the following results (along with the results reported in the baseline paper for comparison):</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/1*vjlGJvdBn_k4obtMdkGdIA.png"/>Mean F1 scores for various ROUGE metrics, compared to the results from <a href="http://web2py.iiit.ac.in/research_centres/publications/download/inproceedings.pdf.8b32440f2dc771c4.323031325f414e445f43616d6572612e706466.pdf"><strong>Summarizing Online Conversations: A Machine Learning Approach</strong></a></figure><h4><strong>Error Analysis</strong></h4><p>It is certainly helpful to have a set of metrics like ROUGE to establish a comparison between our model and existing models, but for a task such as automatic summarization it is an unfortunate reality that no existing metrics really come close to fully capturing the “success” of a summary. Comparing the compositions of two summaries provides valuable insight into the performance of a model, but ultimately a great deal of the usefulness of a summary revolves around its ability to convey the information contained in a conversation without needless filler and in a logical, simple format. Because there are no metrics that can describe how well a summary captured the topics in a conversation or how understandable it is, we will have to rely heavily on human interpretation to judge the success of our model.</p><p>For our baseline, we took a look at the generated summaries and discovered that while the general topic of each email thread is easily discernible, it is sometimes difficult to follow the course of the discussion. In addition, we found that our summaries were especially susceptible to the inclusion of “fluff” — short, choppy sentences or signature elements with no relevance to the actual contents of the summary that simply obstructed the reader. Perhaps our future attempts will have to target this with features specifically designed to identify things like email signatures or greetings, to help distinguish between these sources of “fluff” and the actual content of each email. Notably, this is not an issue that chatlog data suffers from, because there are typically fewer signatures or static portions of chats to ignore.</p><p>Our analysis is exemplified by the sample summary and its annotated counterpart below:</p><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*ycgusov-GEUfQm7C."/>Summary for an email thread generated by our baseline model</figure><figure><img alt="" src="https://cdn-images-1.medium.com/max/1024/0*aOxikqivuOMXLgnM."/>Summary for the same email thread from the dataset annotation</figure><h4><strong>Future Improvements</strong></h4><p>Although our baseline model provided a useful point of comparison for future efforts, we were not able to entirely replicate the results of the paper we based it off of. Despite using the same features that they described, we achieved a significantly lower mean ROUGE-L F1 score of 0.409 as compared to their 0.245 for the same dataset. As a result, it seems that an important next step would be to identify the discrepancies between our implementation and theirs to try and faithfully reproduce their results before moving on to other models.</p><p>One possible issue we identified with our model could be the lack of a topic boundary preprocessing step as found in the research paper. Although their description made it seem as though the technique mainly applied to chatlog data, it is possible that performing such a preprocessing step would bring our model’s performance closer to theirs. The paper describes two different approaches at a very high level, so further research and experimentation would be needed to determine a reasonable implementation to perform such a task. In addition, there were various parameters left out of the paper’s description that could affect the model’s performance, such as ROUGE evaluation parameters and the implementation of Naive Bayes, which could have made an impact.</p><p>After finishing our baseline implementation, we plan to implement further models to address this task. The paper we previously mentioned uses a number of other approaches, so one direction we plan to move in is selecting other potentially effective models from their list and implementing them (decision trees look the most promising and would require very little modification to the code). Afterwards, we plan to address the other datasets, and then move into feature engineering and tweaking our implementations to produce our minimum viable product.</p><h4>Code</h4><p>As mentioned in our first blog post, the full code for our project is <a href="https://github.com/viterbi-or-not-to-be/viterbi-or-not-to-be">available on Github</a>, which currently includes usage instructions located in the README.md file for the baseline directory that can guide a user through the process of setting up the model, producing summaries, and running the ROUGE evaluation. We certainly have a long way to go in terms of code organization and cleanliness, but this baseline implementation at least allows for a preliminary examination of the task and produces the results necessary to interpret the rest of our model approaches with appropriate context.</p><p>Edited 4/24 to add baseline dog.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=a6690114c441" width="1"/></div>
+    </content>
+    <updated>2018-04-18T06:55:14Z</updated>
+    <category term="nlp"/>
+    <author>
+      <name>Viterbi Or Not To Be</name>
+    </author>
+    <source>
+      <id>https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2</id>
+      <logo>https://cdn-images-1.medium.com/fit/c/150/150/1*wiisg40Bu4z11RTWJ66mnA.png</logo>
+      <link href="https://medium.com/@viterbi.or.not?source=rss-c522ef075bb3------2" rel="alternate" type="text/html"/>
+      <link href="https://medium.com/feed/@viterbi.or.not" rel="self" type="application/rss+xml"/>
+      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
+      <subtitle>Stories by Viterbi Or Not To Be on Medium</subtitle>
+      <title>Stories by Viterbi Or Not To Be on Medium</title>
+      <updated>2018-08-28T18:01:27Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>tag:blogger.com,1999:blog-3753031463594823927.post-8569998071322028844</id>
+    <link href="https://cse481n.blogspot.com/2018/04/blog-post-4.html" rel="alternate" type="text/html"/>
+    <title>Blog Post #4</title>
+    <summary type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><div dir="ltr" id="docs-internal-guid-7937c8af-d777-ed0f-f77b-cf09623b985e" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">A big part of our work for setting up a baseline is the creation of a reasonably good dataset for training and evaluating extractive text summarization. Our goal was to build a dataset with all sentences from the articles marked with binary labels indicating whether or not they were part of the extracted summary.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">We used the DailyMail and CNN story dataset, which is meant for abstractive summarization, to build our own dataset. The data set includes automatically-parsed lines from news articles, as well as a few bullet point highlights for each article. These highlights are not sentences directly from the article, but are overall a decent indicator and considered to be one of the most useable datasets out there (if for no other reason than sheer volume of data).</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">To build our data set, we used a toy metric roughly based off of ROUGE-N, with the understanding that we would only need a way of relative ranking for each sentence.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">The procedure to generate the data set was as follows:</span></div><ol style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Read in a single .story file from the abstractive dataset into highlights and sentences.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Post-process sentences- in the original data, new lines do not correspond exactly with sentence endings. Additionally, some sentences are originally split arbitrarily by new lines. We do an additional split by the regex (?&lt;=[.?!])\s+ (whitespace with period, question mark, or exclamation mark lookbehind), but sentence “re-joining” is off by default, as some sentences in the original dataset do not end with punctuation.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Score each sentence with our metric.</span></div></li><ol style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Tokenize each sentence and highlight.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Build unigram, bigram, and trigram lists.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Count the number of matches between the sentence and all the highlights, giving more weight to bigram and trigram matches and also weighting by word length.</span></div></li></ol><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Sort sentences by score.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Let S be the number of sentences and H be the number of highlights. The algorithm picks up to min(1, floor(S/2)) sentences as part of the summary. It picks at least the H sentences with the highest scores. After sentence H is picked, subsequent sentences will only be picked if their score was at least (80+3*X)% of the previously-picked sentence’s score, where X is the number of sentences currently picked. This is effectively a fairly arbitrary metric to pick the most likely sentences roughly in accordance with the size of the abstractive summary, while also allowing for particularly similar sentences to both be chosen for completeness.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">All data input and output with UTF-8 encoding.</span></div></li></ol><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Output format:</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">&lt;#&gt; &lt;SENTENCE PLAINTEXT&gt;</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;"># is either 0 = normal sentence in the article, 1 = sentence chosen as part of extractive summary, 2 = original abstractive summary (should not be touched by model, only left there for human reference). </span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Overall, we think our data set is generally reasonable and makes sense. Nonetheless, there are a number of weaknesses with both extractive models in general and this specific type of dataset (including some problems which derive from the original abstractive dataset).</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Key weaknesses of data set:</span></div><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">In the original data, highlights do not always correspond to actual information in the article. For example, this short story has four highlights that are all new information: 008fc24ca9f4c48a54623bef423a3f2f8db8451a.story.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Frequent formatting problems - sentences that don’t terminate with punctuation, repeated sentences, bugged unicode characters, etc.</span></div></li></ul><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Key weaknesses specific to extractive summarization:</span></div><ul style="margin-bottom: 0pt; margin-top: 0pt;"><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Articles that are particularly short are effectively impossible to meaningfully summarize with extractive techniques.</span></div></li><li dir="ltr" style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre;"><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Some sentences in articles contain the same content with slightly different wording. In these cases, we decided to choose both sentences, with the idea that post-processing could take care of highly-similar sentences, but a model could not be expected to accurately distinguish between two such sentences if they have different labels.</span></div></li></ul><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">The Baseline Model:</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">For our baseline combinatorial approach, we did a simple Maximum Coverage Problem implementation. The Maximum Coverage Problem is a classic NP-complete problem. Given a collection of n sets, the goal is to maximize the number of chosen (or “covered”) elements while only choosing k of the sets (where k &lt; n). It’s very straightforward to reduce summarization to this problem. The sentences in the document are the sets, and the vocabulary of the document represents the “universe”, or the elements in the sets. The goal is to cover as many words as possible while picking the same number of sentences as in the labelled summary. The intuition is that sentences with more words capture more semantic meaning, and once a word is listed in the summary, that word need not be considered again. This reduction makes some intuitive sense, but two main aspects must be refined. First, not all words are equally meaningful. Some words, like “a”, “the”, or “and”, have little semantic content, while named entities and other important words have much higher semantic content. Second, we should at least account for sentence lengths -- instead of constraining the algorithm to pick the same number of sentences, we should constrain it to the same word count. This two additional criteria turn the problem into the Budgeted Maximum Coverage Problem: elements in the sets have specified values, and the sets have specified costs. The new objective is to maximize the total value of the covered elements while remaining with a given budget.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Of course, this problem is NP-complete, so it may seem like a strange choice to model summarization with. There are two approaches to this. First, a simple greedy algorithm achieves an approximation of ~63%, which means that the greedy algorithm is guaranteed to get at least 63% of the value of the optimal solution. For the standard MCP, the greedy algorithm just chooses the set with the most uncovered elements until no more sets are allowed. For the budgeted MCP, the approximation algorithm is slightly more complex. See Khuller et al. for a detailed look at it -- the algorithm is slightly more work, but still very understandable, and achieves the same approximation bound.  We can also formulate the problem as an Integer Linear Program (ILP) and use an ILP solver to generate optimal solutions on realistic instance sizes. This works because the documents and sentences are both small.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">For now, we are using the greedy algorithm for the standard MCP. As a simple metric, we used the number of correct chosen sentences divided by the number of chosen sentences in total (correct means that the gold standard also picked that sentence). With a basic MCP approach, we had an accuracy of 0.218. This was measured on a small sample of 2000 stories. In order to approximate a weighting scheme, we use a stop list to simply remove common articles and other semantically empty words. With this small modification, we had an accuracy of 0.2328.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">We plan to extend this to a better baseline model in the next few days. We will formulate the problem as an ILP and pass it to an ILP solver for an optimal solution. We will also implement a more sophisticated weighting scheme. One idea is to use some of the labelled data as training data (right now, we don’t train) to build a weight matrix for common words -- we can build this matrix with a logistic regression, using n-gram (probably unigram) similarity as the loss function.This will hopefully give us a more reasonable baseline model.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Evaluation Framework:</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">For now, we’re using a simple accuracy metric. We plan to switch to ROUGE, which counts n-gram similarity (ROUGE measures recall, not precision). We will work with the ROUGE-2.0 Java package or pyrouge, depending on which language we are working with. </span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">So to summarize our goals for the next week, we will improve this baseline model by formulating the problem as an ILP and we may implement a weighting scheme (if that’s too complicated, we’ll save it for the advanced model). We will also build a baseline neural model. Then, we’ll flesh out our evaluation framework using ROUGE metrics, train/test using more of the corpus, and have detailed error analysis.</span></div><br/><div dir="ltr" style="line-height: 1.38; margin-bottom: 0pt; margin-top: 0pt;"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 700; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">References:</span></div><div dir="ltr"><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Khuller, S., Moss, A., &amp; Naor, J. (Seffi). (1999). The Budgeted Maximum Coverage Problem. </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: italic; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">Inf. Process. Lett.</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">, </span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: italic; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">70</span><span style="background-color: transparent; color: black; font-family: Arial; font-size: 11pt; font-style: normal; font-variant: normal; font-weight: 400; text-decoration: none; vertical-align: baseline; white-space: pre-wrap; white-space: pre;">(1), 39–45. https://doi.org/10.1016/S0020-0190(99)00031-9</span></div></div>
+    </summary>
+    <updated>2018-04-18T06:25:00Z</updated>
+    <author>
+      <name>Ron &amp;amp; Aditya</name>
+      <email>noreply@blogger.com</email>
+    </author>
+    <source>
+      <id>tag:blogger.com,1999:blog-3753031463594823927</id>
+      <author>
+        <name>Ron &amp;amp; Aditya</name>
+        <email>noreply@blogger.com</email>
+      </author>
+      <link href="https://cse481n.blogspot.com/" rel="alternate" type="text/html"/>
+      <link href="https://cse481n.blogspot.com/feeds/posts/default?alt=rss" rel="self" type="application/rss+xml"/>
+      <title>PrimeapeNLP</title>
+      <updated>2018-08-28T18:01:28Z</updated>
+    </source>
+  </entry>
+
+  <entry>
+    <id>https://medium.com/p/15357a82fe06</id>
+    <link href="https://medium.com/nlp-capstone-blog/first-impressions-baselines-and-the-evaluation-framework-15357a82fe06?source=rss----9ba3897b6688---4" rel="alternate" type="text/html"/>
+    <title>First Impressions: Baselines and the Evaluation Framework</title>
+    <content type="xhtml"><div xmlns="http://www.w3.org/1999/xhtml"><p>Ultimately, our goal is to go beyond basic language modeling and create a new text generation architecture conducive to producing technical definitions. To get a feel for the data though, we approach it with familiar, simple baselines that give us a foundation in which we can improve from.</p><p>The baselines that we’ve experimented with are</p><ul><li><strong>Vanilla RNN:</strong> Hidden states as a function of the input and the previous hidden state, with Tanh activation (in particular, we’re using the <a href="https://medium.com/@tamdangnadmat/first-impressions-baselines-and-the-evaluation-framework-15357a82fe06">Elman Network</a>).</li><li><strong>GRU:</strong> An RNN architecture that learns to throttle the influence and usage of particular parameters on inference using a gating mechanism.</li><li><strong>LSTM: </strong>Another RNN architecture that specializes in intelligently remembering relevant details and forgetting irrelevant details through several gating mechanisms and a “cell state” in addition to the conventional hidden states. <a href="http://colah.github.io/posts/2015-08-Understanding-LSTMs/">Here’s more detail</a> about this particular kind of RNN.</li></ul><p>All baselines were trained as language models with cross entropy loss and were used to get a sense of how learnable the language of the Semantic Scholar dataset is. The metrics we are focusing on now are</p><ul><li><strong>Perplexity: </strong>A measure of how “confused” the model is at any point it’s attempting to predict the next word.</li><li><strong>Feature extraction through hidden states:</strong> Can the hidden states be used as features for a classification task?</li></ul><p>Our first metric is fairly straightforward; we calculate the aggregate sum of log probabilities for every word in the corpus and normalize by the size of the corpus.</p><p>Our second metric however, is inspired by Dieng et al.’s method for sentiment analysis in <a href="https://www.semanticscholar.org/paper/TopicRNN%3A-A-Recurrent-Neural-Network-with-Semantic-Dieng-Wang/412068c7e8e77b73add471789d58df3d2f3e08d8">TopicRNN</a>, in which the final hidden states after a forward pass of the model on a movie review were used to predict positive or negative sentiment using a single-layer neural network. We aim to adopt this metric from a multi-class classification perspective in which the passages we use are excerpts of research documents with an omitted, technical term. The question we aim to answer with this metric is “is the model capable of representing semantics in a latent space?”</p><p>Our labels will then be a defined set of these omitted, technical terms, and our goal will then be to predict them given the hidden states of the passage via a two-layer neural network. The framework for this evaluation metric can be found in <a href="https://github.com/NLP-Capstone-Project/machine-dictionary/tree/evaluation">this branch</a> of our codebase.</p><h4>Why we chose these metrics</h4><p>Our task is fairly novel given the way we’re approaching it, so currently no dataset exists that pairs domain-specific words with definitions that are to the caliber of research technicality. Because of this, metrics that depend on gold standards such as ROUGE and BLEU are currently out of reach at this time.</p><p>There’s a chance we’ll experiment with these metrics if we can find a labeled dataset to supplement Semantic Scholar’s Open Research Corpus. We are also considering using the publications themselves as the gold standards, which may be helpful since a desirable trait of our model would be its ability to produce language similar to that of the corpus.</p><h3>Challenges Encountered while Baselining</h3><p>In establishing our baselines and metrics, there were several issues we ran into, both in training.</p><h4>Dealing with a larger corpus</h4><p>Given that our baselines are language models, and that our later prototype models will most likely contain an LM component, we have to deal with efficient learning given there are several million documents to process.</p><p>For efficient backpropagation, we opted to introduce a “backpropagation through time” as a hyperparameter defaulted at 50, which specifies the number of words we allow the model to see before updating our parameters.</p><p>Currently, batching is supported by our codebase but was not used in our initial experiments. Given that it takes roughly one minute for the GPUs on the cloud to process a single publication, we plan to concatenate document vectors and reshape into batch-by-length tensors in the future.</p><h4>Sorting By Domain</h4><p>We’d like our model to be trained on a single domain/field of study for our future case studies comparing dictionaries built on one domain versus others. This is further motivated by some of our experiment results discussed later, how loss tends to spike between documents.</p><p>Currently, the Semantic Scholar Open Research Corpus doesn’t include anything in the set of JSON fields that we could find for filtering the data. However, we’ve been assured by AllenNLP researchers that its possible to sort the data by research domain. We may performing another round of baseline experiments once we’ve sorted the data, but for now the results below are on publications of mixed domains.</p><h3>Experimental Results</h3><p>The Semantic Scholar Open Research Corpus provides a sample subset of its dataset: a JSON file containing 4000 entries. Within each entry, the URL of the publication’s online PDF is provided. We use a GET request to <a href="https://github.com/allenai/science-parse">AI2’s Science Parse</a> service to extract the PDF contents.</p><p>From there, we run our experiments on 121 of the 4000 extracted documents, stopping training early at 15 documents and calculated perplexity on a validation set of 30 documents. The total vocabulary used was 11,330 words. Words outside of this vocabulary are replaced with an unknown token at training and test time.</p><p>Loss is calculated and normalized on the last 50 words the model is trained on.</p><ul><li><strong>Elman RNN:</strong> Perplexity of 250.25 with an average loss of 7.908 over the last 50 words.</li><li><strong>GRU:</strong> Perplexity of 265.50 with an average loss of 7.085 over the last 50 words</li><li><strong>LSTM:</strong> Perplexity of 261.95 with an average loss of 6.588 over the last 50 words</li></ul><p>Perplexities calculated using untrained models (with randomized parameters) were several orders of magnitude larger than the ones listed above, so it’s good to know that our baseline models can learn a significant amount of surface-level patterns with such a small subset of the corpus.</p><p>In terms of feature extraction and classification, the framework has been implemented but the data for this has not been created yet. We plan on evaluating our baselines along with our final model on this metric using publications from Semantic Scholar after establishing a vocabulary of semantically significant technical terms and creating the dataset using those terms. This will involve iterating over documents and replacing occurrences of these technical terms with a specialized, unknown token that won’t aid in inference.</p><h3>Conclusion</h3><p>Our methods helped us familiarize ourselves with the data as well as handle significant amounts of overhead in terms of processing the data, toggling between different models, and integration of our evaluation metrics in an organized fashion.</p><p>We are excited to see how novel architectures tailored to the task perform on these metrics!</p><p>To keep up to date with our progress in baselining, evaluation, and other things, you can watch <a href="https://github.com/NLP-Capstone-Project/">this repository</a>.</p><img height="1" src="https://medium.com/_/stat?event=post.clientViewed&amp;referrerSource=full_rss&amp;postId=15357a82fe06" width="1"/><hr/><p><a href="https://medium.com/nlp-capstone-blog/first-impressions-baselines-and-the-evaluation-framework-15357a82fe06">First Impressions: Baselines and the Evaluation Framework</a> was originally published in <a href="https://medium.com/nlp-capstone-blog">NLP Capstone Blog</a> on Medium, where people are continuing the conversation by highlighting and responding to this story.</p></div>
+    </content>
+    <updated>2018-04-18T05:40:07Z</updated>
+    <category term="capstone"/>
+    <category term="machine-learning"/>
+    <category term="deep-learning"/>
+    <category term="nlp"/>
+    <author>
+      <name>Tam Dang</name>
+    </author>
+    <source>
+      <id>https://medium.com/nlp-capstone-blog?source=rss----9ba3897b6688---4</id>
+      <logo>https://cdn-images-1.medium.com/proxy/1*TGH72Nnw24QL3iV9IOm4VA.png</logo>
+      <link href="https://medium.com/nlp-capstone-blog?source=rss----9ba3897b6688---4" rel="alternate" type="text/html"/>
+      <link href="https://medium.com/feed/nlp-capstone-blog" rel="self" type="application/rss+xml"/>
+      <link href="http://medium.superfeedr.com" rel="hub" type="text/html"/>
+      <subtitle>A Journey Through CSE 481N, the Natural Language Processing Capstone Course at the University of Washington - Medium</subtitle>
+      <title>NLP Capstone Blog - Medium</title>
+      <updated>2018-08-28T18:01:26Z</updated>
     </source>
   </entry>
 </feed>
